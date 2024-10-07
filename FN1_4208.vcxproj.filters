@@ -13,10 +13,132 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ThirdParty">
+      <UniqueIdentifier>{05f695f7-309d-452a-8774-ffa0259b9a84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ThirdParty\imgui">
+      <UniqueIdentifier>{ed0b10ba-4dca-4831-96ce-f30d90ee2cb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\GameCore">
+      <UniqueIdentifier>{e61aa8fe-321d-427f-8e1b-6c931a2e7e4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\GameCore">
+      <UniqueIdentifier>{2a4f969e-5a12-4e08-b6e8-21b63860ac95}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{faf4b561-a9b8-4784-a622-8941462ab2f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{e6930d8a-338e-4030-a4e6-78ee94db27a9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Math">
+      <UniqueIdentifier>{73772409-cbcf-4016-97cc-504f70653b43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Math">
+      <UniqueIdentifier>{b3c29300-1335-4640-9918-4dacef616f9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="ThirdParty\imgui\imgui.cpp">
+      <Filter>ThirdParty\imgui</Filter>
     </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_demo.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_draw.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_impl_dx11.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_impl_win32.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_tables.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdParty\imgui\imgui_widgets.cpp">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameCore\ImGuiManager.cpp">
+      <Filter>ソース ファイル\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameCore\Input.cpp">
+      <Filter>ソース ファイル\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameCore\AbstractSceneFactory.cpp">
+      <Filter>ソース ファイル\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameCore\SceneManager.cpp">
+      <Filter>ソース ファイル\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\SceneFactrory.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameCore\BaseScene.cpp">
+      <Filter>ソース ファイル\GameCore</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Math\Vector2.cpp">
+      <Filter>ソース ファイル\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene\GameScene.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ThirdParty\json.hpp">
+      <Filter>ThirdParty</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imconfig.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imgui.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imgui_impl_dx11.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imgui_impl_win32.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imgui_internal.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imstb_rectpack.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imstb_textedit.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdParty\imgui\imstb_truetype.h">
+      <Filter>ThirdParty\imgui</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameCore\ImGuiManager.h">
+      <Filter>ヘッダー ファイル\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameCore\Input.h">
+      <Filter>ヘッダー ファイル\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameCore\AbstractSceneFactory.h">
+      <Filter>ヘッダー ファイル\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameCore\SceneManager.h">
+      <Filter>ヘッダー ファイル\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\SceneFactrory.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\GameCore\BaseScene.h">
+      <Filter>ヘッダー ファイル\GameCore</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Math\Vector2.h">
+      <Filter>ヘッダー ファイル\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\GameScene.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
