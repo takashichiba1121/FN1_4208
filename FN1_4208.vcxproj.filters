@@ -37,6 +37,12 @@
     <Filter Include="ヘッダー ファイル\Math">
       <UniqueIdentifier>{b3c29300-1335-4640-9918-4dacef616f9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Editor">
+      <UniqueIdentifier>{d1d1cd20-d1fc-4d92-ba39-cf4d71ba56b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Editor">
+      <UniqueIdentifier>{42e223ca-d23f-4c23-9956-3d4cf6c9b257}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ThirdParty\imgui\imgui.cpp">
@@ -86,6 +92,15 @@
     </ClCompile>
     <ClCompile Include="Source\Scene\GameScene.cpp">
       <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Editor\EditStage.cpp">
+      <Filter>ソース ファイル\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Editor\StageManager.cpp">
+      <Filter>ソース ファイル\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Editor\ImportLevel.cpp">
+      <Filter>ソース ファイル\Editor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +154,15 @@
     </ClInclude>
     <ClInclude Include="Include\Scene\GameScene.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Editor\EditStage.h">
+      <Filter>ヘッダー ファイル\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Editor\ImportLevel.h">
+      <Filter>ヘッダー ファイル\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Editor\StageManager.h">
+      <Filter>ヘッダー ファイル\Editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
