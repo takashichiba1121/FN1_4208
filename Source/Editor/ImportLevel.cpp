@@ -4,24 +4,27 @@
 #include <cstdint>
 #include<string>
 
-ImportLevel::ImportLevel()
+ImportLevel* ImportLevel::GetInstance()
 {
+	static ImportLevel instance;
+	return &instance;
 }
-
 ImportLevel::~ImportLevel()
 {
 }
 
-std::vector<LevelData> ImportLevel::ImportLevelVectorData(const std::string& fileName)
+bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 {
 
-	std::vector<LevelData> levelData;
+	vectorLevelData_.clear();
+
 	//ファイルストリーム
 	std::ifstream file(fileName);
 
 	if (!file)
 	{
-		assert(0);
+		loadErrorText_ = "can not find file";
+		return false;
 	}
 
 	//JSON文字列から解凍したデータ
@@ -31,40 +34,57 @@ std::vector<LevelData> ImportLevel::ImportLevelVectorData(const std::string& fil
 	file >> deserialized;
 
 	//正しいイベントファイルかチェック
-	assert(deserialized.is_object());
-	assert(deserialized.contains("name"));
-	assert(deserialized["name"].is_string());
+	if (!deserialized.is_object() || !deserialized.contains("name") || !deserialized["name"].is_string())
+	{
+		loadErrorText_ = "Not the correct Level file";
+		return false;
+	}
 
 	//"name"を文字列として取得
 	std::string name = deserialized["name"].get<std::string>();
 
-	//中身が正しいかどうかチェック
-	assert(name.compare("Level") == 0);
+	//正しいかどうかチェック
+	if (name.compare("Level") != 0)
+	{
+		loadErrorText_ = "Not event file";
+		return false;
+	}
 
 	//"events"の全オブジェクトを走査
-	for (nlohmann::json& objects : deserialized["objects"])
+	for (nlohmann::json& events : deserialized["objects"])
 	{
 
-		levelData.push_back(LevelScanning(objects));
-	}
-	
-	if (levelData.empty())
-	{
-		levelData.push_back(LevelData());
+		bool result = true;
+
+		result = LevelScanning(events);
+
+		if (!result)
+		{
+			vectorLevelData_.clear();
+			return false;
+		}
 	}
 
-	return levelData;
+
+	if (vectorLevelData_.empty())
+	{
+		vectorLevelData_.push_back(LevelData());
+	}
+
+	return true;
 }
 
-std::list<LevelData> ImportLevel::ImportLevelListData(const std::string& fileName)
+bool ImportLevel::ImportLevelListData(const std::string& fileName)
 {
-	std::list<LevelData> levelData;
+	listLevelData_.clear();
+
 	//ファイルストリーム
 	std::ifstream file(fileName);
 
 	if (!file)
 	{
-		assert(0);
+		loadErrorText_ = "can not find file";
+		return false;
 	}
 
 	//JSON文字列から解凍したデータ
@@ -74,33 +94,58 @@ std::list<LevelData> ImportLevel::ImportLevelListData(const std::string& fileNam
 	file >> deserialized;
 
 	//正しいイベントファイルかチェック
-	assert(deserialized.is_object());
-	assert(deserialized.contains("name"));
-	assert(deserialized["name"].is_string());
+	if (!deserialized.is_object() || !deserialized.contains("name") || !deserialized["name"].is_string())
+	{
+		loadErrorText_ = "Not the correct Level file";
+		return false;
+	}
 
 	//"name"を文字列として取得
 	std::string name = deserialized["name"].get<std::string>();
 
-	//中身が正しいかどうかチェック
-	assert(name.compare("Level") == 0);
+	//正しいかどうかチェック
+	if (name.compare("Level") != 0)
+	{
+		loadErrorText_ = "Not event file";
+		return false;
+	}
 
 	//"events"の全オブジェクトを走査
-	for (nlohmann::json& objects : deserialized["objects"])
+	for (nlohmann::json& events : deserialized["objects"])
 	{
 
-		levelData.push_back(LevelScanning(objects));
+		bool result = true;
+
+		result = LevelScanning(events);
+
+		if (!result)
+		{
+			listLevelData_.clear();
+			return false;
+		}
 	}
 
-	if (levelData.empty())
+
+	if (listLevelData_.empty())
 	{
-		levelData.push_back(LevelData());
+		listLevelData_.push_back(LevelData());
 	}
 
-	return levelData;
+	return true;
 }
 
-LevelData ImportLevel::LevelScanning(nlohmann::json& Level)
+bool ImportLevel::LevelScanning(nlohmann::json& Level)
 {
+
+	//typeがなければ止める
+	if (!Level.contains("type"))
+	{
+		loadErrorText_ = "event type is missing";
+		return false;
+	}
+	//タイプを取得
+	std::string type = Level["type"].get<std::string>();
+
 
 
 	LevelData levelData;
@@ -119,6 +164,87 @@ LevelData ImportLevel::LevelScanning(nlohmann::json& Level)
 	//スピードのセット
 	levelData.tag = (ObjectType)seting["tag"];
 
-	return levelData;
+	vectorLevelData_.push_back(levelData);
+	listLevelData_.push_back(levelData);
+
+	return true;
+
 	
+}
+
+
+bool ImportLevel::WindowsOpenLevelFileVector()
+{
+	char filePath[MAX_PATH] = { 0 };
+	OPENFILENAME FileObj = {};
+	//構造体の大きさ基本的にこれ
+	FileObj.lStructSize = sizeof(OPENFILENAME);
+	//使いたい(占有)ウインドウハンドル
+	FileObj.hwndOwner = GetMainWindowHandle();
+	//フィルターを設定?
+	FileObj.lpstrFilter = "イベントエディタ作成ファイル(eefm)\0 * .eefm*\0"
+		"すべてのファイル (*.*)\0*.*\0";
+	//何個目のフィルターを使うん?みたいな感じ?
+	FileObj.nFilterIndex = 0;
+	//保存の時ファイル名を入れるやつ?
+	FileObj.lpstrFile = filePath;
+	//ファイルのバッファの大きさ？
+	FileObj.nMaxFile = MAX_PATH;
+
+	auto old = std::filesystem::current_path();
+	if (GetOpenFileName(&FileObj))
+	{
+		
+		bool result = true;
+		//設定のまとめに選択したファイルを読み取り書き込む
+		result = ImportLevelVectorData(filePath);
+
+		if (!result)
+		{
+			
+			return false;
+		}
+
+	}
+	std::filesystem::current_path(old);
+
+	return true;
+}
+
+bool ImportLevel::WindowsOpenLevelFileList()
+{
+	char filePath[MAX_PATH] = { 0 };
+	OPENFILENAME FileObj = {};
+	//構造体の大きさ基本的にこれ
+	FileObj.lStructSize = sizeof(OPENFILENAME);
+	//使いたい(占有)ウインドウハンドル
+	FileObj.hwndOwner = GetMainWindowHandle();
+	//フィルターを設定?
+	FileObj.lpstrFilter = "イベントエディタ作成ファイル(eefm)\0 * .eefm*\0"
+		"すべてのファイル (*.*)\0*.*\0";
+	//何個目のフィルターを使うん?みたいな感じ?
+	FileObj.nFilterIndex = 0;
+	//保存の時ファイル名を入れるやつ?
+	FileObj.lpstrFile = filePath;
+	//ファイルのバッファの大きさ？
+	FileObj.nMaxFile = MAX_PATH;
+
+	auto old = std::filesystem::current_path();
+	if (GetOpenFileName(&FileObj))
+	{
+
+		bool result = true;
+		//設定のまとめに選択したファイルを読み取り書き込む
+		result = ImportLevelListData(filePath);
+
+		if (!result)
+		{
+
+			return false;
+		}
+
+	}
+	std::filesystem::current_path(old);
+
+	return true;
 }
