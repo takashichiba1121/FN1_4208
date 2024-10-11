@@ -1,5 +1,5 @@
 #include "Object.h"
 
-void Object::ObjectOnCollision(Object objct)
+void Object::ObjectOnCollision(Object* objct)
 {
 }

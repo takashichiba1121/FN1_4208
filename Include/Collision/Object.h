@@ -5,6 +5,8 @@ enum class ObjectType
 {
 	PLAYER,
 	FLOAT_BLOCK,
+	NOT_FLOAT_BLOCK,
+	NONE,
 };
 
 class Object
@@ -17,9 +19,9 @@ public:
 
 	virtual void Draw() {}
 
-	virtual void OnCollision(Object objct) {};
+	virtual void OnCollision(Object* objct) {};
 
-	void ObjectOnCollision(Object objct);
+	void ObjectOnCollision(Object* objct);
 
 	void SetCollision(bool isCollision) {
 		isCollision_ = isCollision;
@@ -38,7 +40,7 @@ public:
 	}
 
 	void SetPos(Vector2 pos) {
-		pos_= pos;
+		pos_ = pos;
 	}
 
 	void SetSize(Vector2 size) {
@@ -49,14 +51,24 @@ public:
 		return pos_;
 	}
 
+	Vector2 GetOldPos() {
+		return oldPos_;
+	}
+
 	Vector2 GetSize() {
 		return size_;
 	}
 
-protected:
-	Vector2 pos_;
+	ObjectType GetObjectType() {
+		return objectType;
+	}
 
-	Vector2 size_;
+protected:
+	Vector2 pos_ = { 0,0 };
+
+	Vector2 oldPos_ = { 0,0 };
+
+	Vector2 size_ = {0,0};
 
 	bool isCollision_ = true;
 
