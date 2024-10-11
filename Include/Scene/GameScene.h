@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 #include "Player.h"
+#include <memory>
 
 class GameScene :
     public BaseScene
@@ -12,6 +13,7 @@ class GameScene :
 
 private:
 
-	Object* player = nullptr;
+	std::unique_ptr<Object> player;
+
 };
 

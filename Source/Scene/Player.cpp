@@ -1,15 +1,19 @@
 #include "Player.h"
 #include "Input.h"
 #include "DxLib.h"
+#include <random>
 
 void Player::Initialize() {
+
 	pos_ = { 100,100 };
+	objectType = ObjectType::PLAYER;
 }
 
 void Player::Update() {
 
 	Operation();
 
+	//水中から地上に上がれるか判定
 	if (gravity <= 0 && pos_.y <= horizontal && isUnderWater) {
 		canCrawlUp = true;
 		pos_.y = horizontal;
@@ -17,7 +21,6 @@ void Player::Update() {
 	else {
 		canCrawlUp = false;
 	}
-
 
 	//水面の上か下かを判定(仮)
 	if (pos_.y >= horizontal) {
@@ -29,10 +32,10 @@ void Player::Update() {
 
 	//地上と水中でスピードを変える
 	if (isUnderWater) {
-		speed = waterSpeed;
+		speed = WaterSpeed;
 	}
 	else {
-		speed = groundSpeed;
+		speed = GroundSpeed;
 	}
 
 	//ジャンプによって空中にいるときの処理
@@ -61,12 +64,14 @@ void Player::Update() {
 		canJump = true;
 	}
 
-	//ウィンドウの一番下で止まる
-	if (pos_.y >= 720 - size_.y / 2) {
-		pos_.y = 720 - size_.y / 2;
+	//底面で止まる(仮)
+	if (pos_.y >= underLine - size_.y / 2) {
+		pos_.y = underLine - size_.y / 2;
 		isOnFloor = true;
 	}
-
+	else {
+		isOnFloor = false;
+	}
 	
 }
 
@@ -84,6 +89,17 @@ void Player::Operation() {
 		horizontal += 2.0f;
 	}
 
+	//←→キーで底面調節
+	if (Input::GetKey(Input::KEY::Left)) {
+		underLine -= 2.0f;
+	}
+	if (Input::GetKey(Input::KEY::Right)) {
+		underLine += 2.0f;
+	}
+
+	if (Input::GetKeyTrigger(Input::KEY::R)) {
+		pos_ = { 100,100 };
+	}
 }
 
 //横移動
@@ -119,15 +135,18 @@ void Player::Jump() {
 void Player::Draw() {
 
 	DrawBox(
-		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.x / 2),
-		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.x / 2),
+		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.y / 2),
+		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.y / 2),
 		GetColor(250, 250, 250), true);
 
-	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(255, 255, 255));
+	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
+	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
+	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
-	DrawFormatString(0, 20, GetColor(255, 255, 255), "isUnderWater : %d", isUnderWater);
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
+	DrawFormatString(0, 40, GetColor(255, 255, 255), "isUnderWater : %d", isUnderWater);
 }
 
 void Player::OnCollision(Object objct) {
-
+	
 }
