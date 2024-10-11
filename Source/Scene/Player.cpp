@@ -128,6 +128,6 @@ void Player::Draw() {
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "isUnderWater : %d", isUnderWater);
 }
 
-void Player::OnCollision(Object objct) {
+void Player::OnCollision(Object* objct) {
 
 }
