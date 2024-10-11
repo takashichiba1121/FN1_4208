@@ -9,7 +9,7 @@ public:
 	void Initialize()override;
 	void Update()override;
 	void Draw()override;
-	void OnCollision(Object objct)override;
+	void OnCollision(Object* objct)override;
 
 	float GetSpeed() { return speed; }
 

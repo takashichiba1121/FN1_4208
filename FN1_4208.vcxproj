@@ -81,7 +81,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Item;$(ProjectDir)\Include\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Item;$(ProjectDir)\Include\Collision;$(ProjectDir)\Include\Editor</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -108,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Item;$(ProjectDir)\Include\Collision</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Item;$(ProjectDir)\Include\Collision;$(ProjectDir)\Include\Editor</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -135,8 +135,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Source\Collision\Collision.cpp" />
     <ClCompile Include="Source\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Collision\Object.cpp" />
+     <ClCompile Include="Source\Editor\EditStage.cpp" />
+    <ClCompile Include="Source\Editor\ImportLevel.cpp" />
+    <ClCompile Include="Source\Editor\StageManager.cpp" />
     <ClCompile Include="Source\GameCore\AbstractSceneFactory.cpp" />
     <ClCompile Include="Source\GameCore\BaseScene.cpp" />
     <ClCompile Include="Source\GameCore\ImGuiManager.cpp" />
@@ -156,8 +160,12 @@
     <ClCompile Include="ThirdParty\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Collision\Collision.h" />
     <ClInclude Include="Include\Collision\CollisionManager.h" />
     <ClInclude Include="Include\Collision\Object.h" />
+    <ClInclude Include="Include\Editor\EditStage.h" />
+    <ClInclude Include="Include\Editor\ImportLevel.h" />
+    <ClInclude Include="Include\Editor\StageManager.h" />
     <ClInclude Include="Include\GameCore\AbstractSceneFactory.h" />
     <ClInclude Include="Include\GameCore\BaseScene.h" />
     <ClInclude Include="Include\GameCore\ImGuiManager.h" />
