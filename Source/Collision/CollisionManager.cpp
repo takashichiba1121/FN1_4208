@@ -39,9 +39,9 @@ void CollisionManager::Update()
 
 			if (Collision::AABB(objectA, objectB))
 			{
-				if (!objectA->IsExclude()||!objectB->IsExclude())
+ 				if (objectA->IsExclude()||objectB->IsExclude())
 				{
-					Vector2 posB = objectB->GetPos();
+ 					Vector2 posB = objectB->GetPos();
 					Vector2 sizeB = objectB->GetSize();
 					Vector2 oldPosB = objectB->GetOldPos();
 
@@ -51,24 +51,24 @@ void CollisionManager::Update()
 
 					if (objectA->GetObjectType() < objectB->GetObjectType())
 					{
-						if (posB.y - sizeB.y >= oldPosA.y + sizeA.y)
+						if (posB.y - sizeB.y/2 >= oldPosA.y + sizeA.y/2)
 						{
-							posA.y = posB.y - (sizeB.y + sizeA.y);
+							posA.y = posB.y - (sizeB.y/2 + sizeA.y/2);
 						}
-						else if (posB.y + sizeB.y <= oldPosA.y - sizeA.y)
+						else if (posB.y + sizeB.y/2 <= oldPosA.y - sizeA.y/2)
 						{
-							posA.y = posB.y + sizeB.y + sizeA.y;
+							posA.y = posB.y + sizeB.y/2 + sizeA.y/2;
 						}
 						else
 						{
 
-							if (posB.x + sizeB.x <= oldPosA.x - sizeB.x)
+							if (posB.x + sizeB.x/2 <= oldPosA.x - sizeA.x/2)
 							{
-								posA.x = posB.x + sizeB.x + sizeA.x + 0.1f;
+								posA.x = posB.x + sizeB.x/2 + sizeA.x/2 + 0.1f;
 							}
-							else if (posB.x - sizeB.x >= oldPosA.x + sizeA.x)
+							else if (posB.x - sizeB.x/2 >= oldPosA.x + sizeA.x/2)
 							{
-								posA.x = posB.x - (sizeB.x + sizeA.x) - 0.1f;
+								posA.x = posB.x - (sizeB.x/2 + sizeA.x/2) - 0.1f;
 
 							}
 						}
@@ -77,24 +77,24 @@ void CollisionManager::Update()
 					else
 					{
 
-						if (posA.y - sizeA.y >= oldPosB.y + sizeB.y)
+						if (posA.y - sizeA.y/2 >= oldPosB.y + sizeB.y/2)
 						{
-							posB.y = posA.y - (sizeA.y + sizeB.y);
+							posB.y = posA.y - (sizeA.y/2 + sizeB.y/2);
 						}
-						else if (posA.y + sizeA.y <= oldPosB.y - sizeB.y)
+						else if (posA.y + sizeA.y/2 <= oldPosB.y - sizeB.y/2)
 						{
-							posB.y = posA.y + sizeA.y + sizeB.y;
+							posB.y = posA.y + sizeA.y/2 + sizeB.y/2;
 						}
 						else
 						{
 
-							if (posA.x + sizeA.x <= oldPosB.x - sizeA.x)
+							if (posA.x + sizeA.x/2 <= oldPosB.x - sizeB.x/2)
 							{
-								posB.x = posA.x + sizeA.x + sizeB.x + 0.1f;
+								posB.x = posA.x + sizeA.x/2 + sizeB.x/2 + 0.1f;
 							}
-							else if (posA.x - sizeA.x >= oldPosB.x + sizeB.x)
+							else if (posA.x - sizeA.x/2 >= oldPosB.x + sizeB.x/2)
 							{
-								posB.x = posA.x - (sizeA.x + sizeB.x) - 0.1f;
+								posB.x = posA.x - (sizeA.x/2 + sizeB.x/2) - 0.1f;
 
 							}
 						}
