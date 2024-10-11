@@ -17,7 +17,7 @@ public:
 
 	virtual void Draw() {}
 
-	virtual void OnCollision(Object objct);
+	virtual void OnCollision(Object objct) {};
 
 	void ObjectOnCollision(Object objct);
 
