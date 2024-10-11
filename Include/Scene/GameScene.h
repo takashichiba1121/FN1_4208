@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseScene.h"
+#include "Player.h"
+
 class GameScene :
     public BaseScene
 {
@@ -7,5 +9,9 @@ class GameScene :
 	void Update() override;
 	void Draw() override;
 	void Finalize() override;
+
+private:
+
+	Player* player = nullptr;;
 };
 
