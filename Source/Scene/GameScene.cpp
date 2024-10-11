@@ -4,14 +4,18 @@
 
 void GameScene::Initialize()
 {
+	player = new Player();
+	player->Initialize();
 }
 
 void GameScene::Update()
 {
+	player->Update();
 }
 
 void GameScene::Draw()
 {
+	player->Draw();
 }
 
 void GameScene::Finalize()
