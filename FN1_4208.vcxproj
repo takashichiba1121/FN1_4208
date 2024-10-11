@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source\GameCore\AbstractSceneFactory.cpp" />
     <ClCompile Include="Source\GameCore\BaseScene.cpp" />
@@ -152,6 +153,7 @@
     <ClCompile Include="ThirdParty\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Include\GameCore\AbstractSceneFactory.h" />
     <ClInclude Include="Include\GameCore\BaseScene.h" />
     <ClInclude Include="Include\GameCore\ImGuiManager.h" />

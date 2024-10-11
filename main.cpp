@@ -4,6 +4,7 @@
 #include"SceneFactrory.h"
 #include "ImGuiManager.h"
 #include "imgui.h"
+#include "Goal.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "タイトル";
@@ -45,6 +46,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 
 	// ゲームループで使う変数の宣言
+	Goal* goal = new Goal();
 
 
 	//ImGuiManager::GetInstance()->Initialize();
@@ -61,14 +63,17 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		// 画面クリア
 		ClearDrawScreen();
 		Input::Update();
+		goal->Initialize();
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
 		//ImGuiManager::GetInstance()->Update();
 		SceneManager::GetInstance()->Update();
+		goal->Update();
 
 		// 描画処理
 		SceneManager::GetInstance()->Draw();
+		//goal->Draw();
 		//ImGuiManager::GetInstance()->Draw();
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
