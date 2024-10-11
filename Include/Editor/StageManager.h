@@ -14,10 +14,10 @@ public:
 	static StageManager* GetInstance();
 
 	//std::vector<Object> LoadStageData(const std::string& fileName);
-	std::list<Object*> LoadListStageData(std::list<LevelData> levelData);
+	std::list<std::unique_ptr<Object>> LoadListStageData(std::list<LevelData> levelData);
 
 	//¡“Ç‚İ‚ñ‚Å‚éƒf[ƒ^‚ğ•Ô‚·
-	std::list<Object*> GetObjectList() { return stageObjData_; };
+	std::list<std::unique_ptr<Object>> GetObjectList() { return stageObjData_; };
 
 	void Update();
 
@@ -34,7 +34,7 @@ private:
 
 private:
 
-	std::list<Object*> stageObjData_;
+	std::list<std::unique_ptr<Object>> stageObjData_;
 
 };
 

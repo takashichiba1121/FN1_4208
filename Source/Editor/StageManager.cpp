@@ -10,7 +10,7 @@ StageManager::~StageManager()
 {
 }
 
-std::list<Object*> StageManager::LoadListStageData(std::list<LevelData> levelData)
+std::list<std::unique_ptr<Object>> StageManager::LoadListStageData(std::list<LevelData> levelData)
 {
 	//’†gÁ‚µ‚Ä‚©‚çg‚¤
 	stageObjData_.clear();
@@ -35,7 +35,7 @@ std::list<Object*> StageManager::LoadListStageData(std::list<LevelData> levelDat
 
 void StageManager::Update()
 {
-	for (auto level : stageObjData_)
+	for (auto &level : stageObjData_)
 	{
 		level->Update();
 	}
@@ -43,7 +43,7 @@ void StageManager::Update()
 
 void StageManager::Draw()
 {
-	for (auto level : stageObjData_)
+	for (auto &level : stageObjData_)
 	{
 		level->Draw();
 	}
