@@ -3,14 +3,24 @@
 #include "DxLib.h"
 
 void Player::Initialize() {
-	pos = { 100,100 };
+	pos_ = { 100,100 };
 }
 
 void Player::Update() {
 
 	Operation();
 
-	if (pos.y >= horizontal) {
+	if (gravity <= 0 && pos_.y <= horizontal && isUnderWater) {
+		canCrawlUp = true;
+		pos_.y = horizontal;
+	}
+	else {
+		canCrawlUp = false;
+	}
+
+
+	//水面の上か下かを判定(仮)
+	if (pos_.y >= horizontal) {
 		isUnderWater = true;
 	}
 	else {
@@ -29,7 +39,7 @@ void Player::Update() {
 	if (!isOnFloor) {
 
 		//プレイヤー座標に重力を加算
-		pos.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
+		pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
 
 		//落下速度を徐々に上げる(水中時は半減)
 		gravity += 1.0f / (isUnderWater + 1);
@@ -41,21 +51,22 @@ void Player::Update() {
 
 		//水中であれば無限ジャンプ可能
 		if (isUnderWater) {
-			isCanJump = true;
+			canJump = true;
 		}
 		else {
-			isCanJump = false;
+			canJump = false;
 		}
 	}
 	else {
-		isCanJump = true;
+		canJump = true;
 	}
 
 	//ウィンドウの一番下で止まる
-	if (pos.y >= 720 - size.y / 2) {
-		pos.y = 720 - size.y / 2;
+	if (pos_.y >= 720 - size_.y / 2) {
+		pos_.y = 720 - size_.y / 2;
 		isOnFloor = true;
 	}
+
 	
 }
 
@@ -65,8 +76,7 @@ void Player::Operation() {
 	Move();
 	Jump();
 
-	//↑↓キーで水平線調節
-	
+	//↑↓キーで水平線調節	
 	if (Input::GetKey(Input::KEY::Up)) {
 		horizontal -= 2.0f;
 	}
@@ -79,30 +89,45 @@ void Player::Operation() {
 //横移動
 void Player::Move() {
 	if (Input::GetKey(Input::KEY::A)) {
-		pos.x -= speed;
+		pos_.x -= speed;
 	}
 	if (Input::GetKey(Input::KEY::D)) {
-		pos.x += speed;
+		pos_.x += speed;
 	}
 }
 
 //ジャンプ
 void Player::Jump() {
-	if (Input::GetKeyTrigger(Input::KEY::Space) && isCanJump) {
+	if (Input::GetKeyTrigger(Input::KEY::Space) && canJump) {
 		isOnFloor = false;
 
+		//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
+		if (canCrawlUp) {
+			isUnderWater = false;
+			initJumpVelocity = -MaxGravity / 1.25f;
+		}
+		else {
+			initJumpVelocity = -MaxGravity;
+		}
+
 		//ジャンプの初速(水中時は半減)
-		gravity = InitJumpVelocity / (isUnderWater + 1);
+		gravity = initJumpVelocity / (isUnderWater + 1);
+
 	}
 }
 
 void Player::Draw() {
 
 	DrawBox(
-		(int)(pos.x - size.x / 2), (int)(pos.y - size.x / 2),
-		(int)(pos.x + size.x / 2), (int)(pos.y + size.x / 2),
+		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.x / 2),
+		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.x / 2),
 		GetColor(250, 250, 250), true);
 
-	DrawLine(0, horizontal, 1280, horizontal, GetColor(255, 255, 255));
+	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(255, 255, 255));
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
+	DrawFormatString(0, 20, GetColor(255, 255, 255), "isUnderWater : %d", isUnderWater);
+}
+
+void Player::OnCollision(Object objct) {
+
 }
