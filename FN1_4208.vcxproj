@@ -81,7 +81,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Editor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Item;$(ProjectDir)\Include\Editor</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -108,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Editor</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Item;$(ProjectDir)\Include\Editor</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -143,6 +143,7 @@
     <ClCompile Include="Source\GameCore\ImGuiManager.cpp" />
     <ClCompile Include="Source\GameCore\Input.cpp" />
     <ClCompile Include="Source\GameCore\SceneManager.cpp" />
+    <ClCompile Include="Source\Item\Block.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="Include\Math\Vector2.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
+    <ClInclude Include="Source\Item\Block.h" />
     <ClInclude Include="ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="ThirdParty\imgui\imgui.h" />
     <ClInclude Include="ThirdParty\imgui\imgui_impl_dx11.h" />
