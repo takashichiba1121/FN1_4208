@@ -145,6 +145,7 @@
     <ClCompile Include="Source\Item\Block.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
+    <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
     <ClCompile Include="ThirdParty\imgui\imgui.cpp" />
     <ClCompile Include="ThirdParty\imgui\imgui_demo.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="Include\GameCore\SceneManager.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
+    <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
     <ClInclude Include="Source\Item\Block.h" />
     <ClInclude Include="ThirdParty\imgui\imconfig.h" />
