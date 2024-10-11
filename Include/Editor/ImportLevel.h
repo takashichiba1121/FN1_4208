@@ -5,6 +5,7 @@
 #include "Vector2.h"
 #include "vector"
 #include <memory>
+#include "Object.h"
 
 //json‚Ì“Ç‚İ‚İ‚Æ‚©‚Ég‚¤
 #pragma warning( push )
@@ -19,7 +20,7 @@ struct LevelData
 	Vector2 scale;
 
 	//’†g(Œã‚Åenum‚É•Ï‚¦‚é‚©‚à)
-	std::string tag = "";
+	ObjectType tag = ObjectType::PLAYER;
 };
 
 class ImportLevel

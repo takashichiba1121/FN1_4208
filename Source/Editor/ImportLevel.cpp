@@ -117,7 +117,7 @@ LevelData ImportLevel::LevelScanning(nlohmann::json& Level)
 	levelData.scale.y = (float)seting["scale"][1];
 
 	//スピードのセット
-	levelData.tag = seting["tag"].get<std::string>();
+	levelData.tag = (ObjectType)seting["tag"];
 
 	return levelData;
 	
