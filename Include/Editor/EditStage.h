@@ -1,5 +1,4 @@
 #pragma once
-#include "ImportLevel.h"
 #include "StageManager.h"
 
 class EditStage
@@ -10,10 +9,10 @@ public:
 
 private:
 
-	void WindowsSaveEEFMFile(std::vector<Object> saveData);
-	void WindowsSaveEEFMFile(std::list<Object> saveData);
+	void WindowsSaveEEFMFile(std::vector<Object*> saveData);
+	void WindowsSaveEEFMFile(std::list<Object*> saveData);
 
-	void SaveEventFullPathData(const std::string& fileName, std::vector<Object> saveData);
+	void SaveEventFullPathData(const std::string& fileName, std::vector<Object*> saveData);
 
 
 };

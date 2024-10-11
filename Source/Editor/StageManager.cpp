@@ -10,11 +10,11 @@ StageManager::~StageManager()
 {
 }
 
-std::list<Object> StageManager::LoadListStageData(std::list<LevelData> levelData)
+std::list<Object*> StageManager::LoadListStageData(std::list<LevelData> levelData)
 {
 	//中身消してから使う
 	stageObjData_.clear();
-	for (auto level : levelData)
+	for (auto &level : levelData)
 	{
 		//タグの内容で決定
 		switch (level.tag)
@@ -37,7 +37,7 @@ void StageManager::Update()
 {
 	for (auto level : stageObjData_)
 	{
-		level.Update();
+		level->Update();
 	}
 }
 
@@ -45,6 +45,6 @@ void StageManager::Draw()
 {
 	for (auto level : stageObjData_)
 	{
-		level.Draw();
+		level->Draw();
 	}
 }

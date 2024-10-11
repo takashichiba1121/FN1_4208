@@ -10,7 +10,7 @@ EditStage::~EditStage()
 {
 }
 
-void EditStage::WindowsSaveEEFMFile(std::vector<Object> saveData)
+void EditStage::WindowsSaveEEFMFile(std::vector<Object*> saveData)
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};
@@ -39,7 +39,7 @@ void EditStage::WindowsSaveEEFMFile(std::vector<Object> saveData)
 	std::filesystem::current_path(old);
 }
 
-void EditStage::SaveEventFullPathData(const std::string& fileName, std::vector<Object> saveData) {
+void EditStage::SaveEventFullPathData(const std::string& fileName, std::vector<Object*> saveData) {
 	std::string name = fileName;
 
 	//もし名前が空白なら適当な名前に
@@ -53,13 +53,13 @@ void EditStage::SaveEventFullPathData(const std::string& fileName, std::vector<O
 	//管理名
 	jsonfile["name"] = "Level";
 
-	for (auto levelData : saveData)
+	for (auto &levelData : saveData)
 	{
 		nlohmann::json data;
 		
 		//objectという固まりの中に情報を入れる
-		data["object"]["pos"] = { levelData.GetPos().x,levelData.GetPos().y};
-		data["object"]["scale"] = { levelData.GetSize().x,levelData.GetSize().y };
+		data["object"]["pos"] = { levelData->GetPos().x,levelData->GetPos().y};
+		data["object"]["scale"] = { levelData->GetSize().x,levelData->GetSize().y };
 		data["object"]["tag"] = { };
 		
 		//全体の固まりに入れる
