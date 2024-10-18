@@ -43,6 +43,8 @@ public:
 
 	bool WindowsOpenLevelFileVector();
 	InputLevelData WindowsOpenLevelFileList();
+
+	std::string GetLoadErrorText() { return loadErrorText_; };
 	
 private:
 

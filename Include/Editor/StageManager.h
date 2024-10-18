@@ -25,7 +25,7 @@ public:
 
 	void Draw();
 
-	
+	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
 
 private:
 
@@ -36,7 +36,7 @@ private:
 	StageManager(const StageManager&) = delete;
 	StageManager& operator=(const StageManager&) = delete;
 
-	void addObject(Vector2 pos, Vector2 size, ObjectType tag);
+	
 
 
 private:

@@ -24,10 +24,16 @@ private:
 	//エディタ用の更新
 	void EditorUpdate();
 
+	void addObject();
+
+	void SaveAndLoadLevelObject();
+
 
 private:
 
+	ObjectType serectAddObjectType_;
 
+	Vector2 AddObjectSize_ = { 1,1 };
 
 };
 

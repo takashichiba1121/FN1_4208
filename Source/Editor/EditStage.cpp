@@ -1,6 +1,7 @@
 #include "EditStage.h"
 #include "DxLib.h"
 #include <fstream>
+#include <imgui.h>
 
 EditStage::EditStage()
 {
@@ -27,6 +28,15 @@ void EditStage::Draw()
 
 void EditStage::EditorUpdate()
 {
+	addObject();
+}
+
+void EditStage::addObject()
+{
+	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
+	{
+		StageManager::GetInstance()->AddObject({ 0,0 }, AddObjectSize_, serectAddObjectType_);
+	}
 
 }
 
@@ -157,4 +167,34 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::li
 	if (ofs) {
 		ofs << jsonfile.dump(4);
 	}
+}
+
+void EditStage::SaveAndLoadLevelObject()
+{
+	ImGui::Begin("saveAndLoad LevelData");
+
+
+	if (ImGui::Button("saveFile"))
+	{
+
+		WindowsSaveFile(StageManager::GetInstance()->GetObjectList());
+
+	}
+	InputLevelData loadData;
+	if (ImGui::Button("openFile"))
+	{
+		
+		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFileList();
+
+	}
+
+	if (!loadData.isLoad)
+	{
+		ImGui::Text("Loading failed");
+		ImGui::Text(std::string("reason " + ImportLevel::GetInstance()->GetLoadErrorText()).c_str());
+	}
+
+	StageManager::GetInstance()->LoadListStageData(loadData.levelData);
+
+	ImGui::End();
 }
