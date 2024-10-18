@@ -5,7 +5,7 @@
 
 void GameScene::Initialize()
 {
-	player = new Player();
+	player = std::make_unique<Player>();
 	player->Initialize();
 
 	block = std::make_unique<Block>();
