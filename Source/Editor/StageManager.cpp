@@ -49,7 +49,7 @@ void StageManager::Draw()
 }
 
 
-void StageManager::addObject(Vector2 pos, Vector2 size, ObjectType tag)
+void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 {
 	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
 	switch (tag)
