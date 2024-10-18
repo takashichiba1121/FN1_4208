@@ -5,7 +5,7 @@
 
 void GameScene::Initialize()
 {
-	player = new Player();
+	player = std::make_unique<Player>();
 	player->Initialize();
 
 	block = std::make_unique<Block>();
@@ -20,7 +20,7 @@ void GameScene::Update()
 
 	block->Update();
 	floatBlock->Update();
-	//test.Update();
+	test.Update();
 
 	StageManager::GetInstance()->Update();
 

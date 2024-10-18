@@ -16,11 +16,11 @@ class GameScene :
 
 private:
 
-	Object* player = nullptr;
-
 	std::unique_ptr<Block> block;
 	std::unique_ptr<LevitationBlock> floatBlock;
+	std::unique_ptr<Object> player;
 
 	EditStage test;
+
 };
 
