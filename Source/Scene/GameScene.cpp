@@ -1,9 +1,11 @@
 #include "GameScene.h"
 #include "DxLib.h"
 #include"Input.h"
+#include"CollisionManager.h"
 
 void GameScene::Initialize()
 {
+
 	player = new Player();
 	player->Initialize();
 
@@ -19,6 +21,8 @@ void GameScene::Update()
 
 	block->Update();
 	floatBlock->Update();
+
+	CollisionManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
