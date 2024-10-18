@@ -5,8 +5,13 @@ class CollisionManager
 {
 public:
 
-private:
+	void AddObject(Object* object);
+	void RemoveObject(Object* object);
+
+	void Update();
+
 	static CollisionManager* GetInstance();
+private:
 
 	std::list<Object*>objects_;
 

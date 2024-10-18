@@ -1,13 +1,15 @@
 #pragma once
-#include "Vector2.h"
+#include "Object.h"
 
-class Player {
+class Player :
+	public Object {
 
 public:
 
-	void Initialize();
-	void Update();
-	void Draw();
+	void Initialize()override;
+	void Update()override;
+	void Draw()override;
+	void OnCollision(Object* objct)override;
 
 private:
 	void Operation();	//ëÄçÏ
@@ -16,21 +18,21 @@ private:
 
 private:
 
-	Vector2 pos = { 0,0 };
-	Vector2 size = { 64,64 };
+	Vector2 pos_ = { 0,0 };
+	Vector2 size_ = { 64,64 };
 
-	const float MaxGravity = 20.0f;
-	const float InitJumpVelocity = -MaxGravity;
+	const float MaxGravity = 16.0f;
+	float initJumpVelocity = -MaxGravity;
 	float gravity = 0.0f;
 
 	const float groundSpeed = 8.0f;
 	const float waterSpeed = groundSpeed / 1.5f;
 	float speed = groundSpeed;
 
-	bool isJump = false;
-	bool isCanJump = false;
+	bool canJump = false;
 	bool isOnFloor = false;
 	bool isUnderWater = false;
+	bool canCrawlUp = false;
 
 	float horizontal = 360.0f;
 };

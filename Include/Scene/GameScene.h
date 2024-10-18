@@ -12,6 +12,6 @@ class GameScene :
 
 private:
 
-	Player* player = nullptr;;
+	Object* player = nullptr;
 };
 
