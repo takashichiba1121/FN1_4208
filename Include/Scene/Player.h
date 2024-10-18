@@ -18,8 +18,8 @@ private:
 
 private:
 
-	Vector2 pos_ = { 0,0 };
-	Vector2 size_ = { 64,64 };
+	//Vector2 pos_ = { 0,0 };
+	//Vector2 size_ = { 64,64 };
 
 	const float MaxGravity = 16.0f;
 	float initJumpVelocity = -MaxGravity;
