@@ -226,7 +226,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 		//object‚Æ‚¢‚¤ŒÅ‚Ü‚è‚Ì’†‚Éî•ñ‚ð“ü‚ê‚é
 		data["object"]["pos"] = { levelData->GetPos().x,levelData->GetPos().y};
 		data["object"]["scale"] = { levelData->GetSize().x,levelData->GetSize().y };
-		data["object"]["tag"] = { };
+		data["object"]["tag"] = static_cast<int32_t>(levelData->GetObjectType());
 		
 		//‘S‘Ì‚ÌŒÅ‚Ü‚è‚É“ü‚ê‚é
 		jsonfile["objects"] += { data };
@@ -261,7 +261,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 		//object‚Æ‚¢‚¤ŒÅ‚Ü‚è‚Ì’†‚Éî•ñ‚ð“ü‚ê‚é
 		data["object"]["pos"] = { levelData->GetPos().x,levelData->GetPos().y };
 		data["object"]["scale"] = { levelData->GetSize().x,levelData->GetSize().y };
-		data["object"]["tag"] = {static_cast<int32_t>(levelData->GetObjectType())};
+		data["object"]["tag"] = static_cast<int32_t>(levelData->GetObjectType());
 
 		//‘S‘Ì‚ÌŒÅ‚Ü‚è‚É“ü‚ê‚é
 		jsonfile["objects"] += { data };

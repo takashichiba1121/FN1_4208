@@ -185,6 +185,8 @@ bool ImportLevel::LevelScanning(nlohmann::json& Level)
 	levelData.scale.x = (float)seting["scale"][0];
 	levelData.scale.y = (float)seting["scale"][1];
 
+	int32_t a = (int32_t)seting["tag"];
+
 	//Ží—Þ
 	levelData.tag = ObjectName::ObjectString((int32_t)seting["tag"]);
 
@@ -229,8 +231,6 @@ InputLevelData ImportLevel::WindowsOpenLevelFileVector()
 
 	}
 	std::filesystem::current_path(old);
-	result.levelData = listLevelData_;
-	result.isLoad = true;
 	return result;
 }
 
@@ -266,8 +266,5 @@ InputLevelData ImportLevel::WindowsOpenLevelFileList()
 
 	}
 	std::filesystem::current_path(old);
-
-	result.levelData = listLevelData_;
-	result.isLoad = true;
 	return result;
 }

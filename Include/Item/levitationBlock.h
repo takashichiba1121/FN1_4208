@@ -28,7 +28,7 @@ private:
 	/// </summary>
 	/// <param name="t">時間</param>
 	/// <param name="b">開始位置</param>
-	/// <param name="c">開始位置 - 終了位置</param>
+	/// <param name="c">開始位置 - 終了位置の差</param>
 	/// <param name="d">合計時間</param>
 	/// <returns></returns>
 	float EaseInOutBackP(float t, float b, float c, float d);
@@ -36,6 +36,8 @@ private:
 
 private:
 	bool isFloatBlock_ = false;
-	float gravity_ = 0.0f;
+	bool isEasing_ = false;
 	int frame_ = 0;
+	int waterSurface_ = 0;
+	float gravity_ = 0.0f;
 };

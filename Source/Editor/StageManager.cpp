@@ -52,7 +52,7 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 		addObject->SetPos(pos);
 		addObject->SetSize(size);
-		addObject->
+		addObject->SetObjectType(tag);
 
 		stageObjData_.push_back(std::move(addObject));
 
@@ -63,6 +63,7 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 		addObject->SetPos(pos);
 		addObject->SetSize(size);
+		addObject->SetObjectType(tag);
 
 		stageObjData_.push_back(std::move(addObject));
 		break;
@@ -72,6 +73,7 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 		addObject->SetPos(pos);
 		addObject->SetSize(size);
+		addObject->SetObjectType(tag);
 
 		stageObjData_.push_back(std::move(addObject));
 		break;

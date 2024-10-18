@@ -8,7 +8,7 @@ void Block::Initialize()
 	pos_ = { 640.0f,688.0f };
 	size_ = { 64.0f,64.0f };
 
-	objectType = ObjectType::NOT_FLOAT_BLOCK;
+	objectType_ = ObjectType::NOT_FLOAT_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
 }
 
