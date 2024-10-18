@@ -4,11 +4,16 @@
 
 #include "Input.h"
 
-bool ImGui::DragFloat2(const char* label, Vector2 v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
+bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
 	float vf[2] = { v.x,v.y };
 	bool result = false;
 	result= ImGui::DragFloat2(label, vf, v_speed, v_min, v_max, format, flags);
+
+	if (result)
+	{
+		v = { vf[0],vf[1] };
+	}
 	return result;
 }
 
@@ -39,7 +44,7 @@ void EditStage::Initialize()
 
 void EditStage::Update()
 {
-	
+	EditorUpdate();
 }
 
 void EditStage::Draw()
@@ -91,12 +96,12 @@ void EditStage::ImguiMenu()
 void EditStage::addObject()
 {
 
-	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
+	if (!imguiAddObjectWindow_)return;
+
+	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
 	{
 		AddObjectPos_ = Input::GetMousePos();
 	}
-
-	if (!imguiAddObjectWindow_)return;
 
 	if (!ImGui::Begin("addObject", &imguiAddObjectWindow_))
 	{
@@ -131,10 +136,12 @@ void EditStage::addObject()
 		StageManager::GetInstance()->AddObject(AddObjectPos_, AddObjectSize_, serectAddObjectType_);
 	}
 
-	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && Input::GetMouseKeyTrigger(Input::MouseKey::RIGHT))
 	{
 		StageManager::GetInstance()->AddObject(Input::GetMousePos(), AddObjectSize_, serectAddObjectType_);
 	}
+
+	ImGui::End();
 
 }
 
@@ -168,7 +175,7 @@ void EditStage::WindowsSaveFile(const std::vector<Object*>& saveData)
 	std::filesystem::current_path(old);
 }
 
-void EditStage::WindowsSaveFile(const std::list<Object*>& saveData)
+void EditStage::WindowsSaveFile()
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};
@@ -192,7 +199,7 @@ void EditStage::WindowsSaveFile(const std::list<Object*>& saveData)
 	auto old = std::filesystem::current_path();
 	if (GetSaveFileName(&FileObj))
 	{
-		SaveLevelFullPathData(filePath, saveData);
+		SaveLevelFullPathData(filePath);
 	}
 	std::filesystem::current_path(old);
 }
@@ -232,7 +239,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 	}
 }
 
-void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::list<Object*>& saveData)
+void EditStage::SaveLevelFullPathData(const std::string& fileName)
 {
 	std::string name = fileName;
 
@@ -247,14 +254,14 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::li
 	//ŠÇ—–¼
 	jsonfile["name"] = "Level";
 
-	for (auto& levelData : saveData)
+	for (auto& levelData : StageManager::GetInstance()->stageObjData_)
 	{
 		nlohmann::json data;
 
 		//object‚Æ‚¢‚¤ŒÅ‚Ü‚è‚Ì’†‚Éî•ñ‚ð“ü‚ê‚é
 		data["object"]["pos"] = { levelData->GetPos().x,levelData->GetPos().y };
 		data["object"]["scale"] = { levelData->GetSize().x,levelData->GetSize().y };
-		data["object"]["tag"] = { };
+		data["object"]["tag"] = {static_cast<int32_t>(levelData->GetObjectType())};
 
 		//‘S‘Ì‚ÌŒÅ‚Ü‚è‚É“ü‚ê‚é
 		jsonfile["objects"] += { data };
@@ -272,7 +279,7 @@ void EditStage::SaveAndLoadLevelObject()
 
 	if (imguiSaveWindow_)
 	{
-		WindowsSaveFile(StageManager::GetInstance()->GetObjectList());
+		WindowsSaveFile();
 		imguiSaveWindow_ = false;
 	}
 	if (imguiLoadWindow_)
@@ -285,7 +292,7 @@ void EditStage::SaveAndLoadLevelObject()
 		imguiLoadWindow_ = false;
 	}
 
-	if (!loadData.isLoad)
+	if (!loadData.isLoad && ImportLevel::GetInstance()->GetLoadErrorText() != "")
 	{
 		ImGui::Text("Loading failed");
 		ImGui::Text(std::string("reason " + ImportLevel::GetInstance()->GetLoadErrorText()).c_str());

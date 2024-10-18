@@ -33,6 +33,27 @@ struct InputLevelData
 };
 
 
+struct ObjectName
+{
+	static ObjectType ObjectString(int32_t objectNum)
+	{
+		if (objectNum == static_cast<int32_t>(ObjectType::PLAYER))
+		{
+			return ObjectType::PLAYER;
+		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::FLOAT_BLOCK))
+		{
+			return ObjectType::FLOAT_BLOCK;
+		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::NOT_FLOAT_BLOCK))
+		{
+			return ObjectType::NOT_FLOAT_BLOCK;
+		}
+
+		return ObjectType::NONE;
+	}
+};
+
 class ImportLevel
 {
 public:
@@ -41,7 +62,7 @@ public:
 
 	
 
-	bool WindowsOpenLevelFileVector();
+	InputLevelData WindowsOpenLevelFileVector();
 	InputLevelData WindowsOpenLevelFileList();
 
 	std::string GetLoadErrorText() { return loadErrorText_; };
@@ -58,7 +79,7 @@ private:
 
 	//取ってきたデータを既定の配列に入れる
 	//データをvector配列に入れる
-	bool ImportLevelVectorData(const std::string& fileName);
+	InputLevelData ImportLevelVectorData(const std::string& fileName);
 	//データをlist配列に入れる
 	InputLevelData ImportLevelListData(const std::string& fileName);
 	//レベルの中身読み込むよう

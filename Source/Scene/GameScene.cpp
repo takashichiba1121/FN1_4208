@@ -19,6 +19,10 @@ void GameScene::Update()
 
 	block->Update();
 	floatBlock->Update();
+
+	test.Update();
+
+	StageManager::GetInstance()->Update();
 }
 
 void GameScene::Draw()
@@ -27,6 +31,9 @@ void GameScene::Draw()
 
 	block->Draw();
 	floatBlock->Draw();
+
+	test.Draw();
+	StageManager::GetInstance()->Draw();
 }
 
 void GameScene::Finalize()

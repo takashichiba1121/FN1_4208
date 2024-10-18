@@ -4,6 +4,7 @@
 #include "Block.h"
 #include "LevitationBlock.h"
 #include <memory>
+#include "EditStage.h"
 
 class GameScene :
     public BaseScene
@@ -19,5 +20,7 @@ private:
 
 	std::unique_ptr<Block> block;
 	std::unique_ptr<LevitationBlock> floatBlock;
+
+	EditStage test;
 };
 

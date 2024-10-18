@@ -13,10 +13,12 @@ ImportLevel::~ImportLevel()
 {
 }
 
-bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
+InputLevelData ImportLevel::ImportLevelVectorData(const std::string& fileName)
 {
 
 	vectorLevelData_.clear();
+
+	InputLevelData output;
 
 	//ファイルストリーム
 	std::ifstream file(fileName);
@@ -24,7 +26,8 @@ bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 	if (!file)
 	{
 		loadErrorText_ = "can not find file";
-		return false;
+		output.isLoad = false;
+		return output;
 	}
 
 	//JSON文字列から解凍したデータ
@@ -37,7 +40,8 @@ bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 	if (!deserialized.is_object() || !deserialized.contains("name") || !deserialized["name"].is_string())
 	{
 		loadErrorText_ = "Not the correct Level file";
-		return false;
+		output.isLoad = false;
+		return output;
 	}
 
 	//"name"を文字列として取得
@@ -46,8 +50,9 @@ bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 	//正しいかどうかチェック
 	if (name.compare("Level") != 0)
 	{
-		loadErrorText_ = "Not event file";
-		return false;
+		loadErrorText_ = "Not LevelEditor file";
+		output.isLoad = false;
+		return output;
 	}
 
 	//"events"の全オブジェクトを走査
@@ -61,7 +66,8 @@ bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 		if (!result)
 		{
 			vectorLevelData_.clear();
-			return false;
+			output.isLoad = false;
+			return output;
 		}
 	}
 
@@ -71,7 +77,13 @@ bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 		vectorLevelData_.push_back(LevelData());
 	}
 
-	return true;
+	loadErrorText_ = "";
+	output.levelData = listLevelData_;
+	output.isLoad = true;
+
+	listLevelData_.clear();
+	vectorLevelData_.clear();
+	return output;
 }
 
 InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
@@ -110,7 +122,7 @@ InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
 	//正しいかどうかチェック
 	if (name.compare("Level") != 0)
 	{
-		loadErrorText_ = "Not event file";
+		loadErrorText_ = "Not LevelEditor file";
 		output.isLoad = false;
 		return output;
 	}
@@ -137,22 +149,26 @@ InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
 		listLevelData_.push_back(LevelData());
 	}
 
+	loadErrorText_ = "";
 	output.levelData = listLevelData_;
 	output.isLoad = true;
+
+	listLevelData_.clear();
+	vectorLevelData_.clear();
 	return output;
 }
 
 bool ImportLevel::LevelScanning(nlohmann::json& Level)
 {
 
-	//typeがなければ止める
-	if (!Level.contains("type"))
-	{
-		loadErrorText_ = "event type is missing";
-		return false;
-	}
-	//タイプを取得
-	std::string type = Level["type"].get<std::string>();
+	////typeがなければ止める
+	//if (!Level.contains("type"))
+	//{
+	//	loadErrorText_ = "event type is missing";
+	//	return false;
+	//}
+	////タイプを取得
+	//std::string type = Level["type"].get<std::string>();
 
 
 
@@ -161,16 +177,16 @@ bool ImportLevel::LevelScanning(nlohmann::json& Level)
 	//設定のパラメータ読み込み
 	nlohmann::json& seting = Level["object"];
 
-	//移動する場所読み込み
+	//位置読み込み
 	levelData.pos.x = (float)seting["pos"][0];
 	levelData.pos.y = (float)seting["pos"][1];
 
-	//移動開始位置取得
+	//大きさ取得
 	levelData.scale.x = (float)seting["scale"][0];
 	levelData.scale.y = (float)seting["scale"][1];
 
-	//スピードのセット
-	levelData.tag = (ObjectType)seting["tag"];
+	//種類
+	levelData.tag = ObjectName::ObjectString((int32_t)seting["tag"]);
 
 	vectorLevelData_.push_back(levelData);
 	listLevelData_.push_back(levelData);
@@ -181,7 +197,7 @@ bool ImportLevel::LevelScanning(nlohmann::json& Level)
 }
 
 
-bool ImportLevel::WindowsOpenLevelFileVector()
+InputLevelData ImportLevel::WindowsOpenLevelFileVector()
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};
@@ -190,7 +206,7 @@ bool ImportLevel::WindowsOpenLevelFileVector()
 	//使いたい(占有)ウインドウハンドル
 	FileObj.hwndOwner = GetMainWindowHandle();
 	//フィルターを設定?
-	FileObj.lpstrFilter = "イベントエディタ作成ファイル(eefm)\0 * .eefm*\0"
+	FileObj.lpstrFilter = "ステージエディタ作成ファイル\0 * .json*\0"
 		"すべてのファイル (*.*)\0*.*\0";
 	//何個目のフィルターを使うん?みたいな感じ?
 	FileObj.nFilterIndex = 0;
@@ -200,23 +216,22 @@ bool ImportLevel::WindowsOpenLevelFileVector()
 	FileObj.nMaxFile = MAX_PATH;
 
 	auto old = std::filesystem::current_path();
+	InputLevelData result;
 	if (GetOpenFileName(&FileObj))
 	{
-		
-		bool result = true;
 		//設定のまとめに選択したファイルを読み取り書き込む
 		result = ImportLevelVectorData(filePath);
 
-		if (!result)
+		if (!result.isLoad)
 		{
-			
-			return false;
+			return result;
 		}
 
 	}
 	std::filesystem::current_path(old);
-
-	return true;
+	result.levelData = listLevelData_;
+	result.isLoad = true;
+	return result;
 }
 
 InputLevelData ImportLevel::WindowsOpenLevelFileList()
@@ -228,7 +243,7 @@ InputLevelData ImportLevel::WindowsOpenLevelFileList()
 	//使いたい(占有)ウインドウハンドル
 	FileObj.hwndOwner = GetMainWindowHandle();
 	//フィルターを設定?
-	FileObj.lpstrFilter = "イベントエディタ作成ファイル(eefm)\0 * .eefm*\0"
+	FileObj.lpstrFilter = "ステージエディタ作成ファイル\0 * .json*\0"
 		"すべてのファイル (*.*)\0*.*\0";
 	//何個目のフィルターを使うん?みたいな感じ?
 	FileObj.nFilterIndex = 0;

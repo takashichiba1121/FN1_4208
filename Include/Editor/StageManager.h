@@ -16,16 +16,13 @@ public:
 	std::vector<Object> LoadStageData(const std::string& fileName);
 	void LoadListStageData(std::list<LevelData> levelData);
 
-	std::list<Object*> GetObjectList() { return stageObjData_; };
-
-	//“o˜^
-	void SetObjectList(const std::list<Object*>& list) { stageObjData_ = list; };
-
 	void Update();
 
 	void Draw();
 
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
+
+	std::list<std::unique_ptr<Object>> stageObjData_;
 
 private:
 
@@ -40,7 +37,7 @@ private:
 
 
 private:
-	std::list<Object*> stageObjData_;
+	
 
 };
 
