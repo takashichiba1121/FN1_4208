@@ -149,9 +149,6 @@
     <ClInclude Include="ThirdParty\imgui\imstb_truetype.h">
       <Filter>ThirdParty\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GameCore\ImGuiManager.h">
-      <Filter>ヘッダー ファイル\GameCore</Filter>
-    </ClInclude>
     <ClInclude Include="Include\GameCore\Input.h">
       <Filter>ヘッダー ファイル\GameCore</Filter>
     </ClInclude>
