@@ -48,3 +48,24 @@ void StageManager::Draw()
 		level->Draw();
 	}
 }
+
+void EditorUpdate()
+{
+
+}
+
+void addObject(Vector2 pos, Vector2 size, ObjectType tag)
+{
+	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
+	switch (tag)
+	{
+	case ObjectType::PLAYER:
+		break;
+
+	case ObjectType::FLOAT_BLOCK:
+		break;
+
+	default:
+		break;
+	}
+}

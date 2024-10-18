@@ -23,6 +23,16 @@ struct LevelData
 	ObjectType tag = ObjectType::PLAYER;
 };
 
+//読み込んだ時帰ってくるデータ
+struct InputLevelData
+{
+	std::list<LevelData> levelData;
+
+	bool isLoad = false;
+
+};
+
+
 class ImportLevel
 {
 public:
@@ -32,7 +42,7 @@ public:
 	
 
 	bool WindowsOpenLevelFileVector();
-	bool WindowsOpenLevelFileList();
+	InputLevelData WindowsOpenLevelFileList();
 	
 private:
 
@@ -48,7 +58,7 @@ private:
 	//データをvector配列に入れる
 	bool ImportLevelVectorData(const std::string& fileName);
 	//データをlist配列に入れる
-	bool ImportLevelListData(const std::string& fileName);
+	InputLevelData ImportLevelListData(const std::string& fileName);
 	//レベルの中身読み込むよう
 	bool LevelScanning(nlohmann::json& Level);
 

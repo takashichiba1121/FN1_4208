@@ -74,9 +74,11 @@ bool ImportLevel::ImportLevelVectorData(const std::string& fileName)
 	return true;
 }
 
-bool ImportLevel::ImportLevelListData(const std::string& fileName)
+InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
 {
 	listLevelData_.clear();
+
+	InputLevelData output;
 
 	//ファイルストリーム
 	std::ifstream file(fileName);
@@ -84,7 +86,8 @@ bool ImportLevel::ImportLevelListData(const std::string& fileName)
 	if (!file)
 	{
 		loadErrorText_ = "can not find file";
-		return false;
+		output.isLoad = false;
+		return output;
 	}
 
 	//JSON文字列から解凍したデータ
@@ -97,7 +100,8 @@ bool ImportLevel::ImportLevelListData(const std::string& fileName)
 	if (!deserialized.is_object() || !deserialized.contains("name") || !deserialized["name"].is_string())
 	{
 		loadErrorText_ = "Not the correct Level file";
-		return false;
+		output.isLoad = false;
+		return output;
 	}
 
 	//"name"を文字列として取得
@@ -107,7 +111,8 @@ bool ImportLevel::ImportLevelListData(const std::string& fileName)
 	if (name.compare("Level") != 0)
 	{
 		loadErrorText_ = "Not event file";
-		return false;
+		output.isLoad = false;
+		return output;
 	}
 
 	//"events"の全オブジェクトを走査
@@ -121,7 +126,8 @@ bool ImportLevel::ImportLevelListData(const std::string& fileName)
 		if (!result)
 		{
 			listLevelData_.clear();
-			return false;
+			output.isLoad = false;
+			return output;
 		}
 	}
 
@@ -131,7 +137,9 @@ bool ImportLevel::ImportLevelListData(const std::string& fileName)
 		listLevelData_.push_back(LevelData());
 	}
 
-	return true;
+	output.levelData = listLevelData_;
+	output.isLoad = true;
+	return output;
 }
 
 bool ImportLevel::LevelScanning(nlohmann::json& Level)
@@ -211,7 +219,7 @@ bool ImportLevel::WindowsOpenLevelFileVector()
 	return true;
 }
 
-bool ImportLevel::WindowsOpenLevelFileList()
+InputLevelData ImportLevel::WindowsOpenLevelFileList()
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};
@@ -230,21 +238,21 @@ bool ImportLevel::WindowsOpenLevelFileList()
 	FileObj.nMaxFile = MAX_PATH;
 
 	auto old = std::filesystem::current_path();
+	InputLevelData result;
 	if (GetOpenFileName(&FileObj))
 	{
-
-		bool result = true;
 		//設定のまとめに選択したファイルを読み取り書き込む
 		result = ImportLevelListData(filePath);
 
-		if (!result)
+		if (!result.isLoad)
 		{
-
-			return false;
+			return result;
 		}
 
 	}
 	std::filesystem::current_path(old);
 
-	return true;
+	result.levelData = listLevelData_;
+	result.isLoad = true;
+	return result;
 }

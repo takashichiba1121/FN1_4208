@@ -16,8 +16,8 @@ public:
 	//std::vector<Object> LoadStageData(const std::string& fileName);
 	std::list<std::unique_ptr<Object>> LoadListStageData(std::list<LevelData> levelData);
 
-	//今読み込んでるデータを返す
-	std::list<std::unique_ptr<Object>> GetObjectList() { return stageObjData_; };
+	//今読み込んでるデータのポインタを返す
+	std::list<std::unique_ptr<Object>>* GetObjectList() { return &stageObjData_; };
 
 	void Update();
 
@@ -31,6 +31,11 @@ private:
 
 	StageManager(const StageManager&) = delete;
 	StageManager& operator=(const StageManager&) = delete;
+
+	//エディタ用の更新
+	void EditorUpdate();
+
+	void addObject(Vector2 pos, Vector2 size, ObjectType tag);
 
 private:
 
