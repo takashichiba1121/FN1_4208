@@ -8,7 +8,7 @@ void Player::Initialize() {
 
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
-	objectType = ObjectType::PLAYER;
+	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
 }
 
