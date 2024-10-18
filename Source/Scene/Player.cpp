@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "Input.h"
 #include "DxLib.h"
+#include "CollisionManager.h"
 #include <random>
 
 void Player::Initialize() {
@@ -8,12 +9,13 @@ void Player::Initialize() {
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
 	objectType = ObjectType::PLAYER;
+	CollisionManager::GetInstance()->AddObject(this);
 }
 
 void Player::Update() {
 
 	oldPos_ = pos_;
-
+	color = GetColor(255, 255, 255);
 	Operation();
 
 	//水中から地上に上がれるか判定
@@ -42,39 +44,38 @@ void Player::Update() {
 	}
 
 	//ジャンプによって空中にいるときの処理
-	if (!isOnFloor) {
+	//プレイヤー座標に重力を加算
+	pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
 
-		//プレイヤー座標に重力を加算
-		pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
+	//落下速度を徐々に上げる(水中時は半減)
+	gravity += 1.0f / (isUnderWater + 1);
 
-		//落下速度を徐々に上げる(水中時は半減)
-		gravity += 1.0f / (isUnderWater + 1);
+	//落下速度の上限を決める(水中時は半減)
+	if (gravity >= MaxGravity / (isUnderWater + 1)) {
+		gravity = MaxGravity / (isUnderWater + 1);
+	}
 
-		//落下速度の上限を決める(水中時は半減)
-		if (gravity >= MaxGravity / (isUnderWater + 1)) {
-			gravity = MaxGravity / (isUnderWater + 1);
-		}
-
-		//水中であれば無限ジャンプ可能
-		if (isUnderWater) {
-			canJump = true;
-		}
-		else {
-			canJump = false;
-		}
+	//水中であれば無限ジャンプ可能
+	if (isUnderWater) {
+		canJump = true;
 	}
 	else {
-		canJump = true;
+		canJumpTimer--;
+		if (canJumpTimer <= 0) {
+			canJump = false;
+		}
+		else {
+			canJump = true;
+		}
 	}
 
 	//底面で止まる(仮)
 	if (pos_.y >= underLine - size_.y / 2) {
 		pos_.y = underLine - size_.y / 2;
-		isOnFloor = true;
+		canJumpTimer = canJumpTimerMax;
+		canJump = true;
 	}
-	else {
-		isOnFloor = false;
-	}
+
 }
 
 //キー入力で操作できる処理
@@ -118,7 +119,6 @@ void Player::Move() {
 //ジャンプ
 void Player::Jump() {
 	if (Input::GetKeyTrigger(Input::Key::Space) && canJump) {
-		isOnFloor = false;
 
 		//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
 		if (canCrawlUp) {
@@ -140,16 +140,19 @@ void Player::Draw() {
 	DrawBox(
 		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.y / 2),
 		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.y / 2),
-		GetColor(250, 250, 250), true);
-
+		color, true);
 	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
 	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
 	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
-	DrawFormatString(0, 40, GetColor(255, 255, 255), "isUnderWater : %d", isUnderWater);
+	DrawFormatString(0, 60, GetColor(255, 255, 255), "onFloorTimer : %d", canJumpTimer);
+	DrawFormatString(0, 80, GetColor(255, 255, 255), "canJump : %d", canJump);
 }
 
 void Player::OnCollision(Object* objct) {
-
+	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
+		canJumpTimer = canJumpTimerMax;
+		gravity = 0.0f;
+	}
 }
