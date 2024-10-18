@@ -5,6 +5,7 @@
 
 void Player::Initialize() {
 
+
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
 	objectType = ObjectType::PLAYER;
@@ -75,6 +76,7 @@ void Player::Update() {
 	else {
 		isOnFloor = false;
 	}
+	
 }
 
 //キー入力で操作できる処理
@@ -83,7 +85,7 @@ void Player::Operation() {
 	Move();
 	Jump();
 
-	//↑↓キーで水平線調節
+	//↑↓キーで水平線調節	
 	if (Input::GetKey(Input::KEY::Up)) {
 		horizontal -= 2.0f;
 	}
@@ -99,7 +101,6 @@ void Player::Operation() {
 		underLine += 2.0f;
 	}
 
-	//プレイヤーの位置リセット
 	if (Input::GetKeyTrigger(Input::KEY::R)) {
 		pos_ = { 100,100 };
 	}

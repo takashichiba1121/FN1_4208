@@ -20,6 +20,8 @@ private:
 
 private:
 
+	Vector2 moveVal = { 0,0 };
+
 	const float MaxGravity = 16.0f;
 	float initJumpVelocity = -MaxGravity;
 	float gravity = 0.0f;
