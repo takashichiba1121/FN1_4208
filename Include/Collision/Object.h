@@ -47,6 +47,10 @@ public:
 		size_ = size;
 	}
 
+	void SetObjectType(ObjectType objectType) {
+		objectType_ = objectType;
+	}
+
 	Vector2 GetPos() {
 		return pos_;
 	}
@@ -60,7 +64,7 @@ public:
 	}
 
 	ObjectType GetObjectType() {
-		return objectType;
+		return objectType_;
 	}
 
 protected:
@@ -74,6 +78,6 @@ protected:
 
 	bool isExclude_ = true;
 	
-	ObjectType objectType;
+	ObjectType objectType_;
 };
 

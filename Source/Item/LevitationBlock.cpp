@@ -10,7 +10,7 @@ void LevitationBlock::Initialize()
 	size_ = { 64.0f,64.0f };
 	gravity_ = 10.0f;
 
-	objectType = ObjectType::FLOAT_BLOCK;
+	objectType_ = ObjectType::FLOAT_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
 }
 
