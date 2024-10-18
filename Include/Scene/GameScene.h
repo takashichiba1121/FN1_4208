@@ -1,6 +1,9 @@
 #pragma once
 #include "BaseScene.h"
 #include "Player.h"
+#include "Block.h"
+#include "LevitationBlock.h"
+#include <memory>
 
 class GameScene :
     public BaseScene
@@ -13,5 +16,8 @@ class GameScene :
 private:
 
 	Object* player = nullptr;
+
+	std::unique_ptr<Block> block;
+	std::unique_ptr<LevitationBlock> floatBlock;
 };
 

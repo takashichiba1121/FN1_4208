@@ -138,7 +138,7 @@
     <ClCompile Include="Source\Collision\Collision.cpp" />
     <ClCompile Include="Source\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Collision\Object.cpp" />
-     <ClCompile Include="Source\Editor\EditStage.cpp" />
+    <ClCompile Include="Source\Editor\EditStage.cpp" />
     <ClCompile Include="Source\Editor\ImportLevel.cpp" />
     <ClCompile Include="Source\Editor\StageManager.cpp" />
     <ClCompile Include="Source\GameCore\AbstractSceneFactory.cpp" />
@@ -147,6 +147,7 @@
     <ClCompile Include="Source\GameCore\Input.cpp" />
     <ClCompile Include="Source\GameCore\SceneManager.cpp" />
     <ClCompile Include="Source\Item\Block.cpp" />
+    <ClCompile Include="Source\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
     <ClCompile Include="Source\Scene\Player.cpp" />
@@ -171,11 +172,12 @@
     <ClInclude Include="Include\GameCore\ImGuiManager.h" />
     <ClInclude Include="Include\GameCore\Input.h" />
     <ClInclude Include="Include\GameCore\SceneManager.h" />
+    <ClInclude Include="Include\Item\levitationBlock.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
-    <ClInclude Include="Source\Item\Block.h" />
+    <ClInclude Include="Include\Item\Block.h" />
     <ClInclude Include="ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="ThirdParty\imgui\imgui.h" />
     <ClInclude Include="ThirdParty\imgui\imgui_impl_dx11.h" />
