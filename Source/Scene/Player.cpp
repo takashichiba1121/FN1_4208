@@ -84,7 +84,7 @@ void Player::Operation() {
 	Jump();
 
 	//↑↓キーで水平線調節
-	if (Input::GetKey(Input::KEY::Up)) {
+	if (Input::GetKey(Input::Key::Up)) {
 		horizontal -= 2.0f;
 	}
 	if (Input::GetKey(Input::Key::Down)) {
@@ -92,15 +92,15 @@ void Player::Operation() {
 	}
 
 	//←→キーで底面調節
-	if (Input::GetKey(Input::KEY::Left)) {
+	if (Input::GetKey(Input::Key::Left)) {
 		underLine -= 2.0f;
 	}
-	if (Input::GetKey(Input::KEY::Right)) {
+	if (Input::GetKey(Input::Key::Right)) {
 		underLine += 2.0f;
 	}
 
 	//プレイヤーの位置リセット
-	if (Input::GetKeyTrigger(Input::KEY::R)) {
+	if (Input::GetKeyTrigger(Input::Key::R)) {
 		pos_ = { 100,100 };
 	}
 }
