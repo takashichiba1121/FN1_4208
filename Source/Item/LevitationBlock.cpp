@@ -9,11 +9,14 @@ void LevitationBlock::Initialize()
 	size_ = { 64.0f,64.0f };
 	gravity_ = 10.0f;
 
+	objectType = ObjectType::FLOAT_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
 }
 
 void LevitationBlock::Update()
 {
+	oldPos_ = pos_;
+
 	// ƒuƒƒbƒN‚ª…‚É•‚‚­ˆ—
 	if (pos_.y < 360) {
 		pos_.y += gravity_;
