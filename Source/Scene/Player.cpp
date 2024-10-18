@@ -87,7 +87,7 @@ void Player::Operation() {
 	if (Input::GetKey(Input::KEY::Up)) {
 		horizontal -= 2.0f;
 	}
-	if (Input::GetKey(Input::KEY::Down)) {
+	if (Input::GetKey(Input::Key::Down)) {
 		horizontal += 2.0f;
 	}
 
@@ -107,17 +107,17 @@ void Player::Operation() {
 
 //横移動
 void Player::Move() {
-	if (Input::GetKey(Input::KEY::A)) {
+	if (Input::GetKey(Input::Key::A)) {
 		pos_.x -= speed;
 	}
-	if (Input::GetKey(Input::KEY::D)) {
+	if (Input::GetKey(Input::Key::D)) {
 		pos_.x += speed;
 	}
 }
 
 //ジャンプ
 void Player::Jump() {
-	if (Input::GetKeyTrigger(Input::KEY::Space) && canJump) {
+	if (Input::GetKeyTrigger(Input::Key::Space) && canJump) {
 		isOnFloor = false;
 
 		//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
