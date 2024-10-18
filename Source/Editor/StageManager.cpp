@@ -10,7 +10,7 @@ StageManager::~StageManager()
 {
 }
 
-std::list<std::unique_ptr<Object>> StageManager::LoadListStageData(std::list<LevelData> levelData)
+void StageManager::LoadListStageData(std::list<LevelData> levelData)
 {
 	//中身消してから使う
 	stageObjData_.clear();
@@ -30,7 +30,6 @@ std::list<std::unique_ptr<Object>> StageManager::LoadListStageData(std::list<Lev
 		}
 	}
 
-	return stageObjData_;
 }
 
 void StageManager::Update()
@@ -49,12 +48,12 @@ void StageManager::Draw()
 	}
 }
 
-void EditorUpdate()
+void StageManager::EditorUpdate()
 {
 
 }
 
-void addObject(Vector2 pos, Vector2 size, ObjectType tag)
+void StageManager::addObject(Vector2 pos, Vector2 size, ObjectType tag)
 {
 	//タグの内容で決定
 	switch (tag)

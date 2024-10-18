@@ -13,15 +13,14 @@ public:
 	//おい俺はシングルトンだぞ
 	static StageManager* GetInstance();
 
-	//std::vector<Object> LoadStageData(const std::string& fileName);
-	std::list<std::unique_ptr<Object>> LoadListStageData(std::list<LevelData> levelData);
-
-	//今読み込んでるデータのポインタを返す
-	std::list<std::unique_ptr<Object>>* GetObjectList() { return &stageObjData_; };
+	std::vector<Object> LoadStageData(const std::string& fileName);
+	void LoadListStageData(std::list<LevelData> levelData);
 
 	void Update();
 
 	void Draw();
+
+	
 
 private:
 
@@ -37,8 +36,8 @@ private:
 
 	void addObject(Vector2 pos, Vector2 size, ObjectType tag);
 
-private:
 
+private:
 	std::list<std::unique_ptr<Object>> stageObjData_;
 
 };

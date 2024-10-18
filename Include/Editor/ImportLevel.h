@@ -62,11 +62,6 @@ private:
 	//レベルの中身読み込むよう
 	bool LevelScanning(nlohmann::json& Level);
 
-
-public:
-
-	bool isLoad_ = true;
-
 private:
 
 	//一時保存用です基本的に中身なし

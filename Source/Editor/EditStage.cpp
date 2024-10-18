@@ -25,7 +25,7 @@ void EditStage::Draw()
 
 }
 
-void EditStage::WindowsSaveFile(std::vector<std::unique_ptr<Object>> saveData)
+void EditStage::WindowsSaveFile(const std::vector<std::unique_ptr<Object>>& saveData)
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};
@@ -54,7 +54,7 @@ void EditStage::WindowsSaveFile(std::vector<std::unique_ptr<Object>> saveData)
 	std::filesystem::current_path(old);
 }
 
-void EditStage::WindowsSaveFile(std::list<std::unique_ptr<Object>> saveData)
+void EditStage::WindowsSaveFile(const std::list<std::unique_ptr<Object>>& saveData)
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};
@@ -83,7 +83,7 @@ void EditStage::WindowsSaveFile(std::list<std::unique_ptr<Object>> saveData)
 	std::filesystem::current_path(old);
 }
 
-void EditStage::SaveLevelFullPathData(const std::string& fileName, std::vector<std::unique_ptr<Object>> saveData)
+void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::vector<std::unique_ptr<Object>>& saveData)
 {
 	std::string name = fileName;
 
@@ -118,7 +118,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, std::vector<s
 	}
 }
 
-void EditStage::SaveLevelFullPathData(const std::string& fileName, std::list<std::unique_ptr<Object>> saveData)
+void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::list<std::unique_ptr<Object>>& saveData)
 {
 	std::string name = fileName;
 
