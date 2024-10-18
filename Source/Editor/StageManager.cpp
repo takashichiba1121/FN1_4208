@@ -48,10 +48,6 @@ void StageManager::Draw()
 	}
 }
 
-void StageManager::EditorUpdate()
-{
-
-}
 
 void StageManager::addObject(Vector2 pos, Vector2 size, ObjectType tag)
 {

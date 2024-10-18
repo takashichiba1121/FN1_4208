@@ -16,6 +16,11 @@ public:
 	std::vector<Object> LoadStageData(const std::string& fileName);
 	void LoadListStageData(std::list<LevelData> levelData);
 
+	std::list<Object*> GetObjectList() { return stageObjData_; };
+
+	//登録
+	void SetObjectList(const std::list<Object*>& list) { stageObjData_ = list; };
+
 	void Update();
 
 	void Draw();
@@ -31,14 +36,11 @@ private:
 	StageManager(const StageManager&) = delete;
 	StageManager& operator=(const StageManager&) = delete;
 
-	//エディタ用の更新
-	void EditorUpdate();
-
 	void addObject(Vector2 pos, Vector2 size, ObjectType tag);
 
 
 private:
-	std::list<std::unique_ptr<Object>> stageObjData_;
+	std::list<Object*> stageObjData_;
 
 };
 

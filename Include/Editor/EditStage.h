@@ -15,11 +15,14 @@ public:
 
 private:
 
-	void WindowsSaveFile(const std::vector<std::unique_ptr<Object>>& saveData);
-	void WindowsSaveFile(const std::list<std::unique_ptr<Object>>& saveData);
+	void WindowsSaveFile(const std::vector<Object*>& saveData);
+	void WindowsSaveFile(const std::list<Object*>& saveData);
 
-	void SaveLevelFullPathData(const std::string& fileName, const std::vector<std::unique_ptr<Object>>& saveData);
-	void SaveLevelFullPathData(const std::string& fileName, const std::list<std::unique_ptr<Object>>& saveData);
+	void SaveLevelFullPathData(const std::string& fileName, const std::vector<Object*>& saveData);
+	void SaveLevelFullPathData(const std::string& fileName, const std::list<Object*>& saveData);
+
+	//エディタ用の更新
+	void EditorUpdate();
 
 
 private:
