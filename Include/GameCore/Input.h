@@ -1,6 +1,7 @@
 #pragma once
 #include "DxLib.h"
 #include <array>
+#include"Vector2.h"
 
 class Input
 {
@@ -9,6 +10,13 @@ private:
 	std::array<char, 256> keys_ = { 0 };
 	std::array<char, 256> oldkeys_ = { 0 };
 
+	uint32_t mouseKeys_=0;
+	uint32_t oldMouseKeys_=0;
+
+	Vector2 mousePos_={0,0};
+
+	float mouseWheel_ = 0;
+
 private:
 	Input() {}
 	Input(const Input&) {}
@@ -16,17 +24,25 @@ private:
 	~Input() {}
 
 public:
-	enum class KEY;
+	enum class Key;
+	enum class MouseKey;
 
 	static void Initialize();
 	static void Update();
 
-	static bool GetKey(const KEY& key);
-	static bool GetKeyTrigger(const KEY& key);
-	static bool GetKeyRelease(const KEY& key);
+	static bool GetKey(const Key& key);
+	static bool GetKeyTrigger(const Key& key);
+	static bool GetKeyRelease(const Key& key);
 
+	static bool GetMouseKey(const MouseKey& key);
+	static bool GetMouseKeyTrigger(const MouseKey& key);
+	static bool GetMouseKeyRelease(const MouseKey& key);
 
-	enum class KEY
+	static Vector2 GetMousePos();
+
+	static float GetMouseWheel();
+
+	enum class Key
 	{
 		BACK = KEY_INPUT_BACK,
 		TAB = KEY_INPUT_TAB,
@@ -139,6 +155,11 @@ public:
 		Num8 = KEY_INPUT_8,
 		Num9 = KEY_INPUT_9,
 	};
-};
 
-using Key = Input::KEY;
+	enum class MouseKey
+	{
+		LEFT=MOUSE_INPUT_LEFT,
+		RIGHT=MOUSE_INPUT_RIGHT,
+		MIDDLE=MOUSE_INPUT_MIDDLE,
+	};
+};
