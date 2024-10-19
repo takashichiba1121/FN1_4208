@@ -57,6 +57,8 @@ void EditStage::EditorUpdate()
 	addObject();
 
 	ImguiMenu();
+
+	EditObject();
 }
 
 void EditStage::ImguiMenu()
@@ -145,6 +147,40 @@ void EditStage::addObject()
 
 }
 
+void EditStage::EditObject()
+{
+	ImGui::Begin("EditObject");
+
+	uint16_t eventCount = 0;
+
+	for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end();)
+	{
+
+		std::string num = ("##" + std::to_string(eventCount));
+
+		if (!ImGui::CollapsingHeader(std::string("eventNum" + std::to_string(eventCount) + num).c_str()))
+		{
+			eventCount++;
+			objectI++;
+			continue;
+		}
+		ImGui::Text(std::string("ObjectType:" + ObjectTypeToString(objectI->get()->GetObjectType())).c_str());
+
+		Vector2 editPos = objectI->get()->GetPos();
+		Vector2 editSize = objectI->get()->GetSize();
+
+		ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f);
+		ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f);
+
+		objectI->get()->SetPos(editPos);
+		objectI->get()->SetSize(editSize);
+		//StageManager::GetInstance()->stageObjData_.erase(objectI);
+
+		objectI++;
+	}
+
+	ImGui::End();
+}
 
 void EditStage::WindowsSaveFile(const std::vector<Object*>& saveData)
 {

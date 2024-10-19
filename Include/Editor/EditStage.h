@@ -36,6 +36,8 @@ private:
 
 	void addObject();
 
+	void EditObject();
+
 	void SaveAndLoadLevelObject();
 
 	std::string ObjectTypeToString(ObjectType objectType);
