@@ -174,7 +174,26 @@ void EditStage::EditObject()
 
 		objectI->get()->SetPos(editPos);
 		objectI->get()->SetSize(editSize);
-		//StageManager::GetInstance()->stageObjData_.erase(objectI);
+
+		if (ImGui::Button(std::string("erase" + num).c_str()))
+		{
+			//ˆê‚Â‚µ‚©‚È‚¢‚È‚ç
+			if (StageManager::GetInstance()->stageObjData_.size() == 1)
+			{
+				//‚»‚ê‚µ‚©‚È‚¢‚È‚ç‘S•”Á‚·
+				StageManager::GetInstance()->stageObjData_.clear();
+				break;
+
+			}
+			else
+			{
+				uint16_t battleNum = 0;
+				uint16_t moveNum = 0;
+				
+				objectI = StageManager::GetInstance()->stageObjData_.erase(objectI);
+				continue;
+			}
+		}
 
 		objectI++;
 	}
