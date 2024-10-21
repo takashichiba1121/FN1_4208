@@ -92,6 +92,15 @@ void EditStage::ImguiMenu()
 
 	SaveAndLoadLevelObject();
 
+	if (isMouseObject_)
+	{
+		ImGui::Text("set:Leftclick\nUndo:SHIFT + Leftclick");	
+	}
+	else
+	{
+		ImGui::Text("edit:EditobjectHIT +Leftclick");
+	}
+
 	ImGui::End();
 }
 
@@ -133,6 +142,12 @@ void EditStage::addObject()
 	ImGui::DragFloat2("Pos", AddObjectPos_, 1.0f, -1000.0f, 1000.0f);
 	ImGui::DragFloat2("Size", AddObjectSize_, 1.0f, 1.0f, 1000.0f);
 
+	if (isMouseObject_)
+	{
+		ImGui::End();
+		return;
+	}
+
 	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && ImGui::Button("addObject"))
 	{
 		StageManager::GetInstance()->AddObject(AddObjectPos_, AddObjectSize_, serectAddObjectType_);
@@ -149,6 +164,7 @@ void EditStage::addObject()
 
 void EditStage::EditObject()
 {
+	MouseEditObject();
 	ImGui::Begin("EditObject");
 
 	uint16_t eventCount = 0;
@@ -219,6 +235,36 @@ void EditStage::EditObject()
 	}
 
 	ImGui::End();
+}
+
+void EditStage::MouseEditObject()
+{
+	if (!isMouseObject_)
+	{
+		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+		{
+			if (AABB(Input::GetMousePos(), objectI->get()) && Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+			{
+				isMouseObject_ = true;
+				oldObjPos_ = objectI->get()->GetPos();
+				mouseMoveObject_ = objectI->get();
+			}
+		}
+	}
+	else
+	{
+		mouseMoveObject_->SetPos(Input::GetMousePos());
+
+		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && Input::GetKey(Input::Key::LShift))
+		{
+			mouseMoveObject_->SetPos(oldObjPos_);
+			isMouseObject_ = false;
+		}
+		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+		{
+			isMouseObject_ = false;
+		}
+	}
 }
 
 void EditStage::WindowsSaveFile(const std::vector<Object*>& saveData)
@@ -384,4 +430,26 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
 	default:    return "UNKNOWN";
 	}
+}
+
+bool EditStage::AABB(Vector2 mousePos, Object* obj)
+{
+	//ƒ}ƒEƒX‚Ì”»’è‚Ì‘å‚«‚³
+	Vector2 size = { 1,1 };
+
+	if (mousePos.x + size.x / 2 >= obj->GetPos().x - obj->GetSize().x / 2 &&
+		mousePos.x - size.x / 2 <= obj->GetPos().x + obj->GetSize().x / 2)
+	{
+		if (mousePos.y + size.y / 2 <= obj->GetPos().y - obj->GetSize().y / 2 ||
+			mousePos.y - size.y / 2 >= obj->GetPos().y + obj->GetSize().y / 2)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
 }
