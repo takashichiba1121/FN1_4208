@@ -1,26 +1,28 @@
 #pragma once
 
 #include <DxLib.h>
+#include "Vector2.h"
+#include "Object.h"
 
-class Block
+class Block : public Object
 {
 public:
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
-	void Initialize();
-
+	void Initialize()override;
 	/// <summary>
+
 	/// XV
 	/// </summary>
-	void Update();
+	void Update()override;
 
 	/// <summary>
 	/// •`‰æ
 	/// </summary>
-	void Draw();
+	void Draw()override;
 
 private:
-
+	bool isBlock_ = false;
 };
 
