@@ -1,6 +1,7 @@
 #include "LevitationBlock.h"
 #include "CollisionManager.h"
 #include <cmath>
+#include "Input.h"
 
 void LevitationBlock::Initialize()
 {
@@ -9,7 +10,7 @@ void LevitationBlock::Initialize()
 	size_ = { 64.0f,64.0f };
 	gravity_ = 10.0f;
 
-	objectType = ObjectType::FLOAT_BLOCK;
+	objectType_ = ObjectType::FLOAT_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
 }
 
@@ -17,13 +18,28 @@ void LevitationBlock::Update()
 {
 	oldPos_ = pos_;
 
-	// ブロックが水に浮く処理
-	if (pos_.y < 360) {
+	waterSurface_ = 360;
+
+	// ブロックが水に浮く処理・重力
+	if (pos_.y < waterSurface_) {
+		
 		pos_.y += gravity_;
+
+		if ((pos_.y - waterSurface_) >= -10 && (pos_.y - waterSurface_) <= 10) {
+			pos_.y = waterSurface_;
+		}
 	}
-	if (pos_.y == 360) {
+	if (pos_.y == waterSurface_) {
+		isEasing_ = true;
+	}
+	if (isEasing_) {
 		frame_++;
-		pos_.y += EaseInOutBackP(frame_, 0, 100, 60);
+		pos_.y = EaseInOutBackP(frame_, waterSurface_, 70, 60);
+
+		if (frame_ >= 25) {
+			frame_ = 0;
+			isEasing_ = false;
+		}
 	}
 }
 
@@ -39,7 +55,7 @@ float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)
 {
 	float x = t / d;
 	float v = EaseInOutBack(x);
-	float result = v;
+	float result = v * c + b;
 
 	return result;
 }

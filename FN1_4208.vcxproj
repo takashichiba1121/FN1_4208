@@ -173,6 +173,7 @@
     <ClInclude Include="Include\GameCore\ImGuiManager.h" />
     <ClInclude Include="Include\GameCore\Input.h" />
     <ClInclude Include="Include\GameCore\SceneManager.h" />
+    <ClInclude Include="Include\Item\LevitationBlock.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
     <ClInclude Include="Include\Scene\Player.h" />
