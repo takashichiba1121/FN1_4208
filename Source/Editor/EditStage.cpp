@@ -164,7 +164,28 @@ void EditStage::EditObject()
 			objectI++;
 			continue;
 		}
+
 		ImGui::Text(std::string("ObjectType:" + ObjectTypeToString(objectI->get()->GetObjectType())).c_str());
+
+		std::vector<std::string>items;
+		items.resize(static_cast<int32_t>(ObjectType::NONE));
+
+		int32_t oldObjectType = static_cast<int32_t>(objectI->get()->GetObjectType());
+
+		for (size_t i = 0; i < items.size(); i++)
+		{
+			items[i] = ObjectTypeToString(ObjectType(i));
+		}
+		int32_t objectType = static_cast<int32_t>(objectI->get()->GetObjectType());
+
+		//Ý’è‚µ‚½‚¢ƒCƒxƒ“ƒg‚Ì”Ô†‚É‚·‚é
+		ImGui::Combo("object Type", objectType, items);
+
+		if (oldObjectType != objectType)
+		{
+			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString(objectType));
+		}
+		
 
 		Vector2 editPos = objectI->get()->GetPos();
 		Vector2 editSize = objectI->get()->GetSize();
@@ -174,6 +195,7 @@ void EditStage::EditObject()
 
 		objectI->get()->SetPos(editPos);
 		objectI->get()->SetSize(editSize);
+
 
 		if (ImGui::Button(std::string("erase" + num).c_str()))
 		{
@@ -187,14 +209,12 @@ void EditStage::EditObject()
 			}
 			else
 			{
-				uint16_t battleNum = 0;
-				uint16_t moveNum = 0;
-				
 				objectI = StageManager::GetInstance()->stageObjData_.erase(objectI);
 				continue;
 			}
 		}
 
+		eventCount++;
 		objectI++;
 	}
 
