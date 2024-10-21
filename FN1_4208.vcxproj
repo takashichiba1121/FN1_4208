@@ -157,6 +157,7 @@
     <ClCompile Include="ThirdParty\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Include\Collision\CollisionManager.h" />
     <ClInclude Include="Include\Collision\Object.h" />
     <ClInclude Include="Include\GameCore\AbstractSceneFactory.h" />

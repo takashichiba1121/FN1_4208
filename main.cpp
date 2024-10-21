@@ -56,14 +56,14 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SceneManager::GetInstance()->SetSceneFactory(SceneFactrory::GetInstance());
 
 	SceneManager::GetInstance()->ChangeScene("GAME");
-
+	goal->Initialize();
 	// ゲームループ
 	while (true) {
 
 		// 画面クリア
 		ClearDrawScreen();
 		Input::Update();
-		goal->Initialize();
+		
 		//---------  ここからプログラムを記述  ----------//
 
 		// 更新処理
@@ -73,7 +73,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 		// 描画処理
 		SceneManager::GetInstance()->Draw();
-		//goal->Draw();
+		goal->Draw();
 		//ImGuiManager::GetInstance()->Draw();
 		//---------  ここまでにプログラムを記述  ---------//
 		// (ダブルバッファ)裏面
