@@ -76,11 +76,11 @@ void EditStage::ImguiMenu()
 	{
 		if (ImGui::BeginMenu("File\n"))
 		{
-			ImGui::MenuItem("EventSave", NULL, &imguiSaveWindow_);
-			ImGui::MenuItem("EventLoad", NULL, &imguiLoadWindow_);
+			ImGui::MenuItem("ObjectSave", NULL, &imguiSaveWindow_);
+			ImGui::MenuItem("ObjectLoad", NULL, &imguiLoadWindow_);
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("addEvent\n"))
+		if (ImGui::BeginMenu("addObject\n"))
 		{
 			imguiAddObjectWindow_ = true;
 			ImGui::EndMenu();
@@ -332,7 +332,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 	//もし名前が空白なら適当な名前に
 	if (fileName == "")
 	{
-		name = std::string("jsonEventdata");
+		name = std::string("jsonObjectData");
 	}
 
 	nlohmann::json jsonfile;
@@ -367,7 +367,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 	//もし名前が空白なら適当な名前に
 	if (fileName == "")
 	{
-		name = std::string("jsonEventdata");
+		name = std::string("jsonObjectData");
 	}
 
 	nlohmann::json jsonfile;
