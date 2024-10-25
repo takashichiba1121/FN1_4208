@@ -50,6 +50,8 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 	case ObjectType::PLAYER:
 		addObject = std::make_unique<Player>();
 
+		addObject->Initialize();
+
 		addObject->SetPos(pos);
 		addObject->SetSize(size);
 		addObject->SetObjectType(tag);
@@ -61,6 +63,8 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 	case ObjectType::FLOAT_BLOCK:
 		addObject = std::make_unique<LevitationBlock>();
 
+		addObject->Initialize();
+
 		addObject->SetPos(pos);
 		addObject->SetSize(size);
 		addObject->SetObjectType(tag);
@@ -70,6 +74,8 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 	case ObjectType::NOT_FLOAT_BLOCK:
 		addObject = std::make_unique<Block>();
+
+		addObject->Initialize();
 
 		addObject->SetPos(pos);
 		addObject->SetSize(size);
@@ -92,6 +98,8 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 	case ObjectType::PLAYER:
 		addObject = std::make_unique<Player>();
 
+		addObject->Initialize();
+
 		addObject->SetPos(chengeData->get()->GetPos());
 		addObject->SetSize(chengeData->get()->GetSize());
 		addObject->SetObjectType(tag);
@@ -101,6 +109,8 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 	case ObjectType::FLOAT_BLOCK:
 		addObject = std::make_unique<LevitationBlock>();
 
+		addObject->Initialize();
+
 		addObject->SetPos(chengeData->get()->GetPos());
 		addObject->SetSize(chengeData->get()->GetSize());
 		addObject->SetObjectType(tag);
@@ -109,6 +119,8 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 
 	case ObjectType::NOT_FLOAT_BLOCK:
 		addObject = std::make_unique<Block>();
+
+		addObject->Initialize();
 
 		addObject->SetPos(chengeData->get()->GetPos());
 		addObject->SetSize(chengeData->get()->GetSize());
