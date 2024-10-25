@@ -82,3 +82,43 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		break;
 	}
 }
+
+void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag)
+{
+	std::unique_ptr<Object> addObject;
+	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
+	switch (tag)
+	{
+	case ObjectType::PLAYER:
+		addObject = std::make_unique<Player>();
+
+		addObject->SetPos(chengeData->get()->GetPos());
+		addObject->SetSize(chengeData->get()->GetSize());
+		addObject->SetObjectType(tag);
+
+		break;
+
+	case ObjectType::FLOAT_BLOCK:
+		addObject = std::make_unique<LevitationBlock>();
+
+		addObject->SetPos(chengeData->get()->GetPos());
+		addObject->SetSize(chengeData->get()->GetSize());
+		addObject->SetObjectType(tag);
+
+		break;
+
+	case ObjectType::NOT_FLOAT_BLOCK:
+		addObject = std::make_unique<Block>();
+
+		addObject->SetPos(chengeData->get()->GetPos());
+		addObject->SetSize(chengeData->get()->GetSize());
+		addObject->SetObjectType(tag);
+
+		break;
+
+	default:
+		break;
+	}
+
+	chengeData->swap(addObject);
+}

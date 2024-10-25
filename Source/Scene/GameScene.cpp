@@ -40,7 +40,7 @@ void GameScene::Draw()
 	floatBlock->Draw();
 
 	goal->Draw();
-	//test.Draw();
+	test.Draw();
 	StageManager::GetInstance()->Draw();
 }
 
