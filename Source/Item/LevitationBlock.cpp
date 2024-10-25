@@ -18,29 +18,9 @@ void LevitationBlock::Update()
 {
 	oldPos_ = pos_;
 
-	waterSurface_ = 360;
+	waterSurface_ = 360.0f;
 
-	// ブロックが水に浮く処理・重力
-	if (pos_.y < waterSurface_) {
-		
-		pos_.y += gravity_;
-
-		if ((pos_.y - waterSurface_) >= -10 && (pos_.y - waterSurface_) <= 10) {
-			pos_.y = waterSurface_;
-		}
-	}
-	if (pos_.y == waterSurface_) {
-		isEasing_ = true;
-	}
-	if (isEasing_) {
-		frame_++;
-		pos_.y = EaseInOutBackP(frame_, waterSurface_, 70, 60);
-
-		if (frame_ >= 25) {
-			frame_ = 0;
-			isEasing_ = false;
-		}
-	}
+	Move();
 }
 
 void LevitationBlock::Draw()
@@ -49,6 +29,32 @@ void LevitationBlock::Draw()
 		pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
 		pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
 		GetColor(255, 255, 255), TRUE);
+}
+
+void LevitationBlock::Move()
+{
+	// ブロックが水に浮く処理・重力
+	if (pos_.y < waterSurface_) {
+
+		const float distance_ = 10.0f;
+		pos_.y += gravity_;
+
+		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
+			pos_.y = waterSurface_;
+		}
+	}
+	if (pos_.y == waterSurface_) {
+		isEasing_ = true;
+	}
+	if (isEasing_) {
+		frame_++;
+		pos_.y = EaseInOutBackP(frame_, waterSurface_, difference_, easingTime_);
+
+		if (frame_ >= maxFrame_) {
+			frame_ = 0;
+			isEasing_ = false;
+		}
+	}
 }
 
 float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)
@@ -62,10 +68,10 @@ float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)
 
 float LevitationBlock::EaseInOutBack(float x)
 {
-	const float c1 = 1.70158f;
-	const float c2 = c1 * 1.525f;
+	const float c1 = 1.7f;
+	const float c2 = c1 * 1.5f;
 
 	return static_cast<float>(x < 0.5
-		? (std::pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
-		: (std::pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2);
+		? (std::pow(2.0f * x, 2.0f) * ((c2 + 1.0f) * 2.0f * x - c2)) / 2.0f
+		: (std::pow(2.0f * x - 2.0f, 2.0f) * ((c2 + 1.0f) * (x * 2.0f - 2.0f) + c2) + 2.0f) / 2.0f);
 }
