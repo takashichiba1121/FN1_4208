@@ -32,13 +32,26 @@ private:
 	//エディタ用の更新
 	void EditorUpdate();
 
+	//imguiのメニュー
 	void ImguiMenu();
 
+	//オブジェクト追加
 	void addObject();
 
+	//オブジェクト編集
+	void EditObject();
+
+	//マウスでオブジェクトを編集するやつ
+	void MouseEditObject();
+
+	//配置データの保存と読み込み
 	void SaveAndLoadLevelObject();
 
+	//objectTypeを渡すとストリングで返してくれる
 	std::string ObjectTypeToString(ObjectType objectType);
+
+	//悪いやつなので人のやつコピペ
+	bool AABB(Vector2 mousePos, Object* obj);
 
 
 private:
@@ -53,6 +66,13 @@ private:
 	bool imguiSaveWindow_ = false;
 	bool imguiLoadWindow_ = false;
 	bool imguiAddObjectWindow_ = false;
+
+	//マウスがオブジェクトを持っているか
+	bool isMouseObject_ = false;
+
+	Vector2 oldObjPos_ = {};
+
+	Object* mouseMoveObject_ = nullptr;
 
 };
 

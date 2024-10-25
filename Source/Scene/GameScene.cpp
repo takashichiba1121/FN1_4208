@@ -34,7 +34,7 @@ void GameScene::Draw()
 	block->Draw();
 	floatBlock->Draw();
 
-	//test.Draw();
+	test.Draw();
 	StageManager::GetInstance()->Draw();
 }
 

@@ -57,6 +57,8 @@ void EditStage::EditorUpdate()
 	addObject();
 
 	ImguiMenu();
+
+	EditObject();
 }
 
 void EditStage::ImguiMenu()
@@ -74,11 +76,11 @@ void EditStage::ImguiMenu()
 	{
 		if (ImGui::BeginMenu("File\n"))
 		{
-			ImGui::MenuItem("EventSave", NULL, &imguiSaveWindow_);
-			ImGui::MenuItem("EventLoad", NULL, &imguiLoadWindow_);
+			ImGui::MenuItem("ObjectSave", NULL, &imguiSaveWindow_);
+			ImGui::MenuItem("ObjectLoad", NULL, &imguiLoadWindow_);
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("addEvent\n"))
+		if (ImGui::BeginMenu("addObject\n"))
 		{
 			imguiAddObjectWindow_ = true;
 			ImGui::EndMenu();
@@ -89,6 +91,15 @@ void EditStage::ImguiMenu()
 	}
 
 	SaveAndLoadLevelObject();
+
+	if (isMouseObject_)
+	{
+		ImGui::Text("set:Leftclick\nUndo:SHIFT + Leftclick");	
+	}
+	else
+	{
+		ImGui::Text("edit:EditobjectHIT +Leftclick");
+	}
 
 	ImGui::End();
 }
@@ -131,6 +142,12 @@ void EditStage::addObject()
 	ImGui::DragFloat2("Pos", AddObjectPos_, 1.0f, -1000.0f, 1000.0f);
 	ImGui::DragFloat2("Size", AddObjectSize_, 1.0f, 1.0f, 1000.0f);
 
+	if (isMouseObject_)
+	{
+		ImGui::End();
+		return;
+	}
+
 	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && ImGui::Button("addObject"))
 	{
 		StageManager::GetInstance()->AddObject(AddObjectPos_, AddObjectSize_, serectAddObjectType_);
@@ -145,6 +162,110 @@ void EditStage::addObject()
 
 }
 
+void EditStage::EditObject()
+{
+	MouseEditObject();
+	ImGui::Begin("EditObject");
+
+	uint16_t eventCount = 0;
+
+	for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end();)
+	{
+
+		std::string num = ("##" + std::to_string(eventCount));
+
+		if (!ImGui::CollapsingHeader(std::string("eventNum" + std::to_string(eventCount) + num).c_str()))
+		{
+			eventCount++;
+			objectI++;
+			continue;
+		}
+
+		ImGui::Text(std::string("ObjectType:" + ObjectTypeToString(objectI->get()->GetObjectType())).c_str());
+
+		std::vector<std::string>items;
+		items.resize(static_cast<int32_t>(ObjectType::NONE));
+
+		int32_t oldObjectType = static_cast<int32_t>(objectI->get()->GetObjectType());
+
+		for (size_t i = 0; i < items.size(); i++)
+		{
+			items[i] = ObjectTypeToString(ObjectType(i));
+		}
+		int32_t objectType = static_cast<int32_t>(objectI->get()->GetObjectType());
+
+		//設定したいイベントの番号にする
+		ImGui::Combo("object Type", objectType, items);
+
+		if (oldObjectType != objectType)
+		{
+			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString(objectType));
+		}
+		
+
+		Vector2 editPos = objectI->get()->GetPos();
+		Vector2 editSize = objectI->get()->GetSize();
+
+		ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f);
+		ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f);
+
+		objectI->get()->SetPos(editPos);
+		objectI->get()->SetSize(editSize);
+
+
+		if (ImGui::Button(std::string("erase" + num).c_str()))
+		{
+			//一つしかないなら
+			if (StageManager::GetInstance()->stageObjData_.size() == 1)
+			{
+				//それしかないなら全部消す
+				StageManager::GetInstance()->stageObjData_.clear();
+				break;
+
+			}
+			else
+			{
+				objectI = StageManager::GetInstance()->stageObjData_.erase(objectI);
+				continue;
+			}
+		}
+
+		eventCount++;
+		objectI++;
+	}
+
+	ImGui::End();
+}
+
+void EditStage::MouseEditObject()
+{
+	if (!isMouseObject_)
+	{
+		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+		{
+			if (AABB(Input::GetMousePos(), objectI->get()) && Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+			{
+				isMouseObject_ = true;
+				oldObjPos_ = objectI->get()->GetPos();
+				mouseMoveObject_ = objectI->get();
+			}
+		}
+	}
+	else
+	{
+		mouseMoveObject_->SetPos(Input::GetMousePos());
+
+		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && Input::GetKey(Input::Key::LShift))
+		{
+			mouseMoveObject_->SetPos(oldObjPos_);
+			isMouseObject_ = false;
+		}
+		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+		{
+			isMouseObject_ = false;
+		}
+	}
+}
 
 void EditStage::WindowsSaveFile(const std::vector<Object*>& saveData)
 {
@@ -211,7 +332,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 	//もし名前が空白なら適当な名前に
 	if (fileName == "")
 	{
-		name = std::string("jsonEventdata");
+		name = std::string("jsonObjectData");
 	}
 
 	nlohmann::json jsonfile;
@@ -246,7 +367,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 	//もし名前が空白なら適当な名前に
 	if (fileName == "")
 	{
-		name = std::string("jsonEventdata");
+		name = std::string("jsonObjectData");
 	}
 
 	nlohmann::json jsonfile;
@@ -309,4 +430,26 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
 	default:    return "UNKNOWN";
 	}
+}
+
+bool EditStage::AABB(Vector2 mousePos, Object* obj)
+{
+	//マウスの判定の大きさ
+	Vector2 size = { 1,1 };
+
+	if (mousePos.x + size.x / 2 >= obj->GetPos().x - obj->GetSize().x / 2 &&
+		mousePos.x - size.x / 2 <= obj->GetPos().x + obj->GetSize().x / 2)
+	{
+		if (mousePos.y + size.y / 2 <= obj->GetPos().y - obj->GetSize().y / 2 ||
+			mousePos.y - size.y / 2 >= obj->GetPos().y + obj->GetSize().y / 2)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
 }
