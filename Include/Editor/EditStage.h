@@ -44,6 +44,9 @@ private:
 	//マウスでオブジェクトを編集するやつ
 	void MouseEditObject();
 
+	//今持ってるやつコピーとペースト
+	void CopyPasteMouseObject();
+
 	//配置データの保存と読み込み
 	void SaveAndLoadLevelObject();
 
@@ -52,6 +55,7 @@ private:
 
 	//悪いやつなので人のやつコピペ
 	bool AABB(Vector2 mousePos, Object* obj);
+	bool AABB(Vector2 pos,Vector2 size, Object* obj);
 
 
 private:
@@ -70,9 +74,20 @@ private:
 	//マウスがオブジェクトを持っているか
 	bool isMouseObject_ = false;
 
+	bool isAddObjectDraw = false;
+
+	int32_t addObjectColor = 0xffffff;
+	int32_t mouseSetObjectColor = 0xffffff;
+
+	//マウスでオブジェクトを移動する際の元の位置保持用
 	Vector2 oldObjPos_ = {};
 
+	//マウスでオブジェクトを移動する際の移動先
+	Vector2 mouseEditObjPos = {};
+
 	Object* mouseMoveObject_ = nullptr;
+
+	Object copyObject_;
 
 };
 

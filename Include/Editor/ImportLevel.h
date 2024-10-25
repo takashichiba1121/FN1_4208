@@ -49,6 +49,10 @@ struct ObjectName
 		{
 			return ObjectType::NOT_FLOAT_BLOCK;
 		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::GOAL))
+		{
+			return ObjectType::GOAL;
+		}
 
 		return ObjectType::NONE;
 	}
