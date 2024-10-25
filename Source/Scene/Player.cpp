@@ -8,6 +8,11 @@ void Player::Initialize() {
 
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
+	isExclude_ = false;
+
+	bubbleEmitter = std::make_unique<BubbleEmitter>();
+	bubbleEmitter->Initialize(20);
+
 	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
 }
@@ -69,27 +74,9 @@ void Player::Update() {
 		}
 	}
 
-	//パーティクル生成
-	bubbleTimer--;
-	if (bubbleTimer < 0) {
-		std::unique_ptr<Bubble>b;
-		b = std::make_unique<Bubble>();
-		b->Initialize(pos_);
-		bubble.push_back(std::move(b));
-
-		bubbleTimer = bubbleTimerMax;
-	}
-
 	//パーティクル更新
-	for (std::unique_ptr<Bubble>& b : bubble) {
-
-		b->Update(horizontal);
-	}
-	//デスフラグの立った敵を削除
-	bubble.remove_if([](std::unique_ptr<Bubble>& b) {
-		return b->GetIsDead();
-		});
-
+	bubbleEmitter->Update(pos_);
+	bubbleEmitter->SetHorizontal(horizontal);
 
 	//底面で止まる(仮)
 	if (pos_.y >= underLine - size_.y / 2) {
@@ -166,13 +153,11 @@ void Player::Draw() {
 	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
 	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
 
-	for (std::unique_ptr<Bubble>& b : bubble) {
-		b->Draw();
-	}
+	bubbleEmitter->Draw();
 	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "onFloorTimer : %d", canJumpTimer);
+	DrawFormatString(0, 60, GetColor(255, 255, 255), "bubbleTimer : %f", bubbleTimer);
 	DrawFormatString(0, 80, GetColor(255, 255, 255), "canJump : %d", canJump);
 }
 

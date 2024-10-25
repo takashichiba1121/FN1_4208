@@ -1,6 +1,6 @@
 #pragma once
 #include "Object.h"
-#include "Bubble.h"
+#include "BubbleEmitter.h"
 #include <memory>
 #include <list>
 class Player :
@@ -15,6 +15,8 @@ public:
 
 	float GetSpeed() { return speed; }
 
+	void SetHorizontal(const float line) { horizontal = line; }
+
 private:
 	void Operation();	//ëÄçÏ
 	void Move();
@@ -22,7 +24,7 @@ private:
 
 private:
 
-	std::list<std::unique_ptr<Bubble>> bubble;
+	std::unique_ptr<BubbleEmitter> bubbleEmitter;
 	const float bubbleTimerMax = 30.0f;
 	float bubbleTimer = bubbleTimerMax;
 

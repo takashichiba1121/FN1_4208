@@ -1,7 +1,9 @@
 #pragma once
+#include"Object.h"
 #include"Vector2.h"
 
-class Bubble {
+class Bubble :
+	public Object{
 
 public:
 
@@ -11,13 +13,14 @@ public:
 
 	void Draw();
 
+	void OnCollision(Object* objct)override;
+
 	const bool GetIsDead() { return isDead; }
 
 private:
 
-	Vector2 position = { 0,0 };
-	Vector2 vector = { 0,5 };
-	Vector2 size = { 8,8 };
+	Vector2 vector = { 0,3 };
+	float size = 0.0f;
 
 	bool isActive = true;
 	bool isDead = false;

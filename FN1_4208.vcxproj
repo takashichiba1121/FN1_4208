@@ -148,7 +148,9 @@
     <ClCompile Include="Source\GameCore\SceneManager.cpp" />
     <ClCompile Include="Source\Item\Block.cpp" />
     <ClCompile Include="Source\Item\Bubble.cpp" />
+    <ClCompile Include="Source\Item\BubbleEmitter.cpp" />
     <ClCompile Include="Source\Item\LevitationBlock.cpp" />
+    <ClCompile Include="Source\Math\Random.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
     <ClCompile Include="Source\Scene\Player.cpp" />
@@ -174,7 +176,9 @@
     <ClInclude Include="Include\GameCore\Input.h" />
     <ClInclude Include="Include\GameCore\SceneManager.h" />
     <ClInclude Include="Include\Item\Bubble.h" />
+    <ClInclude Include="Include\Item\BubbleEmitter.h" />
     <ClInclude Include="Include\Item\LevitationBlock.h" />
+    <ClInclude Include="Include\Math\Random.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
     <ClInclude Include="Include\Scene\Player.h" />
