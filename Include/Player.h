@@ -20,6 +20,8 @@ private:
 
 private:
 
+	Vector2 moveVal = { 0,0 };
+
 	const float MaxGravity = 16.0f;
 	float initJumpVelocity = -MaxGravity;
 	float gravity = 0.0f;
@@ -30,13 +32,11 @@ private:
 	float speed = GroundSpeed;
 
 	bool canJump = false;
+	bool isOnFloor = false;
 	bool isUnderWater = false;
 	bool canCrawlUp = false;
 
 	float horizontal = 160.0f;
 	float underLine = 700.0f;
 
-	const int canJumpTimerMax = 3;
-	int canJumpTimer = 1;
-	unsigned int color = 0;
 };

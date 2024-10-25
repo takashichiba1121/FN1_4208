@@ -90,11 +90,11 @@ void CollisionManager::Update()
 
 							if (posA.x + sizeA.x/2 <= oldPosB.x - sizeB.x/2)
 							{
-								posB.x = posA.x + sizeA.x/2 + sizeB.x/2 + 0.1f;
+								posB.x = posA.x + sizeA.x/2 + sizeB.x/2;
 							}
 							else if (posA.x - sizeA.x/2 >= oldPosB.x + sizeB.x/2)
 							{
-								posB.x = posA.x - (sizeA.x/2 + sizeB.x/2) - 0.1f;
+								posB.x = posA.x - (sizeA.x/2 + sizeB.x/2);
 
 							}
 						}

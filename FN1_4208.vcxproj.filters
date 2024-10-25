@@ -117,6 +117,9 @@
     <ClCompile Include="Source\Scene\Player.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Item\LevitationBlock.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ThirdParty\json.hpp">
@@ -188,11 +191,11 @@
     <ClInclude Include="Include\Scene\Player.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Item\Block.h">
+    <ClInclude Include="Include\Item\Block.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Include\GameCore\DxlibInclude.h">
-      <Filter>ヘッダー ファイル\GameCore</Filter>
+    <ClInclude Include="Include\Item\levitationBlock.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
