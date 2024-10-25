@@ -49,7 +49,19 @@ void EditStage::Update()
 
 void EditStage::Draw()
 {
+	if (isMouseObject_)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+		DrawBoxAA(mouseEditObjPos.x - mouseMoveObject_->GetSize().x / 2, mouseEditObjPos.y - mouseMoveObject_->GetSize().y / 2, mouseEditObjPos.x + mouseMoveObject_->GetSize().x / 2, mouseEditObjPos.y + mouseMoveObject_->GetSize().y / 2, mouseSetObjectColor, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
 
+	if (isAddObjectDraw)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+		DrawBoxAA(AddObjectPos_.x - AddObjectSize_.x / 2, AddObjectPos_.y - AddObjectSize_.y / 2, AddObjectPos_.x + AddObjectSize_.x / 2, AddObjectPos_.y + AddObjectSize_.y / 2, addObjectColor, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
 }
 
 void EditStage::EditorUpdate()
@@ -57,6 +69,10 @@ void EditStage::EditorUpdate()
 	addObject();
 
 	ImguiMenu();
+
+	EditObject();
+
+	CopyPasteMouseObject();
 }
 
 void EditStage::ImguiMenu()
@@ -74,11 +90,11 @@ void EditStage::ImguiMenu()
 	{
 		if (ImGui::BeginMenu("File\n"))
 		{
-			ImGui::MenuItem("EventSave", NULL, &imguiSaveWindow_);
-			ImGui::MenuItem("EventLoad", NULL, &imguiLoadWindow_);
+			ImGui::MenuItem("ObjectSave", NULL, &imguiSaveWindow_);
+			ImGui::MenuItem("ObjectLoad", NULL, &imguiLoadWindow_);
 			ImGui::EndMenu();
 		}
-		if (ImGui::BeginMenu("addEvent\n"))
+		if (ImGui::BeginMenu("addObject\n"))
 		{
 			imguiAddObjectWindow_ = true;
 			ImGui::EndMenu();
@@ -95,7 +111,7 @@ void EditStage::ImguiMenu()
 
 void EditStage::addObject()
 {
-
+	isAddObjectDraw = false;
 	if (!imguiAddObjectWindow_)return;
 
 	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
@@ -131,6 +147,37 @@ void EditStage::addObject()
 	ImGui::DragFloat2("Pos", AddObjectPos_, 1.0f, -1000.0f, 1000.0f);
 	ImGui::DragFloat2("Size", AddObjectSize_, 1.0f, 1.0f, 1000.0f);
 
+	if (isMouseObject_)
+	{
+		ImGui::End();
+		return;
+	}
+
+	isAddObjectDraw = true;
+
+	for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+	{
+		if (AABB(AddObjectPos_, AddObjectSize_, objectI->get()))
+		{
+			addObjectColor = 0xff0000;
+			ImGui::End();
+			return;
+		}
+	}
+	
+	addObjectColor = 0xffffff;
+	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
+	{
+		//imguiの機能を追加するためのフラグ
+		ImGuiWindowFlags window_flags = 0;
+		//メニューバーを使います
+		window_flags |= ImGuiWindowFlags_MenuBar;
+		//beginで渡すことでフラグをこのウインドウで有効にする
+		ImGui::Begin("Editor", NULL, window_flags);
+		ImGui::Text("set: Rightclick");
+		ImGui::End();
+	}
+
 	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && ImGui::Button("addObject"))
 	{
 		StageManager::GetInstance()->AddObject(AddObjectPos_, AddObjectSize_, serectAddObjectType_);
@@ -145,6 +192,144 @@ void EditStage::addObject()
 
 }
 
+void EditStage::EditObject()
+{
+	MouseEditObject();
+	ImGui::Begin("EditObject");
+
+	uint16_t eventCount = 0;
+
+	for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end();)
+	{
+
+		std::string num = ("##" + std::to_string(eventCount));
+
+		if (!ImGui::CollapsingHeader(std::string("eventNum" + std::to_string(eventCount) + num).c_str()))
+		{
+			eventCount++;
+			objectI++;
+			continue;
+		}
+
+		ImGui::Text(std::string("ObjectType:" + ObjectTypeToString(objectI->get()->GetObjectType())).c_str());
+
+		std::vector<std::string>items;
+		items.resize(static_cast<int32_t>(ObjectType::NONE));
+
+		int32_t oldObjectType = static_cast<int32_t>(objectI->get()->GetObjectType());
+
+		for (size_t i = 0; i < items.size(); i++)
+		{
+			items[i] = ObjectTypeToString(ObjectType(i));
+		}
+		int32_t objectType = static_cast<int32_t>(objectI->get()->GetObjectType());
+
+		//設定したいイベントの番号にする
+		ImGui::Combo("object Type", objectType, items);
+
+		if (oldObjectType != objectType)
+		{
+			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString(objectType));
+		}
+		
+
+		Vector2 editPos = objectI->get()->GetPos();
+		Vector2 editSize = objectI->get()->GetSize();
+
+		ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f);
+		ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f);
+
+		objectI->get()->SetPos(editPos);
+		objectI->get()->SetSize(editSize);
+
+
+		if (ImGui::Button(std::string("erase" + num).c_str()))
+		{
+			//一つしかないなら
+			if (StageManager::GetInstance()->stageObjData_.size() == 1)
+			{
+				//それしかないなら全部消す
+				StageManager::GetInstance()->stageObjData_.clear();
+				break;
+
+			}
+			else
+			{
+				objectI = StageManager::GetInstance()->stageObjData_.erase(objectI);
+				continue;
+			}
+		}
+
+		eventCount++;
+		objectI++;
+	}
+
+	ImGui::End();
+}
+
+void EditStage::MouseEditObject()
+{
+	if (!isMouseObject_)
+	{
+		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+		{
+			if (AABB(Input::GetMousePos(), objectI->get()))
+			{
+				if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+				{
+					isMouseObject_ = true;
+					oldObjPos_ = objectI->get()->GetPos();
+					mouseEditObjPos = objectI->get()->GetPos();
+					mouseMoveObject_ = objectI->get();
+				}
+				else
+				{
+					ImGui::Begin("Editor");
+					ImGui::Text("edit: Leftclick");
+					ImGui::End();
+					
+				}
+			}
+		}
+	}
+	else
+	{
+		mouseEditObjPos = Input::GetMousePos();
+
+		ImGui::Begin("Editor");
+		ImGui::Text("set:Leftclick\nUndo:SHIFT + Leftclick");
+		ImGui::End();
+
+		bool isSet = true;
+
+		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+		{
+			if (AABB(Input::GetMousePos(), mouseMoveObject_->GetSize(), objectI->get()) && mouseMoveObject_ != objectI->get())
+			{
+				isSet = false;
+				mouseSetObjectColor = 0xff0000;
+				break;
+			}
+		}
+
+		if (isSet)
+		{
+			mouseSetObjectColor = 0xffffff;
+		}
+
+		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && Input::GetKey(Input::Key::LShift))
+		{
+			mouseMoveObject_->SetPos(oldObjPos_);
+			isMouseObject_ = false;
+		}
+		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet)
+		{
+			mouseMoveObject_->SetPos(Input::GetMousePos());
+			isMouseObject_ = false;
+		}	
+		
+	}
+}
 
 void EditStage::WindowsSaveFile(const std::vector<Object*>& saveData)
 {
@@ -211,7 +396,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 	//もし名前が空白なら適当な名前に
 	if (fileName == "")
 	{
-		name = std::string("jsonEventdata");
+		name = std::string("jsonObjectData");
 	}
 
 	nlohmann::json jsonfile;
@@ -246,7 +431,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 	//もし名前が空白なら適当な名前に
 	if (fileName == "")
 	{
-		name = std::string("jsonEventdata");
+		name = std::string("jsonObjectData");
 	}
 
 	nlohmann::json jsonfile;
@@ -299,7 +484,18 @@ void EditStage::SaveAndLoadLevelObject()
 	}
 }
 
+void EditStage::CopyPasteMouseObject()
+{
+	if (isMouseObject_ && Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::C))
+	{
+		copyObject_ = *mouseMoveObject_;
+	}
 
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::V))
+	{
+		StageManager::GetInstance()->AddObject(copyObject_.GetPos(), copyObject_.GetSize(), copyObject_.GetObjectType());
+	}
+}
 
 std::string EditStage::ObjectTypeToString(ObjectType objectType)
 {
@@ -307,6 +503,49 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::PLAYER:   return "player";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
+	case ObjectType::GOAL: return "goal";
 	default:    return "UNKNOWN";
 	}
+}
+
+bool EditStage::AABB(Vector2 mousePos, Object* obj)
+{
+	//マウスの判定の大きさ
+	Vector2 size = { 1,1 };
+
+	if (mousePos.x + size.x / 2 >= obj->GetPos().x - obj->GetSize().x / 2 &&
+		mousePos.x - size.x / 2 <= obj->GetPos().x + obj->GetSize().x / 2)
+	{
+		if (mousePos.y + size.y / 2 <= obj->GetPos().y - obj->GetSize().y / 2 ||
+			mousePos.y - size.y / 2 >= obj->GetPos().y + obj->GetSize().y / 2)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool EditStage::AABB(Vector2 pos, Vector2 size, Object* obj)
+{
+
+	if (pos.x + size.x / 2 >= obj->GetPos().x - obj->GetSize().x / 2 &&
+		pos.x - size.x / 2 <= obj->GetPos().x + obj->GetSize().x / 2)
+	{
+		if (pos.y + size.y / 2 <= obj->GetPos().y - obj->GetSize().y / 2 ||
+			pos.y - size.y / 2 >= obj->GetPos().y + obj->GetSize().y / 2)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
 }
