@@ -27,6 +27,8 @@ void GameScene::Update()
 	goal->Update();
 	test.Update();
 
+	Water::GetInstance()->Update();
+
 	StageManager::GetInstance()->Update();
 
 	CollisionManager::GetInstance()->Update();
@@ -42,6 +44,8 @@ void GameScene::Draw()
 	goal->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
+
+	Water::GetInstance()->Draw();
 }
 
 void GameScene::Finalize()

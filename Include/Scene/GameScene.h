@@ -6,6 +6,7 @@
 #include "LevitationBlock.h"
 #include <memory>
 #include "EditStage.h"
+#include"Water.h"
 
 class GameScene :
     public BaseScene
