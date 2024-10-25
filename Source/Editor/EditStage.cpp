@@ -71,6 +71,8 @@ void EditStage::EditorUpdate()
 	ImguiMenu();
 
 	EditObject();
+
+	CopyPasteMouseObject();
 }
 
 void EditStage::ImguiMenu()
@@ -482,7 +484,18 @@ void EditStage::SaveAndLoadLevelObject()
 	}
 }
 
+void EditStage::CopyPasteMouseObject()
+{
+	if (isMouseObject_ && Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::C))
+	{
+		copyObject_ = *mouseMoveObject_;
+	}
 
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::V))
+	{
+		StageManager::GetInstance()->AddObject(copyObject_.GetPos(), copyObject_.GetSize(), copyObject_.GetObjectType());
+	}
+}
 
 std::string EditStage::ObjectTypeToString(ObjectType objectType)
 {

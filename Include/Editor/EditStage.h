@@ -44,6 +44,9 @@ private:
 	//マウスでオブジェクトを編集するやつ
 	void MouseEditObject();
 
+	//今持ってるやつコピーとペースト
+	void CopyPasteMouseObject();
+
 	//配置データの保存と読み込み
 	void SaveAndLoadLevelObject();
 
@@ -83,6 +86,8 @@ private:
 	Vector2 mouseEditObjPos = {};
 
 	Object* mouseMoveObject_ = nullptr;
+
+	Object copyObject_;
 
 };
 
