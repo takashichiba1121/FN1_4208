@@ -2,37 +2,39 @@
 #include<Dxlib.h>
 #include"Vector2.h"
 #include"Object.h"
-class Goal
+class Goal: public Object
 {
 public:
 	/// <summary>
 	/// 初期化
 	/// </summary>
-	void Initialize();
+	void Initialize()override;
 
 	/// <summary>
 	/// 更新
 	/// </summary>
-	void Update();
+	void Update()override;
 
 	/// <summary>
 	/// 描画
 	/// </summary>
-	void Draw();
+	void Draw()override;
 
+	/// <summary>
+	///  衝突
+	/// </summary>
+	/// <param name="objct"></param>
+	void OnCollision(Object* objct)override;
 private:
-	Vector2 pos = { 0,0 };//位置
-	Vector2 size = { 10,10 };//大きさ
 	int goal;//ゴールの画像
 
 	bool isLock = false;
 	bool isUnderWater = false;
 	bool isClear = false;
 	float speed = 1.0f;
-	const float coolTime =3.0f;
+	const float coolTime = 3.0f;
 	float timer = coolTime;
 	float a = 4.0;
 
-	float horizontal = 360.0f;
+	float horizontal = 160.0f;
 };
-

@@ -134,7 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="Include\Scene\Goal.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source\Collision\Collision.cpp" />
     <ClCompile Include="Source\Collision\CollisionManager.cpp" />
@@ -162,7 +162,6 @@
     <ClCompile Include="ThirdParty\imgui\imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Goal.h" />
     <ClInclude Include="Include\Collision\Collision.h" />
     <ClInclude Include="Include\Collision\CollisionManager.h" />
     <ClInclude Include="Include\Collision\Object.h" />
@@ -177,6 +176,7 @@
     <ClInclude Include="Include\Item\LevitationBlock.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
+    <ClInclude Include="Include\Scene\Goal.h" />
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
     <ClInclude Include="Include\Item\Block.h" />
