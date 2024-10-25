@@ -1,6 +1,8 @@
 #pragma once
 #include "Object.h"
-
+#include "BubbleEmitter.h"
+#include <memory>
+#include <list>
 class Player :
 	public Object {
 
@@ -19,6 +21,8 @@ private:
 	void Jump();
 
 private:
+
+	std::unique_ptr<BubbleEmitter> bubbleEmitter;
 
 	const float MaxGravity = 16.0f;
 	float initJumpVelocity = -MaxGravity;
