@@ -20,7 +20,6 @@ private:
 	std::unique_ptr<Block> block;
 	std::unique_ptr<LevitationBlock> floatBlock;
 	std::unique_ptr<Object> player;
-	std::unique_ptr<Water> water_;
 
 	EditStage test;
 

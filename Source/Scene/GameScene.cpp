@@ -12,8 +12,6 @@ void GameScene::Initialize()
 	floatBlock = std::make_unique<LevitationBlock>();
 	block->Initialize();
 	floatBlock->Initialize();
-
-	water_ = std::make_unique<Water>();
 }
 
 void GameScene::Update()
@@ -24,7 +22,7 @@ void GameScene::Update()
 	floatBlock->Update();
 	test.Update();
 
-	water_->Update();
+	Water::GetInstance()->Update();
 
 	StageManager::GetInstance()->Update();
 
@@ -41,7 +39,7 @@ void GameScene::Draw()
 	//test.Draw();
 	StageManager::GetInstance()->Draw();
 
-	water_->Draw();
+	Water::GetInstance()->Draw();
 }
 
 void GameScene::Finalize()

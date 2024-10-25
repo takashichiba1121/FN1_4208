@@ -2,6 +2,18 @@
 #include<memory>
 class Water
 {
+#pragma region Singleton
+private:
+	Water() {};
+
+	~Water() {};
+public:
+	Water(const Water& carManager) = delete;
+
+	Water& operator=(const Water& carManager) = delete;
+
+	static Water* GetInstance();
+#pragma endregion
 public:
 	void Update();
 

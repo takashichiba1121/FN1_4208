@@ -34,3 +34,9 @@ void Water::Draw()
 
 
 }
+
+Water* Water::GetInstance()
+{
+	static Water instance;
+	return &instance;
+}
