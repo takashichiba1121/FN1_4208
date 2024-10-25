@@ -22,14 +22,19 @@ void LevitationBlock::Update()
 
 	// ブロックが水に浮く処理・重力
 	if (pos_.y < waterSurface_) {
+		
 		pos_.y += gravity_;
+
+		if ((pos_.y - waterSurface_) >= -10 && (pos_.y - waterSurface_) <= 10) {
+			pos_.y = waterSurface_;
+		}
 	}
 	if (pos_.y == waterSurface_) {
 		isEasing_ = true;
 	}
 	if (isEasing_) {
 		frame_++;
-		pos_.y = EaseInOutBackP(frame_, 360, 70, 60);
+		pos_.y = EaseInOutBackP(frame_, waterSurface_, 70, 60);
 
 		if (frame_ >= 25) {
 			frame_ = 0;
