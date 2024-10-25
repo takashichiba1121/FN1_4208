@@ -15,8 +15,6 @@ public:
 
 	float GetSpeed() { return speed; }
 
-	void SetHorizontal(const float line) { horizontal = line; }
-
 private:
 	void Operation();	//ëÄçÏ
 	void Move();
@@ -25,8 +23,6 @@ private:
 private:
 
 	std::unique_ptr<BubbleEmitter> bubbleEmitter;
-	const float bubbleTimerMax = 30.0f;
-	float bubbleTimer = bubbleTimerMax;
 
 	const float MaxGravity = 16.0f;
 	float initJumpVelocity = -MaxGravity;

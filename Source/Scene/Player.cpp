@@ -157,7 +157,6 @@ void Player::Draw() {
 	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "bubbleTimer : %f", bubbleTimer);
 	DrawFormatString(0, 80, GetColor(255, 255, 255), "canJump : %d", canJump);
 }
 
