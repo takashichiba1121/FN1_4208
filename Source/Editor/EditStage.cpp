@@ -503,6 +503,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::PLAYER:   return "player";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
+	case ObjectType::GOAL: return "goal";
 	default:    return "UNKNOWN";
 	}
 }
