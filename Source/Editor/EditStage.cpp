@@ -49,7 +49,19 @@ void EditStage::Update()
 
 void EditStage::Draw()
 {
+	if (isMouseObject_)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+		DrawBoxAA(mouseEditObjPos.x - mouseMoveObject_->GetSize().x / 2, mouseEditObjPos.y - mouseMoveObject_->GetSize().y / 2, mouseEditObjPos.x + mouseMoveObject_->GetSize().x / 2, mouseEditObjPos.y + mouseMoveObject_->GetSize().y / 2, mouseSetObjectColor, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
 
+	if (isAddObjectDraw)
+	{
+		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
+		DrawBoxAA(AddObjectPos_.x - AddObjectSize_.x / 2, AddObjectPos_.y - AddObjectSize_.y / 2, AddObjectPos_.x + AddObjectSize_.x / 2, AddObjectPos_.y + AddObjectSize_.y / 2, addObjectColor, true);
+		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	}
 }
 
 void EditStage::EditorUpdate()
@@ -59,6 +71,8 @@ void EditStage::EditorUpdate()
 	ImguiMenu();
 
 	EditObject();
+
+	CopyPasteMouseObject();
 }
 
 void EditStage::ImguiMenu()
@@ -92,21 +106,12 @@ void EditStage::ImguiMenu()
 
 	SaveAndLoadLevelObject();
 
-	if (isMouseObject_)
-	{
-		ImGui::Text("set:Leftclick\nUndo:SHIFT + Leftclick");	
-	}
-	else
-	{
-		ImGui::Text("edit:EditobjectHIT +Leftclick");
-	}
-
 	ImGui::End();
 }
 
 void EditStage::addObject()
 {
-
+	isAddObjectDraw = false;
 	if (!imguiAddObjectWindow_)return;
 
 	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
@@ -146,6 +151,31 @@ void EditStage::addObject()
 	{
 		ImGui::End();
 		return;
+	}
+
+	isAddObjectDraw = true;
+
+	for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+	{
+		if (AABB(AddObjectPos_, AddObjectSize_, objectI->get()))
+		{
+			addObjectColor = 0xff0000;
+			ImGui::End();
+			return;
+		}
+	}
+	
+	addObjectColor = 0xffffff;
+	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
+	{
+		//imguiの機能を追加するためのフラグ
+		ImGuiWindowFlags window_flags = 0;
+		//メニューバーを使います
+		window_flags |= ImGuiWindowFlags_MenuBar;
+		//beginで渡すことでフラグをこのウインドウで有効にする
+		ImGui::Begin("Editor", NULL, window_flags);
+		ImGui::Text("set: Rightclick");
+		ImGui::End();
 	}
 
 	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && ImGui::Button("addObject"))
@@ -243,27 +273,61 @@ void EditStage::MouseEditObject()
 	{
 		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
 		{
-			if (AABB(Input::GetMousePos(), objectI->get()) && Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+			if (AABB(Input::GetMousePos(), objectI->get()))
 			{
-				isMouseObject_ = true;
-				oldObjPos_ = objectI->get()->GetPos();
-				mouseMoveObject_ = objectI->get();
+				if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+				{
+					isMouseObject_ = true;
+					oldObjPos_ = objectI->get()->GetPos();
+					mouseEditObjPos = objectI->get()->GetPos();
+					mouseMoveObject_ = objectI->get();
+				}
+				else
+				{
+					ImGui::Begin("Editor");
+					ImGui::Text("edit: Leftclick");
+					ImGui::End();
+					
+				}
 			}
 		}
 	}
 	else
 	{
-		mouseMoveObject_->SetPos(Input::GetMousePos());
+		mouseEditObjPos = Input::GetMousePos();
+
+		ImGui::Begin("Editor");
+		ImGui::Text("set:Leftclick\nUndo:SHIFT + Leftclick");
+		ImGui::End();
+
+		bool isSet = true;
+
+		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
+		{
+			if (AABB(Input::GetMousePos(), mouseMoveObject_->GetSize(), objectI->get()) && mouseMoveObject_ != objectI->get())
+			{
+				isSet = false;
+				mouseSetObjectColor = 0xff0000;
+				break;
+			}
+		}
+
+		if (isSet)
+		{
+			mouseSetObjectColor = 0xffffff;
+		}
 
 		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && Input::GetKey(Input::Key::LShift))
 		{
 			mouseMoveObject_->SetPos(oldObjPos_);
 			isMouseObject_ = false;
 		}
-		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet)
 		{
+			mouseMoveObject_->SetPos(Input::GetMousePos());
 			isMouseObject_ = false;
-		}
+		}	
+		
 	}
 }
 
@@ -420,7 +484,18 @@ void EditStage::SaveAndLoadLevelObject()
 	}
 }
 
+void EditStage::CopyPasteMouseObject()
+{
+	if (isMouseObject_ && Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::C))
+	{
+		copyObject_ = *mouseMoveObject_;
+	}
 
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::V))
+	{
+		StageManager::GetInstance()->AddObject(copyObject_.GetPos(), copyObject_.GetSize(), copyObject_.GetObjectType());
+	}
+}
 
 std::string EditStage::ObjectTypeToString(ObjectType objectType)
 {
@@ -428,6 +503,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::PLAYER:   return "player";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
+	case ObjectType::GOAL: return "goal";
 	default:    return "UNKNOWN";
 	}
 }
@@ -442,6 +518,26 @@ bool EditStage::AABB(Vector2 mousePos, Object* obj)
 	{
 		if (mousePos.y + size.y / 2 <= obj->GetPos().y - obj->GetSize().y / 2 ||
 			mousePos.y - size.y / 2 >= obj->GetPos().y + obj->GetSize().y / 2)
+		{
+			return false;
+		}
+	}
+	else
+	{
+		return false;
+	}
+
+	return true;
+}
+
+bool EditStage::AABB(Vector2 pos, Vector2 size, Object* obj)
+{
+
+	if (pos.x + size.x / 2 >= obj->GetPos().x - obj->GetSize().x / 2 &&
+		pos.x - size.x / 2 <= obj->GetPos().x + obj->GetSize().x / 2)
+	{
+		if (pos.y + size.y / 2 <= obj->GetPos().y - obj->GetSize().y / 2 ||
+			pos.y - size.y / 2 >= obj->GetPos().y + obj->GetSize().y / 2)
 		{
 			return false;
 		}

@@ -150,7 +150,7 @@ void Player::Draw() {
 		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.y / 2),
 		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.y / 2),
 		color, true);
-	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
+	//DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
 	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
 
 	bubbleEmitter->Draw();
