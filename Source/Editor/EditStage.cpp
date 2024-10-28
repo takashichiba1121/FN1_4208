@@ -144,6 +144,20 @@ void EditStage::addObject()
 		serectAddObjectType_ = ObjectName::ObjectString(objectType);
 	}
 
+	for (size_t i = 0; i < items.size(); i++)
+	{
+		if (ImGui::Button(items[i].c_str(), {50,50}))
+		{
+			serectAddObjectType_ = ObjectName::ObjectString(i);
+		}
+		if (i != items.size()-1)
+		{
+			ImGui::SameLine();
+		}
+		
+	}
+
+
 	ImGui::DragFloat2("Pos", AddObjectPos_, 1.0f, -1000.0f, 1000.0f);
 	ImGui::DragFloat2("Size", AddObjectSize_, 1.0f, 1.0f, 1000.0f);
 
