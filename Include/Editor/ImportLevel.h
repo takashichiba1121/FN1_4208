@@ -28,6 +28,8 @@ struct InputLevelData
 {
 	std::list<LevelData> levelData;
 
+	float horizontal = 0.0f;
+
 	bool isLoad = false;
 
 };
@@ -66,8 +68,10 @@ public:
 
 	
 
-	InputLevelData WindowsOpenLevelFileVector();
-	InputLevelData WindowsOpenLevelFileList();
+	InputLevelData WindowsOpenLevelFile();
+
+	//データをlist配列に入れる
+	InputLevelData ImportLevelListData(const std::string& fileName);
 
 	std::string GetLoadErrorText() { return loadErrorText_; };
 	
@@ -83,9 +87,8 @@ private:
 
 	//取ってきたデータを既定の配列に入れる
 	//データをvector配列に入れる
-	InputLevelData ImportLevelVectorData(const std::string& fileName);
-	//データをlist配列に入れる
-	InputLevelData ImportLevelListData(const std::string& fileName);
+	//InputLevelData ImportLevelVectorData(const std::string& fileName);
+	
 	//レベルの中身読み込むよう
 	bool LevelScanning(nlohmann::json& Level);
 

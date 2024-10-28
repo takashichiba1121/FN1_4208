@@ -13,78 +13,79 @@ ImportLevel::~ImportLevel()
 {
 }
 
-InputLevelData ImportLevel::ImportLevelVectorData(const std::string& fileName)
-{
-
-	vectorLevelData_.clear();
-
-	InputLevelData output;
-
-	//ファイルストリーム
-	std::ifstream file(fileName);
-
-	if (!file)
-	{
-		loadErrorText_ = "can not find file";
-		output.isLoad = false;
-		return output;
-	}
-
-	//JSON文字列から解凍したデータ
-	nlohmann::json deserialized;
-
-	//解凍
-	file >> deserialized;
-
-	//正しいイベントファイルかチェック
-	if (!deserialized.is_object() || !deserialized.contains("name") || !deserialized["name"].is_string())
-	{
-		loadErrorText_ = "Not the correct Level file";
-		output.isLoad = false;
-		return output;
-	}
-
-	//"name"を文字列として取得
-	std::string name = deserialized["name"].get<std::string>();
-
-	//正しいかどうかチェック
-	if (name.compare("Level") != 0)
-	{
-		loadErrorText_ = "Not LevelEditor file";
-		output.isLoad = false;
-		return output;
-	}
-
-	//"events"の全オブジェクトを走査
-	for (nlohmann::json& events : deserialized["objects"])
-	{
-
-		bool result = true;
-
-		result = LevelScanning(events);
-
-		if (!result)
-		{
-			vectorLevelData_.clear();
-			output.isLoad = false;
-			return output;
-		}
-	}
-
-
-	if (vectorLevelData_.empty())
-	{
-		vectorLevelData_.push_back(LevelData());
-	}
-
-	loadErrorText_ = "";
-	output.levelData = listLevelData_;
-	output.isLoad = true;
-
-	listLevelData_.clear();
-	vectorLevelData_.clear();
-	return output;
-}
+//InputLevelData ImportLevel::ImportLevelVectorData(const std::string& fileName)
+//{
+//
+//	vectorLevelData_.clear();
+//
+//	InputLevelData output;
+//
+//	//ファイルストリーム
+//	std::ifstream file(fileName);
+//
+//	if (!file)
+//	{
+//		loadErrorText_ = "can not find file";
+//		output.isLoad = false;
+//		return output;
+//	}
+//
+//	//JSON文字列から解凍したデータ
+//	nlohmann::json deserialized;
+//
+//	//解凍
+//	file >> deserialized;
+//
+//	//正しいイベントファイルかチェック
+//	if (!deserialized.is_object() || !deserialized.contains("name") || !deserialized["name"].is_string())
+//	{
+//		loadErrorText_ = "Not the correct Level file";
+//		output.isLoad = false;
+//		return output;
+//	}
+//
+//	//"name"を文字列として取得
+//	std::string name = deserialized["name"].get<std::string>();
+//
+//	//正しいかどうかチェック
+//	if (name.compare("Level") != 0)
+//	{
+//		loadErrorText_ = "Not LevelEditor file";
+//		output.isLoad = false;
+//		return output;
+//	}
+//
+//	//"events"の全オブジェクトを走査
+//	for (nlohmann::json& events : deserialized["objects"])
+//	{
+//
+//		bool result = true;
+//
+//		result = LevelScanning(events);
+//
+//		if (!result)
+//		{
+//			vectorLevelData_.clear();
+//			output.isLoad = false;
+//			return output;
+//		}
+//	}
+//
+//
+//	if (vectorLevelData_.empty())
+//	{
+//		vectorLevelData_.push_back(LevelData());
+//	}
+//
+//	loadErrorText_ = "";
+//	output.levelData = listLevelData_;
+//	output.isLoad = true;
+//	output.horizontal = (float)deserialized["horizontal"];
+//
+//	listLevelData_.clear();
+//	vectorLevelData_.clear();
+//	return output;
+//}
 
 InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
 {
@@ -152,6 +153,7 @@ InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
 	loadErrorText_ = "";
 	output.levelData = listLevelData_;
 	output.isLoad = true;
+	output.horizontal = (float)deserialized["horizontal"];
 
 	listLevelData_.clear();
 	vectorLevelData_.clear();
@@ -199,42 +201,7 @@ bool ImportLevel::LevelScanning(nlohmann::json& Level)
 }
 
 
-InputLevelData ImportLevel::WindowsOpenLevelFileVector()
-{
-	char filePath[MAX_PATH] = { 0 };
-	OPENFILENAME FileObj = {};
-	//構造体の大きさ基本的にこれ
-	FileObj.lStructSize = sizeof(OPENFILENAME);
-	//使いたい(占有)ウインドウハンドル
-	FileObj.hwndOwner = GetMainWindowHandle();
-	//フィルターを設定?
-	FileObj.lpstrFilter = "ステージエディタ作成ファイル\0 * .json*\0"
-		"すべてのファイル (*.*)\0*.*\0";
-	//何個目のフィルターを使うん?みたいな感じ?
-	FileObj.nFilterIndex = 0;
-	//保存の時ファイル名を入れるやつ?
-	FileObj.lpstrFile = filePath;
-	//ファイルのバッファの大きさ？
-	FileObj.nMaxFile = MAX_PATH;
-
-	auto old = std::filesystem::current_path();
-	InputLevelData result;
-	if (GetOpenFileName(&FileObj))
-	{
-		//設定のまとめに選択したファイルを読み取り書き込む
-		result = ImportLevelVectorData(filePath);
-
-		if (!result.isLoad)
-		{
-			return result;
-		}
-
-	}
-	std::filesystem::current_path(old);
-	return result;
-}
-
-InputLevelData ImportLevel::WindowsOpenLevelFileList()
+InputLevelData ImportLevel::WindowsOpenLevelFile()
 {
 	char filePath[MAX_PATH] = { 0 };
 	OPENFILENAME FileObj = {};

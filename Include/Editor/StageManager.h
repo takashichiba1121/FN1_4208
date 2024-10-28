@@ -16,6 +16,8 @@ public:
 	std::vector<Object> LoadStageData(const std::string& fileName);
 	void LoadListStageData(std::list<LevelData> levelData);
 
+	void LoadStageObjectFile(const std::string& fileName);
+
 	void Update();
 
 	void Draw();
