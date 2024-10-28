@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "DxLib.h"
 #include "CollisionManager.h"
+#include "Water.h"
 #include <random>
 
 void Player::Initialize() {
@@ -21,6 +22,7 @@ void Player::Initialize() {
 
 void Player::Update() {
 
+	horizontal = Water::GetInstance()->GetHorizontal();
 	oldPos_ = pos_;
 	color = GetColor(255, 255, 255);
 	Operation();
