@@ -8,6 +8,11 @@ void Player::Initialize() {
 
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
+	isExclude_ = false;
+
+	bubbleEmitter = std::make_unique<BubbleEmitter>();
+	bubbleEmitter->Initialize(20);
+
 	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
 }
@@ -69,6 +74,10 @@ void Player::Update() {
 		}
 	}
 
+	//パーティクル更新
+	bubbleEmitter->Update(pos_);
+	bubbleEmitter->SetHorizontal(horizontal);
+
 	//底面で止まる(仮)
 	if (pos_.y >= underLine - size_.y / 2) {
 		pos_.y = underLine - size_.y / 2;
@@ -85,18 +94,18 @@ void Player::Operation() {
 	Jump();
 
 	//↑↓キーで水平線調節
-	if (Input::GetKey(Input::Key::Up)) {
+	if (Input::GetKey(Input::Key::Up) && horizontal > 0) {
 		horizontal -= 2.0f;
 	}
-	if (Input::GetKey(Input::Key::Down)) {
+	if (Input::GetKey(Input::Key::Down) && horizontal < 720) {
 		horizontal += 2.0f;
 	}
 
 	//←→キーで底面調節
-	if (Input::GetKey(Input::Key::Left)) {
+	if (Input::GetKey(Input::Key::Left) && underLine > 0) {
 		underLine -= 2.0f;
 	}
-	if (Input::GetKey(Input::Key::Right)) {
+	if (Input::GetKey(Input::Key::Right) && underLine < 720) {
 		underLine += 2.0f;
 	}
 
@@ -108,10 +117,10 @@ void Player::Operation() {
 
 //横移動
 void Player::Move() {
-	if (Input::GetKey(Input::Key::A)) {
+	if (Input::GetKey(Input::Key::A) && pos_.x - size_.x / 2 > 0) {
 		pos_.x -= speed;
 	}
-	if (Input::GetKey(Input::Key::D)) {
+	if (Input::GetKey(Input::Key::D) && pos_.x + size_.x / 2 < 1280) {
 		pos_.x += speed;
 	}
 }
@@ -141,12 +150,13 @@ void Player::Draw() {
 		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.y / 2),
 		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.y / 2),
 		color, true);
-	DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
+	//DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
 	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
+
+	bubbleEmitter->Draw();
 	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
-	DrawFormatString(0, 60, GetColor(255, 255, 255), "onFloorTimer : %d", canJumpTimer);
 	DrawFormatString(0, 80, GetColor(255, 255, 255), "canJump : %d", canJump);
 }
 
