@@ -31,6 +31,6 @@ public:
 private:
 	float horizontal_ = 160.0f;
 
-	float col[4] = {0.392,1.0f,1.0f,0.274};
+	float col[4] = {0.392f,1.0f,1.0f,0.274f};
 };
 

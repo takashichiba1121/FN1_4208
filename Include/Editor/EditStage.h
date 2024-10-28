@@ -89,5 +89,8 @@ private:
 
 	Object copyObject_;
 
+	//…•½ü‚ÌˆÊ’u
+	float horizontal_ = 160.0f;
+
 };
 

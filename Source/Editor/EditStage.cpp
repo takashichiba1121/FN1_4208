@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "Input.h"
+#include "Water.h"
 
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
@@ -104,6 +105,10 @@ void EditStage::ImguiMenu()
 		ImGui::EndMenuBar();
 	}
 
+	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
+
+	Water::GetInstance()->SetHorizontal(horizontal_);
+
 	SaveAndLoadLevelObject();
 
 	ImGui::End();
@@ -143,6 +148,20 @@ void EditStage::addObject()
 	{
 		serectAddObjectType_ = ObjectName::ObjectString(objectType);
 	}
+
+	for (size_t i = 0; i < items.size(); i++)
+	{
+		if (ImGui::Button(items[i].c_str(), {50,50}))
+		{
+			serectAddObjectType_ = ObjectName::ObjectString(i);
+		}
+		if (i != items.size()-1)
+		{
+			ImGui::SameLine();
+		}
+		
+	}
+
 
 	ImGui::DragFloat2("Pos", AddObjectPos_, 1.0f, -1000.0f, 1000.0f);
 	ImGui::DragFloat2("Size", AddObjectSize_, 1.0f, 1.0f, 1000.0f);
@@ -439,6 +458,9 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 	//ŠÇ—–¼
 	jsonfile["name"] = "Level";
 
+	//…–Ê‚Ì‚‚³
+	jsonfile["horizontal"] = horizontal_;
+
 	for (auto& levelData : StageManager::GetInstance()->stageObjData_)
 	{
 		nlohmann::json data;
@@ -469,10 +491,11 @@ void EditStage::SaveAndLoadLevelObject()
 	}
 	if (imguiLoadWindow_)
 	{
-		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFileList();
+		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFile();
 		if (loadData.isLoad)
 		{
 			StageManager::GetInstance()->LoadListStageData(loadData.levelData);
+			horizontal_ = loadData.horizontal;
 		}
 		imguiLoadWindow_ = false;
 	}
