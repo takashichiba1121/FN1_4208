@@ -11,7 +11,9 @@ void Player::Initialize() {
 	isExclude_ = false;
 
 	bubbleEmitter = std::make_unique<BubbleEmitter>();
+	splashEmitter = std::make_unique<SplashEmitter>();
 	bubbleEmitter->Initialize(20);
+	splashEmitter->Initialize(20);
 
 	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
@@ -76,7 +78,9 @@ void Player::Update() {
 
 	//パーティクル更新
 	bubbleEmitter->Update(pos_);
+	splashEmitter->Update(pos_);
 	bubbleEmitter->SetHorizontal(horizontal);
+	splashEmitter->SetHorizontal(horizontal);
 
 	//底面で止まる(仮)
 	if (pos_.y >= underLine - size_.y / 2) {
@@ -154,6 +158,7 @@ void Player::Draw() {
 	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
 
 	bubbleEmitter->Draw();
+	splashEmitter->Draw();
 	
 	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
 	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
@@ -163,6 +168,10 @@ void Player::Draw() {
 void Player::OnCollision(Object* objct) {
 	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
 		canJumpTimer = canJumpTimerMax;
+		gravity = 0.0f;
+	}
+
+	if ((pos_.y - size_.y / 2) >= (objct->GetPos().y + objct->GetSize().y / 2)) {
 		gravity = 0.0f;
 	}
 }
