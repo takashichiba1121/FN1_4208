@@ -24,5 +24,5 @@ private:
 	float horizontal = 0.0f;
 
 	int maxTimer = 0;
-	int emitTimer = 30;
+	int emitTimer = 60;
 };

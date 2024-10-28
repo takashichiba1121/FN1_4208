@@ -6,14 +6,21 @@ void SplashEmitter::Initialize(const int timer) {
 
 void SplashEmitter::Update(const Vector2 pos) {
 
-	emitTimer--;
 
 	if (horizontal >= pos.y) {
-		//パーティクル生成
-		std::unique_ptr<Splash>splash = std::make_unique<Splash>();
-		splash->Initialize(pos);
-		splash_.push_back(std::move(splash));
 
+		emitTimer--;
+
+		if (emitTimer >= 0) {
+
+			//パーティクル生成
+			std::unique_ptr<Splash>splash = std::make_unique<Splash>();
+			splash->Initialize(pos);
+			splash_.push_back(std::move(splash));
+		}
+		
+	}
+	else {
 		//タイマーリセット
 		emitTimer = maxTimer;
 	}
