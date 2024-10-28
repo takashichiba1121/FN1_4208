@@ -3,6 +3,7 @@
 #include <fstream>
 
 #include "Input.h"
+#include "Water.h"
 
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
@@ -103,6 +104,10 @@ void EditStage::ImguiMenu()
 		ImGui::Text("%0.0fFPS", ImGui::GetIO().Framerate);
 		ImGui::EndMenuBar();
 	}
+
+	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
+
+	Water::GetInstance()->SetHorizontal(horizontal_);
 
 	SaveAndLoadLevelObject();
 
@@ -453,6 +458,9 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 	//ŠÇ—–¼
 	jsonfile["name"] = "Level";
 
+	//…–Ê‚Ì‚‚³
+	jsonfile["horizontal"] = horizontal_;
+
 	for (auto& levelData : StageManager::GetInstance()->stageObjData_)
 	{
 		nlohmann::json data;
@@ -483,10 +491,11 @@ void EditStage::SaveAndLoadLevelObject()
 	}
 	if (imguiLoadWindow_)
 	{
-		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFileList();
+		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFile();
 		if (loadData.isLoad)
 		{
 			StageManager::GetInstance()->LoadListStageData(loadData.levelData);
+			horizontal_ = loadData.horizontal;
 		}
 		imguiLoadWindow_ = false;
 	}

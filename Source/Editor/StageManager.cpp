@@ -3,6 +3,7 @@
 #include "Block.h"
 #include "Goal.h"
 #include "levitationBlock.h"
+#include "Water.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -23,6 +24,19 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 		AddObject(level.pos, level.scale, level.tag);
 	}
 
+}
+
+void StageManager::LoadStageObjectFile(const std::string& fileName)
+{
+	InputLevelData loadData;
+
+	loadData = ImportLevel::GetInstance()->ImportLevelListData(fileName);
+	if (loadData.isLoad)
+	{
+		LoadListStageData(loadData.levelData);
+		Water::GetInstance()->SetHorizontal(loadData.horizontal);
+	}
+	
 }
 
 void StageManager::Update()
