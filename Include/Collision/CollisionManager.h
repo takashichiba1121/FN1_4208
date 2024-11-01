@@ -21,6 +21,8 @@ public:
 	void RemoveObject(Object* object);
 
 	void Update();
+
+	void AllDelete();
 private:
 
 	std::list<Object*>objects_;
