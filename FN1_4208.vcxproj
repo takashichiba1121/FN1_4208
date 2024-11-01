@@ -81,7 +81,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Stage\Item;$(ProjectDir)\Include\Collision;$(ProjectDir)\Include\Editor;$(ProjectDir)\Include\Stage</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Stage\Item;$(ProjectDir)\Include\Collision;$(ProjectDir)\Include\Editor;$(ProjectDir)\Include\Stage;$(ProjectDir)\Include\Particle</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -108,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Stage\Item;$(ProjectDir)\Include\Collision;$(ProjectDir)\Include\Editor;$(ProjectDir)\Include\Stage</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\DxLib_VC\プロジェクトに追加すべきファイル_VC用;$(ProjectDir)\Include\GameCore;$(ProjectDir)\Include\Math;$(ProjectDir)\Include\Scene;$(ProjectDir)\Include\Stage\Item;$(ProjectDir)\Include\Collision;$(ProjectDir)\Include\Editor;$(ProjectDir)\Include\Stage;$(ProjectDir)\Include\Particle</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -150,12 +150,14 @@
     <ClCompile Include="Source\GameCore\SceneManager.cpp" />
     <ClCompile Include="Source\Math\Random.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
+    <ClCompile Include="Source\Particle\Splash.cpp" />
+    <ClCompile Include="Source\Particle\SplashEmitter.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
     <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
     <ClCompile Include="Source\Stage\Item\Block.cpp" />
-    <ClCompile Include="Source\Stage\Item\Bubble.cpp" />
-    <ClCompile Include="Source\Stage\Item\BubbleEmitter.cpp" />
+    <ClCompile Include="Source\Particle\Bubble.cpp" />
+    <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Water.cpp" />
     <ClCompile Include="Source\GameCore\TextureManager.cpp" />
@@ -185,13 +187,15 @@
     <ClInclude Include="Include\Item\LevitationBlock.h" />
     <ClInclude Include="Include\Math\Random.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
+    <ClInclude Include="Include\Particle\Splash.h" />
+    <ClInclude Include="Include\Particle\SplashEmitter.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
     <ClInclude Include="Include\Scene\Goal.h" />
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
     <ClInclude Include="Include\Stage\Item\Block.h" />
-    <ClInclude Include="Include\Stage\Item\Bubble.h" />
-    <ClInclude Include="Include\Stage\Item\BubbleEmitter.h" />
+    <ClInclude Include="Include\Particle\Bubble.h" />
+    <ClInclude Include="Include\Particle\BubbleEmitter.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Water.h" />
     <ClInclude Include="Include\GameCore\TextureManager.h" />
