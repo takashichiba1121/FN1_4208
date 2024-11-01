@@ -10,8 +10,10 @@ void GameScene::Initialize()
 
 	block = std::make_unique<Block>();
 	floatBlock = std::make_unique<LevitationBlock>();
+	breakBlock = std::make_unique<BreakBlock>();
 	block->Initialize();
 	floatBlock->Initialize();
+	breakBlock->Initialize();
 
 	goal = std::make_unique<Goal>();
 	goal->Initialize();
@@ -23,6 +25,7 @@ void GameScene::Update()
 
 	block->Update();
 	floatBlock->Update();
+	breakBlock->Update();
 
 	goal->Update();
 	test.Update();
@@ -40,6 +43,7 @@ void GameScene::Draw()
 
 	block->Draw();
 	floatBlock->Draw();
+	breakBlock->Draw();
 
 	goal->Draw();
 	test.Draw();
