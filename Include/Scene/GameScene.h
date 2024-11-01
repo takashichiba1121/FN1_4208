@@ -7,6 +7,7 @@
 #include <memory>
 #include "EditStage.h"
 #include"Water.h"
+#include "BreakBlock.h"
 
 class GameScene :
     public BaseScene
@@ -20,6 +21,7 @@ private:
 
 	std::unique_ptr<Block> block;
 	std::unique_ptr<LevitationBlock> floatBlock;
+	std::unique_ptr<BreakBlock> breakBlock;
 	std::unique_ptr<Object> player;
 	std::unique_ptr<Goal> goal;
 

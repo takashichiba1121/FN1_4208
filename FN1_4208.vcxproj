@@ -158,6 +158,7 @@
     <ClCompile Include="Source\Stage\Item\Block.cpp" />
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
+    <ClCompile Include="Source\Stage\Item\BreakBlock.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Water.cpp" />
     <ClCompile Include="Source\GameCore\TextureManager.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Include\Stage\Item\Block.h" />
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
+    <ClInclude Include="Include\Stage\Item\BreakBlock.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Water.h" />
     <ClInclude Include="Include\GameCore\TextureManager.h" />
