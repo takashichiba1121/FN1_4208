@@ -7,9 +7,19 @@ class SplashEmitter {
 
 public:
 
+	/// <summary>
+	/// 初期化
+	/// </summary>
+	/// <param name="timer">しぶきが残る時間</param>
 	void Initialize(const int timer);
 
-	void Update(const Vector2 pos);
+	/// <summary>
+	/// 更新
+	/// </summary>
+	/// <param name="pos">座標</param>
+	/// <param name="size">サイズ</param>
+	/// <param name="grv">落下、上昇速度</param>
+	void Update(const Vector2 pos, const float size, const float grv);
 
 	void Draw();
 
@@ -19,10 +29,8 @@ private:
 
 	std::list<std::unique_ptr<Splash>> splash_;
 
-	Vector2 pos;
-
 	float horizontal = 0.0f;
 
 	int maxTimer = 0;
-	int emitTimer = 60;
+	int emitTimer = 0;
 };

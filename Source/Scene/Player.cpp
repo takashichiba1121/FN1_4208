@@ -11,10 +11,11 @@ void Player::Initialize() {
 	size_ = { 64,64 };
 	isExclude_ = false;
 
+	//パーティクル初期化
 	bubbleEmitter = std::make_unique<BubbleEmitter>();
 	splashEmitter = std::make_unique<SplashEmitter>();
 	bubbleEmitter->Initialize(20);
-	splashEmitter->Initialize(20);
+	splashEmitter->Initialize(30);
 
 	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
@@ -79,16 +80,17 @@ void Player::Update() {
 	}
 
 	//パーティクル更新
-	bubbleEmitter->Update(pos_);
-	splashEmitter->Update(pos_);
 	bubbleEmitter->SetHorizontal(horizontal);
 	splashEmitter->SetHorizontal(horizontal);
+	bubbleEmitter->Update(pos_);
+	splashEmitter->Update(pos_,size_.y / 2, gravity);
 
 	//底面で止まる(仮)
 	if (pos_.y >= underLine - size_.y / 2) {
 		pos_.y = underLine - size_.y / 2;
 		canJumpTimer = canJumpTimerMax;
 		canJump = true;
+		gravity = 0;
 	}
 
 }
