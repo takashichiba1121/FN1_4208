@@ -148,6 +148,7 @@
     <ClCompile Include="Source\GameCore\ImGuiManager.cpp" />
     <ClCompile Include="Source\GameCore\Input.cpp" />
     <ClCompile Include="Source\GameCore\SceneManager.cpp" />
+    <ClCompile Include="Source\GameCore\SoundManager.cpp" />
     <ClCompile Include="Source\Math\Random.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Particle\Splash.cpp" />
@@ -182,6 +183,7 @@
     <ClInclude Include="Include\GameCore\ImGuiManager.h" />
     <ClInclude Include="Include\GameCore\Input.h" />
     <ClInclude Include="Include\GameCore\SceneManager.h" />
+    <ClInclude Include="Include\GameCore\SoundManager.h" />
     <ClInclude Include="Include\Item\Bubble.h" />
     <ClInclude Include="Include\Item\BubbleEmitter.h" />
     <ClInclude Include="Include\Item\LevitationBlock.h" />

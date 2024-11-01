@@ -11,21 +11,21 @@ TextureManager* TextureManager::Instance()
 uint32_t TextureManager::LoadTexture(const std::string fileName)
 {
 
-	for (int32_t i = 0; i < textureName.size(); i++)
+	for (int32_t i = 0; i < textureNames.size(); i++)
 	{
-		if (fileName == textureName[i])
+		if (fileName == textureNames[i])
 		{
 			return i;
 		}
 	}
 
-	textureName.push_back(fileName);
+	textureNames.push_back(fileName);
 
 	return DxLib::LoadGraph(fileName.c_str());
 }
 void TextureManager::Finalize()
 {
-	textureName.clear();
+	textureNames.clear();
 
 	InitGraph();
 }
