@@ -1,6 +1,7 @@
 #include "Goal.h"
 #include "Input.h"
 #include "CollisionManager.h"
+#include <random>
 
 void Goal::Initialize()
 {
@@ -13,25 +14,19 @@ void Goal::Initialize()
 
 void Goal::Update()
 {
+	horizontal = Water::GetInstance()->GetHorizontal();
+
 	//移動(仮)
 	/*if (Input::GetKey(Input::Key::Left)) {
-		pos.y -= speed;
+	pos.y -= speed;
 	}
 	else if (Input::GetKey(Input::Key::Right)) {
-		pos.y += speed;
+	pos.y += speed;
 	}*/
 
-	//↑↓キーで水平線調節
-
-	if (Input::GetKey(Input::Key::Up)) {
-		horizontal -= 2.0f;
-	}
-	if (Input::GetKey(Input::Key::Down)) {
-		horizontal += 2.0f;
-	}
 
 	//水平線より下か(上か)
-	if (pos_.y+size_.y/2>= horizontal) {
+	if (pos_.y + size_.y / 2 >= horizontal) {
 		isUnderWater = true;
 	}
 	else {
@@ -39,10 +34,10 @@ void Goal::Update()
 	}
 
 	if (isUnderWater) {
-		//
+		isCollision_ = true;
 	}
 	else {
-		//
+		isCollision_ = false;
 	}
 
 	//演出(開閉時)
@@ -50,22 +45,21 @@ void Goal::Update()
 
 
 	//演出(衝突時)
-	if (Input::GetKey(Input::Key::G)) {//当たり判定
-		isClear = true;
-	}
 	/*if (isClear == true) {
-		if (a <= 4) {
-			timer--;
+	if (a <= 4) {
+	timer--;
 
-			if (timer <= 0) {
-				timer = coolTime;
-				a += 0.1f;
-			}
-		}
+	if (timer <= 0) {
+	timer = coolTime;
+	a += 0.1f;
+	}
+	}
 	}*/
 
 	//演出(遷移)
-	OnCollision(this);
+	if (isClear) {
+
+	}
 }
 
 void Goal::Draw()
@@ -76,6 +70,7 @@ void Goal::Draw()
 			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
 			pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
 			GetColor(255, 255, 255), TRUE);
+		DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
 	}
 	else {
 		//ゴール(開)
@@ -83,19 +78,20 @@ void Goal::Draw()
 			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
 			pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
 			GetColor(0, 255, 255), TRUE);
+		DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
 	}
 
 	if (isClear) {
 		//クリア
 		//DrawBox(1280 / a, 720 / a, 1280 - 1280 / a, 720 - 720 / a, GetColor(255, 255, 255), true);
-		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+		DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 	}
 }
 
 void Goal::OnCollision(Object* objct)
 {
-	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
-		DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+	if (objct->GetObjectType() == ObjectType::PLAYER) {
+		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+		isClear = true;
 	}
-	//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 }

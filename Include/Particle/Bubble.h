@@ -7,6 +7,8 @@ class Bubble :
 
 public:
 
+	~Bubble();
+
 	void Initialize(const Vector2 pos);
 
 	void Update(const float line);

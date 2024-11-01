@@ -8,7 +8,7 @@ void CollisionManager::AddObject(Object* object)
 
 void CollisionManager::RemoveObject(Object* object)
 {
-	objects_.remove(object);
+  	objects_.remove(object);
 }
 
 void CollisionManager::Update()
@@ -39,7 +39,7 @@ void CollisionManager::Update()
 
 			if (Collision::AABB(objectA, objectB))
 			{
- 				if (objectA->IsExclude()||objectB->IsExclude())
+ 				if (objectA->IsExclude()&&objectB->IsExclude())
 				{
  					Vector2 posB = objectB->GetPos();
 					Vector2 sizeB = objectB->GetSize();
@@ -110,6 +110,11 @@ void CollisionManager::Update()
 		}
 	}
 
+}
+
+void CollisionManager::AllDelete()
+{
+	objects_.clear();
 }
 
 CollisionManager* CollisionManager::GetInstance()

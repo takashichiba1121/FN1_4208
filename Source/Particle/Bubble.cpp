@@ -3,6 +3,10 @@
 #include"CollisionManager.h"
 #include"Random.h"
 
+Bubble::~Bubble() {
+	CollisionManager::GetInstance()->RemoveObject(this);
+}
+
 void Bubble::Initialize(const Vector2 pos) {
 	pos_ = pos;
 	size = Random::RandomFloat(8.0f, 12.0f);
@@ -23,9 +27,9 @@ void Bubble::Update(const float line) {
 
 	//水平線から上に行くと消滅
 	if (pos_.y < line) {
-		CollisionManager::GetInstance()->RemoveObject(this);
 		isDead = true;
 	}
+
 }
 
 void Bubble::Draw() {
@@ -38,7 +42,6 @@ void Bubble::OnCollision(Object* objct) {
 	//ブロックに当たると消滅
 	if (objct->GetObjectType() == ObjectType::FLOAT_BLOCK ||
 		objct->GetObjectType() == ObjectType::NOT_FLOAT_BLOCK) {
-		CollisionManager::GetInstance()->RemoveObject(this);
 		isDead = true;
 	}
 }
