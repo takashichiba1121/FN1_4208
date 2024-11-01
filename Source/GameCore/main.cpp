@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
+#include"TextureManager.h"
 
 // ウィンドウのタイトルに表示する文字列
 const char TITLE[] = "タイトル";
@@ -27,7 +28,7 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
-                   _In_ int nCmdShow) {
+	_In_ int nCmdShow) {
 	SetOutApplicationLogValidFlag(false);
 	// ウィンドウモードに設定
 	ChangeWindowMode(TRUE);
@@ -61,7 +62,6 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	// 画像などのリソースデータの変数宣言と読み込み
 
-
 	// ゲームループで使う変数の宣言
 
 
@@ -72,6 +72,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SceneManager::GetInstance()->SetSceneFactory(SceneFactrory::GetInstance());
 
 	SceneManager::GetInstance()->ChangeScene("GAME");
+
+
 
 	// ゲームループ
 	while (true) {
@@ -106,6 +108,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 			break;
 		}
 	}
+
+	TextureManager::Instance()->Finalize();
 	// Dxライブラリ終了処理
 	DxLib_End();
 

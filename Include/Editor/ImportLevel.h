@@ -23,23 +23,82 @@ struct LevelData
 	ObjectType tag = ObjectType::PLAYER;
 };
 
+//読み込んだ時帰ってくるデータ
+struct InputLevelData
+{
+	std::list<LevelData> levelData;
+
+	float horizontal = 0.0f;
+
+	bool isLoad = false;
+
+};
+
+
+struct ObjectName
+{
+	static ObjectType ObjectString(int32_t objectNum)
+	{
+		if (objectNum == static_cast<int32_t>(ObjectType::PLAYER))
+		{
+			return ObjectType::PLAYER;
+		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::FLOAT_BLOCK))
+		{
+			return ObjectType::FLOAT_BLOCK;
+		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::NOT_FLOAT_BLOCK))
+		{
+			return ObjectType::NOT_FLOAT_BLOCK;
+		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::GOAL))
+		{
+			return ObjectType::GOAL;
+		}
+
+		return ObjectType::NONE;
+	}
+};
+
 class ImportLevel
 {
 public:
-	ImportLevel();
+	//おい俺はシングルトンだぞ
+	static ImportLevel* GetInstance();
+
+	
+
+	InputLevelData WindowsOpenLevelFile();
+
+	//データをlist配列に入れる
+	InputLevelData ImportLevelListData(const std::string& fileName);
+
+	std::string GetLoadErrorText() { return loadErrorText_; };
+	
+private:
+
+	//シングルトン用
+	ImportLevel() = default;
 	~ImportLevel();
+
+	ImportLevel(const ImportLevel&) = delete;
+	ImportLevel& operator=(const ImportLevel&) = delete;
+
 
 	//取ってきたデータを既定の配列に入れる
 	//データをvector配列に入れる
-	static std::vector<LevelData> ImportLevelVectorData(const std::string& fileName);
-	//データをlist配列に入れる
-	static std::list<LevelData> ImportLevelListData(const std::string& fileName);
-
+	//InputLevelData ImportLevelVectorData(const std::string& fileName);
+	
 	//レベルの中身読み込むよう
-	static LevelData LevelScanning(nlohmann::json& Level);
-
+	bool LevelScanning(nlohmann::json& Level);
 
 private:
+
+	//一時保存用です基本的に中身なし
+	std::vector<LevelData> vectorLevelData_;
+	std::list<LevelData> listLevelData_;
+
+	std::string loadErrorText_;
 
 };
 
