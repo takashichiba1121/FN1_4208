@@ -8,7 +8,6 @@ void Player::Initialize() {
 
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
-	isExclude_ = false;
 
 	bubbleEmitter = std::make_unique<BubbleEmitter>();
 	bubbleEmitter->Initialize(20);
