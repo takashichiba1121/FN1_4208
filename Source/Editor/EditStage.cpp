@@ -74,6 +74,9 @@ void EditStage::EditorUpdate()
 	EditObject();
 
 	CopyPasteMouseObject();
+
+	Undo();
+	Redo();
 }
 
 void EditStage::ImguiMenu()
@@ -200,11 +203,13 @@ void EditStage::addObject()
 	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && ImGui::Button("addObject"))
 	{
 		StageManager::GetInstance()->AddObject(AddObjectPos_, AddObjectSize_, serectAddObjectType_);
+		UndoStack(EditContent::Content::Add);
 	}
 
 	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && Input::GetMouseKeyTrigger(Input::MouseKey::RIGHT))
 	{
 		StageManager::GetInstance()->AddObject(Input::GetMousePos(), AddObjectSize_, serectAddObjectType_);
+		UndoStack(EditContent::Content::Add);
 	}
 
 	ImGui::End();
@@ -248,22 +253,40 @@ void EditStage::EditObject()
 
 		if (oldObjectType != objectType)
 		{
+			EditContent::TicketData changeTagData;
+			changeTagData.type_ = ObjectName::ObjectString(objectType);
+			changeTagData.oldType_ = ObjectName::ObjectString(oldObjectType);
+			UndoStack(EditContent::Content::ChangeTag, changeTagData, eventCount);
 			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString(objectType));
 		}
-		
+
+		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+		{
+			movedata.setData(objectI->get(), objectI->get()->GetPos(), objectI->get()->GetSize());
+		}
 
 		Vector2 editPos = objectI->get()->GetPos();
 		Vector2 editSize = objectI->get()->GetSize();
 
-		ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f);
-		ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f);
+		if (ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
+		if (ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
 
 		objectI->get()->SetPos(editPos);
 		objectI->get()->SetSize(editSize);
 
+		if (isImguiUse_ && !Input::GetMouseKey(Input::MouseKey::LEFT))
+		{
+			UndoStack(EditContent::Content::Move, movedata, eventCount);
+			isImguiUse_ = false;
+		}
+
 
 		if (ImGui::Button(std::string("erase" + num).c_str()))
 		{
+			EditContent::TicketData data;
+			data.setData(objectI->get());
+			UndoStack(EditContent::Content::Delete,data, eventCount);
+
 			//ˆê‚Â‚µ‚©‚È‚¢‚È‚ç
 			if (StageManager::GetInstance()->stageObjData_.size() == 1)
 			{
@@ -518,6 +541,79 @@ void EditStage::CopyPasteMouseObject()
 	{
 		StageManager::GetInstance()->AddObject(copyObject_.GetPos(), copyObject_.GetSize(), copyObject_.GetObjectType());
 	}
+}
+
+void EditStage::Undo()
+{
+	if (undoTickets_.empty())return;
+
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::Z))
+	{
+		undoTickets_.back()->Undo();
+		redoTickets_.push_back(std::move(undoTickets_.back()));
+		undoTickets_.pop_back();
+	}
+
+
+}
+
+void EditStage::Redo()
+{
+	if (redoTickets_.empty())return;
+
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::Y))
+	{
+		redoTickets_.back()->Redo();
+		undoTickets_.push_back(std::move(redoTickets_.back()));
+		redoTickets_.pop_back();
+	}
+}
+
+void EditStage::UndoStack(EditContent::Content content, EditContent::TicketData object, int32_t objectNum)
+{
+	std::unique_ptr<EditorTicket> addTicket;
+	EditContent::DeleteObject ticket;
+	EditContent::MoveTransform Moveticket;
+	EditContent::ChangeObjectType ChangeTypeticket;
+	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
+	switch (content)
+	{
+	case EditContent::Content::Add:
+
+		addTicket = std::make_unique<EditContent::AddObject>();
+		addTicket->SaveData();
+		undoTickets_.push_back(std::move(addTicket));
+
+		break;
+
+	case EditContent::Content::Delete:
+		ticket.SaveData(object.object, objectNum);
+
+		addTicket = std::make_unique<EditContent::DeleteObject>(ticket);
+		undoTickets_.push_back(std::move(addTicket));
+		
+		break;
+
+	case EditContent::Content::Move:	
+		Moveticket.SaveData(object, objectNum);
+
+		addTicket = std::make_unique<EditContent::MoveTransform>(Moveticket);
+		undoTickets_.push_back(std::move(addTicket));
+		break;
+	case EditContent::Content::ChangeTag:
+		
+		ChangeTypeticket.SaveData(object.type_, object.oldType_, objectNum);
+
+		addTicket = std::make_unique<EditContent::ChangeObjectType>(ChangeTypeticket);
+		undoTickets_.push_back(std::move(addTicket));
+		break;
+		break;
+	default:
+		break;
+	}
+
+	redoTickets_.clear();
+
 }
 
 std::string EditStage::ObjectTypeToString(ObjectType objectType)
