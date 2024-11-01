@@ -34,8 +34,8 @@ void LevitationBlock::Draw()
 void LevitationBlock::Move()
 {
 	// ブロックが水に浮く処理・重力
-	if (pos_.y < waterSurface_) {
-
+	if (pos_.y < waterSurface_ + 10) {
+		
 		const float distance_ = 10.0f;
 		pos_.y += gravity_;
 
@@ -43,12 +43,22 @@ void LevitationBlock::Move()
 			pos_.y = waterSurface_;
 		}
 	}
+	if(pos_.y > waterSurface_ + 10){
+		
+		const float distance_ = 10.0f;
+
+		pos_.y -= gravity_;
+
+		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
+			pos_.y = waterSurface_; 
+		}
+	}
 	if (pos_.y == waterSurface_) {
 		isEasing_ = true;
 	}
 	if (isEasing_) {
 		frame_++;
-		pos_.y = EaseInOutBackP(frame_, waterSurface_, difference_, easingTime_);
+		//pos_.y = EaseInOutBackP(frame_, waterSurface_, difference_, easingTime_);
 
 		if (frame_ >= maxFrame_) {
 			frame_ = 0;
