@@ -135,10 +135,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Include\Scene\Goal.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Source\GameCore\main.cpp" />
     <ClCompile Include="Source\Collision\Collision.cpp" />
     <ClCompile Include="Source\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Collision\Object.cpp" />
+    <ClCompile Include="Source\Editor\EditorTicket.cpp" />
     <ClCompile Include="Source\Editor\EditStage.cpp" />
     <ClCompile Include="Source\Editor\ImportLevel.cpp" />
     <ClCompile Include="Source\Editor\StageManager.cpp" />
@@ -159,6 +160,7 @@
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Water.cpp" />
+    <ClCompile Include="Source\GameCore\TextureManager.cpp" />
     <ClCompile Include="ThirdParty\imgui\imgui.cpp" />
     <ClCompile Include="ThirdParty\imgui\imgui_demo.cpp" />
     <ClCompile Include="ThirdParty\imgui\imgui_draw.cpp" />
@@ -171,6 +173,7 @@
     <ClInclude Include="Include\Collision\Collision.h" />
     <ClInclude Include="Include\Collision\CollisionManager.h" />
     <ClInclude Include="Include\Collision\Object.h" />
+    <ClInclude Include="Include\Editor\EditorTicket.h" />
     <ClInclude Include="Include\Editor\EditStage.h" />
     <ClInclude Include="Include\Editor\ImportLevel.h" />
     <ClInclude Include="Include\Editor\StageManager.h" />
@@ -195,6 +198,7 @@
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Water.h" />
+    <ClInclude Include="Include\GameCore\TextureManager.h" />
     <ClInclude Include="ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="ThirdParty\imgui\imgui.h" />
     <ClInclude Include="ThirdParty\imgui\imgui_impl_dx11.h" />
