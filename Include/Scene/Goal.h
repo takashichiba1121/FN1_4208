@@ -2,6 +2,7 @@
 #include<Dxlib.h>
 #include"Vector2.h"
 #include"Object.h"
+#include "Water.h"
 class Goal: public Object
 {
 public:
@@ -36,5 +37,5 @@ private:
 	float timer = coolTime;
 	float a = 4.0;
 
-	float horizontal = 160.0f;
+	float horizontal = 0.0f;
 };
