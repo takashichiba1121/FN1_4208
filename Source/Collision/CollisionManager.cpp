@@ -39,7 +39,7 @@ void CollisionManager::Update()
 
 			if (Collision::AABB(objectA, objectB))
 			{
- 				if (objectA->IsExclude()||objectB->IsExclude())
+ 				if (objectA->IsExclude()&&objectB->IsExclude())
 				{
  					Vector2 posB = objectB->GetPos();
 					Vector2 sizeB = objectB->GetSize();
