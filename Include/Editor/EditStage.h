@@ -1,6 +1,7 @@
 #pragma once
 #include "StageManager.h"
 #include <imgui.h>
+#include "EditorTicket.h"
 
 namespace ImGui
 {
@@ -50,6 +51,17 @@ private:
 	//配置データの保存と読み込み
 	void SaveAndLoadLevelObject();
 
+	void Undo();
+	void Redo();
+
+	/// <summary>
+	/// undoのスタックに追加する
+	/// </summary>
+	/// <param name="content">変更の種類</param>
+	/// <param name="object">変更のあったオブジェクト</param>
+	/// <param name="objectNum">変更した位置(種類によっては必要なし)</param>
+	void UndoStack(EditContent::Content content, EditContent::TicketData object = {}, int32_t objectNum = 0);
+
 	//objectTypeを渡すとストリングで返してくれる
 	std::string ObjectTypeToString(ObjectType objectType);
 
@@ -91,6 +103,13 @@ private:
 
 	//水平線の位置
 	float horizontal_ = 160.0f;
+
+	std::vector<std::unique_ptr<EditorTicket>> undoTickets_;
+	std::vector<std::unique_ptr<EditorTicket>> redoTickets_;
+
+	bool isImguiUse_ = false;
+
+	EditContent::TicketData movedata;
 
 };
 
