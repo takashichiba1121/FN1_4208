@@ -139,6 +139,7 @@
     <ClCompile Include="Source\Collision\Collision.cpp" />
     <ClCompile Include="Source\Collision\CollisionManager.cpp" />
     <ClCompile Include="Source\Collision\Object.cpp" />
+    <ClCompile Include="Source\Editor\EditorTicket.cpp" />
     <ClCompile Include="Source\Editor\EditStage.cpp" />
     <ClCompile Include="Source\Editor\ImportLevel.cpp" />
     <ClCompile Include="Source\Editor\StageManager.cpp" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Include\Collision\Collision.h" />
     <ClInclude Include="Include\Collision\CollisionManager.h" />
     <ClInclude Include="Include\Collision\Object.h" />
+    <ClInclude Include="Include\Editor\EditorTicket.h" />
     <ClInclude Include="Include\Editor\EditStage.h" />
     <ClInclude Include="Include\Editor\ImportLevel.h" />
     <ClInclude Include="Include\Editor\StageManager.h" />
