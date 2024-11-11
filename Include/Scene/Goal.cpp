@@ -62,6 +62,13 @@ void Goal::Update()
 	}
 }
 
+void Goal::Inversion() {
+	pos_ = {
+		pos_.x,
+		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
+	};
+}
+
 void Goal::Draw()
 {
 	if (isUnderWater == true) {

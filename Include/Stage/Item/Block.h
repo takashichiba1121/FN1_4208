@@ -22,6 +22,8 @@ public:
 	/// </summary>
 	void Draw()override;
 
+	void Inversion()override;
+
 private:
 	bool isBlock_ = false;
 };

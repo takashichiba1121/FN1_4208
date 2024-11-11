@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Input.h"
+#include "Window.h"
 #include "DxLib.h"
 #include "CollisionManager.h"
 #include "Water.h"
@@ -24,7 +25,7 @@ void Player::Update() {
 
 	horizontal = Water::GetInstance()->GetHorizontal();
 	oldPos_ = pos_;
-	color = GetColor(255, 255, 255);
+	color = GetColor(255, 0, 0);
 	Operation();
 
 	//水中から地上に上がれるか判定
@@ -85,8 +86,8 @@ void Player::Update() {
 	splashEmitter->Update(pos_,size_.y / 2, gravity);
 
 	//底面で止まる(仮)
-	if (pos_.y >= underLine - size_.y / 2) {
-		pos_.y = underLine - size_.y / 2;
+	if (pos_.y >= WIN_HEIGHT - size_.y / 2) {
+		pos_.y = WIN_HEIGHT - size_.y / 2;
 		canJumpTimer = canJumpTimerMax;
 		canJump = true;
 		gravity = 0;
@@ -99,22 +100,6 @@ void Player::Operation() {
 
 	Move();
 	Jump();
-
-	//↑↓キーで水平線調節
-	if (Input::GetKey(Input::Key::Up) && horizontal > 0) {
-		horizontal -= 2.0f;
-	}
-	if (Input::GetKey(Input::Key::Down) && horizontal < 720) {
-		horizontal += 2.0f;
-	}
-
-	//←→キーで底面調節
-	if (Input::GetKey(Input::Key::Left) && underLine > 0) {
-		underLine -= 2.0f;
-	}
-	if (Input::GetKey(Input::Key::Right) && underLine < 720) {
-		underLine += 2.0f;
-	}
 
 	//プレイヤーの位置リセット
 	if (Input::GetKeyTrigger(Input::Key::R)) {
@@ -157,15 +142,9 @@ void Player::Draw() {
 		(int)(pos_.x - size_.x / 2), (int)(pos_.y - size_.y / 2),
 		(int)(pos_.x + size_.x / 2), (int)(pos_.y + size_.y / 2),
 		color, true);
-	//DrawLine(0, (int)horizontal, 1280, (int)horizontal, GetColor(100, 255, 255));
-	DrawLine(0, (int)underLine, 1280, (int)underLine, GetColor(255, 255, 255));
 
 	bubbleEmitter->Draw();
 	splashEmitter->Draw();
-	
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "horizontal : %f (↑↓キーで調整)", horizontal);
-	DrawFormatString(0, 20, GetColor(255, 255, 255), "underLine : %f (←→キーで調整)", underLine);
-	DrawFormatString(0, 80, GetColor(255, 255, 255), "canJump : %d", canJump);
 }
 
 void Player::OnCollision(Object* objct) {

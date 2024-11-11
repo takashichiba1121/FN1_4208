@@ -1,5 +1,6 @@
 #pragma once
 #include"Vector2.h"
+#include"Window.h"
 
 enum class ObjectType
 {
@@ -17,6 +18,8 @@ public:
 	virtual void Initialize() {}
 
 	virtual void Update() {}
+
+	virtual void Inversion() {}
 
 	virtual void Draw() {}
 

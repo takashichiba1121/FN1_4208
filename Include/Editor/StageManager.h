@@ -20,6 +20,8 @@ public:
 
 	void Update();
 
+	void Inversion();
+
 	void Draw();
 
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);

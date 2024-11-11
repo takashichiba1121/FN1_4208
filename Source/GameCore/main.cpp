@@ -1,5 +1,6 @@
 #include "DxLib.h"
 #include "Input.h"
+#include "Window.h"
 #include "SceneManager.h"
 #include"SceneFactrory.h"
 #include "ImGuiManager.h"
@@ -7,15 +8,6 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 #include"TextureManager.h"
-
-// ウィンドウのタイトルに表示する文字列
-const char TITLE[] = "タイトル";
-
-// ウィンドウ横幅
-const int WIN_WIDTH = 1280;
-
-// ウィンドウ縦幅
-const int WIN_HEIGHT = 720;
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -25,7 +17,6 @@ LRESULT WINAPI WndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
 	return 0;
 }
-
 
 int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine,
 	_In_ int nCmdShow) {

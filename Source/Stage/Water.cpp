@@ -17,7 +17,6 @@ void Water::Update()
 	ImGui::Begin("Water");
 
 
-
 	ImGui::ColorEdit4("WaterCol",col );
 
 	ImGui::End(); 

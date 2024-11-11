@@ -1,6 +1,7 @@
 #include "GameScene.h"
 #include "DxLib.h"
 #include"Input.h"
+#include"Window.h"
 #include"CollisionManager.h"
 
 void GameScene::Initialize()
@@ -26,6 +27,11 @@ void GameScene::Update()
 
 	goal->Update();
 	test.Update();
+
+	if (Input::GetKeyTrigger(Input::Key::Q)) {
+		Water::GetInstance()->SetHorizontal(WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - Water::GetInstance()->GetHorizontal()));
+		StageManager::GetInstance()->Inversion();
+	}
 
 	Water::GetInstance()->Update();
 
