@@ -6,6 +6,7 @@ enum class ObjectType
 	PLAYER,
 	FLOAT_BLOCK,
 	NOT_FLOAT_BLOCK,
+	BREAK_BLOCK,
 	GOAL,
 	NONE,
 };

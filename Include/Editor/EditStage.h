@@ -109,7 +109,9 @@ private:
 
 	bool isImguiUse_ = false;
 
-	EditContent::TicketData movedata;
+	EditContent::TicketData movedata_;
+
+	int32_t mouseMoveObjectUndoObjectNum_ = 0;
 
 };
 

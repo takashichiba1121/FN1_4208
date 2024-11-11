@@ -262,7 +262,7 @@ void EditStage::EditObject()
 
 		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
 		{
-			movedata.setData(objectI->get(), objectI->get()->GetPos(), objectI->get()->GetSize());
+			movedata_.setData(objectI->get(), objectI->get()->GetPos(), objectI->get()->GetSize());
 		}
 
 		Vector2 editPos = objectI->get()->GetPos();
@@ -276,7 +276,7 @@ void EditStage::EditObject()
 
 		if (isImguiUse_ && !Input::GetMouseKey(Input::MouseKey::LEFT))
 		{
-			UndoStack(EditContent::Content::Move, movedata, eventCount);
+			UndoStack(EditContent::Content::Move, movedata_, eventCount);
 			isImguiUse_ = false;
 		}
 
@@ -313,6 +313,7 @@ void EditStage::MouseEditObject()
 {
 	if (!isMouseObject_)
 	{
+		int32_t objectCount = 0;
 		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
 		{
 			if (AABB(Input::GetMousePos(), objectI->get()))
@@ -323,6 +324,8 @@ void EditStage::MouseEditObject()
 					oldObjPos_ = objectI->get()->GetPos();
 					mouseEditObjPos = objectI->get()->GetPos();
 					mouseMoveObject_ = objectI->get();
+					mouseMoveObjectUndoObjectNum_ = objectCount;
+
 				}
 				else
 				{
@@ -332,6 +335,7 @@ void EditStage::MouseEditObject()
 					
 				}
 			}
+			objectCount++;
 		}
 	}
 	else
@@ -366,7 +370,10 @@ void EditStage::MouseEditObject()
 		}
 		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet)
 		{
+			EditContent::TicketData data;
+			data.setData(mouseMoveObject_, mouseMoveObject_->GetPos(), mouseMoveObject_->GetSize());
 			mouseMoveObject_->SetPos(Input::GetMousePos());
+			UndoStack(EditContent::Content::Move,data,mouseMoveObjectUndoObjectNum_);
 			isMouseObject_ = false;
 		}	
 		
@@ -622,9 +629,11 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::PLAYER:   return "player";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
+	case ObjectType::BREAK_BLOCK: return "breakBlock";
 	case ObjectType::GOAL: return "goal";
 	default:    return "UNKNOWN";
 	}
+	
 }
 
 bool EditStage::AABB(Vector2 mousePos, Object* obj)
