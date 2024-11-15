@@ -2,6 +2,7 @@
 
 #include "Vector2.h"
 #include "Object.h"
+#include <cstdint>
 
 class LevitationBlock : public Object
 {
@@ -43,4 +44,6 @@ private:
 	int difference_ = 70;
 	float waterSurface_ = 0.0f;
 	float gravity_ = 0.0f;
+
+	uint32_t textruehandle_;
 };

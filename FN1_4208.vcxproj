@@ -202,7 +202,7 @@
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
     <ClInclude Include="Include\Stage\Item\BreakBlock.h" />
-    <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
+    <ClInclude Include="Include\Stage\Item\LevitationBlock.h" />
     <ClInclude Include="Include\Stage\Water.h" />
     <ClInclude Include="Include\GameCore\TextureManager.h" />
     <ClInclude Include="ThirdParty\imgui\imconfig.h" />

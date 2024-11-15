@@ -269,7 +269,7 @@
     <ClInclude Include="Include\Stage\Item\BreakBlock.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Stage\Item\levitationBlock.h">
+    <ClInclude Include="Include\Stage\Item\LevitationBlock.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="Include\Stage\Water.h">
