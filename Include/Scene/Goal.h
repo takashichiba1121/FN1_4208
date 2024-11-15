@@ -30,7 +30,7 @@ public:
 	/// <param name="objct"></param>
 	void OnCollision(Object* objct)override;
 
-	void Inversion()override;
+	void Inversion(const float easing)override;
 
 private:
 	int goal;//ƒS[ƒ‹‚Ì‰æ‘œ

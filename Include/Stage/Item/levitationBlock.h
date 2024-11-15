@@ -27,7 +27,7 @@ public:
 	/// </summary>
 	void Move();
 
-	void Inversion()override;
+	void Inversion(const float easing)override;
 
 private:
 	/// <summary>

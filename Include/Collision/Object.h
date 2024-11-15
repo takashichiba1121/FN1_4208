@@ -23,7 +23,7 @@ public:
 
 	void ObjectUpdate();
 
-	virtual void Inversion() {}
+	virtual void Inversion(const float easing) {}
 
 	virtual void Draw() {}
 
@@ -49,6 +49,12 @@ public:
 
 	void SetPos(Vector2 pos) {
 		pos_ = pos;
+	}
+
+	void SetTent() {
+		easeSPos_ = pos_.y;
+		easeEPos_ = WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y);
+		tentSize_ = size_.y;
 	}
 
 	void SetSize(Vector2 size) {
@@ -82,11 +88,16 @@ public:
 protected:
 	Vector2 pos_ = { 0,0 };
 
+	float easeSPos_ = pos_.y;
+	float easeEPos_ = pos_.y;
+
 	Vector2 oldPos_ = { 0,0 };
 
 	Vector2 size_ = {1,1};
 
 	Vector2 oldSize_ = { 0,0 };
+
+	float tentSize_ = size_.y;
 
 	bool isCollision_ = true;
 

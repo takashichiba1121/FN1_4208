@@ -22,7 +22,7 @@ public:
 	/// </summary>
 	void Draw()override;
 
-	void Inversion()override;
+	void Inversion(const float easing)override;
 
 private:
 	bool isBlock_ = false;

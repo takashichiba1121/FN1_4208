@@ -65,10 +65,17 @@ void StageManager::Update()
 	}
 }
 
-void StageManager::Inversion() {
+void StageManager::Inversion(const float easing) {
 	for (auto& level : stageObjData_)
 	{
-		level->Inversion();
+		level->Inversion(easing);
+	}
+}
+
+void StageManager::SetTentPos() {
+	for (auto& level : stageObjData_)
+	{
+		level->SetTent();
 	}
 }
 
