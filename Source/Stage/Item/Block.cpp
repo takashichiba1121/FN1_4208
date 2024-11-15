@@ -14,7 +14,7 @@ void Block::Initialize()
 
 void Block::Update()
 {
-	oldPos_ = pos_;
+	ObjectUpdate();
 }
 
 void Block::Draw()

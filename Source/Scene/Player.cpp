@@ -26,7 +26,7 @@ void Player::Initialize() {
 void Player::Update() {
 
 	horizontal = Water::GetInstance()->GetHorizontal();
-	oldPos_ = pos_;
+	ObjectUpdate();
 	color = GetColor(255, 0, 0);
 
 	//”½“]’†‚Å‚È‚¯‚ê‚Î

@@ -18,7 +18,7 @@ void LevitationBlock::Initialize()
 
 void LevitationBlock::Update()
 {
-	oldPos_ = pos_;
+	ObjectUpdate();
 
 	waterSurface_ = Water::GetInstance()->GetHorizontal();
 
