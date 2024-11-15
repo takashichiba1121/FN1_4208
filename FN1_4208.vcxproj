@@ -162,6 +162,7 @@
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
     <ClCompile Include="Source\Stage\Item\BreakBlock.cpp" />
+    <ClCompile Include="Source\Stage\Item\Key.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Item\SpongeBlock.cpp" />
     <ClCompile Include="Source\Stage\Water.cpp" />
@@ -205,10 +206,12 @@
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
     <ClInclude Include="Include\Stage\Item\BreakBlock.h" />
+    <ClInclude Include="Include\Stage\Item\Key.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Item\SpongeBlock.h" />
     <ClInclude Include="Include\Stage\Water.h" />
     <ClInclude Include="Include\GameCore\TextureManager.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="ThirdParty\imgui\imconfig.h" />
     <ClInclude Include="ThirdParty\imgui\imgui.h" />
     <ClInclude Include="ThirdParty\imgui\imgui_impl_dx11.h" />
@@ -218,6 +221,9 @@
     <ClInclude Include="ThirdParty\imgui\imstb_textedit.h" />
     <ClInclude Include="ThirdParty\imgui\imstb_truetype.h" />
     <ClInclude Include="ThirdParty\json.hpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="FN1_4208.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

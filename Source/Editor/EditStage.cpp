@@ -657,6 +657,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
 	case ObjectType::BREAK_BLOCK: return "breakBlock";
 	case ObjectType::GOAL: return "goal";
+	case ObjectType::KEY: return "key";
 	default:    return "UNKNOWN";
 	}
 	

@@ -26,11 +26,13 @@ void Player::Initialize() {
 void Player::Update() {
 
 	horizontal = Water::GetInstance()->GetHorizontal();
-	oldPos_ = pos_;
+	ObjectUpdate();
 	color = GetColor(255, 0, 0);
 
 	//”½“]’†‚Å‚È‚¯‚ê‚Î
 	if (!Inversion::GetInstance()->GetIsInversion()) {
+
+		isExclude_ = true;
 
 		//‘€ì‰Â”\
 		Operation();
@@ -41,6 +43,10 @@ void Player::Update() {
 
 		//—Ž‰º‘¬“x‚ð™X‚Éã‚°‚é(…’†Žž‚Í”¼Œ¸)
 		gravity += 1.0f / (isUnderWater + 1);
+	}
+	else {
+		//”½“]’†‚Í“–‚½‚è”»’è–³Ž‹
+		isExclude_ = false;
 	}
 
 	//…’†‚©‚ç’nã‚Éã‚ª‚ê‚é‚©”»’è
@@ -173,4 +179,5 @@ void Player::OnCollision(Object* objct) {
 	if ((pos_.y - size_.y / 2) >= (objct->GetPos().y + objct->GetSize().y / 2)) {
 		gravity = 0.0f;
 	}
+
 }

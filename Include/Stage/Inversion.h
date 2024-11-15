@@ -21,8 +21,11 @@ public:
 
 	void Update();
 
+	void SetIsInversion() { isInversion = true; }
+
 	bool GetIsInversion() { return isInversion; }
 	bool GetIsFront() { return isFront; }
+	float GetFrame() { return frame; }
 
 private:
 

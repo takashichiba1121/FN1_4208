@@ -19,6 +19,8 @@ void GameScene::Initialize()
 
 	goal = std::make_unique<Goal>();
 	goal->Initialize();
+	key = std::make_unique<Key>();
+	key->Initialize();
 
 	spongeBlock = std::make_unique<SpongeBlock>();
 	spongeBlock->Initialize();
@@ -36,6 +38,7 @@ void GameScene::Update()
 	spongeBlock->Update();
 
 	goal->Update();
+	key->Update();
 	test.Update();
 
 	Inversion::GetInstance()->Update();
@@ -57,6 +60,7 @@ void GameScene::Draw()
 	spongeBlock->Draw();
 
 	goal->Draw();
+	key->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
 

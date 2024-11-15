@@ -6,6 +6,7 @@
 #include "BreakBlock.h"
 #include "Water.h"
 #include "Window.h"
+#include "Key.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -65,10 +66,17 @@ void StageManager::Update()
 	}
 }
 
-void StageManager::Inversion() {
+void StageManager::Inversion(const float easing) {
 	for (auto& level : stageObjData_)
 	{
-		level->Inversion();
+		level->Inversion(easing);
+	}
+}
+
+void StageManager::SetTentPos() {
+	for (auto& level : stageObjData_)
+	{
+		level->SetTent();
 	}
 }
 
@@ -108,6 +116,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		break;
 	case ObjectType::GOAL :
 		addObject = std::make_unique<Goal>();
+
+		break;
+	case ObjectType::KEY:
+		addObject = std::make_unique<Key>();
 
 		break;
 	default:
@@ -151,6 +163,11 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 
 	case ObjectType::GOAL:
 		addObject = std::make_unique<Goal>();
+
+		break;
+
+	case ObjectType::KEY:
+		addObject = std::make_unique<Key>();
 
 		break;
 
