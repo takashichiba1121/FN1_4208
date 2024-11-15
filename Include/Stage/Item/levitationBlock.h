@@ -1,9 +1,7 @@
 #pragma once
 
-#include <DxLib.h>
 #include "Vector2.h"
 #include "Object.h"
-#include "Water.h"
 
 class LevitationBlock : public Object
 {
@@ -27,6 +25,8 @@ public:
 	/// ˆÚ“®
 	/// </summary>
 	void Move();
+
+	void Inversion()override;
 
 private:
 	/// <summary>

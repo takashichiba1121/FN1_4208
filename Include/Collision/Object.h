@@ -1,11 +1,13 @@
 #pragma once
 #include"Vector2.h"
+#include"Window.h"
 
 enum class ObjectType
 {
 	PLAYER,
 	FLOAT_BLOCK,
 	NOT_FLOAT_BLOCK,
+	BREAK_BLOCK,
 	GOAL,
 	KEY,
 	NONE,
@@ -18,6 +20,8 @@ public:
 	virtual void Initialize() {}
 
 	virtual void Update() {}
+
+	virtual void Inversion() {}
 
 	virtual void Draw() {}
 

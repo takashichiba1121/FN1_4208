@@ -1,6 +1,8 @@
 #include"Splash.h"
 #include"DxLib.h"
 #include"Random.h"
+#include"Inversion.h"
+#include"Water.h"
 
 void Splash::Initialize(const Vector2 pos, const float grv) {
 	position = pos;
@@ -23,7 +25,15 @@ void Splash::Update(const float line) {
 }
 
 void Splash::Draw() {
+
+	if (!Inversion::GetInstance()->GetIsFront()) {
+		color = GetColor(50,255,255);
+	}
+	else {
+		color = GetColor(100,100,255);
+	}
+	
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);
-	DrawCircle((int)position.x, (int)position.y, (int)size, GetColor(100, 255, 255), true);
+	DrawCircle((int)position.x, (int)position.y, (int)size, color, true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }

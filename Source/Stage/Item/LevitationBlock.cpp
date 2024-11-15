@@ -1,12 +1,14 @@
 #include "LevitationBlock.h"
 #include "CollisionManager.h"
-#include <cmath>
 #include "Input.h"
+#include "Water.h"
+#include <cmath>
+#include <DxLib.h>
 
 void LevitationBlock::Initialize()
 {
 	// 初期値
-	pos_ = { 640.0f,100.0f };
+	pos_ = { 100.0f,640.0f };
 	size_ = { 64.0f,64.0f };
 	gravity_ = 10.0f;
 
@@ -26,26 +28,24 @@ void LevitationBlock::Update()
 void LevitationBlock::Draw()
 {
 	DrawBox(
-		pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
-		pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
+		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
+		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
 		GetColor(255, 255, 255), TRUE);
 }
 
 void LevitationBlock::Move()
 {
 	// ブロックが水に浮く処理・重力
-	if (pos_.y < waterSurface_ + 10) {
+	const float distance_ = 10.0f;
+
+	if (pos_.y < waterSurface_) {
 		
-		const float distance_ = 10.0f;
 		pos_.y += gravity_;
 
 		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
 			pos_.y = waterSurface_;
 		}
-	}
-	if(pos_.y > waterSurface_ + 10){
-		
-		const float distance_ = 10.0f;
+	}else if(pos_.y > waterSurface_){
 
 		pos_.y -= gravity_;
 
@@ -53,6 +53,7 @@ void LevitationBlock::Move()
 			pos_.y = waterSurface_; 
 		}
 	}
+
 	if (pos_.y == waterSurface_) {
 		isEasing_ = true;
 	}
@@ -65,6 +66,13 @@ void LevitationBlock::Move()
 			isEasing_ = false;
 		}
 	}
+}
+
+void LevitationBlock::Inversion() {
+	pos_ = {
+		pos_.x,
+		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
+	};
 }
 
 float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)

@@ -89,6 +89,15 @@ ImportLevel::~ImportLevel()
 
 InputLevelData ImportLevel::ImportLevelListData(const std::string& fileName)
 {
+	//元から用意していたパスをくっつけて完全に通るパスにする
+	const std::string fullPath = SDefaultEventPath_ + fileName + SDefaultEventExtension_;
+
+	return ImportLevelListDataFullPath(fullPath);
+
+}
+
+InputLevelData ImportLevel::ImportLevelListDataFullPath(const std::string& fileName)
+{
 	listLevelData_.clear();
 
 	InputLevelData output;
@@ -224,7 +233,7 @@ InputLevelData ImportLevel::WindowsOpenLevelFile()
 	if (GetOpenFileName(&FileObj))
 	{
 		//設定のまとめに選択したファイルを読み取り書き込む
-		result = ImportLevelListData(filePath);
+		result = ImportLevelListDataFullPath(filePath);
 
 		if (!result.isLoad)
 		{

@@ -1,7 +1,9 @@
 #include "GameScene.h"
 #include "DxLib.h"
 #include"Input.h"
+#include"Window.h"
 #include"CollisionManager.h"
+#include"Inversion.h"
 
 void GameScene::Initialize()
 {
@@ -10,13 +12,17 @@ void GameScene::Initialize()
 
 	block = std::make_unique<Block>();
 	floatBlock = std::make_unique<LevitationBlock>();
+	breakBlock = std::make_unique<BreakBlock>();
 	block->Initialize();
 	floatBlock->Initialize();
+	breakBlock->Initialize();
 
 	goal = std::make_unique<Goal>();
 	goal->Initialize();
 	key = std::make_unique<Key>();
 	key->Initialize();
+
+	test.Initialize();
 }
 
 void GameScene::Update()
@@ -25,10 +31,13 @@ void GameScene::Update()
 
 	block->Update();
 	floatBlock->Update();
+	breakBlock->Update();
 
 	goal->Update();
 	key->Update();
 	test.Update();
+
+	Inversion::GetInstance()->Update();
 
 	Water::GetInstance()->Update();
 
@@ -43,6 +52,7 @@ void GameScene::Draw()
 
 	block->Draw();
 	floatBlock->Draw();
+	breakBlock->Draw();
 
 	goal->Draw();
 	key->Draw();

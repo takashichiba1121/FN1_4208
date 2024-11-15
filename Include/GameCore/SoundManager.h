@@ -2,19 +2,19 @@
 #include<string>
 #include<vector>
 
-class TextureManager
+class SoundManager
 {
 #pragma region Singleton
 private:
-	TextureManager() {};
+	SoundManager() {};
 
-	~TextureManager() {};
+	~SoundManager() {};
 public:
-	TextureManager(const TextureManager& carManager) = delete;
+	SoundManager(const SoundManager& carManager) = delete;
 
-	TextureManager& operator=(const TextureManager& carManager) = delete;
+	SoundManager& operator=(const SoundManager& carManager) = delete;
 
-	static TextureManager* Instance();
+	static SoundManager* Instance();
 #pragma endregion
 public:
 	/// <summary>
@@ -22,7 +22,7 @@ public:
 	/// </summary>
 	/// <param name="fileName">テクスチャのパス</param>
 	/// <returns>テクスチャの識別番号</returns>
-	uint32_t LoadTexture(const std::string fileName = "NULL");
+	uint32_t LoadSound(const std::string fileName = "NULL");
 
 	/// <summary>
 	/// 終了処理
@@ -30,7 +30,7 @@ public:
 	void Finalize();
 
 private:
-	std::vector<std::string> textureNames;
+	std::vector<std::string> soundNames;
 	uint32_t srvIncrementIndex = 0;
 };
 

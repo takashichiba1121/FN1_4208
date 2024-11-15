@@ -40,16 +40,33 @@ EditStage::~EditStage()
 
 void EditStage::Initialize()
 {
-	
+#ifdef _DEBUG
+	StageManager::GetInstance()->SetIsUseEditer(true);
+#endif
 }
 
 void EditStage::Update()
 {
-	EditorUpdate();
+	if (StageManager::GetInstance()->GetIsUseEditer())
+	{
+		EditorUpdate();
+	}
+	else
+	{
+		ImGui::Begin("test");
+
+		if (ImGui::Button("testStop"))
+		{
+			TestEnd();
+		}
+
+		ImGui::End();
+	}
 }
 
 void EditStage::Draw()
 {
+	if (!StageManager::GetInstance()->GetIsUseEditer())return;
 	if (isMouseObject_)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
@@ -67,13 +84,16 @@ void EditStage::Draw()
 
 void EditStage::EditorUpdate()
 {
-	addObject();
-
 	ImguiMenu();
+
+	addObject();
 
 	EditObject();
 
 	CopyPasteMouseObject();
+
+	Undo();
+	Redo();
 }
 
 void EditStage::ImguiMenu()
@@ -105,9 +125,18 @@ void EditStage::ImguiMenu()
 		ImGui::EndMenuBar();
 	}
 
-	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
+	horizontal_ = Water::GetInstance()->GetHorizontal();
 
+	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
 	Water::GetInstance()->SetHorizontal(horizontal_);
+
+	if (StageManager::GetInstance()->GetIsUseEditer() && StageManager::GetInstance()->stageObjData_.size() != 0)
+	{
+		if (ImGui::Button("TestStart"))
+		{	
+			TestStart();
+		}
+	}
 
 	SaveAndLoadLevelObject();
 
@@ -200,11 +229,13 @@ void EditStage::addObject()
 	if (ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && ImGui::Button("addObject"))
 	{
 		StageManager::GetInstance()->AddObject(AddObjectPos_, AddObjectSize_, serectAddObjectType_);
+		UndoStack(EditContent::Content::Add);
 	}
 
 	if (!ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow) && Input::GetMouseKeyTrigger(Input::MouseKey::RIGHT))
 	{
 		StageManager::GetInstance()->AddObject(Input::GetMousePos(), AddObjectSize_, serectAddObjectType_);
+		UndoStack(EditContent::Content::Add);
 	}
 
 	ImGui::End();
@@ -248,22 +279,40 @@ void EditStage::EditObject()
 
 		if (oldObjectType != objectType)
 		{
+			EditContent::TicketData changeTagData;
+			changeTagData.type_ = ObjectName::ObjectString(objectType);
+			changeTagData.oldType_ = ObjectName::ObjectString(oldObjectType);
+			UndoStack(EditContent::Content::ChangeTag, changeTagData, eventCount);
 			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString(objectType));
 		}
-		
+
+		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
+		{
+			movedata_.setData(objectI->get(), objectI->get()->GetPos(), objectI->get()->GetSize());
+		}
 
 		Vector2 editPos = objectI->get()->GetPos();
 		Vector2 editSize = objectI->get()->GetSize();
 
-		ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f);
-		ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f);
+		if (ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
+		if (ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
 
 		objectI->get()->SetPos(editPos);
 		objectI->get()->SetSize(editSize);
 
+		if (isImguiUse_ && !Input::GetMouseKey(Input::MouseKey::LEFT))
+		{
+			UndoStack(EditContent::Content::Move, movedata_, eventCount);
+			isImguiUse_ = false;
+		}
+
 
 		if (ImGui::Button(std::string("erase" + num).c_str()))
 		{
+			EditContent::TicketData data;
+			data.setData(objectI->get());
+			UndoStack(EditContent::Content::Delete,data, eventCount);
+
 			//ˆê‚Â‚µ‚©‚È‚¢‚È‚ç
 			if (StageManager::GetInstance()->stageObjData_.size() == 1)
 			{
@@ -290,6 +339,7 @@ void EditStage::MouseEditObject()
 {
 	if (!isMouseObject_)
 	{
+		int32_t objectCount = 0;
 		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
 		{
 			if (AABB(Input::GetMousePos(), objectI->get()))
@@ -300,6 +350,8 @@ void EditStage::MouseEditObject()
 					oldObjPos_ = objectI->get()->GetPos();
 					mouseEditObjPos = objectI->get()->GetPos();
 					mouseMoveObject_ = objectI->get();
+					mouseMoveObjectUndoObjectNum_ = objectCount;
+
 				}
 				else
 				{
@@ -309,6 +361,7 @@ void EditStage::MouseEditObject()
 					
 				}
 			}
+			objectCount++;
 		}
 	}
 	else
@@ -343,7 +396,10 @@ void EditStage::MouseEditObject()
 		}
 		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet)
 		{
+			EditContent::TicketData data;
+			data.setData(mouseMoveObject_, mouseMoveObject_->GetPos(), mouseMoveObject_->GetSize());
 			mouseMoveObject_->SetPos(Input::GetMousePos());
+			UndoStack(EditContent::Content::Move,data,mouseMoveObjectUndoObjectNum_);
 			isMouseObject_ = false;
 		}	
 		
@@ -520,15 +576,90 @@ void EditStage::CopyPasteMouseObject()
 	}
 }
 
+void EditStage::Undo()
+{
+	if (undoTickets_.empty())return;
+
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::Z))
+	{
+		undoTickets_.back()->Undo();
+		redoTickets_.push_back(std::move(undoTickets_.back()));
+		undoTickets_.pop_back();
+	}
+
+
+}
+
+void EditStage::Redo()
+{
+	if (redoTickets_.empty())return;
+
+	if (Input::GetKey(Input::Key::LControl) && Input::GetKeyTrigger(Input::Key::Y))
+	{
+		redoTickets_.back()->Redo();
+		undoTickets_.push_back(std::move(redoTickets_.back()));
+		redoTickets_.pop_back();
+	}
+}
+
+void EditStage::UndoStack(EditContent::Content content, EditContent::TicketData object, int32_t objectNum)
+{
+	std::unique_ptr<EditorTicket> addTicket;
+	EditContent::DeleteObject ticket;
+	EditContent::MoveTransform Moveticket;
+	EditContent::ChangeObjectType ChangeTypeticket;
+	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
+	switch (content)
+	{
+	case EditContent::Content::Add:
+
+		addTicket = std::make_unique<EditContent::AddObject>();
+		addTicket->SaveData();
+		undoTickets_.push_back(std::move(addTicket));
+
+		break;
+
+	case EditContent::Content::Delete:
+		ticket.SaveData(object.object, objectNum);
+
+		addTicket = std::make_unique<EditContent::DeleteObject>(ticket);
+		undoTickets_.push_back(std::move(addTicket));
+		
+		break;
+
+	case EditContent::Content::Move:	
+		Moveticket.SaveData(object, objectNum);
+
+		addTicket = std::make_unique<EditContent::MoveTransform>(Moveticket);
+		undoTickets_.push_back(std::move(addTicket));
+		break;
+	case EditContent::Content::ChangeTag:
+		
+		ChangeTypeticket.SaveData(object.type_, object.oldType_, objectNum);
+
+		addTicket = std::make_unique<EditContent::ChangeObjectType>(ChangeTypeticket);
+		undoTickets_.push_back(std::move(addTicket));
+		break;
+		break;
+	default:
+		break;
+	}
+
+	redoTickets_.clear();
+
+}
+
 std::string EditStage::ObjectTypeToString(ObjectType objectType)
 {
 	switch (objectType) {
 	case ObjectType::PLAYER:   return "player";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
+	case ObjectType::BREAK_BLOCK: return "breakBlock";
 	case ObjectType::GOAL: return "goal";
 	default:    return "UNKNOWN";
 	}
+	
 }
 
 bool EditStage::AABB(Vector2 mousePos, Object* obj)
@@ -571,4 +702,30 @@ bool EditStage::AABB(Vector2 pos, Vector2 size, Object* obj)
 	}
 
 	return true;
+}
+
+void EditStage::TestStart()
+{
+	StageManager::GetInstance()->SetIsUseEditer(false);
+	for (auto& object : StageManager::GetInstance()->stageObjData_)
+	{
+		testSaveObject_.push_back(*object.get());
+	}
+}
+
+void EditStage::TestEnd()
+{
+	StageManager::GetInstance()->SetIsUseEditer(true);
+	std::list<Object>::iterator saveObject = testSaveObject_.begin();
+	for (auto& object : StageManager::GetInstance()->stageObjData_)
+	{
+		object->SetCollision(saveObject->IsCollision());
+		object->SetExclude(saveObject->IsExclude());
+		object->SetObjectType(saveObject->GetObjectType());
+		object->SetPos(saveObject->GetPos());
+		object->SetSize(saveObject->GetSize());
+		saveObject++;
+	}
+
+	testSaveObject_.clear();
 }

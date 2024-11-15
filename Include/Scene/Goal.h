@@ -30,6 +30,8 @@ public:
 	/// <param name="objct"></param>
 	void OnCollision(Object* objct)override;
 
+	void Inversion()override;
+
 private:
 	int goal;//ƒS[ƒ‹‚Ì‰æ‘œ
 	bool isUnderWater = false;
