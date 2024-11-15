@@ -25,9 +25,7 @@ void Block::Draw()
 		GetColor(255, 255, 255), TRUE);
 }
 
-void Block::Inversion() {
-	pos_ = {
-		pos_.x,
-		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
-	};
+void Block::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
 }

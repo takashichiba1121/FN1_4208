@@ -68,11 +68,9 @@ void LevitationBlock::Move()
 	}
 }
 
-void LevitationBlock::Inversion() {
-	pos_ = {
-		pos_.x,
-		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
-	};
+void LevitationBlock::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
 }
 
 float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)

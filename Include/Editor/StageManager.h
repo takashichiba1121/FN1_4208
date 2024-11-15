@@ -20,7 +20,9 @@ public:
 
 	void Update();
 
-	void Inversion();
+	void Inversion(const float easing);
+
+	void SetTentPos();
 
 	void Draw();
 

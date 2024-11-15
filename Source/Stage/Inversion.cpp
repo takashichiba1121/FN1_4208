@@ -17,6 +17,7 @@ void Inversion::Update() {
 		//水平線のイージング
 		horizontalPos = easeStartPos + Easing(frame / MaxFrame) * (easeEndPos - easeStartPos);
 		Water::GetInstance()->SetHorizontal(horizontalPos);
+		StageManager::GetInstance()->Inversion(Easing(frame / MaxFrame));
 		
 		//イージング終了後の処理
 		if (frame >= MaxFrame) {
@@ -32,13 +33,12 @@ void Inversion::Update() {
 		easeStartPos = Water::GetInstance()->GetHorizontal();
 		//イージング終了地点を設定
 		easeEndPos = WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - Water::GetInstance()->GetHorizontal());
+
+		StageManager::GetInstance()->SetTentPos();
 	}
 
 	//水の反転処理
 	Water::GetInstance()->Inversion(Easing(frame / MaxFrame), isFront);
-
-	//StageManager::GetInstance()->Inversion();
-
 
 }
 
