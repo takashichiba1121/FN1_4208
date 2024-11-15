@@ -37,6 +37,15 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 		LoadListStageData(loadData.levelData);
 		Water::GetInstance()->SetHorizontal(loadData.horizontal);
 	}
+	else
+	{
+		loadData = ImportLevel::GetInstance()->ImportLevelListData("Error");
+		if (loadData.isLoad)
+		{
+			LoadListStageData(loadData.levelData);
+			Water::GetInstance()->SetHorizontal(loadData.horizontal);
+		}
+	}
 	
 }
 
