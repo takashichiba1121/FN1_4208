@@ -59,6 +59,10 @@ struct ObjectName
 		{
 			return ObjectType::GOAL;
 		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::KEY))
+		{
+			return ObjectType::KEY;
+		}
 
 		return ObjectType::NONE;
 	}
