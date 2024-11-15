@@ -19,17 +19,21 @@ public:
 
 	void Draw();
 
-	void SetHorizontal(float horizontal)
+	void SetHorizontal(float upHorizontal,float dwonHorizontal=720)
 	{
-		horizontal_ = horizontal;
+		upHorizontal_ = upHorizontal;
+
+		downHorizontal_ = dwonHorizontal;
 	}
 
 	float GetHorizontal()
 	{
-		return horizontal_;
+		return upHorizontal_;
 	}
 private:
-	float horizontal_ = 160.0f;
+	float upHorizontal_ = 160.0f;
+
+	float downHorizontal_ = 720.0f;
 
 	float col[4] = {0.392f,1.0f,1.0f,0.274f};
 };
