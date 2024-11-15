@@ -4,6 +4,7 @@
 #include "DxLib.h"
 #include "CollisionManager.h"
 #include "Water.h"
+#include "Inversion.h"
 #include <random>
 
 void Player::Initialize() {
@@ -26,12 +27,28 @@ void Player::Update() {
 	horizontal = Water::GetInstance()->GetHorizontal();
 	oldPos_ = pos_;
 	color = GetColor(255, 0, 0);
-	Operation();
+
+	//反転中でなければ
+	if (!Inversion::GetInstance()->GetIsInversion()) {
+
+		//操作可能
+		Operation();
+
+		//ジャンプによって空中にいるときの処理
+		//プレイヤー座標に重力を加算
+		pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
+
+		//落下速度を徐々に上げる(水中時は半減)
+		gravity += 1.0f / (isUnderWater + 1);
+	}
 
 	//水中から地上に上がれるか判定
 	if (gravity <= 0 && pos_.y <= horizontal && isUnderWater) {
 		canCrawlUp = true;
-		pos_.y = horizontal;
+
+		if (!Inversion::GetInstance()->GetIsInversion()) {
+			pos_.y = horizontal;
+		}
 	}
 	else {
 		canCrawlUp = false;
@@ -52,13 +69,6 @@ void Player::Update() {
 	else {
 		speed = GroundSpeed;
 	}
-
-	//ジャンプによって空中にいるときの処理
-	//プレイヤー座標に重力を加算
-	pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
-
-	//落下速度を徐々に上げる(水中時は半減)
-	gravity += 1.0f / (isUnderWater + 1);
 
 	//落下速度の上限を決める(水中時は半減)
 	if (gravity >= MaxGravity / (isUnderWater + 1)) {

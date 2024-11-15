@@ -9,29 +9,16 @@ void GameScene::Initialize()
 	player = std::make_unique<Player>();
 	player->Initialize();
 
-	block = std::make_unique<Block>();
-	floatBlock = std::make_unique<LevitationBlock>();
-	block->Initialize();
-	floatBlock->Initialize();
-
-	goal = std::make_unique<Goal>();
-	goal->Initialize();
 }
 
 void GameScene::Update()
 {
 	player->Update();
 
-	block->Update();
-	floatBlock->Update();
-
-	goal->Update();
+	Inversion::GetInstance()->Update();
 	test.Update();
 
-	if (Input::GetKeyTrigger(Input::Key::Q)) {
-		Water::GetInstance()->SetHorizontal(WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - Water::GetInstance()->GetHorizontal()));
-		StageManager::GetInstance()->Inversion();
-	}
+	
 
 	Water::GetInstance()->Update();
 
@@ -44,10 +31,6 @@ void GameScene::Draw()
 {
 	player->Draw();
 
-	block->Draw();
-	floatBlock->Draw();
-
-	goal->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
 

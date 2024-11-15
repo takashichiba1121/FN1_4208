@@ -155,6 +155,7 @@
     <ClCompile Include="Source\Scene\GameScene.cpp" />
     <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
+    <ClCompile Include="Source\Stage\Inversion.cpp" />
     <ClCompile Include="Source\Stage\Item\Block.cpp" />
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="Include\Scene\Goal.h" />
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
+    <ClInclude Include="Include\Stage\Inversion.h" />
     <ClInclude Include="Include\Stage\Item\Block.h" />
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />

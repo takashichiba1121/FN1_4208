@@ -7,6 +7,7 @@
 #include <memory>
 #include "EditStage.h"
 #include"Water.h"
+#include"Inversion.h"
 
 class GameScene :
     public BaseScene
