@@ -40,16 +40,33 @@ EditStage::~EditStage()
 
 void EditStage::Initialize()
 {
-	
+#ifdef _DEBUG
+	StageManager::GetInstance()->SetIsUseEditer(true);
+#endif
 }
 
 void EditStage::Update()
 {
-	EditorUpdate();
+	if (StageManager::GetInstance()->GetIsUseEditer())
+	{
+		EditorUpdate();
+	}
+	else
+	{
+		ImGui::Begin("test");
+
+		if (ImGui::Button("testStop"))
+		{
+			TestEnd();
+		}
+
+		ImGui::End();
+	}
 }
 
 void EditStage::Draw()
 {
+	if (!StageManager::GetInstance()->GetIsUseEditer())return;
 	if (isMouseObject_)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_ALPHA, 100);
@@ -67,9 +84,9 @@ void EditStage::Draw()
 
 void EditStage::EditorUpdate()
 {
-	addObject();
-
 	ImguiMenu();
+
+	addObject();
 
 	EditObject();
 
@@ -113,6 +130,14 @@ void EditStage::ImguiMenu()
 	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
 
 	Water::GetInstance()->SetHorizontal(horizontal_);
+
+	if (StageManager::GetInstance()->GetIsUseEditer() && StageManager::GetInstance()->stageObjData_.size() != 0)
+	{
+		if (ImGui::Button("TestStart"))
+		{	
+			TestStart();
+		}
+	}
 
 	SaveAndLoadLevelObject();
 
@@ -678,4 +703,30 @@ bool EditStage::AABB(Vector2 pos, Vector2 size, Object* obj)
 	}
 
 	return true;
+}
+
+void EditStage::TestStart()
+{
+	StageManager::GetInstance()->SetIsUseEditer(false);
+	for (auto& object : StageManager::GetInstance()->stageObjData_)
+	{
+		testSaveObject_.push_back(*object.get());
+	}
+}
+
+void EditStage::TestEnd()
+{
+	StageManager::GetInstance()->SetIsUseEditer(true);
+	std::list<Object>::iterator saveObject = testSaveObject_.begin();
+	for (auto& object : StageManager::GetInstance()->stageObjData_)
+	{
+		object->SetCollision(saveObject->IsCollision());
+		object->SetExclude(saveObject->IsExclude());
+		object->SetObjectType(saveObject->GetObjectType());
+		object->SetPos(saveObject->GetPos());
+		object->SetSize(saveObject->GetSize());
+		saveObject++;
+	}
+
+	testSaveObject_.clear();
 }

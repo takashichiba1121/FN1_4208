@@ -69,6 +69,12 @@ private:
 	bool AABB(Vector2 mousePos, Object* obj);
 	bool AABB(Vector2 pos,Vector2 size, Object* obj);
 
+	//テストスタート用の準備
+	void TestStart();
+
+	//テストを終えるときの後処理
+	void TestEnd();
+
 
 private:
 
@@ -106,6 +112,9 @@ private:
 
 	std::vector<std::unique_ptr<EditorTicket>> undoTickets_;
 	std::vector<std::unique_ptr<EditorTicket>> redoTickets_;
+
+	//テスト用の元の位置保持用list
+	std::list<Object> testSaveObject_;
 
 	bool isImguiUse_ = false;
 

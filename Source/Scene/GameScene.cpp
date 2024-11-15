@@ -17,6 +17,8 @@ void GameScene::Initialize()
 
 	goal = std::make_unique<Goal>();
 	goal->Initialize();
+
+	test.Initialize();
 }
 
 void GameScene::Update()
