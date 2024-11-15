@@ -6,6 +6,7 @@
 #include "Water.h"
 #include "Inversion.h"
 #include <random>
+#include"imgui.h"
 
 void Player::Initialize() {
 
@@ -102,6 +103,12 @@ void Player::Update() {
 		canJump = true;
 		gravity = 0;
 	}
+
+	ImGui::Begin("Player");
+
+	ImGui::Text("%f",gravity);
+
+	ImGui::End();
 
 }
 

@@ -30,6 +30,10 @@ public:
 
 	std::list<std::unique_ptr<Object>> stageObjData_;
 
+	bool GetIsUseEditer() { return isUseEditer_; };
+
+	void SetIsUseEditer(bool flag) { isUseEditer_ = flag; };
+
 private:
 
 	//シングルトン用
@@ -44,6 +48,6 @@ private:
 
 private:
 	
-
+	bool isUseEditer_ = false;
 };
 

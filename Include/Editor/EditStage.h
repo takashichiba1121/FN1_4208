@@ -1,6 +1,7 @@
 #pragma once
 #include "StageManager.h"
 #include <imgui.h>
+#include "EditorTicket.h"
 
 namespace ImGui
 {
@@ -50,12 +51,29 @@ private:
 	//配置データの保存と読み込み
 	void SaveAndLoadLevelObject();
 
+	void Undo();
+	void Redo();
+
+	/// <summary>
+	/// undoのスタックに追加する
+	/// </summary>
+	/// <param name="content">変更の種類</param>
+	/// <param name="object">変更のあったオブジェクト</param>
+	/// <param name="objectNum">変更した位置(種類によっては必要なし)</param>
+	void UndoStack(EditContent::Content content, EditContent::TicketData object = {}, int32_t objectNum = 0);
+
 	//objectTypeを渡すとストリングで返してくれる
 	std::string ObjectTypeToString(ObjectType objectType);
 
 	//悪いやつなので人のやつコピペ
 	bool AABB(Vector2 mousePos, Object* obj);
 	bool AABB(Vector2 pos,Vector2 size, Object* obj);
+
+	//テストスタート用の準備
+	void TestStart();
+
+	//テストを終えるときの後処理
+	void TestEnd();
 
 
 private:
@@ -91,6 +109,18 @@ private:
 
 	//水平線の位置
 	float horizontal_ = 160.0f;
+
+	std::vector<std::unique_ptr<EditorTicket>> undoTickets_;
+	std::vector<std::unique_ptr<EditorTicket>> redoTickets_;
+
+	//テスト用の元の位置保持用list
+	std::list<Object> testSaveObject_;
+
+	bool isImguiUse_ = false;
+
+	EditContent::TicketData movedata_;
+
+	int32_t mouseMoveObjectUndoObjectNum_ = 0;
 
 };
 

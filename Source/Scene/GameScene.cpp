@@ -9,16 +9,29 @@ void GameScene::Initialize()
 	player = std::make_unique<Player>();
 	player->Initialize();
 
+	block = std::make_unique<Block>();
+	floatBlock = std::make_unique<LevitationBlock>();
+	breakBlock = std::make_unique<BreakBlock>();
+	block->Initialize();
+	floatBlock->Initialize();
+	breakBlock->Initialize();
+
+	goal = std::make_unique<Goal>();
+	goal->Initialize();
+
+	test.Initialize();
 }
 
 void GameScene::Update()
 {
 	player->Update();
 
-	Inversion::GetInstance()->Update();
-	test.Update();
+	block->Update();
+	floatBlock->Update();
+	breakBlock->Update();
 
-	
+	goal->Update();
+	test.Update();
 
 	Water::GetInstance()->Update();
 
@@ -31,6 +44,11 @@ void GameScene::Draw()
 {
 	player->Draw();
 
+	block->Draw();
+	floatBlock->Draw();
+	breakBlock->Draw();
+
+	goal->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
 

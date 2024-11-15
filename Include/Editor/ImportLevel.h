@@ -51,6 +51,10 @@ struct ObjectName
 		{
 			return ObjectType::NOT_FLOAT_BLOCK;
 		}
+		else if (objectNum == static_cast<int32_t>(ObjectType::BREAK_BLOCK))
+		{
+			return ObjectType::BREAK_BLOCK;
+		}
 		else if (objectNum == static_cast<int32_t>(ObjectType::GOAL))
 		{
 			return ObjectType::GOAL;
@@ -72,6 +76,7 @@ public:
 
 	//データをlist配列に入れる
 	InputLevelData ImportLevelListData(const std::string& fileName);
+	InputLevelData ImportLevelListDataFullPath(const std::string& fileName);
 
 	std::string GetLoadErrorText() { return loadErrorText_; };
 	
@@ -99,6 +104,12 @@ private:
 	std::list<LevelData> listLevelData_;
 
 	std::string loadErrorText_;
+
+	//読み込む際のファイルパス(ファイル名だけで指定するため)
+	static const inline std::string SDefaultEventPath_ = "Resources/Level/";
+
+	//ファイル拡張子
+	static const inline std::string SDefaultEventExtension_ = ".json";
 
 };
 

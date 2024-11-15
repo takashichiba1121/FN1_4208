@@ -148,6 +148,7 @@
     <ClCompile Include="Source\GameCore\ImGuiManager.cpp" />
     <ClCompile Include="Source\GameCore\Input.cpp" />
     <ClCompile Include="Source\GameCore\SceneManager.cpp" />
+    <ClCompile Include="Source\GameCore\SoundManager.cpp" />
     <ClCompile Include="Source\Math\Random.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
     <ClCompile Include="Source\Particle\Splash.cpp" />
@@ -155,10 +156,11 @@
     <ClCompile Include="Source\Scene\GameScene.cpp" />
     <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
-    <ClCompile Include="Source\Stage\Inversion.cpp" />
+    <ClCompile Include="Source\Scene\StageSelectScene.cpp" />
     <ClCompile Include="Source\Stage\Item\Block.cpp" />
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
+    <ClCompile Include="Source\Stage\Item\BreakBlock.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Water.cpp" />
     <ClCompile Include="Source\GameCore\TextureManager.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="Include\GameCore\ImGuiManager.h" />
     <ClInclude Include="Include\GameCore\Input.h" />
     <ClInclude Include="Include\GameCore\SceneManager.h" />
+    <ClInclude Include="Include\GameCore\SoundManager.h" />
     <ClInclude Include="Include\GameCore\Window.h" />
     <ClInclude Include="Include\Item\Bubble.h" />
     <ClInclude Include="Include\Item\BubbleEmitter.h" />
@@ -199,6 +202,7 @@
     <ClInclude Include="Include\Stage\Item\Block.h" />
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
+    <ClInclude Include="Include\Stage\Item\BreakBlock.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Water.h" />
     <ClInclude Include="Include\GameCore\TextureManager.h" />
