@@ -42,6 +42,13 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 
 void StageManager::Update()
 {
+
+#ifdef _DEBUG
+
+	if (isUseEditer_)return;
+
+#endif
+
 	for (auto &level : stageObjData_)
 	{
 		level->Update();
