@@ -15,6 +15,8 @@ void GameScene::Initialize()
 
 	goal = std::make_unique<Goal>();
 	goal->Initialize();
+	key = std::make_unique<Key>();
+	key->Initialize();
 }
 
 void GameScene::Update()
@@ -25,6 +27,7 @@ void GameScene::Update()
 	floatBlock->Update();
 
 	goal->Update();
+	key->Update();
 	test.Update();
 
 	Water::GetInstance()->Update();
@@ -42,6 +45,7 @@ void GameScene::Draw()
 	floatBlock->Draw();
 
 	goal->Draw();
+	key->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
 
