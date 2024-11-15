@@ -28,7 +28,7 @@ void GameScene::Update()
 	breakBlock->Update();
 
 	goal->Update();
-	//test.Update();
+	test.Update();
 
 	Water::GetInstance()->Update();
 
