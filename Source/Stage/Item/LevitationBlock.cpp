@@ -4,6 +4,7 @@
 #include "Water.h"
 #include <cmath>
 #include <DxLib.h>
+#include "TextureManager.h"
 
 void LevitationBlock::Initialize()
 {
@@ -14,11 +15,12 @@ void LevitationBlock::Initialize()
 
 	objectType_ = ObjectType::FLOAT_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\FloatBlook.png");
 }
 
 void LevitationBlock::Update()
 {
-	oldPos_ = pos_;
+	ObjectUpdate();
 
 	waterSurface_ = Water::GetInstance()->GetHorizontal();
 
@@ -27,10 +29,12 @@ void LevitationBlock::Update()
 
 void LevitationBlock::Draw()
 {
-	DrawBox(
+	/*DrawBox(
 		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
 		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
-		GetColor(255, 255, 255), TRUE);
+		GetColor(255, 255, 255), TRUE);*/
+	DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+
 }
 
 void LevitationBlock::Move()
@@ -68,11 +72,9 @@ void LevitationBlock::Move()
 	}
 }
 
-void LevitationBlock::Inversion() {
-	pos_ = {
-		pos_.x,
-		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
-	};
+void LevitationBlock::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
 }
 
 float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)

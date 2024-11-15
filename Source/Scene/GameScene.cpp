@@ -53,7 +53,6 @@ void GameScene::Draw()
 	block->Draw();
 	floatBlock->Draw();
 	breakBlock->Draw();
-
 	goal->Draw();
 	key->Draw();
 	test.Draw();

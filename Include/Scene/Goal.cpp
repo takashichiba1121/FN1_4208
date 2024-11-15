@@ -73,11 +73,9 @@ void Goal::Update()
 	}
 }
 
-void Goal::Inversion() {
-	pos_ = {
-		pos_.x,
-		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
-	};
+void Goal::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
 }
 
 void Goal::Draw()
