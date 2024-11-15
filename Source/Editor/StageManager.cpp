@@ -6,6 +6,7 @@
 #include "BreakBlock.h"
 #include "Water.h"
 #include "Window.h"
+#include "Key.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -117,6 +118,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		addObject = std::make_unique<Goal>();
 
 		break;
+	case ObjectType::KEY:
+		addObject = std::make_unique<Key>();
+
+		break;
 	default:
 		return;
 		break;
@@ -158,6 +163,11 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 
 	case ObjectType::GOAL:
 		addObject = std::make_unique<Goal>();
+
+		break;
+
+	case ObjectType::KEY:
+		addObject = std::make_unique<Key>();
 
 		break;
 
