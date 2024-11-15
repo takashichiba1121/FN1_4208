@@ -43,10 +43,12 @@ void CollisionManager::Update()
 				{
 					Vector2 posB = objectB->GetPos();
 					Vector2 sizeB = objectB->GetSize();
+					Vector2 oldSizeB = objectB->GetOldSize();
 					Vector2 oldPosB = objectB->GetOldPos();
 
 					Vector2 posA = objectA->GetPos();
 					Vector2 sizeA = objectA->GetSize();
+					Vector2 oldSizeA = objectA->GetOldSize();
 					Vector2 oldPosA = objectA->GetOldPos();
 
 					Vector2 move = { 0,0 };
@@ -59,26 +61,26 @@ void CollisionManager::Update()
 					{
 						move.y = (posA.y + sizeA.y / 2)- (posB.y - sizeB.y / 2);
 
-						oldMove.y = (oldPosA.y + sizeA.y / 2)- (oldPosB.y - sizeB.y / 2);
+						oldMove.y = (oldPosA.y + oldSizeA.y / 2)- (oldPosB.y - oldSizeB.y / 2);
 					}
 					else
 					{
 						move.y = (posA.y - sizeA.y / 2) - (posB.y + sizeB.y / 2);
 
-						oldMove.y = (oldPosA.y - sizeA.y / 2) - (oldPosB.y + sizeB.y / 2);
+						oldMove.y = (oldPosA.y - oldSizeA.y / 2) - (oldPosB.y + oldSizeB.y / 2);
 					}
 
 					if (posA.x < posB.x)
 					{
 						move.x = (posA.x + sizeA.x / 2)- (posB.x - sizeB.x / 2);
 
-						oldMove.x = (oldPosA.x + sizeA.x / 2)- (oldPosB.x - sizeB.x / 2);
+						oldMove.x = (oldPosA.x + oldSizeA.x / 2)- (oldPosB.x - oldSizeB.x / 2);
 					}
 					else
 					{
 						move.x = (posA.x - sizeA.x / 2) - (posB.x + sizeB.x / 2);
 
-						oldMove.x = (oldPosA.x - sizeA.x / 2) - (oldPosB.x + sizeB.x / 2);
+						oldMove.x = (oldPosA.x - oldSizeA.x / 2) - (oldPosB.x + oldSizeB.x / 2);
 					}
 
 					if (move.x > 0 && oldMove.x > 0 || move.x < 0 && oldMove.x < 0)
