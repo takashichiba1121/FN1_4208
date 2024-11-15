@@ -49,62 +49,62 @@ void CollisionManager::Update()
 					Vector2 sizeA = objectA->GetSize();
 					Vector2 oldPosA = objectA->GetOldPos();
 
-					Vector2 moveA = { 0,0 };
+					Vector2 move = { 0,0 };
 
-					Vector2 moveB = { 0,0 };
+					Vector2 oldMove = { 0,0 };
 
 
 
 					if (posA.y < posB.y)
 					{
-						moveA.y = (posA.y + sizeA.y / 2)- (posB.y - sizeB.y / 2);
+						move.y = (posA.y + sizeA.y / 2)- (posB.y - sizeB.y / 2);
 
-						moveB.y = (oldPosA.y + sizeA.y / 2)- (oldPosB.y - sizeB.y / 2);
+						oldMove.y = (oldPosA.y + sizeA.y / 2)- (oldPosB.y - sizeB.y / 2);
 					}
 					else
 					{
-						moveA.y = (posA.y - sizeA.y / 2) - (posB.y + sizeB.y / 2);
+						move.y = (posA.y - sizeA.y / 2) - (posB.y + sizeB.y / 2);
 
-						moveB.y = (oldPosA.y - sizeA.y / 2) - (oldPosB.y + sizeB.y / 2);
+						oldMove.y = (oldPosA.y - sizeA.y / 2) - (oldPosB.y + sizeB.y / 2);
 					}
 
 					if (posA.x < posB.x)
 					{
-						moveA.x = (posA.x + sizeA.x / 2)- (posB.x - sizeB.x / 2);
+						move.x = (posA.x + sizeA.x / 2)- (posB.x - sizeB.x / 2);
 
-						moveB.x = (oldPosA.x + sizeA.x / 2)- (oldPosB.x - sizeB.x / 2);
+						oldMove.x = (oldPosA.x + sizeA.x / 2)- (oldPosB.x - sizeB.x / 2);
 					}
 					else
 					{
-						moveA.x = (posA.x - sizeA.x / 2) - (posB.x + sizeB.x / 2);
+						move.x = (posA.x - sizeA.x / 2) - (posB.x + sizeB.x / 2);
 
-						moveB.x = (oldPosA.x - sizeA.x / 2) - (oldPosB.x + sizeB.x / 2);
+						oldMove.x = (oldPosA.x - sizeA.x / 2) - (oldPosB.x + sizeB.x / 2);
 					}
 
-					if (moveA.x > 0 && moveB.x > 0 || moveA.x < 0 && moveB.x < 0)
+					if (move.x > 0 && oldMove.x > 0 || move.x < 0 && oldMove.x < 0)
 					{
-						moveA.x = 0;
+						move.x = 0;
 
-						moveB.x = 0;
+						oldMove.x = 0;
 					}
-					if (moveA.y > 0 && moveB.y > 0 || moveA.y < 0 && moveB.y < 0)
+					if (move.y > 0 && oldMove.y > 0 || move.y < 0 && oldMove.y < 0)
 					{
-						moveA.y = 0;
+						move.y = 0;
 
-						moveB.y = 0;
+						oldMove.y = 0;
 					}
 
 					if (objectA->GetObjectType() < objectB->GetObjectType())
 					{
 
-						posA += moveA;
+						posA += move;
 
 						objectA->SetPos(posA);
 					}
 					else
 					{
 
-						posB += moveA;
+						posB += move;
 
 						objectB->SetPos(posB);
 					}
