@@ -10,20 +10,26 @@ void Goal::Initialize()
 	goal = LoadGraph("");
 	objectType_ = ObjectType::GOAL;
 	CollisionManager::GetInstance()->AddObject(this);
+
+	isLock = true;
 }
 
 void Goal::Update()
 {
 	horizontal = Water::GetInstance()->GetHorizontal();
 
-	//移動(仮)
-	/*if (Input::GetKey(Input::Key::Left)) {
-	pos.y -= speed;
+	//施錠チェック
+	if (Input::GetKey(Input::Key::Up)) {
+		//keydata->isLock=true;
+		isLock = true;
 	}
-	else if (Input::GetKey(Input::Key::Right)) {
-	pos.y += speed;
-	}*/
+	else if (Input::GetKey(Input::Key::Down)) {
+		isLock = false;
+	}
 
+	/*if (key != 1) {
+		isLock = true;
+	}*/
 
 	//水平線より下か(上か)
 	if (pos_.y + size_.y / 2 >= horizontal) {
@@ -34,10 +40,15 @@ void Goal::Update()
 	}
 
 	if (isUnderWater) {
+		//ゴール(閉)
 		isCollision_ = true;
 	}
+	/*else if (isUnderWater == false && isClear == false) {
+		isCollision_ = true;
+	}*/
 	else {
-		isCollision_ = false;
+		//ゴール(開)
+		isCollision_ = true;
 	}
 
 	//演出(開閉時)
@@ -71,7 +82,15 @@ void Goal::Inversion() {
 
 void Goal::Draw()
 {
-	if (isUnderWater == true) {
+	if (isUnderWater == false && isLock == true || isUnderWater == true && isLock==true) {
+		//ゴール(鍵あり閉)
+		DrawBox(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
+			pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
+			GetColor(255, 0, 0), TRUE);
+		DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
+	}
+	else if (isUnderWater) {
 		//ゴール(閉)
 		DrawBox(
 			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
@@ -91,14 +110,14 @@ void Goal::Draw()
 	if (isClear) {
 		//クリア
 		//DrawBox(1280 / a, 720 / a, 1280 - 1280 / a, 720 - 720 / a, GetColor(255, 255, 255), true);
-		DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 	}
 }
 
 void Goal::OnCollision(Object* objct)
 {
-	if (objct->GetObjectType() == ObjectType::PLAYER) {
-		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false) {
+		DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
 	}
 }

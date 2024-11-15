@@ -9,6 +9,7 @@ enum class ObjectType
 	NOT_FLOAT_BLOCK,
 	BREAK_BLOCK,
 	GOAL,
+	KEY,
 	NONE,
 };
 
