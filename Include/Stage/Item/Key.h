@@ -3,21 +3,20 @@
 #include"Vector2.h"
 #include"Object.h"
 #include "Water.h"
-#include"Key.h"
-#include <memory>
-
-class Goal: public Object
+#include"Goal.h"
+class Key:public Object
 {
 public:
+	~Key();
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
-	void Initialize()override;
+	void Initialize() override;
 
 	/// <summary>
 	/// XV
 	/// </summary>
-	void Update()override;
+	void Update() override;
 
 	/// <summary>
 	/// •`‰æ
@@ -30,19 +29,9 @@ public:
 	/// <param name="objct"></param>
 	void OnCollision(Object* objct)override;
 
-	void Inversion()override;
+
 
 private:
-	int goal;//ƒS[ƒ‹‚Ì‰æ‘œ
-	bool isUnderWater = false;
-	bool isClear = false;
-	float speed = 1.0f;
-	const float coolTime = 3.0f;
-	float timer = coolTime;
-	float a = 4.0;
-	int key = 1;
 	bool isLock;
-	
-
-	float horizontal = 0.0f;
 };
+

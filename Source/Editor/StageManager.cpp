@@ -5,6 +5,7 @@
 #include "levitationBlock.h"
 #include "BreakBlock.h"
 #include "Water.h"
+#include "Window.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -61,6 +62,13 @@ void StageManager::Update()
 	for (auto &level : stageObjData_)
 	{
 		level->Update();
+	}
+}
+
+void StageManager::Inversion() {
+	for (auto& level : stageObjData_)
+	{
+		level->Inversion();
 	}
 }
 

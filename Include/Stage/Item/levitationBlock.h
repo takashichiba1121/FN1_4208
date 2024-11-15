@@ -27,6 +27,8 @@ public:
 	/// </summary>
 	void Move();
 
+	void Inversion()override;
+
 private:
 	/// <summary>
 	/// イージングの関数

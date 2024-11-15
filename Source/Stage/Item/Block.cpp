@@ -24,3 +24,10 @@ void Block::Draw()
 		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
 		GetColor(255, 255, 255), TRUE);
 }
+
+void Block::Inversion() {
+	pos_ = {
+		pos_.x,
+		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
+	};
+}

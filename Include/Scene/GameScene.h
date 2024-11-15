@@ -8,6 +8,8 @@
 #include "EditStage.h"
 #include"Water.h"
 #include "BreakBlock.h"
+#include"Inversion.h"
+#include"Key.h"
 
 class GameScene :
     public BaseScene
@@ -24,6 +26,7 @@ private:
 	std::unique_ptr<BreakBlock> breakBlock;
 	std::unique_ptr<Object> player;
 	std::unique_ptr<Goal> goal;
+	std::unique_ptr<Key> key;
 
 	EditStage test;
 

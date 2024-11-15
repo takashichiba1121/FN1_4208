@@ -1,5 +1,6 @@
 #pragma once
 #include"Vector2.h"
+#include"Window.h"
 
 enum class ObjectType
 {
@@ -8,6 +9,7 @@ enum class ObjectType
 	NOT_FLOAT_BLOCK,
 	BREAK_BLOCK,
 	GOAL,
+	KEY,
 	NONE,
 };
 
@@ -18,6 +20,10 @@ public:
 	virtual void Initialize() {}
 
 	virtual void Update() {}
+
+	void ObjectUpdate();
+
+	virtual void Inversion() {}
 
 	virtual void Draw() {}
 
@@ -65,6 +71,10 @@ public:
 		return size_;
 	}
 
+	Vector2 GetOldSize() {
+		return oldSize_;
+	}
+
 	ObjectType GetObjectType() {
 		return objectType_;
 	}
@@ -74,7 +84,9 @@ protected:
 
 	Vector2 oldPos_ = { 0,0 };
 
-	Vector2 size_ = {0,0};
+	Vector2 size_ = {1,1};
+
+	Vector2 oldSize_ = { 0,0 };
 
 	bool isCollision_ = true;
 

@@ -72,6 +72,13 @@ void LevitationBlock::Move()
 	}
 }
 
+void LevitationBlock::Inversion() {
+	pos_ = {
+		pos_.x,
+		WIN_HEIGHT / 2 + (WIN_HEIGHT / 2 - pos_.y)
+	};
+}
+
 float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)
 {
 	float x = t / d;

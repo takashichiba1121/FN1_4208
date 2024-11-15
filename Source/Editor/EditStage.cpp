@@ -128,7 +128,6 @@ void EditStage::ImguiMenu()
 	horizontal_ = Water::GetInstance()->GetHorizontal();
 
 	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
-
 	Water::GetInstance()->SetHorizontal(horizontal_);
 
 	if (StageManager::GetInstance()->GetIsUseEditer() && StageManager::GetInstance()->stageObjData_.size() != 0)
