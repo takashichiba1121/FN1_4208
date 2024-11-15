@@ -108,6 +108,8 @@ void EditStage::ImguiMenu()
 		ImGui::EndMenuBar();
 	}
 
+	horizontal_ = Water::GetInstance()->GetHorizontal();
+
 	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
 
 	Water::GetInstance()->SetHorizontal(horizontal_);
