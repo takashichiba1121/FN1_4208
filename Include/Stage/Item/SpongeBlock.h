@@ -24,8 +24,6 @@ public:
 private:
 
 	Vector2 scale = { 3,3 };
-
-	Vector2 normalSize = { 32,32 };
 	
 };
 

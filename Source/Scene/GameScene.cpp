@@ -20,6 +20,9 @@ void GameScene::Initialize()
 	goal = std::make_unique<Goal>();
 	goal->Initialize();
 
+	spongeBlock = std::make_unique<SpongeBlock>();
+	spongeBlock->Initialize();
+
 	test.Initialize();
 }
 
@@ -30,6 +33,7 @@ void GameScene::Update()
 	block->Update();
 	floatBlock->Update();
 	breakBlock->Update();
+	spongeBlock->Update();
 
 	goal->Update();
 	test.Update();
@@ -50,6 +54,7 @@ void GameScene::Draw()
 	block->Draw();
 	floatBlock->Draw();
 	breakBlock->Draw();
+	spongeBlock->Draw();
 
 	goal->Draw();
 	test.Draw();
