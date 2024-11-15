@@ -157,6 +157,7 @@
     <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
     <ClCompile Include="Source\Scene\StageSelectScene.cpp" />
+    <ClCompile Include="Source\Stage\Inversion.cpp" />
     <ClCompile Include="Source\Stage\Item\Block.cpp" />
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />

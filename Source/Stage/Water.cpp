@@ -14,13 +14,13 @@ void Water::Update()
 		upHorizontal_ += 2.0f;
 	}
 
-	if (Input::GetKeyTrigger(Input::Key::Q))
+	/*if (Input::GetKeyTrigger(Input::Key::Q))
 	{
 		downHorizontal_ = upHorizontal_;
 
 		upHorizontal_ = 0;
 
-	}
+	}*/
 
 	ImGui::Begin("Water");
 
@@ -30,7 +30,7 @@ void Water::Update()
 	ImGui::End(); 
 #endif
 
-	if (downHorizontal_<720)
+	/*if (downHorizontal_<720)
 	{
 		upHorizontal_+=10;
 
@@ -41,7 +41,7 @@ void Water::Update()
 		upHorizontal_ += downHorizontal_-upHorizontal_;
 
 		downHorizontal_ = 720;
-	}
+	}*/
 }
 
 void Water::Inversion(const float easing, bool isfront) {
@@ -61,8 +61,8 @@ void Water::Draw()
 {
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, colA[3]*255);
-	DrawBox(0,topPos,1280, horizontal_, GetColor(colA[0]*255,colA[1]*255, colA[2]*255), true);
-	DrawBox(0,horizontal_,1280,underPos, GetColor(colB[0]*255,colB[1]*255, colB[2]*255), true);
+	DrawBox(0,topPos,1280, upHorizontal_, GetColor(colA[0]*255,colA[1]*255, colA[2]*255), true);
+	DrawBox(0, upHorizontal_,1280,underPos, GetColor(colB[0]*255,colB[1]*255, colB[2]*255), true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawLine(0, (int)upHorizontal_, 1280, (int)upHorizontal_, GetColor(100, 255, 255));
 }

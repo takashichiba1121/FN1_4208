@@ -3,6 +3,7 @@
 #include"Input.h"
 #include"Window.h"
 #include"CollisionManager.h"
+#include"Inversion.h"
 
 void GameScene::Initialize()
 {
@@ -32,6 +33,8 @@ void GameScene::Update()
 
 	goal->Update();
 	test.Update();
+
+	Inversion::GetInstance()->Update();
 
 	Water::GetInstance()->Update();
 

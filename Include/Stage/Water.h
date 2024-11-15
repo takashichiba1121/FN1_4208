@@ -26,7 +26,7 @@ public:
 	{
 		upHorizontal_ = upHorizontal;
 
-		downHorizontal_ = dwonHorizontal;
+		//downHorizontal_ = dwonHorizontal;
 	}
 
 	float GetHorizontal()
@@ -37,7 +37,7 @@ public:
 private:
 	float upHorizontal_ = 160.0f;
 
-	float downHorizontal_ = 720.0f;
+	//float downHorizontal_ = 720.0f;
 
 	float colA[4] = {0.392f,1.0f,1.0f,0.274f};
 	float colB[4] = {0.5f,0.5f,1.0f,0.274f};
