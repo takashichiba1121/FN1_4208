@@ -76,6 +76,7 @@ public:
 
 	//データをlist配列に入れる
 	InputLevelData ImportLevelListData(const std::string& fileName);
+	InputLevelData ImportLevelListDataFullPath(const std::string& fileName);
 
 	std::string GetLoadErrorText() { return loadErrorText_; };
 	
@@ -103,6 +104,12 @@ private:
 	std::list<LevelData> listLevelData_;
 
 	std::string loadErrorText_;
+
+	//読み込む際のファイルパス(ファイル名だけで指定するため)
+	static const inline std::string SDefaultEventPath_ = "Resources/Level/";
+
+	//ファイル拡張子
+	static const inline std::string SDefaultEventExtension_ = ".json";
 
 };
 
