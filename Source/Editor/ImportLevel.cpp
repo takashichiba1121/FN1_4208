@@ -199,7 +199,7 @@ bool ImportLevel::LevelScanning(nlohmann::json& Level)
 	int32_t a = (int32_t)seting["tag"];
 
 	//Ží—Þ
-	levelData.tag = ObjectName::ObjectString((int32_t)seting["tag"]);
+	levelData.tag = ObjectName::ObjectString<ObjectType>((int32_t)seting["tag"]);
 
 	vectorLevelData_.push_back(levelData);
 	listLevelData_.push_back(levelData);

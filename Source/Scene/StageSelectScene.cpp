@@ -8,6 +8,7 @@
 
 void StageSelectScene::Initialize()
 {
+	//ステージとして使いたいファイル名をここに追加
 	stageFileName_ = { 
 		"Error",
 	};
@@ -24,7 +25,7 @@ void StageSelectScene::Update()
 	}
 	else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
 	{
-		if (selectStageNum_ < stageFileName_.size() - 1)
+		if (static_cast<size_t>(selectStageNum_) < stageFileName_.size() - 1)
 		{
 			selectStageNum_++;
 		}
