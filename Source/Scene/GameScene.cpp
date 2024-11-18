@@ -69,4 +69,5 @@ void GameScene::Draw()
 
 void GameScene::Finalize()
 {
+	CollisionManager::GetInstance()->AllDelete();
 }

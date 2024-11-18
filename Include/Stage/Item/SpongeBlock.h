@@ -23,7 +23,9 @@ public:
 
 private:
 
-	Vector2 scale = { 3,3 };
+	Vector2 scale_ = { 3,3 };
+
+	bool isExpansion_ = false;
 	
 };
 
