@@ -175,14 +175,14 @@ void EditStage::addObject()
 
 	if (oldObjectType != objectType)
 	{
-		serectAddObjectType_ = ObjectName::ObjectString(objectType);
+		serectAddObjectType_ = ObjectName::ObjectString<ObjectType>(objectType);
 	}
 
 	for (size_t i = 0; i < items.size(); i++)
 	{
 		if (ImGui::Button(items[i].c_str(), {50,50}))
 		{
-			serectAddObjectType_ = ObjectName::ObjectString(i);
+			serectAddObjectType_ = ObjectName::ObjectString<ObjectType>(i);
 		}
 		if (i != items.size()-1)
 		{
@@ -280,10 +280,10 @@ void EditStage::EditObject()
 		if (oldObjectType != objectType)
 		{
 			EditContent::TicketData changeTagData;
-			changeTagData.type_ = ObjectName::ObjectString(objectType);
-			changeTagData.oldType_ = ObjectName::ObjectString(oldObjectType);
+			changeTagData.type_ = ObjectName::ObjectString<ObjectType>(objectType);
+			changeTagData.oldType_ = ObjectName::ObjectString<ObjectType>(oldObjectType);
 			UndoStack(EditContent::Content::ChangeTag, changeTagData, eventCount);
-			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString(objectType));
+			StageManager::GetInstance()->ChengeTag(objectI, ObjectName::ObjectString<ObjectType>(objectType));
 		}
 
 		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
