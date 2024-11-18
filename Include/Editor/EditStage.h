@@ -3,6 +3,13 @@
 #include <imgui.h>
 #include "EditorTicket.h"
 
+/*
+新しくobjectTypeを追加してエディタに追加したい場合
+変更箇所
+・EditStage.cppにある ObjectTypeToStringの中身に追加
+・stageManager.cpp内にある ChengeTagとAddObjectの中身に追加
+*/
+
 namespace ImGui
 {
 #include "vector"

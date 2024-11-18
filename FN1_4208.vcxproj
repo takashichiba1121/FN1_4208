@@ -201,6 +201,7 @@
     <ClInclude Include="Include\Scene\Goal.h" />
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
+    <ClInclude Include="Include\Scene\StageSelectScene.h" />
     <ClInclude Include="Include\Stage\Inversion.h" />
     <ClInclude Include="Include\Stage\Item\Block.h" />
     <ClInclude Include="Include\Particle\Bubble.h" />
