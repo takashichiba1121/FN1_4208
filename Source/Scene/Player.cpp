@@ -171,13 +171,40 @@ void Player::Draw() {
 }
 
 void Player::OnCollision(Object* objct) {
+	//頭打ちの処理
 	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
 	}
 
+	//ブロック上に乗っているときの処理
 	if ((pos_.y - size_.y / 2) >= (objct->GetPos().y + objct->GetSize().y / 2)) {
 		gravity = 0.0f;
 	}
 
+	if (Inversion::GetInstance()->GetEndInversion()) {
+		//ブロックに埋まっていたら自動で再び反転
+		if (BurialJudge(objct)) {
+			Inversion::GetInstance()->SetIsInversion();
+		}
+	}
+}
+
+bool Player::BurialJudge(Object* objct){
+	//ブロックのオブジェクトタイプ判定
+	if (objct->GetObjectType() == ObjectType::FLOAT_BLOCK ||
+		objct->GetObjectType() == ObjectType::NOT_FLOAT_BLOCK ||
+		objct->GetObjectType() == ObjectType::BREAK_BLOCK) {
+
+		//ブロックに埋まっているか判定
+		if (pos_.x + size_.x / 2 - 1 >= objct->GetPos().x - objct->GetSize().x / 2 &&
+			pos_.x - size_.x / 2 + 1 <= objct->GetPos().x + objct->GetSize().x / 2 &&
+			pos_.y + size_.y / 2 - 1 >= objct->GetPos().y - objct->GetSize().y / 2 &&
+			pos_.y - size_.y / 2 + 1 <= objct->GetPos().y + objct->GetSize().y / 2){
+
+			return true;
+		}
+	}
+
+	return false;
 }

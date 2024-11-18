@@ -20,6 +20,7 @@ private:
 	void Operation();	//‘€ì
 	void Move();
 	void Jump();
+	bool BurialJudge(Object* objct);	//ƒuƒƒbƒN–„–v”»’è
 
 private:
 

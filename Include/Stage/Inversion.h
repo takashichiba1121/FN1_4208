@@ -21,13 +21,19 @@ public:
 
 	void Update();
 
-	void SetIsInversion() { isInversion = true; }
+	void SetIsInversion() {
+		isInversion = true;
+		frame = 0.0f;
+	}
 
 	bool GetIsInversion() { return isInversion; }
+	bool GetEndInversion() { return endInversion; }
 	bool GetIsFront() { return isFront; }
 	float GetFrame() { return frame; }
 
 private:
+
+	void ResetEasing();
 
 	float Easing(const float x) { return x < 0.5 ? 16 * x * x * x * x * x : 1 - (float)pow(-2 * x + 2, 5) / 2; }
 
@@ -42,4 +48,5 @@ private:
 
 	bool isInversion = false;
 	bool isFront = true;
+	bool endInversion = false;
 };
