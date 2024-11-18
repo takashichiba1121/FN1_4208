@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Block.h"
 #include "levitationBlock.h"
+#include "BreakBlock.h"
 #include "Goal.h"
 
 namespace EditContent
@@ -170,6 +171,9 @@ namespace EditContent
 
 		case ObjectType::NOT_FLOAT_BLOCK:
 			addObject = std::make_unique<Block>();
+			break;
+		case ObjectType::BREAK_BLOCK:
+			addObject = std::make_unique<BreakBlock>();
 			break;
 		case ObjectType::GOAL:
 			addObject = std::make_unique<Goal>();

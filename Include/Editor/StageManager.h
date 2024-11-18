@@ -20,6 +20,10 @@ public:
 
 	void Update();
 
+	void Inversion(const float easing);
+
+	void SetTentPos();
+
 	void Draw();
 
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
@@ -27,6 +31,10 @@ public:
 	void ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag);
 
 	std::list<std::unique_ptr<Object>> stageObjData_;
+
+	bool GetIsUseEditer() { return isUseEditer_; };
+
+	void SetIsUseEditer(bool flag) { isUseEditer_ = flag; };
 
 private:
 
@@ -42,6 +50,6 @@ private:
 
 private:
 	
-
+	bool isUseEditer_ = false;
 };
 

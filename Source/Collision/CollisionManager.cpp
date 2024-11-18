@@ -8,7 +8,7 @@ void CollisionManager::AddObject(Object* object)
 
 void CollisionManager::RemoveObject(Object* object)
 {
-  	objects_.remove(object);
+	objects_.remove(object);
 }
 
 void CollisionManager::Update()
@@ -39,68 +39,77 @@ void CollisionManager::Update()
 
 			if (Collision::AABB(objectA, objectB))
 			{
- 				if (objectA->IsExclude()&&objectB->IsExclude())
+				if (objectA->IsExclude() && objectB->IsExclude())
 				{
- 					Vector2 posB = objectB->GetPos();
+					Vector2 posB = objectB->GetPos();
 					Vector2 sizeB = objectB->GetSize();
+					Vector2 oldSizeB = objectB->GetOldSize();
 					Vector2 oldPosB = objectB->GetOldPos();
 
 					Vector2 posA = objectA->GetPos();
 					Vector2 sizeA = objectA->GetSize();
+					Vector2 oldSizeA = objectA->GetOldSize();
 					Vector2 oldPosA = objectA->GetOldPos();
+
+					Vector2 move = { 0,0 };
+
+					Vector2 oldMove = { 0,0 };
+
+
+
+					if (posA.y < posB.y)
+					{
+						move.y = (posA.y + sizeA.y / 2)- (posB.y - sizeB.y / 2);
+
+						oldMove.y = (oldPosA.y + oldSizeA.y / 2)- (oldPosB.y - oldSizeB.y / 2);
+					}
+					else
+					{
+						move.y = (posA.y - sizeA.y / 2) - (posB.y + sizeB.y / 2);
+
+						oldMove.y = (oldPosA.y - oldSizeA.y / 2) - (oldPosB.y + oldSizeB.y / 2);
+					}
+
+					if (posA.x < posB.x)
+					{
+						move.x = (posA.x + sizeA.x / 2)- (posB.x - sizeB.x / 2);
+
+						oldMove.x = (oldPosA.x + oldSizeA.x / 2)- (oldPosB.x - oldSizeB.x / 2);
+					}
+					else
+					{
+						move.x = (posA.x - sizeA.x / 2) - (posB.x + sizeB.x / 2);
+
+						oldMove.x = (oldPosA.x - oldSizeA.x / 2) - (oldPosB.x + oldSizeB.x / 2);
+					}
+
+					if (move.x > 0 && oldMove.x > 0 || move.x < 0 && oldMove.x < 0)
+					{
+						move.x = 0;
+
+						oldMove.x = 0;
+					}
+					if (move.y > 0 && oldMove.y > 0 || move.y < 0 && oldMove.y < 0)
+					{
+						move.y = 0;
+
+						oldMove.y = 0;
+					}
 
 					if (objectA->GetObjectType() < objectB->GetObjectType())
 					{
-						if (posB.y - sizeB.y/2 >= oldPosA.y + sizeA.y/2)
-						{
-							posA.y = posB.y - (sizeB.y/2 + sizeA.y/2);
-						}
-						else if (posB.y + sizeB.y/2 <= oldPosA.y - sizeA.y/2)
-						{
-							posA.y = posB.y + sizeB.y/2 + sizeA.y/2;
-						}
-						else
-						{
 
-							if (posB.x + sizeB.x/2 <= oldPosA.x - sizeA.x/2)
-							{
-								posA.x = posB.x + sizeB.x/2 + sizeA.x/2 + 0.1f;
-							}
-							else if (posB.x - sizeB.x/2 >= oldPosA.x + sizeA.x/2)
-							{
-								posA.x = posB.x - (sizeB.x/2 + sizeA.x/2) - 0.1f;
+						posA += move;
 
-							}
-						}
 						objectA->SetPos(posA);
 					}
 					else
 					{
 
-						if (posA.y - sizeA.y/2 >= oldPosB.y + sizeB.y/2)
-						{
-							posB.y = posA.y - (sizeA.y/2 + sizeB.y/2);
-						}
-						else if (posA.y + sizeA.y/2 <= oldPosB.y - sizeB.y/2)
-						{
-							posB.y = posA.y + sizeA.y/2 + sizeB.y/2;
-						}
-						else
-						{
-
-							if (posA.x + sizeA.x/2 <= oldPosB.x - sizeB.x/2)
-							{
-								posB.x = posA.x + sizeA.x/2 + sizeB.x/2;
-							}
-							else if (posA.x - sizeA.x/2 >= oldPosB.x + sizeB.x/2)
-							{
-								posB.x = posA.x - (sizeA.x/2 + sizeB.x/2);
-
-							}
-						}
-					}
+						posB += move;
 
 						objectB->SetPos(posB);
+					}
 				}
 
 				objectA->OnCollision(objectB);

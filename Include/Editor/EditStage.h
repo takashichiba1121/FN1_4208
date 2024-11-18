@@ -3,6 +3,13 @@
 #include <imgui.h>
 #include "EditorTicket.h"
 
+/*
+新しくobjectTypeを追加してエディタに追加したい場合
+変更箇所
+・EditStage.cppにある ObjectTypeToStringの中身に追加
+・stageManager.cpp内にある ChengeTagとAddObjectの中身に追加
+*/
+
 namespace ImGui
 {
 #include "vector"
@@ -69,6 +76,12 @@ private:
 	bool AABB(Vector2 mousePos, Object* obj);
 	bool AABB(Vector2 pos,Vector2 size, Object* obj);
 
+	//テストスタート用の準備
+	void TestStart();
+
+	//テストを終えるときの後処理
+	void TestEnd();
+
 
 private:
 
@@ -107,9 +120,14 @@ private:
 	std::vector<std::unique_ptr<EditorTicket>> undoTickets_;
 	std::vector<std::unique_ptr<EditorTicket>> redoTickets_;
 
+	//テスト用の元の位置保持用list
+	std::list<Object> testSaveObject_;
+
 	bool isImguiUse_ = false;
 
-	EditContent::TicketData movedata;
+	EditContent::TicketData movedata_;
+
+	int32_t mouseMoveObjectUndoObjectNum_ = 0;
 
 };
 

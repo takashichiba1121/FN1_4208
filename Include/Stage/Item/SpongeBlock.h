@@ -1,9 +1,7 @@
 #pragma once
-
-#include "Vector2.h"
-#include "Object.h"
-
-class Block : public Object
+#include"Object.h"
+class SpongeBlock :
+    public Object
 {
 public:
 	/// <summary>
@@ -21,9 +19,13 @@ public:
 	/// </summary>
 	void Draw()override;
 
-	void Inversion(const float easing)override;
+
 
 private:
-	bool isBlock_ = false;
+
+	Vector2 scale = { 3,3 };
+
+	Vector2 normalSize = { 32,32 };
+	
 };
 

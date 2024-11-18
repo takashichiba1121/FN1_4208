@@ -36,4 +36,6 @@ private:
 	float size = 1.0f;
 
 	bool isDead = false;
+
+	unsigned int color;
 };

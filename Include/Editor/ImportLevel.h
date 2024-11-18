@@ -37,26 +37,14 @@ struct InputLevelData
 
 struct ObjectName
 {
-	static ObjectType ObjectString(int32_t objectNum)
-	{
-		if (objectNum == static_cast<int32_t>(ObjectType::PLAYER))
-		{
-			return ObjectType::PLAYER;
+	template <typename Enum>
+	static Enum ObjectString(int value) {
+	for (int i = static_cast<int>(ObjectType::PLAYER); i <= static_cast<int>(ObjectType::NONE); ++i) {
+			if (i == value) {
+				return static_cast<Enum>(i);
+			}
 		}
-		else if (objectNum == static_cast<int32_t>(ObjectType::FLOAT_BLOCK))
-		{
-			return ObjectType::FLOAT_BLOCK;
-		}
-		else if (objectNum == static_cast<int32_t>(ObjectType::NOT_FLOAT_BLOCK))
-		{
-			return ObjectType::NOT_FLOAT_BLOCK;
-		}
-		else if (objectNum == static_cast<int32_t>(ObjectType::GOAL))
-		{
-			return ObjectType::GOAL;
-		}
-
-		return ObjectType::NONE;
+		return static_cast<Enum>(ObjectType::NONE);
 	}
 };
 
@@ -72,6 +60,7 @@ public:
 
 	//データをlist配列に入れる
 	InputLevelData ImportLevelListData(const std::string& fileName);
+	InputLevelData ImportLevelListDataFullPath(const std::string& fileName);
 
 	std::string GetLoadErrorText() { return loadErrorText_; };
 	
@@ -99,6 +88,12 @@ private:
 	std::list<LevelData> listLevelData_;
 
 	std::string loadErrorText_;
+
+	//読み込む際のファイルパス(ファイル名だけで指定するため)
+	static const inline std::string SDefaultEventPath_ = "Resources/Level/";
+
+	//ファイル拡張子
+	static const inline std::string SDefaultEventExtension_ = ".json";
 
 };
 

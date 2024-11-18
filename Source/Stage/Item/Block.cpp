@@ -15,7 +15,7 @@ void Block::Initialize()
 
 void Block::Update()
 {
-	oldPos_ = pos_;
+	ObjectUpdate();
 }
 
 void Block::Draw()
@@ -24,4 +24,9 @@ void Block::Draw()
 		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
 		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
 		GetColor(255, 255, 255), TRUE);
+}
+
+void Block::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
 }

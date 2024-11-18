@@ -1,4 +1,5 @@
 #include"BubbleEmitter.h"
+#include"Inversion.h"
 
 void BubbleEmitter::Initialize(const int timer) {
 	maxTimer = timer;
@@ -9,10 +10,14 @@ void BubbleEmitter::Update(const Vector2 pos) {
 	emitTimer--;
 
 	if (emitTimer < 0) {
-		//パーティクル生成
-		std::unique_ptr<Bubble>b = std::make_unique<Bubble>();
-		b->Initialize(pos);
-		bubble_.push_back(std::move(b));
+
+		if (!Inversion::GetInstance()->GetIsInversion()) {
+
+			//パーティクル生成
+			std::unique_ptr<Bubble>b = std::make_unique<Bubble>();
+			b->Initialize(pos);
+			bubble_.push_back(std::move(b));
+		}
 
 		//タイマーリセット
 		emitTimer = maxTimer;

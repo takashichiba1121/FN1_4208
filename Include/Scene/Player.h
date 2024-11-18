@@ -20,6 +20,7 @@ private:
 	void Operation();	//‘€ì
 	void Move();
 	void Jump();
+	bool BurialJudge(Object* objct);	//ƒuƒƒbƒN–„–v”»’è
 
 private:
 
@@ -40,7 +41,6 @@ private:
 	bool canCrawlUp = false;
 
 	float horizontal = 160.0f;
-	float underLine = 700.0f;
 
 	const int canJumpTimerMax = 3;
 	int canJumpTimer = 1;
