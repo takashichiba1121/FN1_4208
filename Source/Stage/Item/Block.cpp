@@ -1,6 +1,7 @@
 #include "Block.h"
-#include <cmath>
 #include "CollisionManager.h"
+#include <DxLib.h>
+#include <cmath>
 
 void Block::Initialize()
 {

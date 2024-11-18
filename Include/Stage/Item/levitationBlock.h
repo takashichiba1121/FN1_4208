@@ -34,13 +34,13 @@ private:
 	float EaseInOutBack(float x);
 
 private:
-	bool isFloatBlock_ = false;
-	bool isEasing_ = false;
 	int frame_ = 0;
 	int maxFrame_ = 5;
 	int easingTime_ = 60;
 	int easingCount_ = 1;
 	int difference_ = 70;
+	bool isFloatBlock_ = false;
+	bool isEasing_ = false;
 	float waterSurface_ = 0.0f;
 	float gravity_ = 0.0f;
 };
