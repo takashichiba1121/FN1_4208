@@ -25,22 +25,40 @@ public:
 	/// シェイク
 	/// </summary>
 	void Shake();
+	void ShakeActive();
+
+	/// <summary>
+	/// ダメージ
+	/// </summary>
+	void Damage();
+
+	/// <summary>
+	/// ブロックのHPの取得
+	/// </summary>
+	int GetBreakBlockHp() { return blockHp_; }
+	void SetBreakBlockHp(int blockHp) { blockHp_ = blockHp; }
 
 private:
 	enum BlockHp {
-		BlockBroken,
-		BlockHpLow,
-		BlockHpMax
+		BLOCK_BROKEN,
+		BLOCK_HP_LOW,
+		BLOCK_HP_MAX
 	};
 
 private:
+	int blockHp_ = BLOCK_HP_MAX;
+	int damageValue_ = 1;
 	bool isBreakBlock_ = false;
-	int blockHp_ = 2;
+
+	// シェイク
+	int time_ = 0;
 	int shakeTime_ = 0;
-	int shakeMaxTime_ = 20;
+	const int defaultTime_ = 0;
+	int shakeMaxTime_ = 30;
+	bool isShake_ = false;
 	float shakeMin_ = -5.0f;
 	float shakeMax_ = 5.0f;
-	float shakePosX_ = 0.0f;
-	float shakeMdX_ = 2.0f;
-	float defaultPosition_ = 0.0f;
+	Vector2 shakePos_ = { 0.0f,0.0f };
+	Vector2 shakeMd_ = { 2.0f,2.0f };
+	Vector2 defaultPosition_ = { 0.0f,0.0f };
 };
