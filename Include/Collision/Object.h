@@ -59,7 +59,7 @@ public:
 		tentSize_ = size_.y;
 	}
 
-	void SetSize(Vector2 size) {
+	 void SetSize(Vector2 size) {
 		size_ = size;
 	}
 
@@ -91,7 +91,7 @@ public:
 
 	virtual void GetJson(nlohmann::json& Level) {};
 
-	virtual void DragFloat2() {};
+	virtual void ImGuiEdit() {};
 
 protected:
 	Vector2 pos_ = { 0,0 };
