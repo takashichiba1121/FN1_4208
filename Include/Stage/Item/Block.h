@@ -1,6 +1,5 @@
 #pragma once
 
-#include <DxLib.h>
 #include "Vector2.h"
 #include "Object.h"
 

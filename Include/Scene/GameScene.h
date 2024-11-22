@@ -1,13 +1,13 @@
 #pragma once
 #include "BaseScene.h"
 #include "Player.h"
-#include "Block.h"
 #include "Goal.h"
+#include "Block.h"
 #include "LevitationBlock.h"
+#include "BreakBlock.h"
 #include <memory>
 #include "EditStage.h"
 #include"Water.h"
-#include "BreakBlock.h"
 #include"Inversion.h"
 #include"Key.h"
 #include"SpongeBlock.h"

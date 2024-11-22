@@ -157,6 +157,7 @@
     <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
     <ClCompile Include="Source\Scene\StageSelectScene.cpp" />
+    <ClCompile Include="Source\Scene\TitleScene.cpp" />
     <ClCompile Include="Source\Stage\Inversion.cpp" />
     <ClCompile Include="Source\Stage\Item\Block.cpp" />
     <ClCompile Include="Source\Particle\Bubble.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="Source\Stage\Item\Key.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Item\SpongeBlock.cpp" />
+    <ClCompile Include="Source\Stage\LevelPreview.cpp" />
     <ClCompile Include="Source\Stage\Water.cpp" />
     <ClCompile Include="Source\GameCore\TextureManager.cpp" />
     <ClCompile Include="ThirdParty\imgui\imgui.cpp" />
@@ -202,6 +204,7 @@
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
     <ClInclude Include="Include\Scene\StageSelectScene.h" />
+    <ClInclude Include="Include\Scene\TitleScene.h" />
     <ClInclude Include="Include\Stage\Inversion.h" />
     <ClInclude Include="Include\Stage\Item\Block.h" />
     <ClInclude Include="Include\Particle\Bubble.h" />
@@ -210,6 +213,7 @@
     <ClInclude Include="Include\Stage\Item\Key.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Item\SpongeBlock.h" />
+    <ClInclude Include="Include\Stage\LevelPreview.h" />
     <ClInclude Include="Include\Stage\Water.h" />
     <ClInclude Include="Include\GameCore\TextureManager.h" />
     <ClInclude Include="resource.h" />
