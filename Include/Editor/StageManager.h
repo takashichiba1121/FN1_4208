@@ -29,6 +29,7 @@ public:
 	void Draw();
 
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
+	void AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann::json seting);
 
 	void ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag);
 

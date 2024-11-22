@@ -1,0 +1,25 @@
+{
+    "horizontal": 160.0,
+    "name": "Level",
+    "objects": [
+        {
+            "object": {
+                "IndividualSettings": {
+                    "Expansion": [
+                        34.0,
+                        20.0
+                    ]
+                },
+                "pos": [
+                    856.0,
+                    475.0
+                ],
+                "scale": [
+                    43.0,
+                    89.0
+                ],
+                "tag": 1
+            }
+        }
+    ]
+}

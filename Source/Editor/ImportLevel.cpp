@@ -198,6 +198,8 @@ bool ImportLevel::LevelScanning(nlohmann::json& Level)
 
 	int32_t a = (int32_t)seting["tag"];
 
+	levelData.seting = seting["IndividualSettings"];
+
 	//Ží—Þ
 	levelData.tag = ObjectName::ObjectString<ObjectType>((int32_t)seting["tag"]);
 
