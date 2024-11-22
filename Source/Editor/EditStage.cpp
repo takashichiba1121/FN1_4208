@@ -668,6 +668,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::BREAK_BLOCK: return "breakBlock";
 	case ObjectType::GOAL: return "goal";
 	case ObjectType::KEY: return "key";
+	case ObjectType::DRAIN: return "drain";
 	default:    return "UNKNOWN";
 	}
 	

@@ -129,6 +129,10 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		
 		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Key.png");
 		break;
+	case ObjectType::DRAIN:
+
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+		break;
 	default:
 		return;
 		break;
