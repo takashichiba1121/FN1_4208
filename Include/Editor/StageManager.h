@@ -13,10 +13,12 @@ public:
 	//おい俺はシングルトンだぞ
 	static StageManager* GetInstance();
 
-	std::vector<Object> LoadStageData(const std::string& fileName);
+	//std::vector<Object> LoadStageData(const std::string& fileName);
 	void LoadListStageData(std::list<LevelData> levelData);
 
 	void LoadStageObjectFile(const std::string& fileName);
+
+	void Initialize();
 
 	void Update();
 
@@ -36,6 +38,14 @@ public:
 
 	void SetIsUseEditer(bool flag) { isUseEditer_ = flag; };
 
+	size_t GetSrageFileNameNum() { return stageFileName_.size(); };
+
+	int32_t GetNowLevelNum() { return nowLevelNum_; };
+
+	void SelectLevelNum(int32_t selectNum);
+
+	void NextLevelLoad();
+
 private:
 
 	//シングルトン用
@@ -49,6 +59,11 @@ private:
 
 
 private:
+
+	//ステージとして追加したいファイル名を保持
+	std::vector<std::string> stageFileName_;
+
+	int32_t nowLevelNum_ = 0;
 	
 	bool isUseEditer_ = false;
 };

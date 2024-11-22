@@ -103,6 +103,11 @@ Vector2 operator*(float speed,const Vector2& a)
 	return temp *= speed;
 }
 
+Vector2 operator*(Vector2 a, const Vector2& b)
+{
+	return {a.x*b.x,a.y*b.y};
+}
+
 Vector2 operator/(const Vector2& a,float lenge)
 {
 	Vector2 temp(a);
