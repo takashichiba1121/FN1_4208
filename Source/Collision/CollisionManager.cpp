@@ -59,9 +59,9 @@ void CollisionManager::Update()
 
 					if (posA.y < posB.y)
 					{
-						move.y = (posB.y - sizeB.y / 2)-(posA.y + sizeA.y / 2);
+						move.y = (posA.y + sizeA.y / 2)- (posB.y - sizeB.y / 2);
 
-						oldMove.y = (oldPosB.y - oldSizeB.y / 2) -(oldPosA.y + oldSizeA.y / 2);
+						oldMove.y = (oldPosA.y + oldSizeA.y / 2)- (oldPosB.y - oldSizeB.y / 2);
 					}
 					else
 					{
