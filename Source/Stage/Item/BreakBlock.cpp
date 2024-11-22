@@ -2,6 +2,7 @@
 #include "Water.h"
 #include "CollisionManager.h"
 #include "Input.h"
+#include "TextureManager.h"
 #include <cmath>
 #include <DxLib.h>
 #include <random>
@@ -11,10 +12,15 @@ void BreakBlock::Initialize()
 {
 	pos_ = { 300.0f,300.0f };
 	size_ = { 64.0f,64.0f };
+
+	objectType_ = ObjectType::BREAK_BLOCK;
+	CollisionManager::GetInstance()->AddObject(this);
 }
 
 void BreakBlock::Update()
 {
+	ObjectUpdate();
+
 	if (blockHp_ == BLOCK_HP_LOW) {
 		ShakeActive();
 	}
@@ -85,4 +91,8 @@ void BreakBlock::ShakeActive()
 void BreakBlock::Damage()
 {
 	blockHp_ -= damageValue_;
+}
+
+void BreakBlock::OnCollision(Object* object)
+{
 }
