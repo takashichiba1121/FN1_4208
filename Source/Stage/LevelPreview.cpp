@@ -102,6 +102,10 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 	
 		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
 		break;
+	case ObjectType::SPONGE_BLOCK:
+
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+		break;
 
 	case ObjectType::FLOAT_BLOCK:
 		
