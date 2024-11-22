@@ -1,6 +1,7 @@
 #pragma once
 #include"Vector2.h"
 #include"Window.h"
+#include"json.hpp"
 
 enum class ObjectType
 {
@@ -86,6 +87,12 @@ public:
 		return objectType_;
 	}
 
+	virtual void SetJson(nlohmann::json& Level){};
+
+	virtual void GetJson(nlohmann::json& Level) {};
+
+	virtual void DragFloat2() {};
+
 protected:
 	Vector2 pos_ = { 0,0 };
 
@@ -93,8 +100,6 @@ protected:
 	float easeEPos_ = pos_.y;
 
 	Vector2 oldPos_ = { 0,0 };
-
-
 
 	Vector2 size_ = {1,1};
 

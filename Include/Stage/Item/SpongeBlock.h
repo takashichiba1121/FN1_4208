@@ -26,9 +26,15 @@ public:
 
 	float easeInCubic(float x);
 
+	void SetJson(nlohmann::json& Level) override;
+
+	void GetJson(nlohmann::json& Level) override;
+
+	void DragFloat2()override;
+
 private:
 
-	Vector2 scale_ = { 3,3 };
+	Vector2 expansion_ = { 1,1 };
 
 	Vector2 initializeSize_={ 64,64 };
 
