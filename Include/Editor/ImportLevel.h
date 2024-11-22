@@ -19,6 +19,8 @@ struct LevelData
 	Vector2 pos;
 	Vector2 scale;
 
+	nlohmann::json seting;
+
 	//’†g(Œã‚Åenum‚É•Ï‚¦‚é‚©‚à)
 	ObjectType tag = ObjectType::PLAYER;
 };

@@ -1,10 +1,12 @@
 #pragma once
 #include"Vector2.h"
 #include"Window.h"
+#include"json.hpp"
 
 enum class ObjectType
 {
 	PLAYER,
+	SPONGE_BLOCK,
 	FLOAT_BLOCK,
 	NOT_FLOAT_BLOCK,
 	BREAK_BLOCK,
@@ -27,9 +29,9 @@ public:
 
 	virtual void Draw() {}
 
-	virtual void OnCollision(Object* objct) {};
+	virtual void OnCollision(Object* object) {};
 
-	void ObjectOnCollision(Object* objct);
+	void ObjectOnCollision(Object* object);
 
 	void SetCollision(bool isCollision) {
 		isCollision_ = isCollision;
@@ -84,6 +86,12 @@ public:
 	ObjectType GetObjectType() {
 		return objectType_;
 	}
+
+	virtual void SetJson(nlohmann::json& Level){};
+
+	virtual void GetJson(nlohmann::json& Level) {};
+
+	virtual void DragFloat2() {};
 
 protected:
 	Vector2 pos_ = { 0,0 };

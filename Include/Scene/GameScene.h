@@ -10,6 +10,7 @@
 #include"Water.h"
 #include"Inversion.h"
 #include"Key.h"
+#include"SpongeBlock.h"
 
 class GameScene :
     public BaseScene
@@ -27,6 +28,7 @@ private:
 	std::unique_ptr<Object> player;
 	std::unique_ptr<Goal> goal;
 	std::unique_ptr<Key> key;
+	std::unique_ptr<SpongeBlock> spongeBlock;
 
 	EditStage test;
 

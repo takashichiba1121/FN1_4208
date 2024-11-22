@@ -9,6 +9,9 @@
 void StageSelectScene::Initialize()
 {
 	StageManager::GetInstance()->Initialize();
+	preview1_.Initialize();
+	preview1_.pos_ = { 100,100 };
+	preview1_.size_ = { 0.5f,0.5f };
 }
 
 void StageSelectScene::Update()
@@ -33,6 +36,8 @@ void StageSelectScene::Update()
 		StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
 	}
 
+	preview1_.Update(StageManager::GetInstance()->GetStageFileName(selectStageNum_));
+
 #ifdef _DEBUG
 
 	ImGui::Begin("selectNum");
@@ -46,7 +51,7 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Draw()
 {
-	
+	preview1_.Draw();
 }
 
 void StageSelectScene::Finalize()

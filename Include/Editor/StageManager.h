@@ -29,6 +29,7 @@ public:
 	void Draw();
 
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
+	void AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann::json seting);
 
 	void ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag);
 
@@ -45,6 +46,8 @@ public:
 	void SelectLevelNum(int32_t selectNum);
 
 	void NextLevelLoad();
+
+	std::string GetStageFileName(int32_t num) { return stageFileName_[num]; };
 
 private:
 

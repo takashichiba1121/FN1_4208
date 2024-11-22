@@ -1,5 +1,6 @@
 #pragma once
 #include"Object.h"
+#include<memory>
 class SpongeBlock :
     public Object
 {
@@ -19,13 +20,31 @@ public:
 	/// </summary>
 	void Draw()override;
 
+	void OnCollision(Object* object)override;
 
+	float easeOutCubic(float x);
+
+	float easeInCubic(float x);
+
+	void SetJson(nlohmann::json& Level) override;
+
+	void GetJson(nlohmann::json& Level) override;
+
+	void DragFloat2()override;
 
 private:
 
-	Vector2 scale = { 3,3 };
+	Vector2 expansion_ = { 1,1 };
 
-	Vector2 normalSize = { 32,32 };
+	Vector2 initializeSize_={ 64,64 };
+
+	uint32_t easingFrame_=0;
+
+	const uint32_t maxEasingFrame_=60;
+
+	bool isExpansion_ = false;
+
+	bool stopExpansion_ = false;
 	
 };
 

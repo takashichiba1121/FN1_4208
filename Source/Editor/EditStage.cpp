@@ -306,6 +306,8 @@ void EditStage::EditObject()
 			isImguiUse_ = false;
 		}
 
+		objectI->get()->DragFloat2();
+
 
 		if (ImGui::Button(std::string("erase" + num).c_str()))
 		{
@@ -526,6 +528,8 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 		data["object"]["scale"] = { levelData->GetSize().x,levelData->GetSize().y };
 		data["object"]["tag"] = static_cast<int32_t>(levelData->GetObjectType());
 
+		levelData->SetJson(data["object"]["IndividualSettings"]);
+
 		//‘S‘Ì‚ÌŒÅ‚Ü‚è‚É“ü‚ê‚é
 		jsonfile["objects"] += { data };
 	}
@@ -653,6 +657,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 {
 	switch (objectType) {
 	case ObjectType::PLAYER:   return "player";
+	case ObjectType::SPONGE_BLOCK:   return "spongeBlock";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
 	case ObjectType::BREAK_BLOCK: return "breakBlock";
