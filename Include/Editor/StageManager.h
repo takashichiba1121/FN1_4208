@@ -66,7 +66,7 @@ private:
 	//ステージとして追加したいファイル名を保持
 	std::vector<std::string> stageFileName_;
 
-	int32_t nowLevelNum_ = 0;
+	uint32_t nowLevelNum_ = 0;
 	
 	bool isUseEditer_ = false;
 };

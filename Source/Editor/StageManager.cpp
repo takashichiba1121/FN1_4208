@@ -9,6 +9,7 @@
 #include "Window.h"
 #include "Key.h"
 #include "SpongeBlock.h"
+#include "Drain.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -135,6 +136,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		addObject = std::make_unique<Key>();
 
 		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_unique<Drain>();
+
+		break;
 	default:
 		return;
 		break;
@@ -184,6 +189,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 		break;
 	case ObjectType::KEY:
 		addObject = std::make_unique<Key>();
+
+		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_unique<Drain>();
 
 		break;
 	default:
