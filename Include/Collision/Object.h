@@ -5,8 +5,8 @@
 enum class ObjectType
 {
 	PLAYER,
-	FLOAT_BLOCK,
 	SPONGE_BLOCK,
+	FLOAT_BLOCK,
 	NOT_FLOAT_BLOCK,
 	BREAK_BLOCK,
 	GOAL,
@@ -28,9 +28,9 @@ public:
 
 	virtual void Draw() {}
 
-	virtual void OnCollision(Object* objct) {};
+	virtual void OnCollision(Object* object) {};
 
-	void ObjectOnCollision(Object* objct);
+	void ObjectOnCollision(Object* object);
 
 	void SetCollision(bool isCollision) {
 		isCollision_ = isCollision;
@@ -93,6 +93,8 @@ protected:
 	float easeEPos_ = pos_.y;
 
 	Vector2 oldPos_ = { 0,0 };
+
+
 
 	Vector2 size_ = {1,1};
 
