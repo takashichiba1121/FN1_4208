@@ -11,9 +11,14 @@ void Water::Update()
 			horizontal_ += speed;
 			isChangeHorizontal = true;
 		}
+
 		if (horizontal_ > tentHorizontal_) {
 			horizontal_ -= speed;
 			isChangeHorizontal = true;
+		}
+
+		if (abs(horizontal_ - tentHorizontal_) <= speed) {
+			horizontal_ = tentHorizontal_;
 		}
 	}	
 

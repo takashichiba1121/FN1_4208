@@ -25,6 +25,9 @@ void GameScene::Initialize()
 	spongeBlock = std::make_unique<SpongeBlock>();
 	spongeBlock->Initialize();
 
+	drain = std::make_unique<Drain>();
+	drain->Initialize();
+	
 	test.Initialize();
 }
 
@@ -39,6 +42,8 @@ void GameScene::Update()
 
 	goal->Update();
 	key->Update();
+	drain->SetPos({500,650});
+	drain->Update();
 	test.Update();
 
 	Inversion::GetInstance()->Update();
@@ -62,6 +67,7 @@ void GameScene::Draw()
 
 	goal->Draw();
 	key->Draw();
+	drain->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
 

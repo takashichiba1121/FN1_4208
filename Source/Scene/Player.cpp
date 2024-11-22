@@ -171,13 +171,13 @@ void Player::Draw() {
 }
 
 void Player::OnCollision(Object* objct) {
-	//頭打ちの処理
+	//ブロック上に乗っているときの処理
 	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
 	}
 
-	//ブロック上に乗っているときの処理
+	//頭打ちの処理
 	if ((pos_.y - size_.y / 2) >= (objct->GetPos().y + objct->GetSize().y / 2)) {
 		gravity = 0.0f;
 	}
