@@ -151,6 +151,8 @@
     <ClCompile Include="Source\GameCore\SoundManager.cpp" />
     <ClCompile Include="Source\Math\Random.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
+    <ClCompile Include="Source\Particle\Confetti.cpp" />
+    <ClCompile Include="Source\Particle\ConfettiEmiitter.cpp" />
     <ClCompile Include="Source\Particle\Splash.cpp" />
     <ClCompile Include="Source\Particle\SplashEmitter.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
@@ -197,6 +199,8 @@
     <ClInclude Include="Include\Item\LevitationBlock.h" />
     <ClInclude Include="Include\Math\Random.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
+    <ClInclude Include="Include\Particle\Confetti.h" />
+    <ClInclude Include="Include\Particle\ConfettiEmiitter.h" />
     <ClInclude Include="Include\Particle\Splash.h" />
     <ClInclude Include="Include\Particle\SplashEmitter.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />

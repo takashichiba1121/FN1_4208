@@ -7,7 +7,6 @@
 class Key:public Object
 {
 public:
-	~Key();
 	/// <summary>
 	/// ‰Šú‰»
 	/// </summary>
