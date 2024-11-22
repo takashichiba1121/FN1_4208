@@ -17,6 +17,13 @@ public:
 	static TextureManager* Instance();
 #pragma endregion
 public:
+	struct Texture
+	{
+		uint32_t id;
+		std::string name;
+	};
+
+public:
 	/// <summary>
 	/// テクスチャの読み込み
 	/// </summary>
@@ -30,8 +37,7 @@ public:
 	void Finalize();
 
 private:
-	std::vector<std::string> textureNames;
-	uint32_t srvIncrementIndex = 0;
+	std::vector<Texture> textureNames_;
 };
 
 
