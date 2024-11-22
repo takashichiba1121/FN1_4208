@@ -125,10 +125,10 @@ void EditStage::ImguiMenu()
 		ImGui::EndMenuBar();
 	}
 
-	horizontal_ = Water::GetInstance()->GetHorizontal();
+	horizontal_ = Water::GetInstance()->GetTentHorizontal();
 
 	ImGui::DragFloat("horizontal", &horizontal_, 1.0f, 0.0f, 720);
-	Water::GetInstance()->SetHorizontal(horizontal_);
+	Water::GetInstance()->SetTentHorizontal(horizontal_);
 
 	if (StageManager::GetInstance()->GetIsUseEditer() && StageManager::GetInstance()->stageObjData_.size() != 0)
 	{

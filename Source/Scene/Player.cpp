@@ -188,6 +188,12 @@ void Player::OnCollision(Object* objct) {
 			Inversion::GetInstance()->SetIsInversion();
 		}
 	}
+
+	if (objct->GetObjectType() == ObjectType::DRAIN) {
+		if (Input::GetKeyTrigger(Input::Key::W)) {
+			Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
+		}
+	}
 }
 
 bool Player::BurialJudge(Object* objct){
