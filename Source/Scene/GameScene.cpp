@@ -22,6 +22,9 @@ void GameScene::Initialize()
 	key = std::make_unique<Key>();
 	key->Initialize();
 
+	spongeBlock = std::make_unique<SpongeBlock>();
+	spongeBlock->Initialize();
+
 	test.Initialize();
 }
 
@@ -32,6 +35,7 @@ void GameScene::Update()
 	block->Update();
 	floatBlock->Update();
 	breakBlock->Update();
+	spongeBlock->Update();
 
 	goal->Update();
 	key->Update();
@@ -54,7 +58,8 @@ void GameScene::Draw()
 	floatBlock->Draw();
 
 	breakBlock->Draw();
-  
+	spongeBlock->Draw();
+
 	goal->Draw();
 	key->Draw();
 	test.Draw();
@@ -65,4 +70,5 @@ void GameScene::Draw()
 
 void GameScene::Finalize()
 {
+	CollisionManager::GetInstance()->AllDelete();
 }
