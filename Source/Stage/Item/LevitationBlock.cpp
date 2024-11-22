@@ -2,9 +2,10 @@
 #include "CollisionManager.h"
 #include "Input.h"
 #include "Water.h"
+#include "TextureManager.h"
+#include "Window.h"
 #include <cmath>
 #include <DxLib.h>
-#include "TextureManager.h"
 
 void LevitationBlock::Initialize()
 {
@@ -44,18 +45,24 @@ void LevitationBlock::Move()
 
 	if (pos_.y < waterSurface_) {
 		
-		pos_.y += gravity_;
+		if (pos_.y <= WIN_HEIGHT - size_.y / 2) {
+			pos_.y += gravity_;
+		}
 
 		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
 			pos_.y = waterSurface_;
 		}
+
 	}else if(pos_.y > waterSurface_){
 
-		pos_.y -= gravity_;
+		if (pos_.y >= WIN_HEIGHT - WIN_HEIGHT + size_.y / 2) {
+			pos_.y -= gravity_;
+		}
 
 		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
 			pos_.y = waterSurface_; 
 		}
+
 	}
 
 	if (pos_.y == waterSurface_) {
