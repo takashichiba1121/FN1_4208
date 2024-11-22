@@ -1,4 +1,5 @@
 #include "StageManager.h"
+#include "SceneManager.h"
 #include "Player.h"
 #include "Block.h"
 #include "Goal.h"
@@ -49,6 +50,14 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 		}
 	}
 	
+}
+
+void StageManager::Initialize()
+{
+	//ステージとして使いたいファイル名をここに追加
+	stageFileName_ = {
+		"Error",
+	};
 }
 
 void StageManager::Update()
@@ -183,4 +192,22 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 	addObject->SetObjectType(tag);
 
 	chengeData->swap(addObject);
+}
+
+void StageManager::SelectLevelNum(int32_t selectNum)
+{
+	LoadStageObjectFile(stageFileName_[selectNum]);
+	nowLevelNum_ = selectNum;
+}
+
+void StageManager::NextLevelLoad()
+{
+	if (nowLevelNum_ + 1 > stageFileName_.size() - 1)
+	{
+		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+		return;
+	}
+
+	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);
+	nowLevelNum_ = nowLevelNum_ + 1;
 }

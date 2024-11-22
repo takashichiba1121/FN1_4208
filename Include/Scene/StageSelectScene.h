@@ -14,9 +14,6 @@ class StageSelectScene :public BaseScene
 
 private:
 
-	//ステージとして追加したいファイル名を保持
-	std::vector<std::string> stageFileName_;
-
 	int32_t selectStageNum_ = 0;
 
 };

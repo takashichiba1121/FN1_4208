@@ -8,10 +8,7 @@
 
 void StageSelectScene::Initialize()
 {
-	//ステージとして使いたいファイル名をここに追加
-	stageFileName_ = { 
-		"Error",
-	};
+	StageManager::GetInstance()->Initialize();
 }
 
 void StageSelectScene::Update()
@@ -25,7 +22,7 @@ void StageSelectScene::Update()
 	}
 	else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
 	{
-		if (static_cast<size_t>(selectStageNum_) < stageFileName_.size() - 1)
+		if (static_cast<size_t>(selectStageNum_) < StageManager::GetInstance()->GetSrageFileNameNum() - 1)
 		{
 			selectStageNum_++;
 		}
@@ -33,7 +30,7 @@ void StageSelectScene::Update()
 	else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
 	{
 		SceneManager::GetInstance()->ChangeScene("GAME");
-		StageManager::GetInstance()->LoadStageObjectFile(stageFileName_[selectStageNum_]);
+		StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
 	}
 
 #ifdef _DEBUG
