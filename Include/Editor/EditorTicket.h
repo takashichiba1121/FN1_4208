@@ -28,12 +28,12 @@ namespace EditContent
 
 	struct TicketData
 	{
-		Object* object;
+		Object* object = nullptr;
 		Vector2 pos;
 		Vector2 size;
 
-		ObjectType type_;
-		ObjectType oldType_;
+		ObjectType type_ = ObjectType::NONE;
+		ObjectType oldType_ = ObjectType::NONE;
 
 		void setData(Object* Obj, Vector2 Pos = {}, Vector2 Size = {}) { object = Obj; pos = Pos; size = Size; }
 	};
@@ -102,8 +102,8 @@ namespace EditContent
 
 	private:
 
-		ObjectType type_;
-		ObjectType oldType_;
+		ObjectType type_ = ObjectType::NONE;
+		ObjectType oldType_ = ObjectType::NONE;
 
 		int32_t num_ = 0;
 
