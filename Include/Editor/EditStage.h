@@ -8,6 +8,7 @@
 変更箇所
 ・EditStage.cppにある ObjectTypeToStringの中身に追加
 ・stageManager.cpp内にある ChengeTagとAddObjectの中身に追加
+・LevelPreView.cpp内にある AddObjectも変更してくれると嬉しい
 */
 
 namespace ImGui

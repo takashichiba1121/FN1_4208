@@ -653,6 +653,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 {
 	switch (objectType) {
 	case ObjectType::PLAYER:   return "player";
+	case ObjectType::SPONGE_BLOCK:   return "spongeBlock";
 	case ObjectType::FLOAT_BLOCK: return "floatBlock";
 	case ObjectType::NOT_FLOAT_BLOCK: return "notFloatBlock";
 	case ObjectType::BREAK_BLOCK: return "breakBlock";
