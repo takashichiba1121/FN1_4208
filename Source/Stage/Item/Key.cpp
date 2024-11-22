@@ -4,7 +4,7 @@
 
 Key::~Key()
 {
-	CollisionManager::GetInstance()->RemoveObject(this);
+	//CollisionManager::GetInstance()->RemoveObject(this);
 }
 
 void Key::Initialize()
