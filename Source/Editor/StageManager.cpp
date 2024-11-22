@@ -8,6 +8,7 @@
 #include "Water.h"
 #include "Window.h"
 #include "Key.h"
+#include "SpongeBlock.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -108,6 +109,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		addObject = std::make_unique<Player>();		
 
 		break;
+	case ObjectType::SPONGE_BLOCK:
+		addObject = std::make_unique<SpongeBlock>();
+
+		break;
 
 	case ObjectType::FLOAT_BLOCK:
 		addObject = std::make_unique<LevitationBlock>();
@@ -153,6 +158,10 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 	{
 	case ObjectType::PLAYER:
 		addObject = std::make_unique<Player>();
+
+		break;
+	case ObjectType::SPONGE_BLOCK:
+		addObject = std::make_unique<SpongeBlock>();
 
 		break;
 
