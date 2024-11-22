@@ -11,10 +11,19 @@ void Drain::Initialize() {
 
 void Drain::Update() {
 	ObjectUpdate();
+
+	color = GetColor(0, 255, 0);
 }
 
 void Drain::Draw() {
-	DrawCircle(pos_.x, pos_.y, size_.x / 2, GetColor(0, 255, 0), true);
+	DrawCircle(pos_.x, pos_.y, size_.x / 2, color, true);
+}
+
+void Drain::OnCollision(Object* objct) {
+
+	if (objct->GetObjectType() == ObjectType::PLAYER) {
+		color = GetColor(0, 200, 100);
+	}
 }
 
 void Drain::Inversion(const float easing) {

@@ -21,8 +21,11 @@ public:
 	/// </summary>
 	void Draw()override;
 
+	void OnCollision(Object* objct)override;
+
 	void Inversion(const float easing)override;
 
 private:
 
+	int color;
 };
