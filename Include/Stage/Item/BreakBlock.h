@@ -32,6 +32,8 @@ public:
 	/// </summary>
 	void Damage();
 
+	void OnCollision(Object* object)override;
+
 	/// <summary>
 	/// ƒuƒƒbƒN‚ÌHP‚Ìæ“¾
 	/// </summary>
