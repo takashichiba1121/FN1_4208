@@ -151,6 +151,8 @@
     <ClCompile Include="Source\GameCore\SoundManager.cpp" />
     <ClCompile Include="Source\Math\Random.cpp" />
     <ClCompile Include="Source\Math\Vector2.cpp" />
+    <ClCompile Include="Source\Particle\Confetti.cpp" />
+    <ClCompile Include="Source\Particle\ConfettiEmiitter.cpp" />
     <ClCompile Include="Source\Particle\Splash.cpp" />
     <ClCompile Include="Source\Particle\SplashEmitter.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
@@ -163,6 +165,7 @@
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
     <ClCompile Include="Source\Stage\Item\BreakBlock.cpp" />
+    <ClCompile Include="Source\Stage\Item\Drain.cpp" />
     <ClCompile Include="Source\Stage\Item\Key.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Item\SpongeBlock.cpp" />
@@ -197,6 +200,8 @@
     <ClInclude Include="Include\Item\LevitationBlock.h" />
     <ClInclude Include="Include\Math\Random.h" />
     <ClInclude Include="Include\Math\Vector2.h" />
+    <ClInclude Include="Include\Particle\Confetti.h" />
+    <ClInclude Include="Include\Particle\ConfettiEmiitter.h" />
     <ClInclude Include="Include\Particle\Splash.h" />
     <ClInclude Include="Include\Particle\SplashEmitter.h" />
     <ClInclude Include="Include\Scene\GameScene.h" />
@@ -210,6 +215,7 @@
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
     <ClInclude Include="Include\Stage\Item\BreakBlock.h" />
+    <ClInclude Include="Include\Stage\Item\Drain.h" />
     <ClInclude Include="Include\Stage\Item\Key.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Item\SpongeBlock.h" />
