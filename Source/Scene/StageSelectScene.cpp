@@ -10,6 +10,8 @@ void StageSelectScene::Initialize()
 {
 	StageManager::GetInstance()->Initialize();
 	preview1_.Initialize();
+	preview1_.pos_ = { 100,100 };
+	preview1_.size_ = { 0.5f,0.5f };
 }
 
 void StageSelectScene::Update()

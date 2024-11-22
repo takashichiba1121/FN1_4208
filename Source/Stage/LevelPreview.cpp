@@ -33,10 +33,10 @@ void LevelPreView::Draw()
 
 	for (auto& data : previewData_)
 	{
-		DrawRotaGraph3(pos_.x + (data.pos_.x - data.size_.x / 2), pos_.y + (data.pos_.y - data.size_.y / 2), 0, 0, size_.x, size_.y, 0, data.handle_, true);
+		DrawRotaGraph3((pos_.x + (data.pos_.x - data.size_.x / 2) * size_.x), (pos_.y + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, size_.x, size_.y, 0, data.handle_, true);
 		if (lockDoor_ && data.tag_== ObjectType::GOAL)
 		{
-			DrawRotaGraph3(pos_.x + (data.pos_.x - data.size_.x / 2), pos_.y + (data.pos_.y - data.size_.y / 2), 0, 0, size_.x, size_.y, 0, lockhandle_, true);
+			DrawRotaGraph3((pos_.x + (data.pos_.x - data.size_.x / 2) * size_.x), (pos_.y + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, size_.x, size_.y, 0, lockhandle_, true);
 		}
 	}
 
