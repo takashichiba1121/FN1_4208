@@ -10,7 +10,7 @@ void SpongeBlock::Initialize()
 {
 	pos_ = { 640,600 };
 
-	size_ = initializeSize_;
+	size_=initializeSize_;
 
 	objectType_ = ObjectType::SPONGE_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
@@ -19,6 +19,11 @@ void SpongeBlock::Initialize()
 void SpongeBlock::Update()
 {
 	ObjectUpdate();
+
+	if (easingFrame_==0)
+	{
+		initializeSize_ = size_;
+	}
 
 	float horizontal = Water::GetInstance()->GetHorizontal();
 
@@ -151,7 +156,7 @@ void SpongeBlock::GetJson(nlohmann::json& Level)
 	expansion_.y = Level["Expansion"][1];
 }
 
-void SpongeBlock::DragFloat2()
+void SpongeBlock::ImGuiEdit()
 {
 	float v[2] = { expansion_.x,expansion_.y };
 
