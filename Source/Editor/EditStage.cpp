@@ -184,6 +184,11 @@ void EditStage::addObject()
 		{
 			serectAddObjectType_ = ObjectName::ObjectString<ObjectType>(i);
 		}
+		if (i != 0 && i % 4 == 0)
+		{
+			continue;
+		}
+
 		if (i != items.size()-1)
 		{
 			ImGui::SameLine();
