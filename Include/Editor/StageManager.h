@@ -46,6 +46,8 @@ public:
 
 	void NextLevelLoad();
 
+	std::string GetStageFileName(int32_t num) { return stageFileName_[num]; };
+
 private:
 
 	//シングルトン用
