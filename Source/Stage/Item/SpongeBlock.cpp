@@ -4,6 +4,7 @@
 #include"Water.h"
 #include"Inversion.h"
 #include<cmath>
+#include"imgui.h"
 
 void SpongeBlock::Initialize()
 {
@@ -48,7 +49,7 @@ void SpongeBlock::Update()
 
 			float f = easeInCubic(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
 
-			size_ = (initializeSize_ * scale_ - initializeSize_) * f;
+			size_ = (initializeSize_ * expansion_ - initializeSize_) * f;
 			size_ += initializeSize_;
 		}
 		else if (!isExpansion_ && easingFrame_ > 0)
@@ -57,7 +58,7 @@ void SpongeBlock::Update()
 
 			float f = easeInCubic(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
 
-			size_ = (initializeSize_ * scale_ - initializeSize_) * f;
+			size_ = (initializeSize_ * expansion_ - initializeSize_) * f;
 			size_ += initializeSize_;
 		}
 	}
@@ -137,4 +138,24 @@ float SpongeBlock::easeOutCubic(float x)
 float SpongeBlock::easeInCubic(float x)
 {
 	return 1 - cos((x * 3.141592) / 2);;
+}
+
+void SpongeBlock::a(nlohmann::json& Level)
+{
+	Level["Expansion"]= { expansion_.x,expansion_.y };
+}
+
+void SpongeBlock::b(nlohmann::json& Level)
+{
+	expansion_.x = Level["Expansion"][0];
+	expansion_.y = Level["Expansion"][1];
+}
+
+void SpongeBlock::DragFloat2()
+{
+	float v[2] = { expansion_.x,expansion_.y };
+
+	ImGui::DragFloat2("expansion", v, 1.0f, 1.0f, 1000.0f);
+
+	expansion_ = {v[0],v[1]};
 }
