@@ -2,21 +2,32 @@
 #include "Input.h"
 #include "CollisionManager.h"
 #include <random>
+#include "TextureManager.h"
+#include"StageManager.h"
 
 void Goal::Initialize()
 {
 	pos_ = { 1000.0f,200.0f };
 	size_ = { 64.0f,64.0f };
-	goal = LoadGraph("");
 	objectType_ = ObjectType::GOAL;
 	CollisionManager::GetInstance()->AddObject(this);
 
-	isLock = true;
+	//パーティクル初期化
+	//パーティクル初期化
+	confettiEmitter = std::make_unique<ConfettiEmiitter>();
+	confettiEmitter->Initialize(5);
+
+	//画像読み込み
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor.png");
+	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
+	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
 }
 
 void Goal::Update()
 {
 	horizontal = Water::GetInstance()->GetHorizontal();
+	ObjectUpdate();
 
 	//施錠チェック
 	if (Input::GetKey(Input::Key::Up)) {
@@ -39,20 +50,17 @@ void Goal::Update()
 		isUnderWater = false;
 	}
 
+
 	if (isUnderWater) {
 		//ゴール(閉)
 		isCollision_ = true;
 	}
-	/*else if (isUnderWater == false && isClear == false) {
-		isCollision_ = true;
-	}*/
 	else {
 		//ゴール(開)
 		isCollision_ = true;
 	}
 
 	//演出(開閉時)
-
 
 
 	//演出(衝突時)
@@ -69,8 +77,14 @@ void Goal::Update()
 
 	//演出(遷移)
 	if (isClear) {
+		confettiEmitter->Update();
 
+		if (isUnderWater) {
+			isClear = false;
+		}
 	}
+
+	
 }
 
 void Goal::Inversion(const float easing) {
@@ -78,37 +92,42 @@ void Goal::Inversion(const float easing) {
 	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
 }
 
+void Goal::NextSelect()
+{
+	if (Input::GetKey(Input::Key::Right)) {
+		//次のステージへ
+		StageManager::GetInstance()->NextLevelLoad();
+	}
+	else if (Input::GetKey(Input::Key::Left)) {
+		//セレクト画面へ
+	}
+
+}
+
 void Goal::Draw()
 {
 	if (isUnderWater == false && isLock == true || isUnderWater == true && isLock==true) {
 		//ゴール(鍵あり閉)
-		DrawBox(
-			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
-			pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
-			GetColor(255, 0, 0), TRUE);
-		DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
+		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle3_, true);
+		//DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
 	}
 	else if (isUnderWater) {
 		//ゴール(閉)
-		DrawBox(
-			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
-			pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
-			GetColor(255, 255, 255), TRUE);
-		DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
+		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
 	}
 	else {
 		//ゴール(開)
-		DrawBox(
-			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f,
-			pos_.x + size_.x / 2.0f, pos_.y + size_.y / 2.0f,
-			GetColor(0, 255, 255), TRUE);
-		DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
+		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle2_, true);
 	}
 
 	if (isClear) {
 		//クリア
 		//DrawBox(1280 / a, 720 / a, 1280 - 1280 / a, 720 - 720 / a, GetColor(255, 255, 255), true);
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+		confettiEmitter->Draw();
+		//ゴールの文字
+		DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
 	}
 }
 
