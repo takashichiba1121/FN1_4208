@@ -12,6 +12,7 @@ enum class ObjectType
 	BREAK_BLOCK,
 	GOAL,
 	KEY,
+	DRAIN,
 	NONE,
 };
 

@@ -171,13 +171,13 @@ void Player::Draw() {
 }
 
 void Player::OnCollision(Object* objct) {
-	//頭打ちの処理
+	//ブロック上に乗っているときの処理
 	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
 	}
 
-	//ブロック上に乗っているときの処理
+	//頭打ちの処理
 	if ((pos_.y - size_.y / 2) >= (objct->GetPos().y + objct->GetSize().y / 2)) {
 		gravity = 0.0f;
 	}
@@ -186,6 +186,12 @@ void Player::OnCollision(Object* objct) {
 		//ブロックに埋まっていたら自動で再び反転
 		if (BurialJudge(objct)) {
 			Inversion::GetInstance()->SetIsInversion();
+		}
+	}
+
+	if (objct->GetObjectType() == ObjectType::DRAIN) {
+		if (Input::GetKeyTrigger(Input::Key::W)) {
+			Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
 		}
 	}
 }

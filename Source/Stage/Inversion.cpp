@@ -8,8 +8,10 @@ void Inversion::Update() {
 	endInversion = false;
 
 	//ƒL[‘€ì‚Å”½“]
-	if (Input::GetKeyTrigger(Input::Key::Q)) {
-		isInversion = true;
+	if (!Water::GetInstance()->GetIsChangeHorizontal()) {
+		if (Input::GetKeyTrigger(Input::Key::Q)) {
+			isInversion = true;
+		}
 	}
 
 	//”½“]’†‚Ìˆ—

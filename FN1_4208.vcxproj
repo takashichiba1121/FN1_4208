@@ -165,6 +165,7 @@
     <ClCompile Include="Source\Particle\Bubble.cpp" />
     <ClCompile Include="Source\Particle\BubbleEmitter.cpp" />
     <ClCompile Include="Source\Stage\Item\BreakBlock.cpp" />
+    <ClCompile Include="Source\Stage\Item\Drain.cpp" />
     <ClCompile Include="Source\Stage\Item\Key.cpp" />
     <ClCompile Include="Source\Stage\Item\LevitationBlock.cpp" />
     <ClCompile Include="Source\Stage\Item\SpongeBlock.cpp" />
@@ -214,6 +215,7 @@
     <ClInclude Include="Include\Particle\Bubble.h" />
     <ClInclude Include="Include\Particle\BubbleEmitter.h" />
     <ClInclude Include="Include\Stage\Item\BreakBlock.h" />
+    <ClInclude Include="Include\Stage\Item\Drain.h" />
     <ClInclude Include="Include\Stage\Item\Key.h" />
     <ClInclude Include="Include\Stage\Item\levitationBlock.h" />
     <ClInclude Include="Include\Stage\Item\SpongeBlock.h" />
