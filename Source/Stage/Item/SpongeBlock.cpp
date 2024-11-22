@@ -75,7 +75,7 @@ void SpongeBlock::OnCollision(Object* object)
 {
 
 	pos_ = oldPos_;
-	if (objectType_ < object->GetObjectType())
+	if (objectType_ < object->GetObjectType()&&isExclude_&&object->IsExclude())
 	{
 		Vector2 posA = object->GetPos();
 		Vector2 sizeA = object->GetSize();
