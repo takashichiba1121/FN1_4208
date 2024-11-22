@@ -2,10 +2,6 @@
 #include "Input.h"
 #include "CollisionManager.h"
 
-Key::~Key()
-{
-	CollisionManager::GetInstance()->RemoveObject(this);
-}
 
 void Key::Initialize()
 {
