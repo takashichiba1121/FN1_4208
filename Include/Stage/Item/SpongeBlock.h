@@ -26,9 +26,9 @@ public:
 
 	float easeInCubic(float x);
 
-	void a(nlohmann::json& Level) override;
+	void SetJson(nlohmann::json& Level) override;
 
-	void b(nlohmann::json& Level) override;
+	void GetJson(nlohmann::json& Level) override;
 
 	void DragFloat2()override;
 

@@ -140,12 +140,12 @@ float SpongeBlock::easeInCubic(float x)
 	return 1 - cos((x * 3.141592) / 2);;
 }
 
-void SpongeBlock::a(nlohmann::json& Level)
+void SpongeBlock::SetJson(nlohmann::json& Level)
 {
 	Level["Expansion"]= { expansion_.x,expansion_.y };
 }
 
-void SpongeBlock::b(nlohmann::json& Level)
+void SpongeBlock::GetJson(nlohmann::json& Level)
 {
 	expansion_.x = Level["Expansion"][0];
 	expansion_.y = Level["Expansion"][1];

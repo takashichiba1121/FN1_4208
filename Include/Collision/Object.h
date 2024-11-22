@@ -87,11 +87,11 @@ public:
 		return objectType_;
 	}
 
-	virtual void a(nlohmann::json& Level);
+	virtual void SetJson(nlohmann::json& Level){};
 
-	virtual void b(nlohmann::json& Level);
+	virtual void GetJson(nlohmann::json& Level) {};
 
-	virtual void DragFloat2();
+	virtual void DragFloat2() {};
 
 protected:
 	Vector2 pos_ = { 0,0 };
