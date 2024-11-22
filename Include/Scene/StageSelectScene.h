@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseScene.h"
+#include "LevelPreview.h"
 #include <memory>
 #include <vector>
 #include <string>
@@ -15,5 +16,7 @@ class StageSelectScene :public BaseScene
 private:
 
 	int32_t selectStageNum_ = 0;
+
+	LevelPreView preview1_;
 
 };
