@@ -30,11 +30,11 @@ public:
 
 	void GetJson(nlohmann::json& Level) override;
 
-	void DragFloat2()override;
+	void ImGuiEdit()override;
 
 private:
 
-	Vector2 expansion_ = { 1,1 };
+	Vector2 expansion_ = { 3,3 };
 
 	Vector2 initializeSize_={ 64,64 };
 

@@ -311,7 +311,7 @@ void EditStage::EditObject()
 			isImguiUse_ = false;
 		}
 
-		objectI->get()->DragFloat2();
+		objectI->get()->ImGuiEdit();
 
 
 		if (ImGui::Button(std::string("erase" + num).c_str()))
