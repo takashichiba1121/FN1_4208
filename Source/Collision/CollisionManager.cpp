@@ -95,6 +95,10 @@ void CollisionManager::Update()
 
 						oldMove.y = 0;
 					}
+					else
+					{
+						move = move;
+					}
 
 					if (objectA->GetObjectType() < objectB->GetObjectType())
 					{
