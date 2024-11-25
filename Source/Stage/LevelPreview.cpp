@@ -10,30 +10,28 @@ LevelPreView::~LevelPreView()
 {
 }
 
-void LevelPreView::Initialize()
+void LevelPreView::Initialize(std::string selectFileName)
 {
 	lockhandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
+	
+	LoadStageObjectFile(selectFileName);
+	nowSelectfileName_ = selectFileName;
+	
 }
 
-void LevelPreView::Update(std::string selectFileName)
+void LevelPreView::Update()
 {
-
-	if (nowSelectfileName_ != selectFileName)
-	{
-		LoadStageObjectFile(selectFileName);
-		nowSelectfileName_ = selectFileName;
-	}
 
 
 }
 
 void LevelPreView::Draw()
 {
-	DrawBoxAA(pos_.x, pos_.y, pos_.x + (float)WIN_WIDTH * size_.x, pos_.y + (float)WIN_HEIGHT * size_.y, 0x000000, true);
+	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y + (float)WIN_HEIGHT / 2 * size_.y, 0x000000, true);
 
 	for (auto& data : previewData_)
 	{
-		DrawRotaGraph3F((pos_.x + (data.pos_.x - data.size_.x / 2) * size_.x), (pos_.y + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, size_.x, size_.y, 0, data.handle_, true);
+		DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x/64 *size_.x, data.size_.y/64 *size_.y, 0, data.handle_, true);
 		if (lockDoor_ && data.tag_== ObjectType::GOAL)
 		{
 			DrawRotaGraph3F((pos_.x + (data.pos_.x - data.size_.x / 2) * size_.x), (pos_.y + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, size_.x, size_.y, 0, lockhandle_, true);
@@ -41,10 +39,19 @@ void LevelPreView::Draw()
 	}
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)(colA[3] * 255));
-	DrawBoxAA(pos_.x, pos_.y, pos_.x + (float)WIN_WIDTH * size_.x, pos_.y + (float)waterHorizontal_ * size_.y, GetColor((int)(colA[0] * 255), (int)(colA[1] * 255), (int)(colA[2] * 255)), true);
-	DrawBoxAA(pos_.x, pos_.y + (float)waterHorizontal_ * size_.y, pos_.x + (float)WIN_WIDTH * size_.x, pos_.y + (float)WIN_HEIGHT * size_.y, GetColor((int)(colB[0] * 255), (int)(colB[1] * 255), (int)(colB[2] * 255)), true);
+	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y + (float)waterHorizontal_ * size_.y, GetColor((int)(colA[0] * 255), (int)(colA[1] * 255), (int)(colA[2] * 255)), true);
+	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y + (float)waterHorizontal_ * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y + (float)WIN_HEIGHT / 2 * size_.y, GetColor((int)(colB[0] * 255), (int)(colB[1] * 255), (int)(colB[2] * 255)), true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	DrawLineAA(pos_.x, pos_.y + (float)waterHorizontal_ * size_.y, pos_.x + (float)WIN_WIDTH * size_.x, pos_.y + (float)waterHorizontal_ * size_.y, GetColor(100, 255, 255));
+	DrawLineAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y + (float)waterHorizontal_ * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y + (float)waterHorizontal_ * size_.y, GetColor(100, 255, 255));
+}
+
+void LevelPreView::ChengePreview(std::string selectFileName)
+{
+	if (nowSelectfileName_ != selectFileName)
+	{
+		LoadStageObjectFile(selectFileName);
+		nowSelectfileName_ = selectFileName;
+	}
 }
 
 void LevelPreView::LoadStageObjectFile(const std::string& fileName)

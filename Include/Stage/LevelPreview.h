@@ -23,11 +23,13 @@ public:
 	LevelPreView();
 	~LevelPreView();
 
-	void Initialize();
+	void Initialize(std::string selectFileName);
 
-	void Update(std::string selectFileName);
+	void Update();
 
 	void Draw();
+
+	void ChengePreview(std::string selectFileName);
 
 	Vector2 pos_;
 	Vector2 size_ = {1,1};
