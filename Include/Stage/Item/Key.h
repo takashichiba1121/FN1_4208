@@ -32,5 +32,11 @@ public:
 
 private:
 	bool isLock;
+	bool isGet = false;
+	bool isDead = false;
+	float rot = 0.0f;
+	float a = 1.0f;
+	float b = 1.0f;
+	uint32_t textruehandle_;
 };
 
