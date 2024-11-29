@@ -26,7 +26,7 @@ private:
 	std::unique_ptr<Block> block;
 	std::unique_ptr<LevitationBlock> floatBlock;
 	std::unique_ptr<BreakBlock> breakBlock;
-	std::unique_ptr<Object> player;
+	std::unique_ptr<Player> player;
 	std::unique_ptr<Goal> goal;
 	std::unique_ptr<Key> key;
 	std::unique_ptr<SpongeBlock> spongeBlock;
