@@ -40,7 +40,7 @@ private:
 
 	uint32_t easingFrame_=0;
 
-	const uint32_t maxEasingFrame_=60;
+	const uint32_t maxEasingFrame_=20;
 
 	bool isExpansion_ = false;
 
