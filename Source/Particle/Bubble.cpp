@@ -14,7 +14,7 @@ void Bubble::Initialize(const Vector2 pos) {
 	isExclude_ = false;
 
 	objectType_ = ObjectType::NONE;
-	CollisionManager::GetInstance()->AddObject(this);
+	//CollisionManager::GetInstance()->AddObject(this);
 }
 
 void Bubble::Update(const float line) {
