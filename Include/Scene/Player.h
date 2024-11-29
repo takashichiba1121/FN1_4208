@@ -21,6 +21,7 @@ private:
 	void Move();
 	void Jump();
 	bool BurialJudge(Object* objct);	//ƒuƒƒbƒN–„–v”»’è
+	float Easing(const float x) { return 1 - pow(1 - x, 3); }
 
 private:
 
@@ -45,4 +46,9 @@ private:
 	const int canJumpTimerMax = 3;
 	int canJumpTimer = 1;
 	unsigned int color = 0;
+
+	Vector2 inverSize = { 0,0 };
+	bool isFront = false;
+	const float frameMax = 20.0f;
+	float frame = 0.0f;
 };
