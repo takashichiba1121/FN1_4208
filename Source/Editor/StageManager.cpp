@@ -1,5 +1,6 @@
 #include "StageManager.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 #include "Player.h"
 #include "Block.h"
 #include "Goal.h"
@@ -59,8 +60,8 @@ void StageManager::Initialize()
 	//ステージとして使いたいファイル名をここに追加
 	stageFileName_ = {
 		"Error",
-		"",
-		"",
+		"test",
+		"test2",
 		"",
 	};
 }
@@ -195,13 +196,14 @@ void StageManager::SelectLevelNum(int32_t selectNum)
 
 void StageManager::NextLevelLoad()
 {
-	if (nowLevelNum_ + 1 > stageFileName_.size() - 1)
+	if (nowLevelNum_ + 1 > stageFileName_.size()-1)
 	{
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 		return;
 	}
 
-	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);
+	CollisionManager::GetInstance()->AllDelete();
+	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);	
 	nowLevelNum_ = nowLevelNum_ + 1;
 }
 
