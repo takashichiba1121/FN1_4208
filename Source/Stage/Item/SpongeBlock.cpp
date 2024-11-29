@@ -164,3 +164,8 @@ void SpongeBlock::ImGuiEdit()
 
 	expansion_ = {v[0],v[1]};
 }
+
+void SpongeBlock::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
+}

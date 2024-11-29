@@ -21,6 +21,21 @@ void TitleScene::Update()
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 	}
 
+	//ƒKƒCƒhUI‚Ì“§–¾“x
+	if (guideTrans >= 255.0f) {
+		drawGuide = false;
+	}
+	if (guideTrans <= 0.0f) {
+		drawGuide = true;
+	}
+
+	if (drawGuide) {
+		guideTrans += 255.0f / 30.0f;
+	}
+	else {
+		guideTrans -= 255.0f / 30.0f;
+	}
+
 	for (int i = 0; i < 3; i++) {
 		titleLogo[i]->SetPos({WIN_WIDTH / 2 + 300 * (float)(i - 1) ,Water::GetInstance()->GetHorizontal()});
 		titleLogo[i]->Update();
@@ -36,7 +51,9 @@ void TitleScene::Draw()
 	
 	Water::GetInstance()->Draw();
 
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTrans);
 	DrawGraph(WIN_WIDTH / 2 - 256, 550, textruehandle_,true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
 void TitleScene::Finalize()
