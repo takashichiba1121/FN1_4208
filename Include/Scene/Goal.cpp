@@ -4,6 +4,7 @@
 #include <random>
 #include "TextureManager.h"
 #include"StageManager.h"
+#include "SceneManager.h"
 
 void Goal::Initialize()
 {
@@ -22,6 +23,10 @@ void Goal::Initialize()
 	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
 	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
+
+	//ゴールロックの初期状態
+	isLock = true;
+	isClear = false;
 }
 
 void Goal::Update()
@@ -29,12 +34,12 @@ void Goal::Update()
 	horizontal = Water::GetInstance()->GetHorizontal();
 	ObjectUpdate();
 
-	//施錠チェック
-	if (Input::GetKey(Input::Key::Up)) {
+	//開閉チェック
+	if (Input::GetKeyTrigger(/*Input::Key::Up*/Input::Key::L) && isLock == false) {
 		//keydata->isLock=true;
 		isLock = true;
 	}
-	else if (Input::GetKey(Input::Key::Down)) {
+	else if (Input::GetKeyTrigger(/*Input::Key::Down*/Input::Key::L) && isLock == true) {
 		isLock = false;
 	}
 
@@ -78,6 +83,7 @@ void Goal::Update()
 	//演出(遷移)
 	if (isClear) {
 		confettiEmitter->Update();
+		NextSelect();
 
 		if (isUnderWater) {
 			isClear = false;
@@ -94,12 +100,13 @@ void Goal::Inversion(const float easing) {
 
 void Goal::NextSelect()
 {
-	if (Input::GetKey(Input::Key::Right)) {
+	if (Input::GetKeyTrigger(Input::Key::Right)) {
 		//次のステージへ
 		StageManager::GetInstance()->NextLevelLoad();
 	}
-	else if (Input::GetKey(Input::Key::Left)) {
+	else if (Input::GetKeyTrigger(Input::Key::Left)) {
 		//セレクト画面へ
+		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 	}
 
 }

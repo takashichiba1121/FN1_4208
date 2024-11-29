@@ -184,6 +184,11 @@ void EditStage::addObject()
 		{
 			serectAddObjectType_ = ObjectName::ObjectString<ObjectType>(i);
 		}
+		if (i != 0 && i % 4 == 0)
+		{
+			continue;
+		}
+
 		if (i != items.size()-1)
 		{
 			ImGui::SameLine();
@@ -663,6 +668,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::BREAK_BLOCK: return "breakBlock";
 	case ObjectType::GOAL: return "goal";
 	case ObjectType::KEY: return "key";
+	case ObjectType::DRAIN: return "drain";
 	default:    return "UNKNOWN";
 	}
 	

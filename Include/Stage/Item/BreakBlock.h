@@ -2,6 +2,7 @@
 
 #include "Object.h"
 #include "Vector2.h"
+#include <cstdint>
 
 class BreakBlock : public Object
 {
@@ -38,7 +39,6 @@ public:
 	/// ƒuƒƒbƒN‚ÌHP‚Ìæ“¾
 	/// </summary>
 	int GetBreakBlockHp() { return blockHp_; }
-	void SetBreakBlockHp(int blockHp) { blockHp_ = blockHp; }
 
 private:
 	enum BlockHp {

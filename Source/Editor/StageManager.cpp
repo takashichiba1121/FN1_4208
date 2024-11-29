@@ -1,5 +1,6 @@
 #include "StageManager.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 #include "Player.h"
 #include "Block.h"
 #include "Goal.h"
@@ -9,6 +10,7 @@
 #include "Window.h"
 #include "Key.h"
 #include "SpongeBlock.h"
+#include "Drain.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -58,6 +60,9 @@ void StageManager::Initialize()
 	//ステージとして使いたいファイル名をここに追加
 	stageFileName_ = {
 		"Error",
+		"test",
+		"test2",
+		"",
 	};
 }
 
@@ -135,6 +140,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		addObject = std::make_unique<Key>();
 
 		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_unique<Drain>();
+
+		break;
 	default:
 		return;
 		break;
@@ -151,45 +160,8 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann::json seting)
 {
-	std::unique_ptr<Object> addObject;
-	//タグの内容で決定
-	switch (tag)
-	{
-	case ObjectType::PLAYER:
-		addObject = std::make_unique<Player>();		
-
-		break;
-	case ObjectType::SPONGE_BLOCK:
-		addObject = std::make_unique<SpongeBlock>();
-
-		break;
-
-	case ObjectType::FLOAT_BLOCK:
-		addObject = std::make_unique<LevitationBlock>();
-
-		break;
-
-	case ObjectType::NOT_FLOAT_BLOCK:
-		addObject = std::make_unique<Block>();
-
-		break;
-
-	case ObjectType::BREAK_BLOCK:
-		addObject = std::make_unique<BreakBlock>();
-
-		break;
-	case ObjectType::GOAL :
-		addObject = std::make_unique<Goal>();
-
-		break;
-	case ObjectType::KEY:
-		addObject = std::make_unique<Key>();
-
-		break;
-	default:
-		return;
-		break;
-	}
+	std::unique_ptr<Object> addObject = SelectObject(tag);
+	
 
 	addObject->Initialize();
 
@@ -203,6 +175,39 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 }
 
 void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag)
+{
+	std::unique_ptr<Object> addObject= SelectObject(tag);
+	
+
+	addObject->Initialize();
+
+	addObject->SetPos(chengeData->get()->GetPos());
+	addObject->SetSize(chengeData->get()->GetSize());
+	addObject->SetObjectType(tag);
+
+	chengeData->swap(addObject);
+}
+
+void StageManager::SelectLevelNum(int32_t selectNum)
+{
+	LoadStageObjectFile(stageFileName_[selectNum]);
+	nowLevelNum_ = selectNum;
+}
+
+void StageManager::NextLevelLoad()
+{
+	if (nowLevelNum_ + 1 > stageFileName_.size()-1)
+	{
+		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+		return;
+	}
+
+	CollisionManager::GetInstance()->AllDelete();
+	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);	
+	nowLevelNum_ = nowLevelNum_ + 1;
+}
+
+std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 {
 	std::unique_ptr<Object> addObject;
 	//タグの内容で決定
@@ -224,51 +229,29 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 
 	case ObjectType::NOT_FLOAT_BLOCK:
 		addObject = std::make_unique<Block>();
+
 		break;
 
 	case ObjectType::BREAK_BLOCK:
 		addObject = std::make_unique<BreakBlock>();
 
 		break;
-
 	case ObjectType::GOAL:
 		addObject = std::make_unique<Goal>();
 
 		break;
-
 	case ObjectType::KEY:
 		addObject = std::make_unique<Key>();
 
 		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_unique<Drain>();
 
+		break;
 	default:
-		return;
+		addObject = std::make_unique<Block>();
 		break;
 	}
 
-	addObject->Initialize();
-
-	addObject->SetPos(chengeData->get()->GetPos());
-	addObject->SetSize(chengeData->get()->GetSize());
-	addObject->SetObjectType(tag);
-
-	chengeData->swap(addObject);
-}
-
-void StageManager::SelectLevelNum(int32_t selectNum)
-{
-	LoadStageObjectFile(stageFileName_[selectNum]);
-	nowLevelNum_ = selectNum;
-}
-
-void StageManager::NextLevelLoad()
-{
-	if (nowLevelNum_ + 1 > stageFileName_.size() - 1)
-	{
-		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
-		return;
-	}
-
-	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);
-	nowLevelNum_ = nowLevelNum_ + 1;
+	return std::move(addObject);
 }
