@@ -39,23 +39,26 @@ void CollisionManager::Update()
 
 			if (Collision::AABB(objectA, objectB))
 			{
+				Vector2 posB = objectB->GetPos();
+				Vector2 sizeB = objectB->GetSize();
+				Vector2 oldSizeB = objectB->GetOldSize();
+				Vector2 oldPosB = objectB->GetOldPos();
+
+				Vector2 posA = objectA->GetPos();
+				Vector2 sizeA = objectA->GetSize();
+				Vector2 oldSizeA = objectA->GetOldSize();
+				Vector2 oldPosA = objectA->GetOldPos();
+
+				Vector2 move = { 0,0 };
+
+				Vector2 oldMove = { 0,0 };
+
 				if (objectA->IsExclude() && objectB->IsExclude())
 				{
-					Vector2 posB = objectB->GetPos();
-					Vector2 sizeB = objectB->GetSize();
-					Vector2 oldSizeB = objectB->GetOldSize();
-					Vector2 oldPosB = objectB->GetOldPos();
+					
 
-					Vector2 posA = objectA->GetPos();
-					Vector2 sizeA = objectA->GetSize();
-					Vector2 oldSizeA = objectA->GetOldSize();
-					Vector2 oldPosA = objectA->GetOldPos();
-
-					Vector2 move = { 0,0 };
-
-					Vector2 oldMove = { 0,0 };
-
-
+					float upB = oldPosB.y + oldSizeB.y / 2;
+					float downA = (oldPosA.y - oldSizeA.y / 2);
 
 					if (posA.y < posB.y)
 					{
@@ -67,7 +70,7 @@ void CollisionManager::Update()
 					{
 						move.y = (posA.y - sizeA.y / 2) - (posB.y + sizeB.y / 2);
 
-						oldMove.y = (oldPosA.y - oldSizeA.y / 2) - (oldPosB.y + oldSizeB.y / 2);
+						oldMove.y = downA- upB;
 					}
 
 					if (posA.x < posB.x)
@@ -83,21 +86,17 @@ void CollisionManager::Update()
 						oldMove.x = (oldPosA.x - oldSizeA.x / 2) - (oldPosB.x + oldSizeB.x / 2);
 					}
 
-					if (move.x > 0 && oldMove.x > 0 || move.x < 0 && oldMove.x < 0)
-					{
-						move.x = 0;
-
-						oldMove.x = 0;
-					}
-					if (move.y > 0 && oldMove.y > 0 || move.y < 0 && oldMove.y < 0)
+ 					if (move.y > 0 && oldMove.y > 0 || move.y < 0 && oldMove.y < 0)
 					{
 						move.y = 0;
 
 						oldMove.y = 0;
 					}
-					else
+					if (move.x > 0 && oldMove.x > 0 || move.x < 0 && oldMove.x < 0)
 					{
-						move = move;
+						move.x = 0;
+
+						oldMove.x = 0;
 					}
 
 					if (objectA->GetObjectType() < objectB->GetObjectType())
@@ -116,8 +115,8 @@ void CollisionManager::Update()
 					}
 				}
 
-				objectA->OnCollision(objectB);
 				objectB->OnCollision(objectA);
+				objectA->OnCollision(objectB);
 
 			}
 		}
