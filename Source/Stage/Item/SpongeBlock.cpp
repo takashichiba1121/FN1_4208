@@ -8,7 +8,7 @@
 
 void SpongeBlock::Initialize()
 {
-	pos_ = { 640,600 };
+	pos_ = { 640,300 };
 
 	size_=initializeSize_;
 
@@ -48,11 +48,11 @@ void SpongeBlock::Update()
 
 	if (!Inversion::GetInstance()->GetIsInversion()&&!stopExpansion_)
 	{
-		if (isExpansion_ && easingFrame_ < maxEasingFrame_)
+		if (isExpansion_ && easingFrame_ < maxEasingFrame_ * ((expansion_.x + expansion_.y) / 2))
 		{
 			easingFrame_++;
 
-			float f = easeInCubic(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
+			float f = static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_ * ((expansion_.x + expansion_.y) / 2));
 
 			size_ = (initializeSize_ * expansion_ - initializeSize_) * f;
 			size_ += initializeSize_;
@@ -61,7 +61,7 @@ void SpongeBlock::Update()
 		{
 			easingFrame_--;
 
-			float f = easeInCubic(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
+			float f = static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_*((expansion_.x+expansion_.y)/2));
 
 			size_ = (initializeSize_ * expansion_ - initializeSize_) * f;
 			size_ += initializeSize_;

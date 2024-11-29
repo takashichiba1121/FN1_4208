@@ -194,10 +194,15 @@ void Player::Draw() {
 }
 
 void Player::OnCollision(Object* objct) {
+
 	//ƒuƒƒbƒNã‚Éæ‚Á‚Ä‚¢‚é‚Æ‚«‚Ìˆ—
-	if ((pos_.y + size_.y / 2) <= (objct->GetPos().y - objct->GetSize().y / 2)) {
+	if (static_cast<uint32_t>(pos_.y + size_.y / 2) <= static_cast<uint32_t>(objct->GetPos().y - objct->GetSize().y / 2)) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
+	}
+	else if (gravity >= 3)
+	{
+		gravity = gravity;
 	}
 
 	//“ª‘Å‚¿‚Ìˆ—
