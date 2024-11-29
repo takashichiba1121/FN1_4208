@@ -9,9 +9,19 @@
 void StageSelectScene::Initialize()
 {
 	StageManager::GetInstance()->Initialize();
-	preview1_.Initialize();
-	preview1_.pos_ = { 100,100 };
-	preview1_.size_ = { 0.5f,0.5f };
+
+	previews_.resize(StageManager::GetInstance()->GetStageFileNameNum());
+
+	int32_t itemCount = 0;
+
+	for (auto& item : previews_)
+	{
+		item.Initialize(StageManager::GetInstance()->GetStageFileName(itemCount));
+		item.pos_ = { (float)WIN_WIDTH * 0.5f + (float)(itemCount * (float)((WIN_WIDTH * 0.5) + 100)),(float)WIN_HEIGHT * 0.5f };
+		item.size_ = { 0.5f,0.5f};
+		itemCount++;
+	}
+
 }
 
 void StageSelectScene::Update()
@@ -25,7 +35,7 @@ void StageSelectScene::Update()
 	}
 	else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
 	{
-		if (static_cast<size_t>(selectStageNum_) < StageManager::GetInstance()->GetSrageFileNameNum() - 1)
+		if (static_cast<size_t>(selectStageNum_) < StageManager::GetInstance()->GetStageFileNameNum() - 1)
 		{
 			selectStageNum_++;
 		}
@@ -36,7 +46,64 @@ void StageSelectScene::Update()
 		StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
 	}
 
-	preview1_.Update(StageManager::GetInstance()->GetStageFileName(selectStageNum_));
+	if (selectStageNum_ != selectStageOldNum_)
+	{
+		int32_t itemCount = 0;
+		for (auto& item : previews_)
+		{
+
+			float defPosX = (float)WIN_WIDTH * 0.5f + (float)(itemCount * (float)((WIN_WIDTH * 0.5) + 100));
+
+			item.pos_ = easeInQuad({ defPosX - (float)(selectStageOldNum_ * (float)((WIN_WIDTH * 0.5) + 100)) ,item.pos_.y }, { defPosX - (float)(selectStageNum_ * (float)((WIN_WIDTH * 0.5) + 100)) ,item.pos_.y },moveTime_/movemaxTime_);
+
+
+
+			itemCount++;
+
+		}
+
+		if (moveTime_ > movemaxTime_)
+		{
+			selectStageOldNum_ = selectStageNum_;
+			moveTime_ = 0;
+		}
+		else
+		{
+			moveTime_++;
+		}
+
+	}
+	else
+	{
+		int32_t itemCount = 0;
+		for (auto& item : previews_)
+		{
+
+			float defPosX = (float)WIN_WIDTH * 0.5f + (float)(itemCount * (float)((WIN_WIDTH * 0.5) + 100));
+
+			item.pos_ = { defPosX - (float)(selectStageNum_ * (float)((WIN_WIDTH * 0.5) + 100)) ,item.pos_.y };
+
+			itemCount++;
+
+		}
+
+		moveTime_ = 0;
+	}
+
+	/*int32_t itemCount = 0;
+	for (auto& item : previews_)
+	{
+		
+		float defPosX = (float)WIN_WIDTH * 0.5f + (float)(itemCount * (float)((WIN_WIDTH * 0.5) + 100));
+
+		item.pos_ = { defPosX - (float)(selectStageNum_ * (float)((WIN_WIDTH * 0.5) + 100)) ,item.pos_.y };
+
+		
+
+		itemCount++;
+		
+	}*/
+
 
 #ifdef _DEBUG
 
@@ -51,9 +118,18 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Draw()
 {
-	preview1_.Draw();
+	for (auto item : previews_)
+	{
+		item.Draw();
+	}
 }
 
 void StageSelectScene::Finalize()
 {
+}
+
+
+Vector2 StageSelectScene::easeInQuad(Vector2 start, Vector2 end, float time)
+{
+	return start + time * time * (end - start);
 }

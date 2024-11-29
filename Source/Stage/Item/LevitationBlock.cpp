@@ -2,9 +2,10 @@
 #include "CollisionManager.h"
 #include "Input.h"
 #include "Water.h"
+#include "TextureManager.h"
+#include "Window.h"
 #include <cmath>
 #include <DxLib.h>
-#include "TextureManager.h"
 
 void LevitationBlock::Initialize()
 {
@@ -33,7 +34,7 @@ void LevitationBlock::Draw()
 		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
 		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
 		GetColor(255, 255, 255), TRUE);*/
-	DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+	DrawRotaGraph3F(pos_.x - size_.x / 2, pos_.y - size_.y / 2, 0, 0, size_.x / 64,size_.y / 64, 0, textruehandle_, true);
 
 }
 
@@ -44,18 +45,24 @@ void LevitationBlock::Move()
 
 	if (pos_.y < waterSurface_) {
 		
-		pos_.y += gravity_;
+		if (pos_.y <= WIN_HEIGHT - size_.y / 2) {
+			pos_.y += gravity_;
+		}
 
 		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
 			pos_.y = waterSurface_;
 		}
+
 	}else if(pos_.y > waterSurface_){
 
-		pos_.y -= gravity_;
+		if (pos_.y >= WIN_HEIGHT - WIN_HEIGHT + size_.y / 2) {
+			pos_.y -= gravity_;
+		}
 
 		if ((pos_.y - waterSurface_) >= -distance_ && (pos_.y - waterSurface_) <= distance_) {
 			pos_.y = waterSurface_; 
 		}
+
 	}
 
 	if (pos_.y == waterSurface_) {

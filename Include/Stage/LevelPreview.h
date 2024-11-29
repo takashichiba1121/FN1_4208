@@ -10,9 +10,9 @@ struct PreViewData
 	Vector2 pos_;
 	Vector2 size_;
 
-	ObjectType tag_;
+	ObjectType tag_ = ObjectType::NONE;
 
-	uint32_t handle_;
+	uint32_t handle_ = 0;
 	
 
 };
@@ -23,11 +23,13 @@ public:
 	LevelPreView();
 	~LevelPreView();
 
-	void Initialize();
+	void Initialize(std::string selectFileName);
 
-	void Update(std::string selectFileName);
+	void Update();
 
 	void Draw();
+
+	void ChengePreview(std::string selectFileName);
 
 	Vector2 pos_;
 	Vector2 size_ = {1,1};
@@ -48,7 +50,7 @@ private:
 
 	bool lockDoor_ = false;
 
-	uint32_t lockhandle_;
+	uint32_t lockhandle_ = 0;
 
 	float colA[4] = { 0.392f,1.0f,1.0f,0.274f };
 	float colB[4] = { 0.5f,0.5f,1.0f,0.274f };

@@ -39,7 +39,7 @@ public:
 
 	void SetIsUseEditer(bool flag) { isUseEditer_ = flag; };
 
-	size_t GetSrageFileNameNum() { return stageFileName_.size(); };
+	size_t GetStageFileNameNum() { return stageFileName_.size(); };
 
 	int32_t GetNowLevelNum() { return nowLevelNum_; };
 
@@ -58,7 +58,7 @@ private:
 	StageManager(const StageManager&) = delete;
 	StageManager& operator=(const StageManager&) = delete;
 
-	
+	std::unique_ptr<Object> SelectObject(ObjectType tag);
 
 
 private:
@@ -66,7 +66,7 @@ private:
 	//ステージとして追加したいファイル名を保持
 	std::vector<std::string> stageFileName_;
 
-	int32_t nowLevelNum_ = 0;
+	uint32_t nowLevelNum_ = 0;
 	
 	bool isUseEditer_ = false;
 };
