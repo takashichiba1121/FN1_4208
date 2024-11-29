@@ -32,6 +32,8 @@ void BreakBlock::Draw()
 	{
 	case BLOCK_BROKEN:
 
+		isCollision_ = false;
+
 		break;
 
 	case BLOCK_HP_LOW:
@@ -95,4 +97,8 @@ void BreakBlock::Damage()
 
 void BreakBlock::OnCollision(Object* object)
 {
+	if (object->GetObjectType() == ObjectType::PLAYER &&
+		pos_.y >= (object->GetPos().y + object->GetSize().y / 2)) {
+		Damage();
+	}
 }
