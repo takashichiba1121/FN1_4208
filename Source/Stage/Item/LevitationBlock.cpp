@@ -34,7 +34,7 @@ void LevitationBlock::Draw()
 		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
 		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
 		GetColor(255, 255, 255), TRUE);*/
-	DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+	DrawRotaGraph3F(pos_.x - size_.x / 2, pos_.y - size_.y / 2, 0, 0, size_.x / 64,size_.y / 64, 0, textruehandle_, true);
 
 }
 

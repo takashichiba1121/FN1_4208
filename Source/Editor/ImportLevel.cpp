@@ -156,7 +156,8 @@ InputLevelData ImportLevel::ImportLevelListDataFullPath(const std::string& fileN
 
 	if (listLevelData_.empty())
 	{
-		listLevelData_.push_back(LevelData());
+		//‚½‚Ô‚ñ‚È‚­‚Ä‚à“®‚­‚Í‚¸
+		//listLevelData_.push_back(LevelData());
 	}
 
 	loadErrorText_ = "";

@@ -34,7 +34,7 @@ void LevelPreView::Draw()
 		DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x/64 *size_.x, data.size_.y/64 *size_.y, 0, data.handle_, true);
 		if (lockDoor_ && data.tag_== ObjectType::GOAL)
 		{
-			DrawRotaGraph3F((pos_.x + (data.pos_.x - data.size_.x / 2) * size_.x), (pos_.y + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, size_.x, size_.y, 0, lockhandle_, true);
+			DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x / 64 * size_.x, data.size_.y / 64 * size_.y, 0, lockhandle_, true);
 		}
 	}
 
@@ -111,7 +111,7 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		break;
 	case ObjectType::SPONGE_BLOCK:
 
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SpongeBlook.png");
 		break;
 
 	case ObjectType::FLOAT_BLOCK:
@@ -121,12 +121,12 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 	case ObjectType::NOT_FLOAT_BLOCK:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\NotFloatBlook.png");
 		break;
 
 	case ObjectType::BREAK_BLOCK:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlook.png");
 		break;
 	case ObjectType::GOAL:
 		
@@ -138,7 +138,7 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		break;
 	case ObjectType::DRAIN:
 
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Drain.png");
 		break;
 	default:
 		return;
