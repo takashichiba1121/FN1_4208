@@ -280,7 +280,7 @@ void EditStage::EditObject()
 		int32_t objectType = static_cast<int32_t>(objectI->get()->GetObjectType());
 
 		//Ý’è‚µ‚½‚¢ƒCƒxƒ“ƒg‚Ì”Ô†‚É‚·‚é
-		ImGui::Combo("object Type", objectType, items);
+		ImGui::Combo(std::string("object Type" + num).c_str(), objectType, items);
 
 		if (oldObjectType != objectType)
 		{
@@ -299,8 +299,8 @@ void EditStage::EditObject()
 		Vector2 editPos = objectI->get()->GetPos();
 		Vector2 editSize = objectI->get()->GetSize();
 
-		if (ImGui::DragFloat2("Pos", editPos, 1.0f, -1000.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
-		if (ImGui::DragFloat2("Size", editSize, 1.0f, 1.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
+		if (ImGui::DragFloat2(std::string("Pos" + num).c_str(), editPos, 1.0f, -1000.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
+		if (ImGui::DragFloat2(std::string("Size" + num).c_str(), editSize, 1.0f, 1.0f, 1000.0f) && Input::GetMouseKey(Input::MouseKey::LEFT))isImguiUse_ = true;
 
 		objectI->get()->SetPos(editPos);
 		objectI->get()->SetSize(editSize);

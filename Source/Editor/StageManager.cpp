@@ -26,6 +26,7 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 {
 	//’†gÁ‚µ‚Ä‚©‚çŽg‚¤
 	stageObjData_.clear();
+	CollisionManager::GetInstance()->AllDelete();
 	for (auto &level : levelData)
 	{
 		AddObject(level.pos, level.scale, level.tag,level.seting);
