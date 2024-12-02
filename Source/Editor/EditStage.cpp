@@ -561,6 +561,7 @@ void EditStage::SaveAndLoadLevelObject()
 		{
 			StageManager::GetInstance()->LoadListStageData(loadData.levelData);
 			horizontal_ = loadData.horizontal;
+			Water::GetInstance()->SetHorizontal(loadData.horizontal);
 		}
 		imguiLoadWindow_ = false;
 	}
