@@ -4,6 +4,7 @@
 #include "SplashEmitter.h"
 #include <memory>
 #include <list>
+
 class Player :
 	public Object {
 
@@ -24,6 +25,12 @@ private:
 	float Easing(const float x) { return 1 - pow(1 - x, 3); }
 
 private:
+	enum Direction {
+		RIGHT = 1,
+		LEFT = -1,
+	};
+
+	uint32_t textruehandle_;
 
 	std::unique_ptr<BubbleEmitter> bubbleEmitter;
 	std::unique_ptr<SplashEmitter> splashEmitter;
@@ -51,4 +58,6 @@ private:
 	bool isFront = false;
 	const float frameMax = 20.0f;
 	float frame = 0.0f;
+
+	Direction direction = Direction::LEFT;
 };
