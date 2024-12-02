@@ -11,6 +11,8 @@
 
 void Player::Initialize() {
 
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
+
 	pos_ = { 100,100 };
 	size_ = { 64,64 };
 
@@ -28,7 +30,7 @@ void Player::Update() {
 
 	horizontal = Water::GetInstance()->GetHorizontal();
 	ObjectUpdate();
-	color = GetColor(255, 0, 0);
+	color = GetColor(255, 255, 255);
 
 	//”½“]’†‚Å‚È‚¯‚ê‚Î
 	if (!Inversion::GetInstance()->GetIsInversion()) {
@@ -156,9 +158,11 @@ void Player::Operation() {
 void Player::Move() {
 	if (Input::GetKey(Input::Key::A) && pos_.x - size_.x / 2 > 0) {
 		pos_.x -= speed;
+		direction = Direction::LEFT;
 	}
 	if (Input::GetKey(Input::Key::D) && pos_.x + size_.x / 2 < 1280) {
 		pos_.x += speed;
+		direction = Direction::RIGHT;
 	}
 }
 
@@ -183,10 +187,19 @@ void Player::Jump() {
 
 void Player::Draw() {
 
-	DrawBox(
-		(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
-		(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
-		color, true);
+	if (direction == Direction::RIGHT) {
+		DrawExtendGraph(
+			(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
+			(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
+			textruehandle_, true);
+	}
+	else {
+		DrawExtendGraph(
+			(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
+			(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
+			textruehandle_, true);
+	}
+	
 	DrawCircle(pos_.x, pos_.y, Easing(frame / frameMax) * 64.0f, GetColor(255, 255, 255), false);
 
 	bubbleEmitter->Draw();
