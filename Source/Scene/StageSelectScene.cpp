@@ -26,25 +26,59 @@ void StageSelectScene::Initialize()
 
 void StageSelectScene::Update()
 {
-	if (Input::GetKeyTrigger(Input::Key::A) || Input::GetKeyTrigger(Input::Key::Left))
+	if (!isNext_)
 	{
-		if (selectStageNum_ > 0)
+		if (Input::GetKeyTrigger(Input::Key::A) || Input::GetKeyTrigger(Input::Key::Left))
 		{
-			selectStageNum_--;
+			if (selectStageNum_ > 0)
+			{
+				selectStageNum_--;
+			}
+		}
+		else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
+		{
+			if (static_cast<size_t>(selectStageNum_) < StageManager::GetInstance()->GetStageFileNameNum() - 1)
+			{
+				selectStageNum_++;
+			}
+		}
+		else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
+		{
+
+			isNext_ = true;
+
+			int32_t itemCount = 0;
+			for (auto& item : previews_)
+			{
+				if (selectStageNum_ != itemCount)
+				{
+					itemCount++;
+					continue;
+				}
+
+				nextPreview_ = item;
+				break;
+			}
+			
 		}
 	}
-	else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
+	else
 	{
-		if (static_cast<size_t>(selectStageNum_) < StageManager::GetInstance()->GetStageFileNameNum() - 1)
+		
+		nextPreview_.size_ = easeInQuad({ 0.5f,0.5f }, { 1.0f,1.0f }, moveNextTime_ / moveNextmaxTime_);
+
+		if (moveNextTime_ > movemaxTime_)
 		{
-			selectStageNum_++;
+			SceneManager::GetInstance()->ChangeScene("GAME");
+			StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
+			moveNextTime_ = 0;
+		}
+		else
+		{
+			moveNextTime_++;
 		}
 	}
-	else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
-	{
-		SceneManager::GetInstance()->ChangeScene("GAME");
-		StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
-	}
+
 
 	if (selectStageNum_ != selectStageOldNum_)
 	{
@@ -121,6 +155,10 @@ void StageSelectScene::Draw()
 	for (auto item : previews_)
 	{
 		item.Draw();
+	}
+	if (isNext_)
+	{
+		nextPreview_.Draw();
 	}
 }
 
