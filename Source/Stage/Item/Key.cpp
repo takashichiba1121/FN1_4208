@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "CollisionManager.h"
 #include "TextureManager.h"
+#include "StageManager.h"
 
 
 void Key::Initialize()
@@ -51,5 +52,7 @@ void Key::OnCollision(Object* objct)
 		isGet = true;
 		isLock = false;
 		isKey = false;
+
+		StageManager::GetInstance()->GetKey();
 	}
 }
