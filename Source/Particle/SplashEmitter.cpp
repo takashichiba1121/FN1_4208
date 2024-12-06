@@ -1,12 +1,15 @@
 #include"SplashEmitter.h"
 #include"Random.h"
 #include"Inversion.h"
+#include"Water.h"
 
 void SplashEmitter::Initialize(const int timer) {
 	maxTimer = timer;
 }
 
 void SplashEmitter::Update(const Vector2 pos, const float size, const float grv) {
+
+	horizontal = Water::GetInstance()->GetHorizontal();
 
 	Vector2 pos_ = {
 		Random::RandomFloat(pos.x - size, pos.x + size),
