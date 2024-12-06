@@ -1,5 +1,8 @@
 #include"TutorialObject.h"
 #include"CollisionManager.h"
+#include"DxLib.h"
+#include"Collision.h"
+#include"imgui.h"
 
 void TutorialObject::Initialize()
 {
@@ -15,32 +18,70 @@ void TutorialObject::Initialize()
 void TutorialObject::Update()
 {
 	ObjectUpdate();
+
+	onCol_ = false;
+
+	tutorialPos_ = { pos_.x,pos_.y - (tutorialSize_.y / 2) - (size_.y / 2) - 10 };
 }
 
 void TutorialObject::Draw()
 {
+	DrawBox(
+		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
+		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
+		GetColor(255, 255, 0), TRUE);
+	if (onCol_)
+	{
+		if (onColwWindow_)
+		{
+			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+			DrawBox(
+				(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+				GetColor(255, 255, 0), TRUE);
+			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+		}
+		else
+		{
+
+			DrawBox(
+				(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+				GetColor(255, 255, 0), TRUE);
+		}
+	}
 }
 
 void TutorialObject::OnCollision(Object* object)
 {
+	onCol_ = true;
+
+	if (object->GetObjectType()==ObjectType::PLAYER)
+	{
+		Object window;
+
+		window.SetPos(tutorialPos_);
+		window.SetSize(tutorialSize_);
+
+		onColwWindow_=Collision::AABB(object, &window);
+	}
 }
 
 void TutorialObject::SetJson(nlohmann::json& Level)
 {
-	//Level["Expansion"] = { expansion_.x,expansion_.y };
+	Level["tutorialTexture"] = { tutorialTexture_};
 }
 
 void TutorialObject::GetJson(nlohmann::json& Level)
 {
-	//expansion_.x = Level["Expansion"][0];
-	//expansion_.y = Level["Expansion"][1];
+	tutorialTexture_ = Level["tutorialTexture"];
 }
 
 void TutorialObject::ImGuiEdit()
 {
-	//float v[2] = { expansion_.x,expansion_.y };
+	char buf[255]{};
 
-	//ImGui::DragFloat2("expansion", v, 1.0f, 1.0f, 1000.0f);
+	ImGui::InputText("Text", buf, sizeof(buf));
 
-	//expansion_ = { v[0],v[1] };
+	tutorialTexture_ = buf;
 }

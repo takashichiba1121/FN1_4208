@@ -12,6 +12,7 @@
 #include"Key.h"
 #include"SpongeBlock.h"
 #include"Drain.h"
+#include"TutorialObject.h"
 
 class GameScene :
     public BaseScene
@@ -32,6 +33,8 @@ private:
 	std::unique_ptr<SpongeBlock> spongeBlock;
 
 	std::unique_ptr<Drain> drain;
+
+	std::unique_ptr<TutorialObject> tutorial;
 
 	EditStage test;
 
