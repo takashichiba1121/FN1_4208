@@ -670,6 +670,7 @@ std::string EditStage::ObjectTypeToString(ObjectType objectType)
 	case ObjectType::GOAL: return "goal";
 	case ObjectType::KEY: return "key";
 	case ObjectType::DRAIN: return "drain";
+	case ObjectType::TUTORIAL: return "tutorial";
 	default:    return "UNKNOWN";
 	}
 	
