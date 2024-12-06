@@ -35,6 +35,11 @@ public:
 
 	void NextSelect();
 
+	float ExpansionGoalText(float x);
+
+	bool GetisLock() { return isLock = true; }
+	bool GetisUnLock() { return isLock =false; }
+	
 private:
 	std::unique_ptr<ConfettiEmiitter> confettiEmitter;
 	bool isUnderWater = false;
@@ -48,7 +53,11 @@ private:
 	float Scale = 1.0;
 	int Rot = 0;
 	float horizontal = 0.0f;
+	float f;
+	uint32_t easingFrame_ = 0;
+	const uint32_t maxEasingFrame_ = 70;
 
+	//‰æ‘œ
 	uint32_t textruehandle_;
 	uint32_t textruehandle2_;
 	uint32_t textruehandle3_;
