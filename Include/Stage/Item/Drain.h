@@ -26,6 +26,8 @@ public:
 	void Inversion(const float easing)override;
 
 private:
-
-	int color;
+	uint32_t drainTexture;
+	uint32_t guideTexture;
+	bool drawGuide = false;
+	float guideTrans = 0.0f;
 };
