@@ -109,6 +109,11 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 {
 	std::unique_ptr<Object> addObject = SelectObject(tag);
 
+	if (tag == ObjectType::KEY)
+	{
+		KeyNum_++;
+	}
+
 	addObject->Initialize();
 
 	addObject->SetPos(pos);
@@ -122,6 +127,10 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 {
 	std::unique_ptr<Object> addObject = SelectObject(tag);
 	
+	if (tag == ObjectType::KEY)
+	{
+		KeyNum_++;
+	}
 
 	addObject->Initialize();
 
@@ -138,6 +147,14 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 {
 	std::unique_ptr<Object> addObject= SelectObject(tag);
 	
+	if (chengeData->get()->GetObjectType() != ObjectType::KEY && tag == ObjectType::KEY)
+	{
+		KeyNum_++;
+	}
+	else if(chengeData->get()->GetObjectType() == ObjectType::KEY && tag != ObjectType::KEY)
+	{
+		KeyNum_--;
+	}
 
 	addObject->Initialize();
 
