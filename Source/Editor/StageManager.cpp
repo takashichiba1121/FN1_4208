@@ -11,6 +11,7 @@
 #include "Key.h"
 #include "SpongeBlock.h"
 #include "Drain.h"
+#include "TutorialObject.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -26,6 +27,7 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 {
 	//中身消してから使う
 	stageObjData_.clear();
+	CollisionManager::GetInstance()->AllDelete();
 	for (auto &level : levelData)
 	{
 		AddObject(level.pos, level.scale, level.tag,level.seting);
@@ -60,8 +62,8 @@ void StageManager::Initialize()
 	//ステージとして使いたいファイル名をここに追加
 	stageFileName_ = {
 		"Error",
-		"test",
-		"test2",
+		"test3",
+		"test4",
 		"",
 	};
 }
@@ -105,49 +107,7 @@ void StageManager::Draw()
 
 void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 {
-	std::unique_ptr<Object> addObject;
-	//タグの内容で決定
-	switch (tag)
-	{
-	case ObjectType::PLAYER:
-		addObject = std::make_unique<Player>();
-
-		break;
-	case ObjectType::SPONGE_BLOCK:
-		addObject = std::make_unique<SpongeBlock>();
-
-		break;
-
-	case ObjectType::FLOAT_BLOCK:
-		addObject = std::make_unique<LevitationBlock>();
-
-		break;
-
-	case ObjectType::NOT_FLOAT_BLOCK:
-		addObject = std::make_unique<Block>();
-
-		break;
-
-	case ObjectType::BREAK_BLOCK:
-		addObject = std::make_unique<BreakBlock>();
-
-		break;
-	case ObjectType::GOAL:
-		addObject = std::make_unique<Goal>();
-
-		break;
-	case ObjectType::KEY:
-		addObject = std::make_unique<Key>();
-
-		break;
-	case ObjectType::DRAIN:
-		addObject = std::make_unique<Drain>();
-
-		break;
-	default:
-		return;
-		break;
-	}
+	std::unique_ptr<Object> addObject = SelectObject(tag);
 
 	addObject->Initialize();
 
@@ -246,6 +206,10 @@ std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 		break;
 	case ObjectType::DRAIN:
 		addObject = std::make_unique<Drain>();
+
+		break;
+	case ObjectType::TUTORIAL:
+		addObject = std::make_unique<TutorialObject>();
 
 		break;
 	default:
