@@ -27,6 +27,9 @@ void GameScene::Initialize()
 
 	drain = std::make_unique<Drain>();
 	drain->Initialize();
+
+	tutorial = std::make_unique<TutorialObject>();
+	tutorial->Initialize();
 	
 	test.Initialize();
 }
@@ -45,6 +48,8 @@ void GameScene::Update()
 	drain->SetPos({500,650});
 	drain->Update();
 	test.Update();
+
+	tutorial->Update();
 
 	Inversion::GetInstance()->Update();
 
@@ -68,6 +73,7 @@ void GameScene::Draw()
 	goal->Draw();
 	key->Draw();
 	drain->Draw();
+	tutorial->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
 
