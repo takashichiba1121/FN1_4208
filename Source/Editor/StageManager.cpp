@@ -132,9 +132,9 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 		KeyNum_++;
 	}
 
-	addObject->Initialize();
-
 	addObject->GetJson(seting);
+
+	addObject->Initialize();
 
 	addObject->SetPos(pos);
 	addObject->SetSize(size);
