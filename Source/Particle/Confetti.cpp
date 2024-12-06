@@ -5,7 +5,6 @@
 
 Confetti::~Confetti()
 {
-	CollisionManager::GetInstance()->RemoveObject(this);
 }
 
 void Confetti::Initialize()
@@ -14,7 +13,7 @@ void Confetti::Initialize()
 	colorG = Random::RandomFloat(100, 250);
 	colorB = Random::RandomFloat(100, 250);
 	pos = Random::RandomFloat(0.0f, 1400.0f);
-	pos_ = { pos,0 };
+	pos_ = { pos,10 };
 	size = Random::RandomFloat(8.0f, 18.0f);
 	size_ = { size,size };
 	isExclude_ = false;
@@ -25,6 +24,7 @@ void Confetti::Initialize()
 
 void Confetti::Update()
 {
+	//ƒS[ƒ‹‚Ì†á
 	//ˆÚ“®—Ê‚ğƒ‰ƒ“ƒ_ƒ€‰»
 	pos_.x += Random::RandomFloat(-4.0f, 1.0f);
 	pos_.y += vector.y + Random::RandomFloat(-1.0f, 1.0f);
