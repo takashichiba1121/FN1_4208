@@ -83,7 +83,7 @@ void TutorialObject::ImGuiEdit()
 
 	strncpy_s(buf, tutorialTexture_.c_str(), sizeof(buf) - 1);
 
-	ImGui::InputText("Text", buf, sizeof(buf));
+	ImGui::InputText("TextureName", buf, sizeof(buf));
 
 	tutorialTexture_ = buf;
 }
