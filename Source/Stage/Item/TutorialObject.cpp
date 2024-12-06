@@ -69,17 +69,19 @@ void TutorialObject::OnCollision(Object* object)
 
 void TutorialObject::SetJson(nlohmann::json& Level)
 {
-	Level["tutorialTexture"] = { tutorialTexture_};
+	Level["tutorialTexture"] = tutorialTexture_;
 }
 
 void TutorialObject::GetJson(nlohmann::json& Level)
 {
-	tutorialTexture_ = Level["tutorialTexture"];
+	tutorialTexture_ = Level["tutorialTexture"].get<std::string>();
 }
 
 void TutorialObject::ImGuiEdit()
 {
 	char buf[255]{};
+
+	strncpy_s(buf, tutorialTexture_.c_str(), sizeof(buf) - 1);
 
 	ImGui::InputText("Text", buf, sizeof(buf));
 
