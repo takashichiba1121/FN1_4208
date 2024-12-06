@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "BubbleEmitter.h"
 #include "SplashEmitter.h"
+#include "dxlib.h"
 #include <memory>
 #include <list>
 
@@ -26,9 +27,13 @@ private:
 
 private:
 	enum Direction {
-		RIGHT = 1,
-		LEFT = -1,
+		RIGHT,
+		LEFT,
 	};
+	LPCSTR font;
+	bool isDrawGuide = false;
+	float guideTimerMax = 255.0f;
+	float guideTimer = 0.0f;
 
 	uint32_t textruehandle_;
 
@@ -59,5 +64,5 @@ private:
 	const float frameMax = 20.0f;
 	float frame = 0.0f;
 
-	Direction direction = Direction::LEFT;
+	Direction direction = Direction::RIGHT;
 };

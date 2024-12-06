@@ -3,6 +3,10 @@
 #include"StageManager.h"
 #include"Water.h"
 
+void Inversion::Initialize() {
+	
+}
+
 void Inversion::Update() {
 
 	endInversion = false;
