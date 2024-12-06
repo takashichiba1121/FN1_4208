@@ -13,6 +13,7 @@ enum class ObjectType
 	GOAL,
 	KEY,
 	DRAIN,
+	TUTORIAL,
 	NONE,
 };
 

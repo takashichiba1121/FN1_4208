@@ -27,7 +27,11 @@ private:
 	float movemaxTime_ = 50;
 
 
-	LevelPreView preview1_;
+	bool isNext_ = false;
+	float moveNextTime_ = 0;
+	float moveNextmaxTime_ = 50;
+
+	LevelPreView nextPreview_;
 
 	std::list<LevelPreView>  previews_;
 
