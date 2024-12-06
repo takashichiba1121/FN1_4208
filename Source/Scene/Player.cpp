@@ -9,8 +9,16 @@
 #include <random>
 #include"imgui.h"
 
+Player::~Player() {
+	RemoveFontResourceEx(font, FR_PRIVATE, NULL);
+}
+
 void Player::Initialize() {
 
+	font = "Resources\\Texture\\Ronde-B_square.otf";
+	AddFontResourceEx(font, FR_PRIVATE, NULL);
+	ChangeFont("ロンド B スクエア", DX_CHARSET_DEFAULT);
+	SetFontSize(50);
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
 
 	pos_ = { 100,100 };
@@ -35,6 +43,7 @@ void Player::Update() {
 	//反転中でなければ
 	if (!Inversion::GetInstance()->GetIsInversion()) {
 
+		isDrawGuide = false;
 		isExclude_ = true;
 		isFront = false;
 
@@ -118,6 +127,16 @@ void Player::Update() {
 		else {
 			canJump = true;
 		}
+	}
+
+	if (isDrawGuide && guideTimer <= guideTimerMax) {
+		guideTimer += guideTimerMax / 10;
+	}
+	else if(!isDrawGuide && guideTimer >= 0){
+		guideTimer -= guideTimerMax / 60;
+	}
+
+	if (guideTimer > guideTimerMax){
 	}
 
 	//パーティクル更新
@@ -204,6 +223,11 @@ void Player::Draw() {
 
 	bubbleEmitter->Draw();
 	splashEmitter->Draw();
+
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTimer);
+	DrawString(200, 200, "ブロックが邪魔でひっくり返せない…", GetColor(255, 100, 100));
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	
 }
 
 void Player::OnCollision(Object* objct) {
@@ -226,6 +250,7 @@ void Player::OnCollision(Object* objct) {
 	if (Inversion::GetInstance()->GetEndInversion()) {
 		//ブロックに埋まっていたら自動で再び反転
 		if (BurialJudge(objct)) {
+			isDrawGuide = true;
 			Inversion::GetInstance()->SetIsInversion();
 		}
 	}
