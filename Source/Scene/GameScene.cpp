@@ -64,8 +64,7 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
-	player->Draw();
-
+	
 	block->Draw();
 	floatBlock->Draw();
 
@@ -77,6 +76,7 @@ void GameScene::Draw()
 	drain->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
+	player->Draw();
 
 	Water::GetInstance()->Draw();
 }

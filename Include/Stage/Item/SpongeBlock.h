@@ -32,6 +32,8 @@ public:
 
 	void ImGuiEdit()override;
 
+	void Inversion(const float easing)override;
+
 private:
 
 	Vector2 expansion_ = { 3,3 };

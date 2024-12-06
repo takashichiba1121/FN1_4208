@@ -37,7 +37,7 @@ public:
 private:
 	const float speed = 5.0f;
 
-	float horizontal_ = 160.0f;
+	float horizontal_ = 320.0f;
 	float tentHorizontal_ = horizontal_;
 
 	float colA[4] = {0.392f,1.0f,1.0f,0.274f};

@@ -1,5 +1,6 @@
 #include "SceneFactrory.h"
 #include"GameScene.h"
+#include"TitleScene.h"
 #include "StageSelectScene.h"
 
 SceneFactrory* SceneFactrory::GetInstance()
@@ -19,10 +20,10 @@ std::unique_ptr<BaseScene> SceneFactrory::CreateScene(const std::string& sceneNa
 	{
 		lNewScene = std::make_unique<StageSelectScene>();
 	}
-	//else if ( sceneName == "TITLE" )
-	//{
-	//	lNewScene = std::make_unique<TitleScene>();
-	//}
+	else if ( sceneName == "TITLE" )
+	{
+		lNewScene = std::make_unique<TitleScene>();
+	}
 	//else if ( sceneName == "CLEAR" )
 	//{
 	//	lNewScene = std::make_unique<ClearScene>();
