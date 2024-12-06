@@ -11,6 +11,8 @@ class Player :
 
 public:
 
+	~Player();
+
 	void Initialize()override;
 	void Update()override;
 	void Draw()override;
