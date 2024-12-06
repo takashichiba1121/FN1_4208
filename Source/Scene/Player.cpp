@@ -9,6 +9,10 @@
 #include <random>
 #include"imgui.h"
 
+Player::~Player() {
+	RemoveFontResourceEx(font, FR_PRIVATE, NULL);
+}
+
 void Player::Initialize() {
 
 	font = "Resources\\Texture\\Ronde-B_square.otf";
