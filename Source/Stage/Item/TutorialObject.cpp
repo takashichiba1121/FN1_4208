@@ -11,7 +11,7 @@ void TutorialObject::Initialize()
 	size_ = {64,64};
 
 	isExclude_ = false;
-	objectType_ = ObjectType::SPONGE_BLOCK;
+	objectType_ = ObjectType::TUTORIAL;
 	CollisionManager::GetInstance()->AddObject(this);
 }
 
