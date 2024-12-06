@@ -1,5 +1,7 @@
 #pragma once
 #include"Object.h"
+#include"Vector2.h"
+#include<string>
 class TutorialObject :
 	public Object
 {
@@ -28,5 +30,13 @@ public:
 	void ImGuiEdit()override;
 
 private:
+	bool onCol_;
 
+	bool onColwWindow_;
+
+	Vector2 tutorialSize_ = { 256,128 };
+
+	Vector2 tutorialPos_ = { 0,0 };
+
+	std::string tutorialTexture_="a";
 };
