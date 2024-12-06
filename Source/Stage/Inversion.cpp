@@ -31,7 +31,7 @@ void Inversion::Update() {
 			isFront = !isFront;
 			horizontalPos = Water::GetInstance()->GetHorizontal();
 
-			ResetEasing();
+  			ResetEasing();
 		}
 	}
 	else {
