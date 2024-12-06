@@ -25,7 +25,7 @@ void Goal::Initialize()
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
 
 	//ゴールロックの初期状態
-	isLock = true;
+	isLock = false;
 	isClear = false;
 }
 
@@ -84,13 +84,15 @@ void Goal::Update()
 	if (isClear) {
 		confettiEmitter->Update();
 		NextSelect();
+		if (easingFrame_ < maxEasingFrame_) {
+			easingFrame_++;
+			f = ExpansionGoalText(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
+		}
 
 		if (isUnderWater) {
 			isClear = false;
 		}
 	}
-
-	
 }
 
 void Goal::Inversion(const float easing) {
@@ -103,12 +105,19 @@ void Goal::NextSelect()
 	if (Input::GetKeyTrigger(Input::Key::Right)) {
 		//次のステージへ
 		StageManager::GetInstance()->NextLevelLoad();
+		isClear = false;
+		isLock = true;
 	}
 	else if (Input::GetKeyTrigger(Input::Key::Left)) {
 		//セレクト画面へ
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 	}
 
+}
+
+float Goal::ExpansionGoalText(float x)
+{
+	return 1 - cos((x * 3.141592) / 2);;
 }
 
 void Goal::Draw()
@@ -134,14 +143,24 @@ void Goal::Draw()
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		confettiEmitter->Draw();
 		//ゴールの文字
-		DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
+		//DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
+		DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);
 	}
 }
 
 void Goal::OnCollision(Object* objct)
 {
 	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false) {
-		DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
 	}
 }
+
+//gamesceneに入れるやつ
+
+//if (key->GetisLock() == false) {
+//	goal->GetisUnLock();
+//}
+//if (key->GetisKey() == true) {
+//	goal->GetisLock();
+//}

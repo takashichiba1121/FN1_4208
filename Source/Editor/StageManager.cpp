@@ -26,6 +26,7 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 {
 	//中身消してから使う
 	stageObjData_.clear();
+	CollisionManager::GetInstance()->AllDelete();
 	for (auto &level : levelData)
 	{
 		AddObject(level.pos, level.scale, level.tag,level.seting);
@@ -60,8 +61,8 @@ void StageManager::Initialize()
 	//ステージとして使いたいファイル名をここに追加
 	stageFileName_ = {
 		"Error",
-		"test",
-		"test2",
+		"test3",
+		"test4",
 		"",
 	};
 }

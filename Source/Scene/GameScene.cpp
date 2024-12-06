@@ -45,6 +45,13 @@ void GameScene::Update()
 
 	goal->Update();
 	key->Update();
+
+	if (key->GetisLock() == false) {
+	goal->GetisUnLock();
+    }if (key->GetisKey() == true) {
+    	goal->GetisLock();
+    }
+
 	drain->SetPos({500,650});
 	drain->Update();
 	test.Update();
@@ -62,8 +69,7 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
-	player->Draw();
-
+	
 	block->Draw();
 	floatBlock->Draw();
 
@@ -76,6 +82,7 @@ void GameScene::Draw()
 	tutorial->Draw();
 	test.Draw();
 	StageManager::GetInstance()->Draw();
+	player->Draw();
 
 	Water::GetInstance()->Draw();
 }
