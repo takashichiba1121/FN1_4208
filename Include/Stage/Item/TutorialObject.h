@@ -39,4 +39,6 @@ private:
 	Vector2 tutorialPos_ = { 0,0 };
 
 	std::string tutorialTexture_="a";
+
+	uint32_t textruehandle_=0;
 };
