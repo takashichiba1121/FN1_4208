@@ -4,7 +4,7 @@
 #include"Random.h"
 
 Bubble::~Bubble() {
-	CollisionManager::GetInstance()->RemoveObject(this);
+	//CollisionManager::GetInstance()->RemoveObject(this);
 }
 
 void Bubble::Initialize(const Vector2 pos) {
@@ -14,7 +14,7 @@ void Bubble::Initialize(const Vector2 pos) {
 	isExclude_ = false;
 
 	objectType_ = ObjectType::NONE;
-	//CollisionManager::GetInstance()->AddObject(this);
+	CollisionManager::GetInstance()->AddObject(this);
 }
 
 void Bubble::Update(const float line) {
@@ -29,7 +29,10 @@ void Bubble::Update(const float line) {
 	if (pos_.y < line) {
 		isDead = true;
 	}
-
+	if (isDead)
+	{
+		CollisionManager::GetInstance()->RemoveObject(this);
+	}
 }
 
 void Bubble::Draw() {
