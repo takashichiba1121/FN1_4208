@@ -311,7 +311,11 @@ void EditStage::EditObject()
 			isImguiUse_ = false;
 		}
 
-		objectI->get()->ImGuiEdit();
+		if (ImGui::TreeNode(std::string("seting" + num).c_str()))
+		{
+			objectI->get()->ImGuiEdit();
+			ImGui::TreePop();
+		}
 
 
 		if (ImGui::Button(std::string("erase" + num).c_str()))
