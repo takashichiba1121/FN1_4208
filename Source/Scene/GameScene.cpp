@@ -42,6 +42,13 @@ void GameScene::Update()
 
 	goal->Update();
 	key->Update();
+
+	if (key->GetisLock() == false) {
+	goal->GetisUnLock();
+    }if (key->GetisKey() == true) {
+    	goal->GetisLock();
+    }
+
 	drain->SetPos({500,650});
 	drain->Update();
 	test.Update();
