@@ -63,4 +63,8 @@ private:
 	Vector2 shakePos_ = { 0.0f,0.0f };
 	Vector2 shakeMd_ = { 2.0f,2.0f };
 	Vector2 defaultPosition_ = { 0.0f,0.0f };
+
+	// ‰æ‘œ
+	uint32_t hpMaxTexturehandle_;
+	uint32_t hpLowTexturehandle_;
 };

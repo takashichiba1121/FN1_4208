@@ -13,8 +13,13 @@ void BreakBlock::Initialize()
 	pos_ = { 300.0f,300.0f };
 	size_ = { 64.0f,64.0f };
 
+	// 当たり判定
 	objectType_ = ObjectType::BREAK_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
+
+	// 画像読み込み
+	hpLowTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpLow.png");
+	hpMaxTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpMax.png");
 }
 
 void BreakBlock::Update()
@@ -28,6 +33,7 @@ void BreakBlock::Update()
 
 void BreakBlock::Draw()
 {
+	// ブロックのHPの段階ごとの処理
 	switch (blockHp_) 
 	{
 	case BLOCK_BROKEN:
@@ -38,19 +44,15 @@ void BreakBlock::Draw()
 
 	case BLOCK_HP_LOW:
 
-		DrawBox(
-			(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
-			(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
-			GetColor(255, 0, 0), TRUE);
+		DrawRotaGraph3F(pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
+			size_.x / 64.0, size_.y / 64.0, 0.0, hpLowTexturehandle_, true);
 
 		break;
 
 	case BLOCK_HP_MAX:
 
-		DrawBox(
-			(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
-			(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
-			GetColor(0, 255, 0), TRUE);
+		DrawRotaGraph3F(pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
+			size_.x / 64.0, size_.y / 64.0, 0.0, hpMaxTexturehandle_, true);
 		
 		break;
 	}
@@ -67,7 +69,7 @@ void BreakBlock::Shake()
 	defaultPosition_ = pos_;
 	shakePos_ = { rand(mt) / shakeMd_.x, rand(mt) / shakeMd_.y };
 
-	if (shakeTime_ >= defaultTime_) {
+	if (shakeTime_ >= defaultTime_ && shakeTime_ < shakeMaxTime_) {
 		pos_ += shakePos_;
 	}
 	if (shakeTime_ >= shakeMaxTime_) {
@@ -83,6 +85,7 @@ void BreakBlock::ShakeActive()
 	if (isShake_) {
 		Shake();
 	}
+
 	if (time_ <= shakeMaxTime_) {
 		isShake_ = true;
 	}else {
