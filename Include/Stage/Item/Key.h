@@ -28,15 +28,15 @@ public:
 	/// <param name="objct"></param>
 	void OnCollision(Object* objct)override;
 
-
-
+	bool GetisLock() { return isLock; }
+	bool GetisKey() { return isKey; }
 private:
-	bool isLock;
+	bool isLock = true;
+	bool isKey = true;
 	bool isGet = false;
 	bool isDead = false;
 	float rot = 0.0f;
-	float a = 1.0f;
-	float b = 1.0f;
+	float s = 0.8f;
 	uint32_t textruehandle_;
 };
 
