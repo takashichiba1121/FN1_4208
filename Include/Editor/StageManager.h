@@ -49,6 +49,12 @@ public:
 
 	std::string GetStageFileName(int32_t num) { return stageFileName_[num]; };
 
+	//鍵の数を取得
+	int32_t GetKeyNum() { return KeyNum_; };
+
+	//鍵を取得したので鍵の数を減らす関数
+	void GetKey() { KeyNum_--; };
+
 private:
 
 	//シングルトン用
@@ -69,5 +75,7 @@ private:
 	uint32_t nowLevelNum_ = 0;
 	
 	bool isUseEditer_ = false;
+
+	int32_t KeyNum_ = 0;
 };
 
