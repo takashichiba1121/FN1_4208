@@ -43,6 +43,12 @@ void Goal::Update()
 		isLock = false;
 	}
 
+	if (StageManager::GetInstance()->GetKeyNum() <= 0) {
+		isLock = false;
+	}else {
+		isLock = true;
+	}
+
 	/*if (key != 1) {
 		isLock = true;
 	}*/
