@@ -23,6 +23,8 @@ void Goal::Initialize()
 	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
 	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
+	textruehandle5_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
+	textruehandle6_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
 
 	//ゴールロックの初期状態
 	isLock = false;
@@ -48,10 +50,6 @@ void Goal::Update()
 	}else {
 		isLock = true;
 	}
-
-	/*if (key != 1) {
-		isLock = true;
-	}*/
 
 	//水平線より下か(上か)
 	if (pos_.y + size_.y / 2 >= horizontal) {
@@ -95,9 +93,9 @@ void Goal::Update()
 			f = ExpansionGoalText(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
 		}
 
-		if (isUnderWater) {
+		/*if (isUnderWater) {
 			isClear = false;
-		}
+		}*/
 	}
 }
 
@@ -151,6 +149,22 @@ void Goal::Draw()
 		//ゴールの文字
 		//DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
 		DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);
+
+		
+
+		if (720-256/4 <= horizontal) {
+			DrawRotaGraph3(1280 - 1280 / 4, 720 - 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
+			DrawRotaGraph3(1280 / 4, 720 - 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle6_, TRUE);
+		}
+		else if (256 / 4 >= horizontal) {
+			DrawRotaGraph3(1280 - 1280 / 4, 0 + 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
+			DrawRotaGraph3(1280 / 4, 0 + 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle6_, TRUE);
+		}
+		else {
+			DrawRotaGraph3(1280 - 1280 / 4, horizontal, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
+			DrawRotaGraph3(1280 / 4, horizontal, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle6_, TRUE);
+		}
+		
 	}
 }
 
@@ -161,12 +175,3 @@ void Goal::OnCollision(Object* objct)
 		isClear = true;
 	}
 }
-
-//gamesceneに入れるやつ
-
-//if (key->GetisLock() == false) {
-//	goal->GetisUnLock();
-//}
-//if (key->GetisKey() == true) {
-//	goal->GetisLock();
-//}

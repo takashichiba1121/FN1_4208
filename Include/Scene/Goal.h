@@ -48,7 +48,6 @@ private:
 	const float coolTime = 3.0f;
 	float timer = coolTime;
 	float a = 4.0;
-	int key = 1;
 	bool isLock;
 	float Scale = 1.0;
 	int Rot = 0;
@@ -62,4 +61,6 @@ private:
 	uint32_t textruehandle2_;
 	uint32_t textruehandle3_;
 	uint32_t textruehandle4_;
+	uint32_t textruehandle5_;
+	uint32_t textruehandle6_;
 };
