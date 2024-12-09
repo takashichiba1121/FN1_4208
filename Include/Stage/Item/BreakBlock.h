@@ -57,7 +57,6 @@ private:
 	int shakeTime_ = 0;
 	const int defaultTime_ = 0;
 	int shakeMaxTime_ = 30;
-	bool isShake_ = false;
 	float shakeMin_ = -5.0f;
 	float shakeMax_ = 5.0f;
 	Vector2 shakePos_ = { 0.0f,0.0f };
@@ -65,6 +64,6 @@ private:
 	Vector2 defaultPosition_ = { 0.0f,0.0f };
 
 	// ‰æ‘œ
-	uint32_t hpMaxTexturehandle_;
-	uint32_t hpLowTexturehandle_;
+	uint32_t hpMaxTextureHandle_;
+	uint32_t hpLowTextureHandle_;
 };

@@ -14,9 +14,12 @@ void LevitationBlock::Initialize()
 	size_ = { 64.0f,64.0f };
 	gravity_ = 10.0f;
 
+	// 当たり判定
 	objectType_ = ObjectType::FLOAT_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\FloatBlook.png");
+
+	// 画像読み込み
+	textureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\LevitationBlock.png");
 }
 
 void LevitationBlock::Update()
@@ -30,18 +33,16 @@ void LevitationBlock::Update()
 
 void LevitationBlock::Draw()
 {
-	/*DrawBox(
-		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
-		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
-		GetColor(255, 255, 255), TRUE);*/
-	DrawRotaGraph3F(pos_.x - size_.x / 2, pos_.y - size_.y / 2, 0, 0, size_.x / 64,size_.y / 64, 0, textruehandle_, true);
-
+	// ブロックの描画
+	DrawRotaGraph3F(
+		pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
+		(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0.0, textureHandle_, true);
 }
 
 void LevitationBlock::Move()
 {
 	// ブロックが水に浮く処理・重力
-	const float distance_ = 10.0f;
+	const float distance_ = gravity_;
 
 	if (pos_.y < waterSurface_) {
 		
@@ -66,11 +67,11 @@ void LevitationBlock::Move()
 	}
 
 	if (pos_.y == waterSurface_) {
+		
 		isEasing_ = true;
 	}
 	if (isEasing_) {
 		frame_++;
-		//pos_.y = EaseInOutBackP(frame_, waterSurface_, difference_, easingTime_);
 
 		if (frame_ >= maxFrame_) {
 			frame_ = 0;
