@@ -18,7 +18,7 @@ public:
 
 	static SceneManager* GetInstance();
 
-	void ChangeScene(const std::string& sceneName_, const std::string& sceneChangeName = "BASIC");
+	void ChangeScene(const std::string& sceneName_, const std::string& sceneChangeName = "NONE");
 
 	void Update();
 

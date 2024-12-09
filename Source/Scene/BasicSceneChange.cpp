@@ -1,5 +1,8 @@
 #include "BasicSceneChange.h"
 #include <imgui.h>
+#include "DxLib.h"
+#include "Window.h"
+#include <cstdint>
 
 BasicSceneChange::BasicSceneChange()
 {
@@ -17,9 +20,7 @@ void BasicSceneChange::Initialize()
 	isClose_ = false;
 	isOpenStart_ = false;
 	isEnd_ = false;
-	angle_ = 0;
-	scale_ = 1;
-	scaleTimer_ = 0;
+	moveTimer_ = 0;
 	afterTimer = afterMaxTime;
 
 }
@@ -35,17 +36,14 @@ void BasicSceneChange::Update()
 	{
 		if (!isClose_)
 		{
-			scale_ = DirectXpre::easeOutQuad(0.01f, 20.0f, scaleTimer_ / scaleMaxTime_);
+			y_ = easeOutQuad((float)WIN_HEIGHT, 0.0f, moveTimer_ / moveMaxTime_);
 
-			chengSprite_.scale_ = Vector2(scale_, scale_);
-			chengSprite_.rotate_ = angle_;
-			chengSprite_.Update();
+			
 
 
-			if (scaleTimer_ < scaleMaxTime_)
+			if (moveTimer_ < moveMaxTime_)
 			{
-				scaleTimer_++;
-				angle_ += rotSpeed_;
+				moveTimer_++;
 			}
 			else
 			{
@@ -58,7 +56,7 @@ void BasicSceneChange::Update()
 
 		if (isOpenStart_)
 		{
-			alpha_ = DirectXpre::easeInQuint(0.0f, 1.0f, afterTimer / afterMaxTime);
+			y_ = easeInQuint(0.0f, (float)WIN_HEIGHT, afterTimer / afterMaxTime);
 
 			if (afterTimer > 0)
 			{
@@ -78,7 +76,9 @@ void BasicSceneChange::Draw()
 {
 	if (!isEnd_)
 	{
-		chengSprite_.Draw();
+		
+		DrawBoxAA(0.0f, y_,(float)WIN_WIDTH, (float)WIN_HEIGHT, GetColor((int32_t)0.392f, (int32_t)1.0f, (int32_t)1.0f), true);
+		
 	}
 
 

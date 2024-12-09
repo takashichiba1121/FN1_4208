@@ -1,5 +1,6 @@
 #include "SceneChangeFactory.h"
 #include "BasicSceneChange.h"
+#include "NoneSceneChange.h"
 
 SceneChangeFactory::SceneChangeFactory()
 {
@@ -28,10 +29,8 @@ std::unique_ptr<ISceneChange> SceneChangeFactory::CreateSceneChange(const std::s
 
 	if (sceneChangeName == "NONE")
 	{
-		newSceneChange = std::make_unique<BasicSceneChange>();
+		newSceneChange = std::make_unique<NoneSceneChange>();
 		newSceneChange->Initialize();
-		newSceneChange->SetIsClose(true);
-		newSceneChange->SetIsEnd(true);
 	}
 
 	return std::move(newSceneChange);

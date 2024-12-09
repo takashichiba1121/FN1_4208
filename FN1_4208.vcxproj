@@ -157,6 +157,7 @@
     <ClCompile Include="Source\Particle\SplashEmitter.cpp" />
     <ClCompile Include="Source\Scene\BasicSceneChange.cpp" />
     <ClCompile Include="Source\Scene\GameScene.cpp" />
+    <ClCompile Include="Source\Scene\NoneSceneChange.cpp" />
     <ClCompile Include="Source\Scene\Player.cpp" />
     <ClCompile Include="Source\Scene\SceneChangeFactory.cpp" />
     <ClCompile Include="Source\Scene\SceneFactrory.cpp" />
@@ -213,6 +214,7 @@
     <ClInclude Include="Include\Scene\Goal.h" />
     <ClInclude Include="Include\Scene\ISceneChange.h" />
     <ClInclude Include="Include\Scene\ISceneChangeFactory.h" />
+    <ClInclude Include="Include\Scene\NoneSceneChange.h" />
     <ClInclude Include="Include\Scene\Player.h" />
     <ClInclude Include="Include\Scene\SceneChangeFactory.h" />
     <ClInclude Include="Include\Scene\SceneFactrory.h" />
