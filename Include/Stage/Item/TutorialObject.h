@@ -38,7 +38,7 @@ private:
 
 	Vector2 tutorialPos_ = { 0,0 };
 
-	std::string tutorialTexture_="WASD";
+	std::string tutorialTexture_="Q";
 
 	uint32_t textruehandle_=0;
 };
