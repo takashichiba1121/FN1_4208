@@ -104,8 +104,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    36.0,
-                    610.0
+                    164.0,
+                    607.0
                 ],
                 "scale": [
                     64.0,
@@ -120,8 +120,8 @@
                     "tutorialTexture": "WASD"
                 },
                 "pos": [
-                    170.0,
-                    686.0
+                    164.0,
+                    687.0
                 ],
                 "scale": [
                     64.0,
