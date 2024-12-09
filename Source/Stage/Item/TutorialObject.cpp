@@ -15,9 +15,12 @@ void TutorialObject::Initialize()
 	objectType_ = ObjectType::TUTORIAL;
 	CollisionManager::GetInstance()->AddObject(this);
 
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\"+ tutorialTexture_ +".png");
+	tutorialHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\"+ tutorialTexture_ +".png");
 
-	GetGraphSizeF(textruehandle_,&tutorialSize_.x,&tutorialSize_.y);
+	// âÊëúì«Ç›çûÇ›
+	textureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Tutorial.png");
+
+	GetGraphSizeF(tutorialHandle_,&tutorialSize_.x,&tutorialSize_.y);
 }
 
 void TutorialObject::Update()
@@ -31,10 +34,10 @@ void TutorialObject::Update()
 
 void TutorialObject::Draw()
 {
-	DrawBox(
-		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
-		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
-		GetColor(255, 255, 0), TRUE);
+	// ÉuÉçÉbÉNÇÃï`âÊ
+	DrawRotaGraph3F(
+		pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+		(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0.0, textureHandle_, true);
 	if (onCol_)
 	{
 		if (onColwWindow_)
@@ -46,7 +49,7 @@ void TutorialObject::Draw()
 			//	GetColor(255, 255, 0), TRUE);
 
 			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				textruehandle_, true);
+				tutorialHandle_, true);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 		else
@@ -58,7 +61,7 @@ void TutorialObject::Draw()
 			//	GetColor(255, 255, 0), TRUE);
 
 			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				textruehandle_, true);
+				tutorialHandle_, true);
 		}
 	}
 }
