@@ -18,8 +18,8 @@ void BreakBlock::Initialize()
 	CollisionManager::GetInstance()->AddObject(this);
 
 	// 画像読み込み
-	hpLowTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpLow.png");
-	hpMaxTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpMax.png");
+	hpLowTextureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpLow.png");
+	hpMaxTextureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpMax.png");
 }
 
 void BreakBlock::Update()
@@ -44,15 +44,19 @@ void BreakBlock::Draw()
 
 	case BLOCK_HP_LOW:
 
-		DrawRotaGraph3F(pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
-			size_.x / 64.0, size_.y / 64.0, 0.0, hpLowTexturehandle_, true);
+		// HpLowブロックの描画
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, hpLowTextureHandle_, true);
 
 		break;
 
 	case BLOCK_HP_MAX:
 
-		DrawRotaGraph3F(pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
-			size_.x / 64.0, size_.y / 64.0, 0.0, hpMaxTexturehandle_, true);
+		// HpMaxブロックの描画
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, hpMaxTextureHandle_, true);
 		
 		break;
 	}
@@ -82,14 +86,8 @@ void BreakBlock::ShakeActive()
 {
 	time_++;
 
-	if (isShake_) {
-		Shake();
-	}
-
 	if (time_ <= shakeMaxTime_) {
-		isShake_ = true;
-	}else {
-		isShake_ = false;
+		Shake();
 	}
 }
 

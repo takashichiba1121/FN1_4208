@@ -46,6 +46,6 @@ private:
 	bool isEasing_ = false;
 	float waterSurface_ = 0.0f;
 	float gravity_ = 0.0f;
-
-	uint32_t textruehandle_;
+	
+	uint32_t textureHandle_;
 };

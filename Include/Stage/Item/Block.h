@@ -25,5 +25,7 @@ public:
 
 private:
 	bool isBlock_ = false;
+
+	uint32_t textureHandle_;
 };
 
