@@ -11,6 +11,7 @@ void Goal::Initialize()
 	pos_ = { 1000.0f,200.0f };
 	size_ = { 64.0f,64.0f };
 	objectType_ = ObjectType::GOAL;
+	isExclude_ = false;
 	CollisionManager::GetInstance()->AddObject(this);
 
 	//パーティクル初期化
@@ -25,6 +26,7 @@ void Goal::Initialize()
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
 	textruehandle5_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
 	textruehandle6_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
+	textruehandle7_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clear.png");
 
 	//ゴールロックの初期状態
 	isLock = false;

@@ -10,6 +10,7 @@ void Key::Initialize()
 	pos_ = { 1000.0f,400.0f };
 	size_ = { 64.0f,64.0f };
 	objectType_ = ObjectType::KEY;
+	isExclude_ = false;
 	CollisionManager::GetInstance()->AddObject(this);
 
 	//‰æ‘œ“Ç‚Ýž‚Ý
@@ -24,7 +25,6 @@ void Key::Update()
 	ObjectUpdate();
 	//Œ®Žæ‚Á‚½‚ç
 	if (isGet) {
-		isCollision_ = false;
 		//‰ñ“]
 		rot += 0.2f;
 		//k¬
@@ -35,9 +35,9 @@ void Key::Update()
 			isDead = true;
 		}
 	}
-	else {
-		isCollision_ = true;
-	}
+	//else {
+	//	//isCollision_ = true;
+	//}
 }
 
 void Key::Draw()
@@ -52,8 +52,6 @@ void Key::Draw()
 void Key::OnCollision(Object* objct)
 {
 	if (objct->GetObjectType() == ObjectType::PLAYER) {
-
-		//isCollision_ = false;
 		isGet = true;
 		isLock = false;
 		isKey = false;
