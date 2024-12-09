@@ -40,5 +40,7 @@ private:
 
 	std::string tutorialTexture_="Q";
 
-	uint32_t textruehandle_=0;
+	uint32_t tutorialHandle_=0;
+
+	uint32_t textureHandle_ = 0;
 };
