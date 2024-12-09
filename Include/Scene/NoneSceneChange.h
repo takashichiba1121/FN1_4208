@@ -1,13 +1,11 @@
 #pragma once
 #include "ISceneChange.h"
-#include "Vector2.h"
 
-
-class BasicSceneChange :public ISceneChange
+class NoneSceneChange :public ISceneChange
 {
 public:
-	BasicSceneChange();
-	~BasicSceneChange();
+	NoneSceneChange();
+	~NoneSceneChange();
 
 	//èâä˙âª
 	void Initialize()override;
@@ -35,21 +33,11 @@ public:
 
 private:
 
-	template<typename T>
-	T easeInQuint(T start, T end, float time)
-	{
-		return start + (time * time * time * time * time) * (end - start);
-	}
 
-	template<typename T>
-	T easeOutQuad(T start, T end, float time)
-	{
-		return start + (1 - (1 - time) * (1 - time)) * (end - start);
-	}
 
 private:
 
-	
+
 
 	bool isStart_ = false;
 
@@ -59,15 +47,7 @@ private:
 
 	bool isEnd_ = false;
 
-	float y_ = 0;
-
-	float moveTimer_ = 0;
-	float moveMaxTime_ = 30;
-
 	
-
-	float afterTimer = 0;
-	float afterMaxTime = 20;
 
 
 
