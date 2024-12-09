@@ -54,7 +54,7 @@ private:
 	float horizontal = 0.0f;
 	float f;
 	uint32_t easingFrame_ = 0;
-	const uint32_t maxEasingFrame_ = 70;
+	const uint32_t maxEasingFrame_ = 60;
 
 	//‰æ‘œ
 	uint32_t textruehandle_;
@@ -63,4 +63,5 @@ private:
 	uint32_t textruehandle4_;
 	uint32_t textruehandle5_;
 	uint32_t textruehandle6_;
+	uint32_t textruehandle7_;
 };
