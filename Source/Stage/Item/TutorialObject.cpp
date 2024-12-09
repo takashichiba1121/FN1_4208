@@ -3,6 +3,7 @@
 #include"DxLib.h"
 #include"Collision.h"
 #include"imgui.h"
+#include"TextureManager.h"
 
 void TutorialObject::Initialize()
 {
@@ -13,6 +14,10 @@ void TutorialObject::Initialize()
 	isExclude_ = false;
 	objectType_ = ObjectType::TUTORIAL;
 	CollisionManager::GetInstance()->AddObject(this);
+
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\"+ tutorialTexture_ +".png");
+
+	GetGraphSizeF(textruehandle_,&tutorialSize_.x,&tutorialSize_.y);
 }
 
 void TutorialObject::Update()
@@ -35,19 +40,25 @@ void TutorialObject::Draw()
 		if (onColwWindow_)
 		{
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-			DrawBox(
-				(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
-				GetColor(255, 255, 0), TRUE);
+			//DrawBox(
+			//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+			//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+			//	GetColor(255, 255, 0), TRUE);
+
+			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				textruehandle_, true);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 		else
 		{
 
-			DrawBox(
-				(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
-				GetColor(255, 255, 0), TRUE);
+			//DrawBox(
+			//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+			//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+			//	GetColor(255, 255, 0), TRUE);
+
+			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				textruehandle_, true);
 		}
 	}
 }
@@ -83,7 +94,7 @@ void TutorialObject::ImGuiEdit()
 
 	strncpy_s(buf, tutorialTexture_.c_str(), sizeof(buf) - 1);
 
-	ImGui::InputText("Text", buf, sizeof(buf));
+	ImGui::InputText("TextureName", buf, sizeof(buf));
 
 	tutorialTexture_ = buf;
 }
