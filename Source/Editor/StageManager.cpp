@@ -61,10 +61,8 @@ void StageManager::Initialize()
 {
 	//ステージとして使いたいファイル名をここに追加
 	stageFileName_ = {
-		"Error",
 		"test3",
 		"test4",
-		"",
 	};
 }
 
