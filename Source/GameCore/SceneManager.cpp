@@ -52,6 +52,7 @@ void SceneManager::Update()
 void SceneManager::Draw()
 {
 	scene_->Draw();
+	SceneChange_->Draw();
 }
 
 void SceneManager::SetSceneFactory(AbstractSceneFactory* factory)

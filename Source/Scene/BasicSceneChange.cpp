@@ -21,7 +21,7 @@ void BasicSceneChange::Initialize()
 	isOpenStart_ = false;
 	isEnd_ = false;
 	moveTimer_ = 0;
-	afterTimer = afterMaxTime;
+	afterTimer = 0;
 
 }
 
@@ -58,9 +58,9 @@ void BasicSceneChange::Update()
 		{
 			y_ = easeInQuint(0.0f, (float)WIN_HEIGHT, afterTimer / afterMaxTime);
 
-			if (afterTimer > 0)
+			if (afterTimer < afterMaxTime)
 			{
-				afterTimer--;
+				afterTimer++;
 			}
 			else
 			{
@@ -77,7 +77,7 @@ void BasicSceneChange::Draw()
 	if (!isEnd_)
 	{
 		
-		DrawBoxAA(0.0f, y_,(float)WIN_WIDTH, (float)WIN_HEIGHT, GetColor((int32_t)0.392f, (int32_t)1.0f, (int32_t)1.0f), true);
+		DrawBoxAA(0.0f, y_,(float)WIN_WIDTH, (float)WIN_HEIGHT, GetColor((int32_t)0.392f*255, (int32_t)1.0f * 255, (int32_t)1.0f * 255), true);
 		
 	}
 
