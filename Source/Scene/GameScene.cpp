@@ -7,12 +7,16 @@
 
 void GameScene::Initialize()
 {
+#ifdef _DEBUG
 	test.Initialize();
+#endif
 }
 
 void GameScene::Update()
 {
+#ifdef _DEBUG
 	test.Update();
+#endif]
 
 	Inversion::GetInstance()->Update();
 
@@ -25,7 +29,9 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
+#ifdef _DEBUG
 	test.Draw();
+#endif
 	StageManager::GetInstance()->Draw();
 
 	Water::GetInstance()->Draw();

@@ -6,8 +6,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    808.0,
-                    235.0
+                    838.0,
+                    344.0
                 ],
                 "scale": [
                     64.0,
@@ -20,8 +20,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    893.0,
-                    172.0
+                    913.0,
+                    278.0
                 ],
                 "scale": [
                     64.0,
@@ -34,7 +34,7 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    169.0,
+                    58.0,
                     685.0
                 ],
                 "scale": [
@@ -50,8 +50,8 @@
                     "tutorialTexture": "Q"
                 },
                 "pos": [
-                    402.0,
-                    686.0
+                    161.0,
+                    689.0
                 ],
                 "scale": [
                     64.0,

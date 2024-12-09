@@ -77,5 +77,7 @@ private:
 	bool isUseEditer_ = false;
 
 	int32_t KeyNum_ = 0;
+
+	bool isClear_ = false;
 };
 

@@ -153,11 +153,13 @@ void Player::Update() {
 		gravity = 0;
 	}
 
+#ifdef _DEBUG
 	ImGui::Begin("Player");
 
 	ImGui::Text("%f",gravity);
 
 	ImGui::End();
+#endif
 
 }
 

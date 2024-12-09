@@ -79,6 +79,11 @@ void StageManager::Update()
 	for (auto &level : stageObjData_)
 	{
 		level->Update();
+		if (isClear_)
+		{
+			isClear_ = false;
+			break;
+		}
 	}
 }
 
@@ -172,6 +177,7 @@ void StageManager::SelectLevelNum(int32_t selectNum)
 
 void StageManager::NextLevelLoad()
 {
+	isClear_ = true;
 	if (nowLevelNum_ + 1 > stageFileName_.size()-1)
 	{
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
