@@ -121,17 +121,17 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 	case ObjectType::FLOAT_BLOCK:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\FloatBlook.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\LevitationBlock.png");
 		break;
 
 	case ObjectType::NOT_FLOAT_BLOCK:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\NotFloatBlook.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Block.png");
 		break;
 
 	case ObjectType::BREAK_BLOCK:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlook.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlock.png");
 		break;
 	case ObjectType::GOAL:
 		
