@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "CollisionManager.h"
 #include "TextureManager.h"
+#include "StageManager.h"
 
 
 void Key::Initialize()
@@ -23,6 +24,7 @@ void Key::Update()
 	ObjectUpdate();
 	//Œ®æ‚Á‚½‚ç
 	if (isGet) {
+		isCollision_ = false;
 		//‰ñ“]
 		rot += 0.2f;
 		//k¬
@@ -32,6 +34,9 @@ void Key::Update()
 		else {
 			isDead = true;
 		}
+	}
+	else {
+		isCollision_ = true;
 	}
 }
 
@@ -47,9 +52,11 @@ void Key::Draw()
 void Key::OnCollision(Object* objct)
 {
 	if (objct->GetObjectType() == ObjectType::PLAYER) {
-		isCollision_ = false;
+
+		//isCollision_ = false;
 		isGet = true;
 		isLock = false;
 		isKey = false;
+		StageManager::GetInstance()->GetKey();
 	}
 }

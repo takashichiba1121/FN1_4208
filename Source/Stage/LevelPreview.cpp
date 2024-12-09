@@ -27,17 +27,22 @@ void LevelPreView::Update()
 
 void LevelPreView::Draw()
 {
+	//îwåi
 	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y + (float)WIN_HEIGHT / 2 * size_.y, 0x000000, true);
 
+	//ÉIÉuÉWÉFÉNÉgÇÃâÊëúï`âÊ
 	for (auto& data : previewData_)
 	{
-		DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x/64 *size_.x, data.size_.y/64 *size_.y, 0, data.handle_, true);
+		DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x/GetGraphSize(data.handle_).x *size_.x, data.size_.y/ GetGraphSize(data.handle_).y *size_.y, 0, data.handle_, true);
+		
+		//åÆÇ™Ç†Ç¡ÇΩèÍçáÇÃÉhÉAÇÃè˘ÇÃï`âÊ
 		if (lockDoor_ && data.tag_== ObjectType::GOAL)
 		{
-			DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x / 64 * size_.x, data.size_.y / 64 * size_.y, 0, lockhandle_, true);
+			DrawRotaGraph3F(((pos_.x - (float)WIN_WIDTH / 2 * size_.x) + (data.pos_.x - data.size_.x / 2) * size_.x), ((pos_.y - (float)WIN_HEIGHT / 2 * size_.y) + (data.pos_.y - data.size_.y / 2) * size_.y), 0, 0, data.size_.x / GetGraphSize(lockhandle_).x * size_.x, data.size_.y / GetGraphSize(lockhandle_).y * size_.y, 0, lockhandle_, true);
 		}
 	}
 
+	//êÖÇÃï`âÊ
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)(colA[3] * 255));
 	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y + (float)waterHorizontal_ * size_.y, GetColor((int)(colA[0] * 255), (int)(colA[1] * 255), (int)(colA[2] * 255)), true);
 	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y + (float)waterHorizontal_ * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y + (float)WIN_HEIGHT / 2 * size_.y, GetColor((int)(colB[0] * 255), (int)(colB[1] * 255), (int)(colB[2] * 255)), true);
@@ -150,4 +155,16 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 	}
 
 	previewData_.push_back(addObject);
+}
+
+Vector2 LevelPreView::GetGraphSize(int32_t GraphHandle)
+{
+
+	float x = 0;
+	float y = 0;
+
+	GetGraphSizeF(GraphHandle, &x, &y);
+
+	return { x,y };
+
 }

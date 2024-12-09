@@ -40,6 +40,8 @@ private:
 	void LoadListStageData(std::list<LevelData> levelData);
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
 
+	Vector2 GetGraphSize(int32_t GraphHandle);
+
 private:
 
 	std::list<PreViewData> previewData_;
