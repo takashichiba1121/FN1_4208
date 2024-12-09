@@ -63,6 +63,7 @@ void StageManager::Initialize()
 	stageFileName_ = {
 		"test3",
 		"test4",
+		"test5",
 	};
 }
 

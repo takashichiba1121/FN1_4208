@@ -215,7 +215,7 @@ void Player::Draw() {
 	else {
 		DrawExtendGraph(
 			(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
-			(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
+			(int)(pos_.x - size_.x / 2- inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
 			textruehandle_, true);
 	}
 	
