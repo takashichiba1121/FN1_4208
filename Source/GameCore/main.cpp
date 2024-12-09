@@ -3,6 +3,7 @@
 #include "Window.h"
 #include "SceneManager.h"
 #include"SceneFactrory.h"
+#include "SceneChangeFactory.h"
 #include "ImGuiManager.h"
 #include "imgui.h"
 #include "imgui_impl_win32.h"
@@ -60,6 +61,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	// ‰Šú‰»
 	Input::Initialize();
 	SceneManager::GetInstance()->SetSceneFactory(SceneFactrory::GetInstance());
+	SceneManager::GetInstance()->SetSceneChangeFactory(SceneChangeFactory::GetInstance());
 
 	SceneManager::GetInstance()->ChangeScene("TITLE");
 
