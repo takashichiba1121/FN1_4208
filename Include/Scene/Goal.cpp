@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include"StageManager.h"
 #include "SceneManager.h"
+#include"Inversion.h"
 
 void Goal::Initialize()
 {
@@ -175,7 +176,7 @@ void Goal::Draw()
 
 void Goal::OnCollision(Object* objct)
 {
-	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false) {
+	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false&&Inversion::GetInstance()->GetIsInversion()==false) {
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
 		StageManager::GetInstance()->SetIsClear(true);
