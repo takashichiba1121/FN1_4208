@@ -12,6 +12,8 @@
 #include "SpongeBlock.h"
 #include "Drain.h"
 #include "TutorialObject.h"
+#include "Water.h"
+#include "TextureManager.h"
 
 StageManager* StageManager::GetInstance()
 {
@@ -64,7 +66,15 @@ void StageManager::Initialize()
 		"test3",
 		"test4",
 		"test5",
+		"test3TestName",
 	};
+
+	//パーティクル初期化
+	confettiEmitter.Initialize(5);
+
+	clearTextTextruehandle1_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clear.png");
+	clearTextTextruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
+	clearTextTextruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
 }
 
 void StageManager::Update()
@@ -79,11 +89,23 @@ void StageManager::Update()
 	for (auto &level : stageObjData_)
 	{
 		level->Update();
-		if (isClear_)
+		if (isNextLoad_)
 		{
-			isClear_ = false;
+			isNextLoad_ = false;
 			break;
 		}
+	}
+
+	if (isClear_)
+	{
+		confettiEmitter.Update();
+		if (easingFrame_ < maxEasingFrame_)
+		{
+			
+			clearTextSize_ = 1 - cosf(((easingFrame_ / maxEasingFrame_) * 3.141592) / 2);
+			easingFrame_++;
+		}
+
 	}
 }
 
@@ -107,6 +129,37 @@ void StageManager::Draw()
 	{
 		level->Draw();
 	}
+
+	if (isClear_) {
+		//クリア
+		confettiEmitter.Draw();
+		//ゴールの文字
+
+		if (720 - (256 - 64) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
+			DrawRotaGraph3F(640, 720 - (256 - 64) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		}
+		else if ((256 - 74) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
+			DrawRotaGraph3F(640, 0 + (256 - 74) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		}
+		else {
+			DrawRotaGraph3F(640, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		}
+
+		if (720 - 256 / 4 <= Water::GetInstance()->GetHorizontal()) {
+			DrawRotaGraph3F(1280 - 1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		}
+		else if (256 / 4 >= Water::GetInstance()->GetHorizontal()) {
+			DrawRotaGraph3F(1280 - 1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		}
+		else {
+			DrawRotaGraph3F(1280 - 1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		}
+
+	}
+
 }
 
 void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
@@ -177,7 +230,6 @@ void StageManager::SelectLevelNum(int32_t selectNum)
 
 void StageManager::NextLevelLoad()
 {
-	isClear_ = true;
 	if (nowLevelNum_ + 1 > stageFileName_.size()-1)
 	{
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
@@ -240,4 +292,27 @@ std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 	}
 
 	return std::move(addObject);
+}
+
+void StageManager::NextSelect(bool selectReturn)
+{
+	isNextLoad_ = true;
+	if (!selectReturn) 
+	{
+		//次のステージへ
+		NextLevelLoad();
+		isClear_ = false;
+		easingFrame_ = 0;
+		clearTextSize_ = 0;
+	}
+	else 
+	{
+		isClear_ = false;
+		easingFrame_ = 0;
+		clearTextSize_ = 0;
+		//セレクト画面へ
+		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+		
+	}
+
 }

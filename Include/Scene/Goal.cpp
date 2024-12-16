@@ -89,12 +89,13 @@ void Goal::Update()
 
 	//演出(遷移)
 	if (isClear) {
-		confettiEmitter->Update();
+		NextSelect();
+		/*confettiEmitter->Update();
 		NextSelect();
 		if (easingFrame_ < maxEasingFrame_) {
 			easingFrame_++;
 			f = ExpansionGoalText(static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_));
-		}
+		}*/
 
 		/*if (isUnderWater) {
 			isClear = false;
@@ -111,20 +112,22 @@ void Goal::NextSelect()
 {
 	if (Input::GetKeyTrigger(Input::Key::Right)) {
 		//次のステージへ
-		StageManager::GetInstance()->NextLevelLoad();
+		//StageManager::GetInstance()->NextLevelLoad();
+		StageManager::GetInstance()->NextSelect(false);
 		isClear = false;
 		isLock = true;
 	}
 	else if (Input::GetKeyTrigger(Input::Key::Left)) {
 		//セレクト画面へ
-		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+		//SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+		StageManager::GetInstance()->NextSelect(true);
 	}
 
 }
 
 float Goal::ExpansionGoalText(float x)
 {
-	return 1 - cos((x * 3.141592) / 2);;
+	return 1 - cos((x * 3.141592) / 2);
 }
 
 void Goal::Draw()
@@ -144,42 +147,42 @@ void Goal::Draw()
 		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle2_, true);
 	}
 
-	if (isClear) {
-		//クリア
-		//DrawBox(1280 / a, 720 / a, 1280 - 1280 / a, 720 - 720 / a, GetColor(255, 255, 255), true);
-		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
-		confettiEmitter->Draw();
-		//ゴールの文字
-		//DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
-		//DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);//前の
-		
+	//if (isClear) {
+	//	//クリア
+	//	//DrawBox(1280 / a, 720 / a, 1280 - 1280 / a, 720 - 720 / a, GetColor(255, 255, 255), true);
+	//	//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
+	//	confettiEmitter->Draw();
+	//	//ゴールの文字
+	//	DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
+	//	DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);//前の
+	//	
 
-		
-		//次への案内
-		if (720 - (256-64) * f <= horizontal) {
-			DrawRotaGraph3(1280 / 2, 720 - (256-64) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
-		}
-		else if ((256-74) * f >= horizontal) {
-			DrawRotaGraph3(1280 / 2, 0 + (256-74) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
-		}
-		else {
-			DrawRotaGraph3(1280 / 2, horizontal, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
-		}
-	
-		if (720-256/4*f <= horizontal) {
-			DrawRotaGraph3(1280 - 1280 / 4, 720 - 256 / 4*f, 256 / 2, 256 / 2, f/2, f/2, 0, textruehandle5_, TRUE);
-			DrawRotaGraph3(1280 / 4, 720 - 256 / 4*f, 256 / 2, 256 / 2, f/2, f/2, 0, textruehandle6_, TRUE);
-		}
-		else if (256 / 4*f >= horizontal) {
-			DrawRotaGraph3(1280 - 1280 / 4, 0 + 256 / 4*f, 256 / 2, 256 / 2, f/2, f/2, 0, textruehandle5_, TRUE);
-			DrawRotaGraph3(1280 / 4, 0 + 256 / 4*f, 256 / 2, 256 / 2, f/2, f/2, 0, textruehandle6_, TRUE);
-		}
-		else {
-			DrawRotaGraph3(1280 - 1280 / 4, horizontal, 256 / 2, 256 / 2, f/2, f/2, 0, textruehandle5_, TRUE);
-			DrawRotaGraph3(1280 / 4, horizontal, 256 / 2, 256 / 2, f/2, f/2, 0, textruehandle6_, TRUE);
-		}
-		
-	}
+	//	
+	//	//次への案内
+	//	if (720 - (256 - 64) * f <= horizontal) {
+	//		DrawRotaGraph3(1280 / 2, 720 - (256 - 64) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+	//	else if ((256 - 74) * f >= horizontal) {
+	//		DrawRotaGraph3(1280 / 2, 0 + (256 - 74) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+	//	else {
+	//		DrawRotaGraph3(1280 / 2, horizontal, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+
+	//	if (720-256/4 <= horizontal) {
+	//		DrawRotaGraph3(1280 - 1280 / 4, 720 - 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
+	//		DrawRotaGraph3(1280 / 4, 720 - 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle6_, TRUE);
+	//	}
+	//	else if (256 / 4 >= horizontal) {
+	//		DrawRotaGraph3(1280 - 1280 / 4, 0 + 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
+	//		DrawRotaGraph3(1280 / 4, 0 + 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle6_, TRUE);
+	//	}
+	//	else {
+	//		DrawRotaGraph3(1280 - 1280 / 4, horizontal, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
+	//		DrawRotaGraph3(1280 / 4, horizontal, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle6_, TRUE);
+	//	}
+	//	
+	//}
 }
 
 void Goal::OnCollision(Object* objct)
@@ -187,5 +190,6 @@ void Goal::OnCollision(Object* objct)
 	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false&&Inversion::GetInstance()->GetIsInversion()==false) {
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
+		StageManager::GetInstance()->SetIsClear(true);
 	}
 }

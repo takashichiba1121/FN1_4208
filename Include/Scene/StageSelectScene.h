@@ -24,12 +24,14 @@ private:
 
 	//イージング用の引数
 	float moveTime_ = 0;
-	float movemaxTime_ = 50;
+	float movemaxTime_ = 30;
 
 
 	bool isNext_ = false;
 	float moveNextTime_ = 0;
 	float moveNextmaxTime_ = 50;
+
+	Vector2 titleTextPos_;
 
 	LevelPreView nextPreview_;
 

@@ -83,6 +83,9 @@ private:
 	//テストを終えるときの後処理
 	void TestEnd();
 
+	//保存時の名前セット用の関数
+	void SaveAndSetLevelName();
+
 
 private:
 
@@ -130,5 +133,9 @@ private:
 
 	int32_t mouseMoveObjectUndoObjectNum_ = 0;
 
+	//ステージセレクトで描画用の文字
+	std::string LevelName_ = "";
+
+	char str1[128] = "";
 };
 

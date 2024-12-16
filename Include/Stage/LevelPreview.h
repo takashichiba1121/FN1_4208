@@ -34,6 +34,8 @@ public:
 	Vector2 pos_;
 	Vector2 size_ = {1,1};
 
+	std::string levelName_ = "";
+
 private:
 
 	void LoadStageObjectFile(const std::string& fileName);
@@ -56,6 +58,8 @@ private:
 
 	float colA[4] = { 0.392f,1.0f,1.0f,0.274f };
 	float colB[4] = { 0.5f,0.5f,1.0f,0.274f };
+
+	
 
 };
 
