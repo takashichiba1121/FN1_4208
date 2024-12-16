@@ -134,9 +134,16 @@ void StageManager::Draw()
 		//ÉNÉäÉA
 		confettiEmitter.Draw();
 		//ÉSÅ[ÉãÇÃï∂éö
-		DrawRotaGraph3(1280 / 2, 720 / 2, 640 / 2, 100 / 2, clearTextSize_, clearTextSize_, 0, clearTextTextruehandle1_, TRUE);
 
-
+		if (720 - (256 - 64) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
+			DrawRotaGraph3(640, 720 - (256 - 64) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		}
+		else if ((256 - 74) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
+			DrawRotaGraph3(640, 0 + (256 - 74) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		}
+		else {
+			DrawRotaGraph3(640, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		}
 
 		if (720 - 256 / 4 <= Water::GetInstance()->GetHorizontal()) {
 			DrawRotaGraph3F(1280 - 1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);

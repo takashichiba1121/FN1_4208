@@ -5,12 +5,14 @@
 #include "TextureManager.h"
 #include"StageManager.h"
 #include "SceneManager.h"
+#include"Inversion.h"
 
 void Goal::Initialize()
 {
 	pos_ = { 1000.0f,200.0f };
 	size_ = { 64.0f,64.0f };
 	objectType_ = ObjectType::GOAL;
+	isExclude_ = false;
 	CollisionManager::GetInstance()->AddObject(this);
 
 	//パーティクル初期化
@@ -25,6 +27,7 @@ void Goal::Initialize()
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
 	textruehandle5_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
 	textruehandle6_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
+	textruehandle7_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clear.png");
 
 	//ゴールロックの初期状態
 	isLock = false;
@@ -150,10 +153,21 @@ void Goal::Draw()
 	//	//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 	//	confettiEmitter->Draw();
 	//	//ゴールの文字
-	//	//DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
-	//	DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);
+	//	DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
+	//	DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);//前の
+	//	
 
 	//	
+	//	//次への案内
+	//	if (720 - (256 - 64) * f <= horizontal) {
+	//		DrawRotaGraph3(1280 / 2, 720 - (256 - 64) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+	//	else if ((256 - 74) * f >= horizontal) {
+	//		DrawRotaGraph3(1280 / 2, 0 + (256 - 74) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+	//	else {
+	//		DrawRotaGraph3(1280 / 2, horizontal, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
 
 	//	if (720-256/4 <= horizontal) {
 	//		DrawRotaGraph3(1280 - 1280 / 4, 720 - 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);
@@ -173,7 +187,7 @@ void Goal::Draw()
 
 void Goal::OnCollision(Object* objct)
 {
-	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false) {
+	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false&&Inversion::GetInstance()->GetIsInversion()==false) {
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
 		StageManager::GetInstance()->SetIsClear(true);
