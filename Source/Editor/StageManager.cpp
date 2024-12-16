@@ -72,7 +72,7 @@ void StageManager::Initialize()
 	//パーティクル初期化
 	confettiEmitter.Initialize(5);
 
-	clearTextTextruehandle1_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
+	clearTextTextruehandle1_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clear.png");
 	clearTextTextruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
 	clearTextTextruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
 }
@@ -136,13 +136,13 @@ void StageManager::Draw()
 		//ゴールの文字
 
 		if (720 - (256 - 64) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3(640, 720 - (256 - 64) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+			DrawRotaGraph3F(640, 720 - (256 - 64) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
 		else if ((256 - 74) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3(640, 0 + (256 - 74) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+			DrawRotaGraph3F(640, 0 + (256 - 74) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
 		else {
-			DrawRotaGraph3(640, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+			DrawRotaGraph3F(640, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
 
 		if (720 - 256 / 4 <= Water::GetInstance()->GetHorizontal()) {
