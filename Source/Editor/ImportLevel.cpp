@@ -165,6 +165,18 @@ InputLevelData ImportLevel::ImportLevelListDataFullPath(const std::string& fileN
 	output.isLoad = true;
 	output.horizontal = (float)deserialized["horizontal"];
 
+	//ちゃんとパラメータがあるかチェック
+	if (!deserialized.contains("LevelName"))
+	{
+		//ないなら無いとして獲得
+		output.LevelName_ = "";
+	}
+	else
+	{
+		output.LevelName_ = deserialized["LevelName"].get<std::string>();
+	}
+	
+
 	listLevelData_.clear();
 	vectorLevelData_.clear();
 	return output;

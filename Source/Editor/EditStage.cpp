@@ -489,6 +489,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 
 	//ä«óùñº
 	jsonfile["name"] = "Level";
+	jsonfile["LevelName"] = LevelName_.c_str();
 
 	for (auto &levelData : saveData)
 	{
@@ -524,6 +525,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 
 	//ä«óùñº
 	jsonfile["name"] = "Level";
+	jsonfile["LevelName"] = LevelName_.c_str();
 
 	//êÖñ ÇÃçÇÇ≥
 	jsonfile["horizontal"] = horizontal_;
@@ -555,8 +557,8 @@ void EditStage::SaveAndLoadLevelObject()
 
 	if (imguiSaveWindow_)
 	{
-		WindowsSaveFile();
-		imguiSaveWindow_ = false;
+		SaveAndSetLevelName();
+		
 	}
 	if (imguiLoadWindow_)
 	{
@@ -746,4 +748,23 @@ void EditStage::TestEnd()
 	}
 
 	testSaveObject_.clear();
+}
+
+void EditStage::SaveAndSetLevelName()
+{
+	
+	//ImGui::ShowDemoWindow();
+
+	ImGui::Begin("LevelNameSet");
+
+	ImGui::InputTextWithHint("input text","LevelName", str1, IM_ARRAYSIZE(str1));
+
+	LevelName_ = std::string(str1);
+
+	if (ImGui::Button("ok"))
+	{
+		WindowsSaveFile();
+		imguiSaveWindow_ = false;
+	}
+	ImGui::End();
 }
