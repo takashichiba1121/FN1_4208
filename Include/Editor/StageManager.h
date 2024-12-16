@@ -40,7 +40,7 @@ public:
 
 	void SetIsUseEditer(bool flag) { isUseEditer_ = flag; };
 
-	size_t GetStageFileNameNum() { return stageFileName_.size(); };
+	int32_t GetStageFileNameNum() { return stageFileName_.size(); };
 
 	int32_t GetNowLevelNum() { return nowLevelNum_; };
 

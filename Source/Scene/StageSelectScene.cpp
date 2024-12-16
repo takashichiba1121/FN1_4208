@@ -14,6 +14,8 @@ void StageSelectScene::Initialize()
 
 	int32_t itemCount = 0;
 
+	titleTextPos_ = { (float)WIN_WIDTH * 0.5f + (float)(-1 * (float)((WIN_WIDTH * 0.5) + 100)),(float)WIN_HEIGHT * 0.5f };
+
 	for (auto& item : previews_)
 	{
 		item.Initialize(StageManager::GetInstance()->GetStageFileName(itemCount));
@@ -32,20 +34,25 @@ void StageSelectScene::Update()
 	{
 		if (Input::GetKeyTrigger(Input::Key::A) || Input::GetKeyTrigger(Input::Key::Left))
 		{
-			if (selectStageNum_ > 0)
+			if (selectStageNum_ > -1)
 			{
 				selectStageNum_--;
 			}
 		}
 		else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
 		{
-			if (static_cast<size_t>(selectStageNum_) < StageManager::GetInstance()->GetStageFileNameNum() - 1)
+			if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
 			{
 				selectStageNum_++;
 			}
 		}
 		else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
 		{
+			if (selectStageNum_ == -1)
+			{
+				SceneManager::GetInstance()->ChangeScene("TITLE");
+			}
+
 
 			isNext_ = true;
 
@@ -84,6 +91,11 @@ void StageSelectScene::Update()
 
 	if (selectStageNum_ != selectStageOldNum_)
 	{
+
+
+		float defTitlePosX = { (float)WIN_WIDTH * 0.5f + (float)(-1 * (float)((WIN_WIDTH * 0.5) + 100))};
+		titleTextPos_ = easeInQuad({ defTitlePosX - (float)(selectStageOldNum_ * (float)((WIN_WIDTH * 0.5) + 100)) ,titleTextPos_.y }, { defTitlePosX - (float)(selectStageNum_ * (float)((WIN_WIDTH * 0.5) + 100)) ,titleTextPos_.y }, moveTime_ / movemaxTime_);
+
 		int32_t itemCount = 0;
 		for (auto& item : previews_)
 		{
@@ -111,6 +123,8 @@ void StageSelectScene::Update()
 	}
 	else
 	{
+		float defTitlePosX = { (float)WIN_WIDTH * 0.5f + (float)(-1 * (float)((WIN_WIDTH * 0.5) + 100)) };
+		titleTextPos_.x = defTitlePosX - (float)(selectStageNum_ * (float)((WIN_WIDTH * 0.5) + 100));
 		int32_t itemCount = 0;
 		for (auto& item : previews_)
 		{
@@ -156,7 +170,7 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Draw()
 {
-	int32_t itemCount = 0;
+	int32_t itemCount = 1;
 	for (auto item : previews_)
 	{
 		item.Draw();
@@ -167,6 +181,7 @@ void StageSelectScene::Draw()
 	}
 
 	//仮置き
+	DrawFormatString2F(titleTextPos_.x, titleTextPos_.y, 0xffffff, 0xff0000, "タイトルへ");
 	DrawFormatString2F(0, 0, 0xffffff, 0xff0000, "移動:A D\n選択:SPACE");
 
 	if (isNext_)

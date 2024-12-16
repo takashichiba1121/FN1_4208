@@ -31,6 +31,8 @@ private:
 	float moveNextTime_ = 0;
 	float moveNextmaxTime_ = 50;
 
+	Vector2 titleTextPos_;
+
 	LevelPreView nextPreview_;
 
 	std::list<LevelPreView>  previews_;

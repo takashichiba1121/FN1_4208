@@ -102,7 +102,7 @@ void StageManager::Update()
 		if (easingFrame_ < maxEasingFrame_)
 		{
 			
-			clearTextSize_ = 1 - cos(((easingFrame_ / maxEasingFrame_) * 3.141592) / 2);
+			clearTextSize_ = 1 - cosf(((easingFrame_ / maxEasingFrame_) * 3.141592) / 2);
 			easingFrame_++;
 		}
 
@@ -139,16 +139,16 @@ void StageManager::Draw()
 
 
 		if (720 - 256 / 4 <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3(1280 - 1280 / 4, 720 - 256 / 4, 128, 128, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3(1280 / 4, 720 - 256 / 4, 128, 128, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+			DrawRotaGraph3F(1280 - 1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
 		else if (256 / 4 >= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3(1280 - 1280 / 4, 0 + 256 / 4, 128, 128, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3(1280 / 4, 0 + 256 / 4, 128, 128, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+			DrawRotaGraph3F(1280 - 1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
 		else {
-			DrawRotaGraph3(1280 - 1280 / 4, Water::GetInstance()->GetHorizontal(), 128, 128, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3(1280 / 4, Water::GetInstance()->GetHorizontal(), 128, 128, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+			DrawRotaGraph3F(1280 - 1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
 
 	}
