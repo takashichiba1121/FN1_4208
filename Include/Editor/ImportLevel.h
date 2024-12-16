@@ -30,6 +30,9 @@ struct InputLevelData
 {
 	std::list<LevelData> levelData;
 
+	//ステージの名前とか説明とか
+	std::string LevelName_ = "";
+
 	float horizontal = 0.0f;
 
 	bool isLoad = false;
