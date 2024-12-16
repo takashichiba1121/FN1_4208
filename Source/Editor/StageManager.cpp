@@ -72,7 +72,7 @@ void StageManager::Initialize()
 	//パーティクル初期化
 	confettiEmitter.Initialize(5);
 
-	clearTextTextruehandle1_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
+	clearTextTextruehandle1_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clear.png");
 	clearTextTextruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
 	clearTextTextruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
 }
