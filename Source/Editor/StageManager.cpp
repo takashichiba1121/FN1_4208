@@ -40,6 +40,9 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 void StageManager::LoadStageObjectFile(const std::string& fileName)
 {
 	InputLevelData loadData;
+	//–{“–‚Éˆê‰žÁ‚µ‚Ä‚é‚¾‚¯
+	CollisionManager::GetInstance()->AllDelete();
+	stageObjData_.clear();
 
 	loadData = ImportLevel::GetInstance()->ImportLevelListData(fileName);
 	if (loadData.isLoad)
@@ -138,17 +141,20 @@ void StageManager::Draw()
 
 
 
-		if (720 - 256 / 4 <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3F(1280 - 1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3F(1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		if (WIN_HEIGHT - 256 / 4 <= Water::GetInstance()->GetHorizontal()) 
+		{
+			DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
-		else if (256 / 4 >= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3F(1280 - 1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3F(1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		else if (256 / 4 >= Water::GetInstance()->GetHorizontal()) 
+		{
+			DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
-		else {
-			DrawRotaGraph3F(1280 - 1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3F(1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		else 
+		{
+			DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
 
 	}
@@ -217,6 +223,8 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 
 void StageManager::SelectLevelNum(int32_t selectNum)
 {
+	//ˆê‰ž‘‚¢‚Ä‚é‚¯‚Ç‰º‚ÌŠÖ”‚Ì’†‚Å“Ç‚ñ‚Å‚é‚©‚ç‚½‚Ô‚ñ–â‘è‚È‚¢‚Í‚¸
+	CollisionManager::GetInstance()->AllDelete();
 	LoadStageObjectFile(stageFileName_[selectNum]);
 	nowLevelNum_ = selectNum;
 }
@@ -307,5 +315,17 @@ void StageManager::NextSelect(bool selectReturn)
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 		
 	}
+
+}
+
+Vector2 StageManager::GetGraphSize(int32_t GraphHandle)
+{
+
+	float x = 0;
+	float y = 0;
+
+	GetGraphSizeF(GraphHandle, &x, &y);
+
+	return { x,y };
 
 }
