@@ -65,6 +65,7 @@ private:
 	bool isFront = false;
 	const float frameMax = 20.0f;
 	float frame = 0.0f;
+	bool isClear = false;
 
 	Direction direction = Direction::RIGHT;
 };

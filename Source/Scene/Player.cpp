@@ -63,7 +63,6 @@ void Player::Update() {
 		//”½“]’†‚Í“–‚½‚è”»’è–³Ž‹
 		isExclude_ = false;
 		isFront = true;
-	
 	}
 
 	if (isFront) {
@@ -261,6 +260,11 @@ void Player::OnCollision(Object* objct) {
 		if (Input::GetKeyTrigger(Input::Key::W) && !Water::GetInstance()->GetIsChangeHorizontal()) {
 			Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
 		}
+	}
+
+	//ƒS[ƒ‹
+	if (objct->GetObjectType() == ObjectType::GOAL) {
+		isClear = true;
 	}
 	
 }

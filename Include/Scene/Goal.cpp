@@ -184,7 +184,8 @@ void Goal::Draw()
 
 void Goal::OnCollision(Object* objct)
 {
-	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false&&Inversion::GetInstance()->GetIsInversion()==false) {
+	if (objct->GetObjectType() == ObjectType::PLAYER && isUnderWater == false && isLock == false&&
+		Inversion::GetInstance()->GetIsInversion()==false&& !Inversion::GetInstance()->GetEndInversion()) {
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
 	}
