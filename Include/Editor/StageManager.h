@@ -77,6 +77,8 @@ private:
 
 	std::unique_ptr<Object> SelectObject(ObjectType tag);
 
+	Vector2 GetGraphSize(int32_t GraphHandle);
+
 
 private:
 
