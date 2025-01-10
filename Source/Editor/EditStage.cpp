@@ -755,6 +755,10 @@ void EditStage::TestEnd()
 
 	for (auto& object : testSaveObject_)
 	{
+		if (object->GetObjectType() == ObjectType::KEY)
+		{
+			StageManager::GetInstance()->AddKeyNum();
+		}
 		StageManager::GetInstance()->stageObjData_.push_back(std::move(object));
 	}
 
