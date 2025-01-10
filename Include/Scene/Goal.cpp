@@ -6,7 +6,6 @@
 #include"StageManager.h"
 #include "SceneManager.h"
 #include"Inversion.h"
-#include"ClearManager.h"
 
 void Goal::Initialize()
 {

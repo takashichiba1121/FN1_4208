@@ -6,7 +6,7 @@
 #include "TextureManager.h"
 #include "Water.h"
 #include "Inversion.h"
-#include "ClearManager.h"
+#include "StageManager.h"
 #include <random>
 #include"imgui.h"
 
@@ -33,7 +33,7 @@ void Player::Initialize() {
 
 	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
-	ClearManager::GetInstance()->SetIsClear(false);
+	StageManager::GetInstance()->SetIsClear(false);
 }
 
 void Player::Update() {
@@ -49,7 +49,7 @@ void Player::Update() {
 		isExclude_ = true;
 		isFront = false;
 
-		if (!ClearManager::GetInstance()->GetIsClear()) {
+		if (!StageManager::GetInstance()->GetIsClear()) {
 
 			if (frame <= 0) {
 				//‘€ì‰Â”\
@@ -268,7 +268,7 @@ void Player::OnCollision(Object* objct) {
 		}
 	}
 
-	if (objct->GetObjectType() == ObjectType::GOAL && ClearManager::GetInstance()->GetIsClear()) {
+	if (objct->GetObjectType() == ObjectType::GOAL && StageManager::GetInstance()->GetIsClear()) {
 
 		if (size_.x > 0) {
 			size_.x -= baseSize.x / 60;
