@@ -6,21 +6,6 @@
 #include "Water.h"
 #include "CollisionManager.h"
 
-
-#include "Player.h"
-#include "Block.h"
-#include "Goal.h"
-#include "levitationBlock.h"
-#include "BreakBlock.h"
-#include "Water.h"
-#include "Window.h"
-#include "Key.h"
-#include "SpongeBlock.h"
-#include "Drain.h"
-#include "TutorialObject.h"
-#include "Water.h"
-#include "TextureManager.h"
-
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
 	float vf[2] = { v.x,v.y };
@@ -746,7 +731,7 @@ void EditStage::TestStart()
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
 		
-		testSaveObject_.push_back(StageManager::GetInstance()->SelectObject(*object.get()));
+		testSaveObject_.push_back(StageManager::GetInstance()->TestSaveSelectObject(object));
 	}
 }
 
