@@ -153,10 +153,21 @@ void Goal::Draw()
 	//	//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 	//	confettiEmitter->Draw();
 	//	//ÉSÅ[ÉãÇÃï∂éö
-	//	//DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
-	//	DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);
+	//	DrawGraph(1280/2-640/2, 720/ 2-100/2, textruehandle4_, true);
+	//	DrawRotaGraph3(1280 / 2, 720 / 2 , 640 / 2 , 100 / 2, f, f, 0, textruehandle4_, TRUE);//ëOÇÃ
+	//	
 
 	//	
+	//	//éüÇ÷ÇÃàƒì‡
+	//	if (720 - (256 - 64) * f <= horizontal) {
+	//		DrawRotaGraph3(1280 / 2, 720 - (256 - 64) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+	//	else if ((256 - 74) * f >= horizontal) {
+	//		DrawRotaGraph3(1280 / 2, 0 + (256 - 74) * f, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
+	//	else {
+	//		DrawRotaGraph3(1280 / 2, horizontal, 256 / 2, 256 / 2, f * 1.5, f * 1.5, 0, textruehandle7_, TRUE);
+	//	}
 
 	//	if (720-256/4 <= horizontal) {
 	//		DrawRotaGraph3(1280 - 1280 / 4, 720 - 256 / 4, 256 / 2, 256 / 2, 0.5, 0.5, 0, textruehandle5_, TRUE);

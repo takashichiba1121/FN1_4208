@@ -171,12 +171,11 @@ void StageSelectScene::Update()
 void StageSelectScene::Draw()
 {
 	int32_t itemCount = 1;
-
 	for (auto item : previews_)
 	{
 		item.Draw();
 		
-		DrawFormatString2F(item.pos_.x- (float)GetDrawFormatStringWidth(std::string("ステージ"+ std::to_string(itemCount)).c_str()) / 2, (item.pos_.y - WIN_HEIGHT / 2 * item.size_.y) - 120, 0xffffff, 0xff0000, "ステージ%d", itemCount);
+		DrawFormatString2F(item.pos_.x- (float)GetDrawStringWidth(std::string("ステージ"+itemCount).c_str(), std::string("ステージ" + itemCount).size()) / 2, (item.pos_.y - WIN_HEIGHT / 2 * item.size_.y) - 120, 0xffffff, 0xff0000, "ステージ%d", itemCount);
 		DrawFormatString2F(item.pos_.x-(float)GetDrawStringWidth(item.levelName_.c_str(), item.levelName_.size())/2, (item.pos_.y - WIN_HEIGHT / 2 * item.size_.y) - 50, 0xffffff, 0xff0000, item.levelName_.c_str());
 		itemCount++;
 	}
