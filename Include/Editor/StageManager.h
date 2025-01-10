@@ -75,7 +75,8 @@ public:
 	//今読み込んでるステージを読み込みなおす
 	void NowStageReset();
 
-	std::shared_ptr<Object> SelectObject(Object object);
+	//テスト時のオブジェクト保持用
+	std::shared_ptr<Object> TestSaveSelectObject(std::shared_ptr<Object> object);
 
 private:
 
