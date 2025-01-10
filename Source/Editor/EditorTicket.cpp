@@ -2,9 +2,16 @@
 #include "StageManager.h"
 #include "Player.h"
 #include "Block.h"
+#include "Goal.h"
 #include "levitationBlock.h"
 #include "BreakBlock.h"
-#include "Goal.h"
+#include "Water.h"
+#include "Window.h"
+#include "Key.h"
+#include "SpongeBlock.h"
+#include "Drain.h"
+#include "TutorialObject.h"
+#include "Water.h"
 
 namespace EditContent
 {
@@ -160,26 +167,49 @@ namespace EditContent
 		//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
 		switch (object.GetObjectType())
 		{
+			
 		case ObjectType::PLAYER:
 			addObject = std::make_unique<Player>();
+
+			break;
+		case ObjectType::SPONGE_BLOCK:
+			addObject = std::make_unique<SpongeBlock>();
 
 			break;
 
 		case ObjectType::FLOAT_BLOCK:
 			addObject = std::make_unique<LevitationBlock>();
+
 			break;
 
 		case ObjectType::NOT_FLOAT_BLOCK:
 			addObject = std::make_unique<Block>();
+
 			break;
+
 		case ObjectType::BREAK_BLOCK:
 			addObject = std::make_unique<BreakBlock>();
+
 			break;
 		case ObjectType::GOAL:
 			addObject = std::make_unique<Goal>();
+
+			break;
+		case ObjectType::KEY:
+			addObject = std::make_unique<Key>();
+
+			break;
+		case ObjectType::DRAIN:
+			addObject = std::make_unique<Drain>();
+
+			break;
+		case ObjectType::TUTORIAL:
+			addObject = std::make_unique<TutorialObject>();
+
 			break;
 		default:
 			break;
+			
 		}
 
 		addObject->SetCollision(object.IsCollision());
