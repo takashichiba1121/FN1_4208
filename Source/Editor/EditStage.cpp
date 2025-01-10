@@ -6,6 +6,19 @@
 #include "Water.h"
 #include "CollisionManager.h"
 
+#include "Player.h"
+#include "Block.h"
+#include "Goal.h"
+#include "levitationBlock.h"
+#include "BreakBlock.h"
+#include "Water.h"
+#include "Window.h"
+#include "Key.h"
+#include "SpongeBlock.h"
+#include "Drain.h"
+#include "TutorialObject.h"
+#include "Water.h"
+
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
 	float vf[2] = { v.x,v.y };
@@ -294,7 +307,7 @@ void EditStage::EditObject()
 
 		if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
 		{
-			movedata_.setData(objectI->get(), objectI->get()->GetPos(), objectI->get()->GetSize());
+			movedata_.setData(objectI->get()->Clone(), objectI->get()->GetPos(), objectI->get()->GetSize());
 		}
 
 		Vector2 editPos = objectI->get()->GetPos();
@@ -322,7 +335,7 @@ void EditStage::EditObject()
 		if (ImGui::Button(std::string("erase" + num).c_str()))
 		{
 			EditContent::TicketData data;
-			data.setData(objectI->get());
+			data.setData(objectI->get()->Clone());
 			UndoStack(EditContent::Content::Delete,data, eventCount);
 
 			//ˆê‚Â‚µ‚©‚È‚¢‚È‚ç
@@ -409,7 +422,7 @@ void EditStage::MouseEditObject()
 		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet)
 		{
 			EditContent::TicketData data;
-			data.setData(mouseMoveObject_, mouseMoveObject_->GetPos(), mouseMoveObject_->GetSize());
+			data.setData(mouseMoveObject_->Clone(), mouseMoveObject_->GetPos(), mouseMoveObject_->GetSize());
 			mouseMoveObject_->SetPos(Input::GetMousePos());
 			UndoStack(EditContent::Content::Move,data,mouseMoveObjectUndoObjectNum_);
 			isMouseObject_ = false;
@@ -637,7 +650,7 @@ void EditStage::UndoStack(EditContent::Content content, EditContent::TicketData 
 		break;
 
 	case EditContent::Content::Delete:
-		ticket.SaveData(object.object, objectNum);
+		ticket.SaveData(object.object.get(), objectNum);
 
 		addTicket = std::make_unique<EditContent::DeleteObject>(ticket);
 		undoTickets_.push_back(std::move(addTicket));
@@ -728,10 +741,11 @@ bool EditStage::AABB(Vector2 pos, Vector2 size, Object* obj)
 void EditStage::TestStart()
 {
 	StageManager::GetInstance()->SetIsUseEditer(false);
+	
+
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
-		
-		testSaveObject_.push_back(StageManager::GetInstance()->TestSaveSelectObject(object));
+		testSaveObject_.push_back(std::move(object->Clone()));
 	}
 }
 
@@ -752,10 +766,17 @@ void EditStage::TestEnd()
 	StageManager::GetInstance()->stageObjData_.clear();
 	StageManager::GetInstance()->SetKeyNum(0);
 	CollisionManager::GetInstance()->AllDelete();
+	std::unique_ptr<Object> addObj;
 
 	for (auto& object : testSaveObject_)
 	{
-		StageManager::GetInstance()->stageObjData_.push_back(std::move(object));
+		if (object->GetObjectType() == ObjectType::KEY)
+		{
+			StageManager::GetInstance()->AddKeyNum();
+		}
+		addObj= std::move(object);
+		addObj->Initialize();
+		StageManager::GetInstance()->stageObjData_.push_back(std::move(addObj));
 	}
 
 	testSaveObject_.clear();

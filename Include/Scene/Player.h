@@ -20,6 +20,8 @@ public:
 
 	float GetSpeed() { return speed; }
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<Player>(*this); };
+
 private:
 	void Operation();	//‘€ì
 	void Move();
@@ -39,8 +41,8 @@ private:
 
 	uint32_t textruehandle_;
 
-	std::unique_ptr<BubbleEmitter> bubbleEmitter;
-	std::unique_ptr<SplashEmitter> splashEmitter;
+	std::shared_ptr<BubbleEmitter> bubbleEmitter;
+	std::shared_ptr<SplashEmitter> splashEmitter;
 
 	const float MaxGravity = 15.0f;
 	float initJumpVelocity = -MaxGravity;

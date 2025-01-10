@@ -76,7 +76,9 @@ public:
 	void NowStageReset();
 
 	//テスト時のオブジェクト保持用
-	std::shared_ptr<Object> TestSaveSelectObject(std::shared_ptr<Object> object);
+	std::shared_ptr<Object> TestSaveSelectObject(Object object);
+
+	std::unique_ptr<Object> SelectObject(ObjectType tag);
 
 private:
 
@@ -86,8 +88,6 @@ private:
 
 	StageManager(const StageManager&) = delete;
 	StageManager& operator=(const StageManager&) = delete;
-
-	std::unique_ptr<Object> SelectObject(ObjectType tag);
 
 	Vector2 GetGraphSize(int32_t GraphHandle);
 

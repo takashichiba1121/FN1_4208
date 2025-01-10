@@ -29,6 +29,8 @@ public:
 
 	void Inversion(const float easing)override;
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<LevitationBlock>(*this); };
+
 private:
 	/// <summary>
 	/// イージングの関数

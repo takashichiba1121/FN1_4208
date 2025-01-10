@@ -23,6 +23,8 @@ public:
 
 	void Inversion(const float easing)override;
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<Block>(*this); };
+
 private:
 	bool isBlock_ = false;
 
