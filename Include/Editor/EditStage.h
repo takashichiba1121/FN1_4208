@@ -125,7 +125,7 @@ private:
 	std::vector<std::unique_ptr<EditorTicket>> redoTickets_;
 
 	//テスト用の元の位置保持用list
-	std::list<std::shared_ptr<Object>> testSaveObject_;
+	std::list< std::unique_ptr<Object>> testSaveObject_;
 
 	bool isImguiUse_ = false;
 

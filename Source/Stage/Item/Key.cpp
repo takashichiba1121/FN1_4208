@@ -7,8 +7,7 @@
 
 void Key::Initialize()
 {
-	pos_ = { 1000.0f,400.0f };
-	size_ = { 64.0f,64.0f };
+	
 	objectType_ = ObjectType::KEY;
 	isExclude_ = false;
 	CollisionManager::GetInstance()->AddObject(this);

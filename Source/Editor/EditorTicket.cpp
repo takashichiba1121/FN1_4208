@@ -25,7 +25,7 @@ namespace EditContent
 	{
 		
 
-		std::unique_ptr<Object> addobj = makeObject(object_);
+		std::shared_ptr<Object> addobj = std::move(object_);
 
 		StageManager::GetInstance()->stageObjData_.push_back(std::move(addobj));
 
@@ -33,14 +33,14 @@ namespace EditContent
 
 	void AddObject::SaveData()
 	{
-		object_ = *StageManager::GetInstance()->stageObjData_.back().get();
+		object_ = StageManager::GetInstance()->stageObjData_.back().get()->Clone();
 	}
 
 	void DeleteObject::Undo()
 	{
 		int32_t count = 0;
 
-		std::unique_ptr<Object> addobj = makeObject(object_);
+		std::shared_ptr<Object> addobj = std::move(object_);
 
 		if (StageManager::GetInstance()->stageObjData_.size() == 0)
 		{
@@ -53,6 +53,11 @@ namespace EditContent
 			if (count == num_-1)
 			{
 				StageManager::GetInstance()->stageObjData_.insert(objectI, std::move(addobj));
+				break;
+			}
+			else if (num_ == StageManager::GetInstance()->stageObjData_.size())
+			{
+				StageManager::GetInstance()->stageObjData_.push_back(std::move(addobj));
 				break;
 			}
 			count++;
@@ -76,7 +81,7 @@ namespace EditContent
 
 	void DeleteObject::SaveData(Object* object, int32_t num)
 	{
-		object_ = *object;
+		object_ = std::move(object->Clone());
 		num_ = num;
 	}
 
@@ -158,67 +163,6 @@ namespace EditContent
 		type_ = type;
 		oldType_ = oldType;
 		num_ = num;
-	}
-
-	std::unique_ptr<Object> makeObject(Object& object)
-	{
-
-		std::unique_ptr<Object> addObject;
-		//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
-		switch (object.GetObjectType())
-		{
-			
-		case ObjectType::PLAYER:
-			addObject = std::make_unique<Player>();
-
-			break;
-		case ObjectType::SPONGE_BLOCK:
-			addObject = std::make_unique<SpongeBlock>();
-
-			break;
-
-		case ObjectType::FLOAT_BLOCK:
-			addObject = std::make_unique<LevitationBlock>();
-
-			break;
-
-		case ObjectType::NOT_FLOAT_BLOCK:
-			addObject = std::make_unique<Block>();
-
-			break;
-
-		case ObjectType::BREAK_BLOCK:
-			addObject = std::make_unique<BreakBlock>();
-
-			break;
-		case ObjectType::GOAL:
-			addObject = std::make_unique<Goal>();
-
-			break;
-		case ObjectType::KEY:
-			addObject = std::make_unique<Key>();
-
-			break;
-		case ObjectType::DRAIN:
-			addObject = std::make_unique<Drain>();
-
-			break;
-		case ObjectType::TUTORIAL:
-			addObject = std::make_unique<TutorialObject>();
-
-			break;
-		default:
-			break;
-			
-		}
-
-		addObject->SetCollision(object.IsCollision());
-		addObject->SetExclude(object.IsExclude());
-		addObject->SetObjectType(object.GetObjectType());
-		addObject->SetPos(object.GetPos());
-		addObject->SetSize(object.GetSize());
-
-		return std::move(addObject);
 	}
 
 }

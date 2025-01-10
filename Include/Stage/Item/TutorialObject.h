@@ -29,6 +29,8 @@ public:
 
 	void ImGuiEdit()override;
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<TutorialObject>(*this); };
+
 private:
 	bool onCol_;
 

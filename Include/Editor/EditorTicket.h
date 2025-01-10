@@ -28,14 +28,14 @@ namespace EditContent
 
 	struct TicketData
 	{
-		Object* object = nullptr;
+		std::shared_ptr<Object> object = nullptr;
 		Vector2 pos;
 		Vector2 size;
 
 		ObjectType type_ = ObjectType::NONE;
 		ObjectType oldType_ = ObjectType::NONE;
 
-		void setData(Object* Obj, Vector2 Pos = {}, Vector2 Size = {}) { object = Obj; pos = Pos; size = Size; }
+		void setData(std::shared_ptr<Object> Obj, Vector2 Pos = {}, Vector2 Size = {}) { object = Obj; pos = Pos; size = Size; }
 	};
 
 #include <memory>
@@ -50,7 +50,7 @@ namespace EditContent
 	private:
 
 		//àÍéûï€éùóp
-		Object object_;
+		std::shared_ptr<Object> object_;
 
 	};
 
@@ -66,7 +66,7 @@ namespace EditContent
 	private:
 
 		//àÍéûï€éùóp
-		Object object_;
+		std::shared_ptr<Object> object_;
 
 		int32_t num_ = 0;
 
@@ -108,7 +108,5 @@ namespace EditContent
 		int32_t num_ = 0;
 
 	};
-
-	std::unique_ptr<Object> makeObject(Object& object);
 
 }

@@ -7,9 +7,6 @@
 
 void TutorialObject::Initialize()
 {
-	pos_ = { 300,686 };
-
-	size_ = {64,64};
 
 	isExclude_ = false;
 	objectType_ = ObjectType::TUTORIAL;

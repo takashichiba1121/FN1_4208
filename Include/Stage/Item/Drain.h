@@ -25,6 +25,7 @@ public:
 
 	void Inversion(const float easing)override;
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<Drain>(*this); };
 private:
 	uint32_t drainTexture;
 	uint32_t guideTexture;
