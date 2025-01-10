@@ -72,4 +72,5 @@ private:
 	int animationImage[maxFrame];
 	int animationFrame = 0;
 	int animationFrameAdjust = 0;
+	int animationSpeed_ = 3;
 };

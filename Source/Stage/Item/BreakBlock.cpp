@@ -36,7 +36,7 @@ void BreakBlock::Update()
 		// アニメーション処理
 		animationFrameAdjust++;
 
-		if (animationFrameAdjust == 3) {
+		if (animationFrameAdjust == animationSpeed_) {
 			animationFrame++;
 			animationFrameAdjust = 0;
 		}
