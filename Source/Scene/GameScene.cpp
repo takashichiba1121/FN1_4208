@@ -33,6 +33,11 @@ void GameScene::Update()
 
 		CollisionManager::GetInstance()->Update();
 
+		if (Input::GetKeyTrigger(Input::Key::R))
+		{
+			StageManager::GetInstance()->NowStageReset();
+		}
+
 		if (Input::GetKeyTrigger(Input::Key::T))
 		{
 			isPause = true;
