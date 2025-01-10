@@ -320,7 +320,7 @@ std::shared_ptr<Object> StageManager::TestSaveSelectObject(std::shared_ptr<Objec
 
 	case ObjectType::PLAYER:
 		addObject = std::make_shared<Player>();
-
+		addObject->Initialize();
 		break;
 	case ObjectType::SPONGE_BLOCK:
 		addObject = std::make_shared<SpongeBlock>();
@@ -364,7 +364,7 @@ std::shared_ptr<Object> StageManager::TestSaveSelectObject(std::shared_ptr<Objec
 
 	addObject = object;
 
-	return std::move(addObject);
+	return addObject;
 }
 
 void StageManager::NextSelect(bool selectReturn)
