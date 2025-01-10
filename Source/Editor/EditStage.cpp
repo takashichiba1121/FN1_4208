@@ -6,6 +6,21 @@
 #include "Water.h"
 #include "CollisionManager.h"
 
+
+#include "Player.h"
+#include "Block.h"
+#include "Goal.h"
+#include "levitationBlock.h"
+#include "BreakBlock.h"
+#include "Water.h"
+#include "Window.h"
+#include "Key.h"
+#include "SpongeBlock.h"
+#include "Drain.h"
+#include "TutorialObject.h"
+#include "Water.h"
+#include "TextureManager.h"
+
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
 	float vf[2] = { v.x,v.y };
@@ -730,7 +745,8 @@ void EditStage::TestStart()
 	StageManager::GetInstance()->SetIsUseEditer(false);
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
-		testSaveObject_.push_back(*object.get());
+		
+		testSaveObject_.push_back(StageManager::GetInstance()->SelectObject(*object.get()));
 	}
 }
 
@@ -749,12 +765,12 @@ void EditStage::TestEnd()
 	}*/
 
 	StageManager::GetInstance()->stageObjData_.clear();
+	StageManager::GetInstance()->SetKeyNum(0);
 	CollisionManager::GetInstance()->AllDelete();
 
 	for (auto& object : testSaveObject_)
 	{
-
-		StageManager::GetInstance()->AddObject(object.GetPos(), object.GetSize(), object.GetObjectType());
+		StageManager::GetInstance()->stageObjData_.push_back(std::move(object));
 	}
 
 	testSaveObject_.clear();
