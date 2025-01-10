@@ -1,0 +1,441 @@
+{
+    "LevelName": "",
+    "horizontal": 538.0,
+    "name": "Level",
+    "objects": [
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    33.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    98.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    163.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    228.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    293.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    358.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    424.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    489.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    554.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    620.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    751.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    816.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    881.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    946.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1011.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1076.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1142.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1207.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1272.0,
+                    538.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 9
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    947.0,
+                    474.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 6
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    293.0,
+                    472.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 5
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    473.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    408.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    343.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    279.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    214.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    150.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    686.0,
+                    86.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    687.0,
+                    22.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    262.0,
+                    685.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 0
+            }
+        }
+    ]
+}
