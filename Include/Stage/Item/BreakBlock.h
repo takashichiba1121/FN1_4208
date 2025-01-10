@@ -66,4 +66,10 @@ private:
 	// 画像
 	uint32_t hpMaxTextureHandle_;
 	uint32_t hpLowTextureHandle_;
+
+	// アニメーション
+	static const int maxFrame = 5;
+	int animationImage[maxFrame];
+	int animationFrame = 0;
+	int animationFrameAdjust = 0;
 };
