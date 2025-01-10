@@ -70,6 +70,7 @@ void StageManager::Initialize()
 		"test4",
 		"test5",
 		"test3TestName",
+		"test",
 	};
 
 	//パーティクル初期化
