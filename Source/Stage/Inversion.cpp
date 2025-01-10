@@ -2,6 +2,7 @@
 #include"Input.h"
 #include"StageManager.h"
 #include"Water.h"
+#include"ClearManager.h"
 
 void Inversion::Initialize() {
 	
@@ -12,7 +13,7 @@ void Inversion::Update() {
 	endInversion = false;
 
 	//ƒL[‘€ì‚Å”½“]
-	if (!Water::GetInstance()->GetIsChangeHorizontal()) {
+	if (!Water::GetInstance()->GetIsChangeHorizontal() && !ClearManager::GetInstance()->GetIsClear()) {
 		if (Input::GetKeyTrigger(Input::Key::Q)) {
 			isInversion = true;
 		}

@@ -6,6 +6,7 @@
 #include"StageManager.h"
 #include "SceneManager.h"
 #include"Inversion.h"
+#include"ClearManager.h"
 
 void Goal::Initialize()
 {
@@ -124,24 +125,24 @@ void Goal::NextSelect()
 
 float Goal::ExpansionGoalText(float x)
 {
-	return 1 - cos((x * 3.141592) / 2);;
+	return 1 - cos((x * 3.141592) / 2);
 }
 
 void Goal::Draw()
 {
 	if (isUnderWater == false && isLock == true || isUnderWater == true && isLock==true) {
 		//ƒS[ƒ‹(Œ®‚ ‚è•Â)
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle3_, true);
+		DrawExtendGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, pos_.x + size_.x / 2, pos_.y + size_.y / 2, textruehandle_, true);
+		DrawExtendGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, pos_.x + size_.x / 2, pos_.y + size_.y / 2, textruehandle3_, true);
 		//DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
 	}
 	else if (isUnderWater) {
 		//ƒS[ƒ‹(•Â)
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+		DrawExtendGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, pos_.x + size_.x / 2, pos_.y + size_.y / 2, textruehandle_, true);
 	}
 	else {
 		//ƒS[ƒ‹(ŠJ)
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle2_, true);
+		DrawExtendGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, pos_.x + size_.x / 2, pos_.y + size_.y / 2, textruehandle2_, true);
 	}
 
 	if (isClear) {
@@ -188,5 +189,7 @@ void Goal::OnCollision(Object* objct)
 		Inversion::GetInstance()->GetIsInversion()==false&& !Inversion::GetInstance()->GetEndInversion()) {
 		//DrawFormatString(0, 100, GetColor(0, 255, 0), "clear!!");
 		isClear = true;
+
+		ClearManager::GetInstance()->SetIsClear(true);
 	}
 }
