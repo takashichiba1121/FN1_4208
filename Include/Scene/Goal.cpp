@@ -48,6 +48,7 @@ void Goal::Update()
 		isLock = false;
 	}
 
+	//Œ®‚ªˆê‚ÂˆÈã‚ ‚é‚È‚ç”à‚ğ‚µ‚ß‚é
 	if (StageManager::GetInstance()->GetKeyNum() <= 0) {
 		isLock = false;
 	}else {
@@ -134,17 +135,29 @@ void Goal::Draw()
 {
 	if (isUnderWater == false && isLock == true || isUnderWater == true && isLock==true) {
 		//ƒS[ƒ‹(Œ®‚ ‚è•Â)
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle3_, true);
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, textruehandle_, true);
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, textruehandle3_, true);
+		//DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+		//DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle3_, true);
 		//DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "Goal");
 	}
 	else if (isUnderWater) {
 		//ƒS[ƒ‹(•Â)
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, textruehandle_, true);
+		//DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle_, true);
 	}
 	else {
 		//ƒS[ƒ‹(ŠJ)
-		DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle2_, true);
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, textruehandle2_, true);
+		//DrawGraph(pos_.x - size_.x / 2, pos_.y - size_.y / 2, textruehandle2_, true);
 	}
 
 	//if (isClear) {
