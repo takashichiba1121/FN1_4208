@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Water.h"
 #include "Inversion.h"
+#include "StageManager.h"
 #include <random>
 #include"imgui.h"
 
@@ -22,7 +23,7 @@ void Player::Initialize() {
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
 
 	pos_ = { 100,100 };
-	size_ = { 64,64 };
+	size_ = baseSize;
 
 	//パーティクル初期化
 	bubbleEmitter = std::make_unique<BubbleEmitter>();
@@ -32,6 +33,7 @@ void Player::Initialize() {
 
 	objectType_ = ObjectType::PLAYER;
 	CollisionManager::GetInstance()->AddObject(this);
+	StageManager::GetInstance()->SetIsClear(false);
 }
 
 void Player::Update() {
@@ -47,23 +49,25 @@ void Player::Update() {
 		isExclude_ = true;
 		isFront = false;
 
-		if (frame <= 0) {
-			//操作可能
-			Operation();
+		if (!StageManager::GetInstance()->GetIsClear()) {
 
-			//ジャンプによって空中にいるときの処理
-			//プレイヤー座標に重力を加算
-			pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
+			if (frame <= 0) {
+				//操作可能
+				Operation();
 
-			//落下速度を徐々に上げる(水中時は半減)
-			gravity += 1.0f / (isUnderWater + 1);
+				//ジャンプによって空中にいるときの処理
+				//プレイヤー座標に重力を加算
+				pos_.y += gravity;	//gravityの初期値はマイナスのため最初は上方向に動く
+
+				//落下速度を徐々に上げる(水中時は半減)
+				gravity += 1.0f / (isUnderWater + 1);
+			}
 		}
 	}
 	else {
 		//反転中は当たり判定無視
 		isExclude_ = false;
 		isFront = true;
-	
 	}
 
 	if (isFront) {
@@ -136,9 +140,6 @@ void Player::Update() {
 		guideTimer -= guideTimerMax / 60;
 	}
 
-	if (guideTimer > guideTimerMax){
-	}
-
 	//パーティクル更新
 	bubbleEmitter->SetHorizontal(horizontal);
 	splashEmitter->SetHorizontal(horizontal);
@@ -150,6 +151,11 @@ void Player::Update() {
 		pos_.y = WIN_HEIGHT - size_.y / 2;
 		canJumpTimer = canJumpTimerMax;
 		canJump = true;
+		gravity = 0;
+	}
+	
+	if (pos_.y < 0 + size_.y / 2) {
+		pos_.y = size_.y / 2;
 		gravity = 0;
 	}
 
@@ -208,17 +214,20 @@ void Player::Jump() {
 
 void Player::Draw() {
 
-	if (direction == Direction::RIGHT) {
-		DrawExtendGraph(
-			(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
-			(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
-			textruehandle_, true);
-	}
-	else {
-		DrawExtendGraph(
-			(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
-			(int)(pos_.x - size_.x / 2- inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
-			textruehandle_, true);
+	if (size_.x > 0) {
+
+		if (direction == Direction::RIGHT) {
+			DrawExtendGraph(
+				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
+				(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
+				textruehandle_, true);
+		}
+		else {
+			DrawExtendGraph(
+				(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
+				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
+				textruehandle_, true);
+		}
 	}
 	
 	DrawCircle(pos_.x, pos_.y, Easing(frame / frameMax) * 64.0f, GetColor(255, 255, 255), false);
@@ -239,10 +248,6 @@ void Player::OnCollision(Object* objct) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
 	}
-	else if (gravity >= 3)
-	{
-		gravity = gravity;
-	}
 
 	//頭打ちの処理
 	if ((pos_.y - size_.y / 2) >= (objct->GetPos().y + objct->GetSize().y / 2)) {
@@ -261,6 +266,25 @@ void Player::OnCollision(Object* objct) {
 		if (Input::GetKeyTrigger(Input::Key::W) && !Water::GetInstance()->GetIsChangeHorizontal()) {
 			Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
 		}
+	}
+
+	if (objct->GetObjectType() == ObjectType::GOAL && StageManager::GetInstance()->GetIsClear()) {
+
+		if (size_.x > 0) {
+			size_.x -= baseSize.x / 60;
+		}
+		else {
+			size_.x = 0;
+		}
+		if (size_.y > 0) {
+			size_.y -= baseSize.y / 60;
+		}
+		else {
+			size_.y = 0;
+		}
+
+		pos_.x += (objct->GetPos().x - pos_.x) / 4;
+		pos_.y += (objct->GetPos().y - pos_.y) / 4;
 	}
 	
 }

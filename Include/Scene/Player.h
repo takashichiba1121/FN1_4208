@@ -42,7 +42,7 @@ private:
 	std::unique_ptr<BubbleEmitter> bubbleEmitter;
 	std::unique_ptr<SplashEmitter> splashEmitter;
 
-	const float MaxGravity = 16.0f;
+	const float MaxGravity = 15.0f;
 	float initJumpVelocity = -MaxGravity;
 	float gravity = 0.0f;
 	float declinePercent = 1.0f;
@@ -62,9 +62,12 @@ private:
 	unsigned int color = 0;
 
 	Vector2 inverSize = { 0,0 };
+	const Vector2 baseSize = { 64,64 };
 	bool isFront = false;
 	const float frameMax = 20.0f;
 	float frame = 0.0f;
+	bool isClear = false;
 
 	Direction direction = Direction::RIGHT;
+
 };
