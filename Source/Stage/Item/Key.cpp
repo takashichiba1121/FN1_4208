@@ -25,36 +25,39 @@ void Key::Update()
 	ObjectUpdate();
 	//Œ®æ‚Á‚½‚ç
 	if (isGet) {
-		//‰ñ“]
-		rot += 0.2f;
-		//k¬
-		if (s >= 0.0f) {
-			s -= 0.02f;
-		}
-		else {
-			isDead = true;
-		}
+		isDead = true;
+		////‰ñ“]
+		//rot += 0.2f;
+		////k¬
+		//if (s >= 0.0f) {
+		//	s -= 0.02f;
+		//}
+		//else {
+		//	isDead = true;
+		//}
 	}
-	//else {
-	//	//isCollision_ = true;
-	//}
 }
 
 void Key::Draw()
 {
 	//Œ®
 	if (isDead==false) {
-		DrawRotaGraph3(pos_.x, pos_.y, size_.x / 2, size_.y / 2, s, s,rot, textruehandle_, TRUE);
-		//DrawFormatString(pos_.x - 15, pos_.y - 10, GetColor(0, 0, 0), "key");
+		//DrawRotaGraph3F(pos_.x, pos_.y, size_.x / 2, size_.y / 2, s, s,rot, textruehandle_, TRUE);
+		DrawRotaGraph3F(
+			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, textruehandle_, true);
 	}
 }
 
 void Key::OnCollision(Object* objct)
 {
 	if (objct->GetObjectType() == ObjectType::PLAYER) {
+		if (isGet == false) {
+			StageManager::GetInstance()->GetKey();
+		}
 		isGet = true;
 		isLock = false;
 		isKey = false;
-		StageManager::GetInstance()->GetKey();
+		
 	}
 }

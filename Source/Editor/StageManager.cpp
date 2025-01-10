@@ -139,27 +139,33 @@ void StageManager::Draw()
 		confettiEmitter.Draw();
 		//ÉSÅ[ÉãÇÃï∂éö
 
-		if (720 - (256 - 64) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3F(640, 720 - (256 - 64) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		if (WIN_HEIGHT - (GetGraphSize(clearTextTextruehandle1_).y - 64) * clearTextSize_ <= Water::GetInstance()->GetHorizontal())
+		{
+			DrawRotaGraph3F(WIN_WIDTH/2, WIN_HEIGHT - (GetGraphSize(clearTextTextruehandle1_).y - 64) * clearTextSize_, GetGraphSize(clearTextTextruehandle1_).x/2, GetGraphSize(clearTextTextruehandle1_).y / 2, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
-		else if ((256 - 74) * clearTextSize_ <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3F(640, 0 + (256 - 74) * clearTextSize_, 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		else if ((GetGraphSize(clearTextTextruehandle1_).y - 74) * clearTextSize_ <= Water::GetInstance()->GetHorizontal())
+		{
+			DrawRotaGraph3F(WIN_WIDTH/2, 0 + (GetGraphSize(clearTextTextruehandle1_).y - 74) * clearTextSize_, GetGraphSize(clearTextTextruehandle1_).x / 2, GetGraphSize(clearTextTextruehandle1_).y / 2, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
-		else {
-			DrawRotaGraph3F(640, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
+		else 
+		{
+			DrawRotaGraph3F(WIN_WIDTH / 2, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle1_).x / 2, GetGraphSize(clearTextTextruehandle1_).y / 2, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
 
-		if (720 - 256 / 4 <= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3F(1280 - 1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3F(1280 / 4, 720 - 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		if (WIN_HEIGHT - 256 / 4 <= Water::GetInstance()->GetHorizontal()) 
+		{
+			DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
-		else if (256 / 4 >= Water::GetInstance()->GetHorizontal()) {
-			DrawRotaGraph3F(1280 - 1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3F(1280 / 4, 0 + 256 / 4, 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		else if (256 / 4 >= Water::GetInstance()->GetHorizontal()) 
+		{
+			DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
-		else {
-			DrawRotaGraph3F(1280 - 1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
-			DrawRotaGraph3F(1280 / 4, Water::GetInstance()->GetHorizontal(), 128.0f, 128.0f, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+		else 
+		{
+			DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
+			DrawRotaGraph3F(WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 		}
 
 	}
@@ -204,9 +210,9 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 	stageObjData_.push_back(std::move(addObject));
 }
 
-void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag)
+void StageManager::ChengeTag(const std::list<std::shared_ptr<Object>>::iterator& chengeData, ObjectType tag)
 {
-	std::unique_ptr<Object> addObject= SelectObject(tag);
+	std::shared_ptr<Object> addObject= SelectObject(tag);
 	
 	if (chengeData->get()->GetObjectType() != ObjectType::KEY && tag == ObjectType::KEY)
 	{
@@ -245,6 +251,12 @@ void StageManager::NextLevelLoad()
 	CollisionManager::GetInstance()->AllDelete();
 	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);	
 	nowLevelNum_ = nowLevelNum_ + 1;
+}
+
+void StageManager::NowStageReset()
+{
+	CollisionManager::GetInstance()->AllDelete();
+	LoadStageObjectFile(stageFileName_[nowLevelNum_]);
 }
 
 std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
@@ -300,6 +312,61 @@ std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 	return std::move(addObject);
 }
 
+std::shared_ptr<Object> StageManager::TestSaveSelectObject(std::shared_ptr<Object> object)
+{
+	std::shared_ptr<Object> addObject;
+	switch (object->GetObjectType())
+	{
+
+	case ObjectType::PLAYER:
+		addObject = std::make_shared<Player>();
+		addObject->Initialize();
+		break;
+	case ObjectType::SPONGE_BLOCK:
+		addObject = std::make_shared<SpongeBlock>();
+
+		break;
+
+	case ObjectType::FLOAT_BLOCK:
+		addObject = std::make_shared<LevitationBlock>();
+
+		break;
+
+	case ObjectType::NOT_FLOAT_BLOCK:
+		addObject = std::make_shared<Block>();
+
+		break;
+
+	case ObjectType::BREAK_BLOCK:
+		addObject = std::make_shared<BreakBlock>();
+
+		break;
+	case ObjectType::GOAL:
+		addObject = std::make_shared<Goal>();
+
+		break;
+	case ObjectType::KEY:
+		addObject = std::make_shared<Key>();
+
+		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_shared<Drain>();
+
+		break;
+	case ObjectType::TUTORIAL:
+		addObject = std::make_shared<TutorialObject>();
+
+		break;
+	default:
+		break;
+
+	}
+
+	addObject = object;
+
+	return addObject;
+}
+
 void StageManager::NextSelect(bool selectReturn)
 {
 	isNextLoad_ = true;
@@ -320,5 +387,17 @@ void StageManager::NextSelect(bool selectReturn)
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 		
 	}
+
+}
+
+Vector2 StageManager::GetGraphSize(int32_t GraphHandle)
+{
+
+	float x = 0;
+	float y = 0;
+
+	GetGraphSizeF(GraphHandle, &x, &y);
+
+	return { x,y };
 
 }

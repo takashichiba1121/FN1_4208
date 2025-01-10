@@ -4,6 +4,7 @@
 
 #include "Input.h"
 #include "Water.h"
+#include "CollisionManager.h"
 
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
@@ -729,14 +730,15 @@ void EditStage::TestStart()
 	StageManager::GetInstance()->SetIsUseEditer(false);
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
-		testSaveObject_.push_back(*object.get());
+		
+		testSaveObject_.push_back(StageManager::GetInstance()->TestSaveSelectObject(object));
 	}
 }
 
 void EditStage::TestEnd()
 {
 	StageManager::GetInstance()->SetIsUseEditer(true);
-	std::list<Object>::iterator saveObject = testSaveObject_.begin();
+	/*std::list<Object>::iterator saveObject = testSaveObject_.begin();
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
 		object->SetCollision(saveObject->IsCollision());
@@ -745,6 +747,19 @@ void EditStage::TestEnd()
 		object->SetPos(saveObject->GetPos());
 		object->SetSize(saveObject->GetSize());
 		saveObject++;
+	}*/
+
+	StageManager::GetInstance()->stageObjData_.clear();
+	StageManager::GetInstance()->SetKeyNum(0);
+	CollisionManager::GetInstance()->AllDelete();
+
+	for (auto& object : testSaveObject_)
+	{
+		if (object->GetObjectType() == ObjectType::KEY)
+		{
+			StageManager::GetInstance()->AddKeyNum();
+		}
+		StageManager::GetInstance()->stageObjData_.push_back(std::move(object));
 	}
 
 	testSaveObject_.clear();
