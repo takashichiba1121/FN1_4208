@@ -4,6 +4,7 @@
 
 #include "Input.h"
 #include "Water.h"
+#include "CollisionManager.h"
 
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
@@ -736,7 +737,7 @@ void EditStage::TestStart()
 void EditStage::TestEnd()
 {
 	StageManager::GetInstance()->SetIsUseEditer(true);
-	std::list<Object>::iterator saveObject = testSaveObject_.begin();
+	/*std::list<Object>::iterator saveObject = testSaveObject_.begin();
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
 		object->SetCollision(saveObject->IsCollision());
@@ -745,6 +746,15 @@ void EditStage::TestEnd()
 		object->SetPos(saveObject->GetPos());
 		object->SetSize(saveObject->GetSize());
 		saveObject++;
+	}*/
+
+	StageManager::GetInstance()->stageObjData_.clear();
+	CollisionManager::GetInstance()->AllDelete();
+
+	for (auto& object : testSaveObject_)
+	{
+
+		StageManager::GetInstance()->AddObject(object.GetPos(), object.GetSize(), object.GetObjectType());
 	}
 
 	testSaveObject_.clear();
