@@ -40,6 +40,9 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 void StageManager::LoadStageObjectFile(const std::string& fileName)
 {
 	InputLevelData loadData;
+	//本当に一応消してるだけ
+	CollisionManager::GetInstance()->AllDelete();
+	stageObjData_.clear();
 
 	loadData = ImportLevel::GetInstance()->ImportLevelListData(fileName);
 	if (loadData.isLoad)
@@ -67,6 +70,7 @@ void StageManager::Initialize()
 		"test4",
 		"test5",
 		"test3TestName",
+		"test",
 	};
 
 	//パーティクル初期化
@@ -224,6 +228,8 @@ void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator&
 
 void StageManager::SelectLevelNum(int32_t selectNum)
 {
+	//一応書いてるけど下の関数の中で読んでるからたぶん問題ないはず
+	CollisionManager::GetInstance()->AllDelete();
 	LoadStageObjectFile(stageFileName_[selectNum]);
 	nowLevelNum_ = selectNum;
 }

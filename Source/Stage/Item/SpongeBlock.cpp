@@ -131,6 +131,14 @@ void SpongeBlock::OnCollision(Object* object)
 			oldMove.y = 0;
 		}
 		size_ += move;
+
+		easingFrame_--;
+
+		float f = static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_ * ((expansion_.x + expansion_.y) / 2));
+
+		size_ = (initializeSize_ * expansion_ - initializeSize_) * f;
+		size_ += initializeSize_;
+
 		stopExpansion_ = true;
 	}
 }

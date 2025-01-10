@@ -1,0 +1,54 @@
+{
+    "LevelName": "",
+    "horizontal": 668.0,
+    "name": "Level",
+    "objects": [
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    33.0,
+                    687.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 0
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": {
+                    "Expansion": [
+                        3.0,
+                        3.0
+                    ]
+                },
+                "pos": [
+                    578.0,
+                    369.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 1
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    519.0,
+                    486.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        }
+    ]
+}
