@@ -210,9 +210,9 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 	stageObjData_.push_back(std::move(addObject));
 }
 
-void StageManager::ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag)
+void StageManager::ChengeTag(const std::list<std::shared_ptr<Object>>::iterator& chengeData, ObjectType tag)
 {
-	std::unique_ptr<Object> addObject= SelectObject(tag);
+	std::shared_ptr<Object> addObject= SelectObject(tag);
 	
 	if (chengeData->get()->GetObjectType() != ObjectType::KEY && tag == ObjectType::KEY)
 	{
@@ -251,6 +251,12 @@ void StageManager::NextLevelLoad()
 	CollisionManager::GetInstance()->AllDelete();
 	LoadStageObjectFile(stageFileName_[nowLevelNum_+1]);	
 	nowLevelNum_ = nowLevelNum_ + 1;
+}
+
+void StageManager::NowStageReset()
+{
+	CollisionManager::GetInstance()->AllDelete();
+	LoadStageObjectFile(stageFileName_[nowLevelNum_]);
 }
 
 std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
@@ -304,6 +310,112 @@ std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 	}
 
 	return std::move(addObject);
+}
+
+std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
+{
+	std::unique_ptr<Object> addObject;
+	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
+	switch (tag)
+	{
+	case ObjectType::PLAYER:
+		addObject = std::make_unique<Player>();
+
+		break;
+	case ObjectType::SPONGE_BLOCK:
+		addObject = std::make_unique<SpongeBlock>();
+
+		break;
+
+	case ObjectType::FLOAT_BLOCK:
+		addObject = std::make_unique<LevitationBlock>();
+
+		break;
+
+	case ObjectType::NOT_FLOAT_BLOCK:
+		addObject = std::make_unique<Block>();
+
+		break;
+
+	case ObjectType::BREAK_BLOCK:
+		addObject = std::make_unique<BreakBlock>();
+
+		break;
+	case ObjectType::GOAL:
+		addObject = std::make_unique<Goal>();
+
+		break;
+	case ObjectType::KEY:
+		addObject = std::make_unique<Key>();
+
+		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_unique<Drain>();
+
+		break;
+	case ObjectType::TUTORIAL:
+		addObject = std::make_unique<TutorialObject>();
+
+		break;
+	default:
+		addObject = std::make_unique<Block>();
+		break;
+	}
+
+	return std::move(addObject);
+}
+
+std::shared_ptr<Object> StageManager::SelectObject(Object object)
+{
+	std::shared_ptr<Object> addObject;
+	switch (object.GetObjectType())
+	{
+
+	case ObjectType::PLAYER:
+		addObject = std::make_shared<Player>();
+
+		break;
+	case ObjectType::SPONGE_BLOCK:
+		addObject = std::make_shared<SpongeBlock>();
+
+		break;
+
+	case ObjectType::FLOAT_BLOCK:
+		addObject = std::make_shared<LevitationBlock>();
+
+		break;
+
+	case ObjectType::NOT_FLOAT_BLOCK:
+		addObject = std::make_shared<Block>();
+
+		break;
+
+	case ObjectType::BREAK_BLOCK:
+		addObject = std::make_shared<BreakBlock>();
+
+		break;
+	case ObjectType::GOAL:
+		addObject = std::make_shared<Goal>();
+
+		break;
+	case ObjectType::KEY:
+		addObject = std::make_shared<Key>();
+
+		break;
+	case ObjectType::DRAIN:
+		addObject = std::make_shared<Drain>();
+
+		break;
+	case ObjectType::TUTORIAL:
+		addObject = std::make_shared<TutorialObject>();
+
+		break;
+	default:
+		break;
+
+	}
+
+	addObject = object;
 }
 
 void StageManager::NextSelect(bool selectReturn)

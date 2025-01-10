@@ -32,9 +32,9 @@ public:
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag);
 	void AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann::json seting);
 
-	void ChengeTag(const std::list<std::unique_ptr<Object>>::iterator& chengeData, ObjectType tag);
+	void ChengeTag(const std::list<std::shared_ptr<Object>>::iterator& chengeData, ObjectType tag);
 
-	std::list<std::unique_ptr<Object>> stageObjData_;
+	std::list<std::shared_ptr<Object>> stageObjData_;
 
 	bool GetIsUseEditer() { return isUseEditer_; };
 
@@ -60,11 +60,22 @@ public:
 	//鍵を取得したので鍵の数を減らす関数
 	void GetKey() { KeyNum_--; };
 
+	//読み込みなおしたとき鍵の追加がしたいときの関数
+	void AddKeyNum() { KeyNum_++; };
+
+	//鍵の数の指定がしたいときの関数
+	void SetKeyNum(int32_t num) { KeyNum_ = num; };
+
 	/// <summary>
 	/// 次どうするかを決定する
 	/// </summary>
 	/// <param name="selectRetrun">false=次のステージへ,true=ステージセレクトへ</param>
 	void NextSelect(bool selectReturn);
+
+	//今読み込んでるステージを読み込みなおす
+	void NowStageReset();
+
+	std::shared_ptr<Object> SelectObject(Object object);
 
 private:
 
@@ -103,8 +114,8 @@ private:
 
 	float clearTextSize_ = 0;
 
-	uint32_t clearTextTextruehandle1_;
-	uint32_t clearTextTextruehandle2_;
-	uint32_t clearTextTextruehandle3_;
+	uint32_t clearTextTextruehandle1_ = 0;
+	uint32_t clearTextTextruehandle2_ = 0;
+	uint32_t clearTextTextruehandle3_ = 0;
 };
 
