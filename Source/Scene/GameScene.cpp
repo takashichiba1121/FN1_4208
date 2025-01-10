@@ -7,6 +7,10 @@
 
 void GameScene::Initialize()
 {
+	pause = std::make_unique<Pause>();
+
+	pause->Initialize();
+
 #ifdef _DEBUG
 	test.Initialize();
 #endif
@@ -14,17 +18,36 @@ void GameScene::Initialize()
 
 void GameScene::Update()
 {
+	if (isPause==false)
+	{
+
 #ifdef _DEBUG
-	test.Update();
+		test.Update();
 #endif]
 
-	Inversion::GetInstance()->Update();
+		Inversion::GetInstance()->Update();
 
-	Water::GetInstance()->Update();
+		Water::GetInstance()->Update();
 
-	StageManager::GetInstance()->Update();
+		StageManager::GetInstance()->Update();
 
-	CollisionManager::GetInstance()->Update();
+		CollisionManager::GetInstance()->Update();
+
+		if (Input::GetKeyTrigger(Input::Key::T))
+		{
+			isPause = true;
+			pause->StartGetPause();
+		}
+	}
+	else
+	{
+		pause->Update();
+
+		if (pause->IsEndGetPause())
+		{
+			isPause = false;
+		}
+	}
 }
 
 void GameScene::Draw()
@@ -35,6 +58,11 @@ void GameScene::Draw()
 	StageManager::GetInstance()->Draw();
 
 	Water::GetInstance()->Draw();
+
+	if (isPause)
+	{
+		pause->Draw();
+	}
 }
 
 void GameScene::Finalize()

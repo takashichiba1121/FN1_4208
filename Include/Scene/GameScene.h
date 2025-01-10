@@ -13,6 +13,7 @@
 #include"SpongeBlock.h"
 #include"Drain.h"
 #include"TutorialObject.h"
+#include"Pause.h"
 
 class GameScene :
     public BaseScene
@@ -36,7 +37,10 @@ private:
 
 	std::unique_ptr<TutorialObject> tutorial;
 
+	std::unique_ptr<Pause> pause;
+
 	EditStage test;
 
+	bool isPause=false;
 };
 
