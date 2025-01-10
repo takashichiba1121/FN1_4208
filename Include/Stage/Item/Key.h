@@ -30,6 +30,8 @@ public:
 
 	bool GetisLock() { return isLock; }
 	bool GetisKey() { return isKey; }
+
+	std::unique_ptr<Object> Clone()override { return std::make_unique<Key>(*this); };
 private:
 	bool isLock = true;
 	bool isKey = true;

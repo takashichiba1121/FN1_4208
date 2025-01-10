@@ -22,12 +22,12 @@ void Player::Initialize() {
 	SetFontSize(50);
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
 
-	pos_ = { 100,100 };
+	
 	size_ = baseSize;
 
 	//パーティクル初期化
-	bubbleEmitter = std::make_unique<BubbleEmitter>();
-	splashEmitter = std::make_unique<SplashEmitter>();
+	bubbleEmitter = std::make_shared<BubbleEmitter>();
+	splashEmitter = std::make_shared<SplashEmitter>();
 	bubbleEmitter->Initialize(20);
 	splashEmitter->Initialize(30);
 

@@ -10,8 +10,6 @@
 void LevitationBlock::Initialize()
 {
 	// ‰Šú’l
-	pos_ = { 100.0f,640.0f };
-	size_ = { 64.0f,64.0f };
 	gravity_ = 10.0f;
 
 	// “–‚½‚è”»’è

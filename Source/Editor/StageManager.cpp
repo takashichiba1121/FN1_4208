@@ -312,13 +312,15 @@ std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 	return std::move(addObject);
 }
 
-std::shared_ptr<Object> StageManager::TestSaveSelectObject(std::shared_ptr<Object> object)
+std::shared_ptr<Object> StageManager::TestSaveSelectObject(Object object)
 {
 	std::shared_ptr<Object> addObject;
-	switch (object->GetObjectType())
+	std::unique_ptr<Object> uniObj=std::make_unique<Object>(object);
+	switch (object.GetObjectType())
 	{
 
 	case ObjectType::PLAYER:
+		addObject = std::move(uniObj);
 		addObject = std::make_shared<Player>();
 		addObject->Initialize();
 		break;
@@ -362,7 +364,7 @@ std::shared_ptr<Object> StageManager::TestSaveSelectObject(std::shared_ptr<Objec
 
 	}
 
-	addObject = object;
+	addObject = std::move(uniObj);
 
 	return addObject;
 }
