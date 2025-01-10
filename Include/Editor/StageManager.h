@@ -66,6 +66,9 @@ public:
 	/// <param name="selectRetrun">false=次のステージへ,true=ステージセレクトへ</param>
 	void NextSelect(bool selectReturn);
 
+	//今読み込んでるステージを読み込みなおす
+	void NowStageReset();
+
 private:
 
 	//シングルトン用

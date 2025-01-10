@@ -253,6 +253,12 @@ void StageManager::NextLevelLoad()
 	nowLevelNum_ = nowLevelNum_ + 1;
 }
 
+void StageManager::NowStageReset()
+{
+	CollisionManager::GetInstance()->AllDelete();
+	LoadStageObjectFile(stageFileName_[nowLevelNum_]);
+}
+
 std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 {
 	std::unique_ptr<Object> addObject;
