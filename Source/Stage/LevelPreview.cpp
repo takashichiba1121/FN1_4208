@@ -68,6 +68,7 @@ void LevelPreView::LoadStageObjectFile(const std::string& fileName)
 	{
 		LoadListStageData(loadData.levelData);
 		waterHorizontal_=loadData.horizontal;
+		levelName_= loadData.LevelName_;
 	}
 	else
 	{
@@ -76,6 +77,7 @@ void LevelPreView::LoadStageObjectFile(const std::string& fileName)
 		{
 			LoadListStageData(loadData.levelData);
 			waterHorizontal_ = loadData.horizontal;
+			loadData.LevelName_ = levelName_;
 		}
 	}
 
@@ -86,15 +88,12 @@ void LevelPreView::LoadListStageData(std::list<LevelData> levelData)
 	//íÜêgè¡ÇµÇƒÇ©ÇÁégÇ§
 	previewData_.clear();
 
-	for (auto& data : levelData)
+	for (auto& level : levelData)
 	{
-		if (data.tag == ObjectType::KEY)
+		if (level.tag == ObjectType::KEY)
 		{
 			lockDoor_ = true;
 		}
-	}
-	for (auto& level : levelData)
-	{
 		AddObject(level.pos, level.scale, level.tag);
 	}
 

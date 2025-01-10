@@ -16,7 +16,7 @@ void GameScene::Update()
 {
 #ifdef _DEBUG
 	test.Update();
-#endif]
+#endif
 
 	Inversion::GetInstance()->Update();
 

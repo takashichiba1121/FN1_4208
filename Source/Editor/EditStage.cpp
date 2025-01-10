@@ -4,6 +4,7 @@
 
 #include "Input.h"
 #include "Water.h"
+#include "CollisionManager.h"
 
 bool ImGui::DragFloat2(const char* label, Vector2& v, float v_speed, float v_min, float v_max, const char* format, ImGuiSliderFlags flags)
 {
@@ -489,6 +490,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName, const std::ve
 
 	//ŠÇ—–¼
 	jsonfile["name"] = "Level";
+	jsonfile["LevelName"] = LevelName_.c_str();
 
 	for (auto &levelData : saveData)
 	{
@@ -524,6 +526,7 @@ void EditStage::SaveLevelFullPathData(const std::string& fileName)
 
 	//ŠÇ—–¼
 	jsonfile["name"] = "Level";
+	jsonfile["LevelName"] = LevelName_.c_str();
 
 	//…–Ê‚Ì‚‚³
 	jsonfile["horizontal"] = horizontal_;
@@ -555,8 +558,8 @@ void EditStage::SaveAndLoadLevelObject()
 
 	if (imguiSaveWindow_)
 	{
-		WindowsSaveFile();
-		imguiSaveWindow_ = false;
+		SaveAndSetLevelName();
+		
 	}
 	if (imguiLoadWindow_)
 	{
@@ -734,7 +737,7 @@ void EditStage::TestStart()
 void EditStage::TestEnd()
 {
 	StageManager::GetInstance()->SetIsUseEditer(true);
-	std::list<Object>::iterator saveObject = testSaveObject_.begin();
+	/*std::list<Object>::iterator saveObject = testSaveObject_.begin();
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
 		object->SetCollision(saveObject->IsCollision());
@@ -743,7 +746,35 @@ void EditStage::TestEnd()
 		object->SetPos(saveObject->GetPos());
 		object->SetSize(saveObject->GetSize());
 		saveObject++;
+	}*/
+
+	StageManager::GetInstance()->stageObjData_.clear();
+	CollisionManager::GetInstance()->AllDelete();
+
+	for (auto& object : testSaveObject_)
+	{
+
+		StageManager::GetInstance()->AddObject(object.GetPos(), object.GetSize(), object.GetObjectType());
 	}
 
 	testSaveObject_.clear();
+}
+
+void EditStage::SaveAndSetLevelName()
+{
+	
+	//ImGui::ShowDemoWindow();
+
+	ImGui::Begin("LevelNameSet");
+
+	ImGui::InputTextWithHint("input text","LevelName", str1, IM_ARRAYSIZE(str1));
+
+	LevelName_ = std::string(str1);
+
+	if (ImGui::Button("ok"))
+	{
+		WindowsSaveFile();
+		imguiSaveWindow_ = false;
+	}
+	ImGui::End();
 }
