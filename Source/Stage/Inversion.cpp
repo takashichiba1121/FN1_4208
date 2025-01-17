@@ -12,26 +12,12 @@ void Inversion::Update() {
 
 	endInversion = false;
 
-	//キー操作で反転
-	if (!Water::GetInstance()->GetIsChangeHorizontal() && !StageManager::GetInstance()->GetIsClear()) {
-
-		if (!Input::GetIsUsePad())
-		{
-			if (Input::GetKeyTrigger(Input::Key::Q)) {
-				isInversion = true;
-			}
-		}
-		else
-		{
-			//パットだとXボタン
-			if (Input::TriggerPadKey(PAD_INPUT_3))
-			{
-				isInversion = true;
-			}
-		}
-
-		
-	}
+	////キー操作で反転
+	//if (!Water::GetInstance()->GetIsChangeHorizontal() && !StageManager::GetInstance()->GetIsClear()) {
+	//	if (Input::GetKeyTrigger(Input::Key::Q)) {
+	//		isInversion = true;
+	//	}
+	//}
 
 	//反転中の処理
 	if (isInversion) {
