@@ -2,6 +2,7 @@
 #include "Object.h"
 #include "BubbleEmitter.h"
 #include "SplashEmitter.h"
+#include "SoundPlayManager.h"
 #include "dxlib.h"
 #include <memory>
 #include <list>
@@ -71,5 +72,5 @@ private:
 	bool isClear = false;
 
 	Direction direction = Direction::RIGHT;
-
+	SoundPlayManager *soundPlayManager;
 };

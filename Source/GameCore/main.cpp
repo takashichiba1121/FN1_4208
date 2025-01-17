@@ -9,7 +9,7 @@
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
 #include"TextureManager.h"
-#include"SoundManager.h"
+#include"SoundPlayManager.h"
 
 extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -65,7 +65,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 
 	SceneManager::GetInstance()->ChangeScene("TITLE");
 
-
+	SoundPlayManager::Instance()->LoadAllSound();
 
 	// ゲームループ
 	while (true) {
@@ -102,7 +102,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	}
 	SceneManager::GetInstance()->Finalize();
 
-	SoundManager::Instance()->Finalize();
+	SoundPlayManager::Instance()->Finalize();
 
 	TextureManager::Instance()->Finalize();
 	// Dxライブラリ終了処理

@@ -228,7 +228,7 @@
     <ClCompile Include="Source\Scene\NoneSceneChange.cpp">
       <Filter>ソース ファイル\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Scene\ClearManager.cpp">
+    <ClCompile Include="Source\GameCore\SoundPlayManager.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -407,7 +407,7 @@
     <ClInclude Include="Include\Scene\NoneSceneChange.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Scene\ClearManager.h">
+    <ClInclude Include="Include\GameCore\SoundPlayManager.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

@@ -16,13 +16,13 @@ Player::~Player() {
 
 void Player::Initialize() {
 
+	soundPlayManager = SoundPlayManager::Instance();
 	font = "Resources\\Texture\\Ronde-B_square.otf";
 	AddFontResourceEx(font, FR_PRIVATE, NULL);
 	ChangeFont("ロンド B スクエア", DX_CHARSET_DEFAULT);
 	SetFontSize(50);
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
 
-	
 	size_ = baseSize;
 
 	//パーティクル初期化
@@ -159,6 +159,7 @@ void Player::Update() {
 		gravity = 0;
 	}
 
+
 #ifdef _DEBUG
 	ImGui::Begin("Player");
 
@@ -208,6 +209,13 @@ void Player::Jump() {
 
 		//ジャンプの初速(水中時は半減)
 		gravity = initJumpVelocity / (isUnderWater + 1);
+
+		if (isUnderWater) {
+			soundPlayManager->SoundPlay(soundPlayManager->Swim(),100);
+		}
+		else {
+			soundPlayManager->SoundPlay(soundPlayManager->Jump(),100);
+		}
 
 	}
 }
