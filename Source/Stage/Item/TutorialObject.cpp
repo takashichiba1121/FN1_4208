@@ -4,6 +4,7 @@
 #include"Collision.h"
 #include"imgui.h"
 #include"TextureManager.h"
+#include"Input.h"
 
 void TutorialObject::Initialize()
 {
@@ -39,28 +40,57 @@ void TutorialObject::Draw()
 		(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0.0, textureHandle_, true);
 	if (onCol_)
 	{
-		if (onColwWindow_)
+		if (Input::GetIsUsePad)
 		{
-			SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
-			//DrawBox(
-			//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-			//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
-			//	GetColor(255, 255, 0), TRUE);
+			if (onColwWindow_)
+			{
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+				//DrawBox(
+				//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+				//	GetColor(255, 255, 0), TRUE);
 
-			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				tutorialKeyHandle_, true);
-			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+				DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+					tutorialPadHandle_, true);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			}
+			else
+			{
+
+				//DrawBox(
+				//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+				//	GetColor(255, 255, 0), TRUE);
+
+				DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+					tutorialPadHandle_, true);
+			}
 		}
 		else
 		{
+			if (onColwWindow_)
+			{
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 128);
+				//DrawBox(
+				//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+				//	GetColor(255, 255, 0), TRUE);
 
-			//DrawBox(
-			//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-			//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
-			//	GetColor(255, 255, 0), TRUE);
+				DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+					tutorialKeyHandle_, true);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			}
+			else
+			{
 
-			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				tutorialKeyHandle_, true);
+				//DrawBox(
+				//	(int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+				//	(int)(tutorialPos_.x + tutorialSize_.x / 2.0f), (int)(tutorialPos_.y + tutorialSize_.y / 2.0f),
+				//	GetColor(255, 255, 0), TRUE);
+
+				DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
+					tutorialKeyHandle_, true);
+			}
 		}
 	}
 }
