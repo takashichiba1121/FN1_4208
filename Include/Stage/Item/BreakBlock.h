@@ -35,6 +35,8 @@ public:
 
 	void OnCollision(Object* object)override;
 
+	void Inversion(const float easing)override;
+
 	/// <summary>
 	/// ƒuƒƒbƒN‚ÌHP‚Ìæ“¾
 	/// </summary>

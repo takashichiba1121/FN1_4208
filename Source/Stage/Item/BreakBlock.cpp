@@ -129,3 +129,8 @@ void BreakBlock::OnCollision(Object* object)
 		Damage();
 	}
 }
+
+void BreakBlock::Inversion(const float easing) {
+	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
+	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
+}
