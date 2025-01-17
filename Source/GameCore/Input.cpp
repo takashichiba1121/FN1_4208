@@ -28,6 +28,12 @@ void Input::Update()
 	instance_->mousePos_ = { (float)x,(float)y };
 
 	instance_->mouseWheel_=GetMouseWheelRotVolF();
+
+	instance_->oldPadkey = instance_->PadKey;
+
+	instance_->PadKey = GetJoypadInputState(DX_INPUT_PAD1);
+
+	GetJoypadAnalogInput(&instance_->padX, &instance_->padY, DX_INPUT_PAD1);
 }
 
 bool Input::GetKey(const Key& key)
@@ -69,3 +75,47 @@ float Input::GetMouseWheel()
 {
 	return instance_->mouseWheel_;
 }
+
+bool Input::PushPadKey(uint16_t keyNumber)
+{
+	//指定キーを押していればtrueを返す
+	if (PadKey & keyNumber)
+	{
+		return true;
+	}
+	//そうでなければfalse返す
+	return false;
+}
+
+bool Input::TriggerPadKey(uint16_t keyNumber)
+{
+	//指定キーを押していればtrueを返す
+	if (PadKey & keyNumber && !(oldPadkey & keyNumber))
+	{
+		return true;
+	}
+	//そうでなければfalse返す
+	return false;
+}
+
+bool Input::ReleasePadKey(uint16_t keyNumber)
+{
+	//指定キーを押していればtrueを返す
+	if (!(PadKey & keyNumber) && oldPadkey & keyNumber)
+	{
+		return true;
+	}
+	//そうでなければfalse返す
+	return false;
+}
+
+uint32_t Input::PadX()
+{
+	return padX;
+}
+
+uint32_t Input::PadY()
+{
+	return padY;
+}
+
