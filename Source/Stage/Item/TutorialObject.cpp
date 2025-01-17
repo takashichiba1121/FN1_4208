@@ -12,12 +12,14 @@ void TutorialObject::Initialize()
 	objectType_ = ObjectType::TUTORIAL;
 	CollisionManager::GetInstance()->AddObject(this);
 
-	tutorialHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\"+ tutorialTexture_ +".png");
+	tutorialKeyHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\"+ tutorialKeyTexture_ +".png");
+
+	tutorialPadHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\" + tutorialPadTexture_ + ".png");
 
 	// ‰æ‘œ“Ç‚Ýž‚Ý
 	textureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Tutorial.png");
 
-	GetGraphSizeF(tutorialHandle_,&tutorialSize_.x,&tutorialSize_.y);
+	GetGraphSizeF(tutorialKeyHandle_,&tutorialSize_.x,&tutorialSize_.y);
 }
 
 void TutorialObject::Update()
@@ -46,7 +48,7 @@ void TutorialObject::Draw()
 			//	GetColor(255, 255, 0), TRUE);
 
 			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				tutorialHandle_, true);
+				tutorialKeyHandle_, true);
 			SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 		}
 		else
@@ -58,7 +60,7 @@ void TutorialObject::Draw()
 			//	GetColor(255, 255, 0), TRUE);
 
 			DrawGraph((int)(tutorialPos_.x - tutorialSize_.x / 2.0f), (int)(tutorialPos_.y - tutorialSize_.y / 2.0f),
-				tutorialHandle_, true);
+				tutorialKeyHandle_, true);
 		}
 	}
 }
@@ -80,21 +82,34 @@ void TutorialObject::OnCollision(Object* object)
 
 void TutorialObject::SetJson(nlohmann::json& Level)
 {
-	Level["tutorialTexture"] = tutorialTexture_;
+	Level["tutorialKeyTexture"] = tutorialKeyTexture_;
+
+	Level["tutorialPadTexture"] = tutorialPadTexture_;
 }
 
 void TutorialObject::GetJson(nlohmann::json& Level)
 {
-	tutorialTexture_ = Level["tutorialTexture"].get<std::string>();
+	tutorialKeyTexture_ = Level["tutorialKeyTexture"].get<std::string>();
+
+	tutorialPadTexture_ = Level["tutorialPadTexture"].get<std::string>();
 }
 
 void TutorialObject::ImGuiEdit()
 {
-	char buf[255]{};
+	char keyBuf[255]{};
 
-	strncpy_s(buf, tutorialTexture_.c_str(), sizeof(buf) - 1);
+	strncpy_s(keyBuf, tutorialKeyTexture_.c_str(), sizeof(keyBuf) - 1);
 
-	ImGui::InputText("TextureName", buf, sizeof(buf));
+	ImGui::InputText("TextureName", keyBuf, sizeof(keyBuf));
 
-	tutorialTexture_ = buf;
+	tutorialKeyTexture_ = keyBuf;
+
+	char padBuf[255]{};
+
+	strncpy_s(padBuf, tutorialKeyTexture_.c_str(), sizeof(padBuf) - 1);
+
+	ImGui::InputText("TextureName", padBuf, sizeof(padBuf));
+
+	tutorialKeyTexture_ = padBuf;
+
 }

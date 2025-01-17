@@ -118,7 +118,8 @@
         {
             "object": {
                 "IndividualSettings": {
-                    "tutorialTexture": "WASD"
+                    "tutorialKeyTexture": "WASD",
+                    "tutorialPadTexture": "WASD"
                 },
                 "pos": [
                     164.0,
