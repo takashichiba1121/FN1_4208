@@ -22,6 +22,8 @@ public:
 	/// </summary>
 	void Draw()override;
 
+	void OnCollision(Object* objct)override;
+
 	/// <summary>
 	/// ˆÚ“®
 	/// </summary>
@@ -48,6 +50,8 @@ private:
 	bool isEasing_ = false;
 	float waterSurface_ = 0.0f;
 	float gravity_ = 0.0f;
+	bool onGround_ = false;
+	bool onLevitation_ = false;
 	
 	uint32_t textureHandle_;
 };
