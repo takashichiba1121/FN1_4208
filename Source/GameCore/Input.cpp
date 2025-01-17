@@ -34,6 +34,17 @@ void Input::Update()
 	instance_->PadKey = GetJoypadInputState(DX_INPUT_PAD1);
 
 	GetJoypadAnalogInput(&instance_->padX, &instance_->padY, DX_INPUT_PAD1);
+
+	if (CheckHitKeyAll(DX_CHECKINPUT_PAD))
+	{
+		instance_->isUsePad_ = true;
+	}
+	else if (CheckHitKeyAll(DX_CHECKINPUT_KEY) || CheckHitKeyAll(DX_CHECKINPUT_MOUSE))
+	{
+		instance_->isUsePad_ = false;
+	}
+
+	
 }
 
 bool Input::GetKey(const Key& key)
@@ -79,7 +90,7 @@ float Input::GetMouseWheel()
 bool Input::PushPadKey(uint16_t keyNumber)
 {
 	//指定キーを押していればtrueを返す
-	if (PadKey & keyNumber)
+	if (instance_->PadKey & keyNumber)
 	{
 		return true;
 	}
@@ -90,7 +101,7 @@ bool Input::PushPadKey(uint16_t keyNumber)
 bool Input::TriggerPadKey(uint16_t keyNumber)
 {
 	//指定キーを押していればtrueを返す
-	if (PadKey & keyNumber && !(oldPadkey & keyNumber))
+	if (instance_->PadKey & keyNumber && !(instance_->oldPadkey & keyNumber))
 	{
 		return true;
 	}
@@ -101,7 +112,7 @@ bool Input::TriggerPadKey(uint16_t keyNumber)
 bool Input::ReleasePadKey(uint16_t keyNumber)
 {
 	//指定キーを押していればtrueを返す
-	if (!(PadKey & keyNumber) && oldPadkey & keyNumber)
+	if (!(instance_->PadKey & keyNumber) && instance_->oldPadkey & keyNumber)
 	{
 		return true;
 	}
@@ -111,11 +122,15 @@ bool Input::ReleasePadKey(uint16_t keyNumber)
 
 uint32_t Input::PadX()
 {
-	return padX;
+	return instance_->padX;
 }
 
 uint32_t Input::PadY()
 {
-	return padY;
+	return instance_->padY;
 }
 
+bool Input::GetIsUsePad()
+{
+	return instance_->isUsePad_;
+}
