@@ -746,6 +746,7 @@ void EditStage::TestStart()
 {
 	StageManager::GetInstance()->SetIsUseEditer(false);
 	
+	startHorizontal_ = horizontal_;
 
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
@@ -782,6 +783,8 @@ void EditStage::TestEnd()
 		addObj->Initialize();
 		StageManager::GetInstance()->stageObjData_.push_back(std::move(addObj));
 	}
+
+	Water::GetInstance()->SetTentHorizontal(startHorizontal_);
 
 	testSaveObject_.clear();
 }

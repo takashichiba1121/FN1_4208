@@ -121,6 +121,8 @@ private:
 	//…•½ü‚ÌˆÊ’u
 	float horizontal_ = 160.0f;
 
+	float startHorizontal_ = 0.0f;
+
 	std::vector<std::unique_ptr<EditorTicket>> undoTickets_;
 	std::vector<std::unique_ptr<EditorTicket>> redoTickets_;
 
