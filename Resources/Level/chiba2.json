@@ -1,0 +1,110 @@
+{
+    "LevelName": "chiba2",
+    "horizontal": 700.0,
+    "name": "Level",
+    "objects": [
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1000.0,
+                    200.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 5
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    138.0,
+                    400.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 7
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": {
+                    "Expansion": [
+                        3.0,
+                        3.0
+                    ]
+                },
+                "pos": [
+                    1000.0,
+                    500.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 1
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    100.0,
+                    686.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 0
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    906.0,
+                    194.0
+                ],
+                "scale": [
+                    64.0,
+                    128.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1000.0,
+                    98.0
+                ],
+                "scale": [
+                    256.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1096.0,
+                    194.0
+                ],
+                "scale": [
+                    64.0,
+                    128.0
+                ],
+                "tag": 3
+            }
+        }
+    ]
+}

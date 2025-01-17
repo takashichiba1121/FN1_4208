@@ -17,6 +17,14 @@ private:
 
 	float mouseWheel_ = 0;
 
+	int PadKey = 0;
+
+	int oldPadkey = 0;
+
+	int padX = 0;
+
+	int padY = 0;
+
 private:
 	Input() {}
 	Input(const Input&) {}
@@ -41,6 +49,25 @@ public:
 	static Vector2 GetMousePos();
 
 	static float GetMouseWheel();
+
+	/// <summary>
+/// キーを押しているか
+/// </summary>
+	bool PushPadKey(uint16_t keyNumber);
+
+	/// <summary>
+	/// キーを押した瞬間
+	/// </summary>
+	bool TriggerPadKey(uint16_t keyNumber);
+
+	/// <summary>
+	/// キーを離した瞬間
+	/// </summary>
+	bool ReleasePadKey(uint16_t keyNumber);
+
+	uint32_t PadX();
+
+	uint32_t PadY();
 
 	enum class Key
 	{

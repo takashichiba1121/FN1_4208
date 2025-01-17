@@ -8,7 +8,7 @@
 
 void StageSelectScene::Initialize()
 {
-	StageManager::GetInstance()->Initialize();
+	
 
 	previews_.resize(StageManager::GetInstance()->GetStageFileNameNum());
 
