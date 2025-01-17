@@ -3,6 +3,7 @@
 #include "Input.h"
 #include "Water.h"
 #include "TextureManager.h"
+#include"Inversion.h"
 #include "Window.h"
 #include <cmath>
 #include <DxLib.h>
@@ -25,8 +26,10 @@ void LevitationBlock::Update()
 	ObjectUpdate();
 
 	waterSurface_ = Water::GetInstance()->GetHorizontal();
-
-	Move();
+	if (!Inversion::GetInstance()->GetIsInversion())
+	{
+		Move();
+	}
 }
 
 void LevitationBlock::Draw()
@@ -37,14 +40,24 @@ void LevitationBlock::Draw()
 		(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0.0, textureHandle_, true);
 }
 
+void LevitationBlock::OnCollision(Object* objct)
+{
+	if (pos_.y < waterSurface_) {
+		onGround_ = true;
+	}
+	if (pos_.y > waterSurface_) {
+		onLevitation_ = true;
+	}
+}
+
 void LevitationBlock::Move()
 {
 	// ブロックが水に浮く処理・重力
 	const float distance_ = gravity_;
 
 	if (pos_.y < waterSurface_) {
-		
-		if (pos_.y <= WIN_HEIGHT - size_.y / 2) {
+
+		if (pos_.y <= WIN_HEIGHT - size_.y / 2&&onGround_==false) {
 			pos_.y += gravity_;
 		}
 
@@ -54,7 +67,7 @@ void LevitationBlock::Move()
 
 	}else if(pos_.y > waterSurface_){
 
-		if (pos_.y >= WIN_HEIGHT - WIN_HEIGHT + size_.y / 2) {
+		if (pos_.y >=  size_.y / 2&&onLevitation_==false) {
 			pos_.y -= gravity_;
 		}
 
@@ -81,6 +94,8 @@ void LevitationBlock::Move()
 void LevitationBlock::Inversion(const float easing) {
 	pos_.y = easeSPos_ + easing * (easeEPos_ - easeSPos_);
 	size_.y = tentSize_ * abs(easing - 0.5f) * 2;
+	onGround_ = false;
+	onLevitation_ = true;
 }
 
 float LevitationBlock::EaseInOutBackP(float t, float b, float c, float d)
