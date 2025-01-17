@@ -185,6 +185,7 @@ void Player::Operation() {
 	if (!Water::GetInstance()->GetIsChangeHorizontal() && !StageManager::GetInstance()->GetIsClear()) {
 		if (Input::GetKeyTrigger(Input::Key::Q)) {
 			Inversion::GetInstance()->SetIsInversion();
+			soundPlayManager->SoundPlay(soundPlayManager->Inversion(),100);
 		}
 	}
 

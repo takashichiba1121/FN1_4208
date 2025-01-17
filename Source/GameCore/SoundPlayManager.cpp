@@ -11,6 +11,7 @@ SoundPlayManager* SoundPlayManager::Instance()
 void SoundPlayManager::LoadAllSound() {
 	jump = SoundManager::Instance()->LoadSound("Resources\\Sound\\jump.wav");
 	swim = SoundManager::Instance()->LoadSound("Resources\\Sound\\swim.wav");
+	inversion = SoundManager::Instance()->LoadSound("Resources\\Sound\\inversion.wav");
 }
 
 void SoundPlayManager::SoundPlay(int sound, int volume) {

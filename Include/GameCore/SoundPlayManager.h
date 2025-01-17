@@ -28,8 +28,10 @@ public:
 	
 	const int Jump() { return jump; }
 	const int Swim() { return swim; }
+	const int Inversion() { return inversion; }
 
 private:
 	int jump;
 	int swim;
+	int inversion;
 };
