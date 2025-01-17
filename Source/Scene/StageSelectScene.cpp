@@ -32,43 +32,94 @@ void StageSelectScene::Update()
 {
 	if (!isNext_)
 	{
-		if (Input::GetKeyTrigger(Input::Key::A) || Input::GetKeyTrigger(Input::Key::Left))
+		if (!Input::GetIsUsePad())
 		{
-			if (selectStageNum_ > -1)
+			if (Input::GetKeyTrigger(Input::Key::A) || Input::GetKeyTrigger(Input::Key::Left))
 			{
-				selectStageNum_--;
-			}
-		}
-		else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
-		{
-			if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
-			{
-				selectStageNum_++;
-			}
-		}
-		else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
-		{
-			if (selectStageNum_ == -1)
-			{
-				SceneManager::GetInstance()->ChangeScene("TITLE");
-			}
-
-
-			isNext_ = true;
-
-			int32_t itemCount = 0;
-			for (auto& item : previews_)
-			{
-				if (selectStageNum_ != itemCount)
+				if (selectStageNum_ > -1)
 				{
-					itemCount++;
-					continue;
+					selectStageNum_--;
+				}
+			}
+			else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
+			{
+				if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
+				{
+					selectStageNum_++;
+				}
+			}
+			else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
+			{
+				if (selectStageNum_ == -1)
+				{
+					SceneManager::GetInstance()->ChangeScene("TITLE");
 				}
 
-				nextPreview_ = item;
-				break;
+
+				isNext_ = true;
+
+				int32_t itemCount = 0;
+				for (auto& item : previews_)
+				{
+					if (selectStageNum_ != itemCount)
+					{
+						itemCount++;
+						continue;
+					}
+
+					nextPreview_ = item;
+					break;
+				}
+
 			}
-			
+		}
+		else
+		{
+			if (Input::PadX() < -200)
+			{
+				if (selectStageNum_ > -1 && padMoveWait_==0)
+				{
+					selectStageNum_--;
+					padMoveWait_ = padMoveMaxWait_;
+				}
+			}
+			else if (Input::PadX() > 200 && padMoveWait_ == 0)
+			{
+				if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
+				{
+					selectStageNum_++;
+					padMoveWait_ = padMoveMaxWait_;
+				}
+			}
+			else if (Input::TriggerPadKey(PAD_INPUT_1))
+			{
+				if (selectStageNum_ == -1)
+				{
+					SceneManager::GetInstance()->ChangeScene("TITLE");
+				}
+
+
+				isNext_ = true;
+
+				int32_t itemCount = 0;
+				for (auto& item : previews_)
+				{
+					if (selectStageNum_ != itemCount)
+					{
+						itemCount++;
+						continue;
+					}
+
+					nextPreview_ = item;
+					break;
+				}
+
+			}
+
+			if (padMoveWait_ > 0)
+			{
+				padMoveWait_--;
+			}
 		}
 	}
 	else

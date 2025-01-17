@@ -183,32 +183,70 @@ void Player::Operation() {
 
 //横移動
 void Player::Move() {
-	if (Input::GetKey(Input::Key::A) && pos_.x - size_.x / 2 > 0) {
-		pos_.x -= speed;
-		direction = Direction::LEFT;
+	if (!Input::GetIsUsePad())
+	{
+		if (Input::GetKey(Input::Key::A) && pos_.x - size_.x / 2 > 0) {
+			pos_.x -= speed;
+			direction = Direction::LEFT;
+		}
+		
+		if (Input::GetKey(Input::Key::D) && pos_.x + size_.x / 2 < 1280) {
+			pos_.x += speed;
+			direction = Direction::RIGHT;
+		}
+		
 	}
-	if (Input::GetKey(Input::Key::D) && pos_.x + size_.x / 2 < 1280) {
-		pos_.x += speed;
-		direction = Direction::RIGHT;
+	else
+	{
+		if (Input::PadX() < 0 && pos_.x - size_.x / 2 > 0) {
+			pos_.x -= speed;
+			direction = Direction::LEFT;
+		}
+		if (Input::PadX() > 0 && pos_.x + size_.x / 2 < 1280) {
+			pos_.x += speed;
+			direction = Direction::RIGHT;
+		}
 	}
+	
 }
 
 //ジャンプ
 void Player::Jump() {
-	if (Input::GetKeyTrigger(Input::Key::Space) && canJump) {
+	if (!Input::GetIsUsePad())
+	{
+		if (Input::GetKeyTrigger(Input::Key::Space) && canJump) {
 
-		//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
-		if (canCrawlUp) {
-			isUnderWater = false;
-			initJumpVelocity = -MaxGravity / 1.25f;
+			//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
+			if (canCrawlUp) {
+				isUnderWater = false;
+				initJumpVelocity = -MaxGravity / 1.25f;
+			}
+			else {
+				initJumpVelocity = -MaxGravity;
+			}
+
+			//ジャンプの初速(水中時は半減)
+			gravity = initJumpVelocity / (isUnderWater + 1);
+
 		}
-		else {
-			initJumpVelocity = -MaxGravity;
+	}
+	else
+	{
+		if (Input::TriggerPadKey(PAD_INPUT_1) && canJump) {
+
+			//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
+			if (canCrawlUp) {
+				isUnderWater = false;
+				initJumpVelocity = -MaxGravity / 1.25f;
+			}
+			else {
+				initJumpVelocity = -MaxGravity;
+			}
+
+			//ジャンプの初速(水中時は半減)
+			gravity = initJumpVelocity / (isUnderWater + 1);
+
 		}
-
-		//ジャンプの初速(水中時は半減)
-		gravity = initJumpVelocity / (isUnderWater + 1);
-
 	}
 }
 
@@ -263,8 +301,18 @@ void Player::OnCollision(Object* objct) {
 	}
 
 	if (objct->GetObjectType() == ObjectType::DRAIN) {
-		if (Input::GetKeyTrigger(Input::Key::W) && !Water::GetInstance()->GetIsChangeHorizontal()) {
-			Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
+		if (!Input::GetIsUsePad())
+		{
+			if (Input::GetKeyTrigger(Input::Key::W) && !Water::GetInstance()->GetIsChangeHorizontal()) {
+				Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
+			}
+		}
+		else
+		{
+			//パットではBボタン
+			if (Input::TriggerPadKey(PAD_INPUT_2) && !Water::GetInstance()->GetIsChangeHorizontal()) {
+				Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
+			}
 		}
 	}
 

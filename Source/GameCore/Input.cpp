@@ -120,12 +120,12 @@ bool Input::ReleasePadKey(uint16_t keyNumber)
 	return false;
 }
 
-uint32_t Input::PadX()
+int32_t Input::PadX()
 {
 	return instance_->padX;
 }
 
-uint32_t Input::PadY()
+int32_t Input::PadY()
 {
 	return instance_->padY;
 }

@@ -17,7 +17,7 @@ void TitleScene::Initialize()
 
 void TitleScene::Update()
 {
-	if (Input::GetKeyTrigger(Input::Key::Space)) {
+	if (Input::GetKeyTrigger(Input::Key::Space) || Input::TriggerPadKey(PAD_INPUT_1)) {
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 	}
 
