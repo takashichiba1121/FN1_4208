@@ -35,6 +35,8 @@ public:
 
 	void ObjectOnCollision(Object* object);
 
+	virtual std::unique_ptr<Object> Clone() { return nullptr; };
+
 	void SetCollision(bool isCollision) {
 		isCollision_ = isCollision;
 	}

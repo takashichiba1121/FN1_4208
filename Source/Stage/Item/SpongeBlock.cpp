@@ -8,7 +8,6 @@
 
 void SpongeBlock::Initialize()
 {
-	pos_ = { 640,300 };
 
 	size_=initializeSize_;
 

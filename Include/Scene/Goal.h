@@ -39,9 +39,10 @@ public:
 
 	bool GetisLock() { return isLock = true; }
 	bool GetisUnLock() { return isLock =false; }
+
+	std::unique_ptr<Object> Clone()override { return std::make_unique<Goal>(*this); };
 	
 private:
-	std::unique_ptr<ConfettiEmiitter> confettiEmitter;
 	bool isUnderWater = false;
 	bool isClear = false;
 	float speed = 1.0f;

@@ -9,16 +9,15 @@
 
 void Goal::Initialize()
 {
-	pos_ = { 1000.0f,200.0f };
-	size_ = { 64.0f,64.0f };
+	
 	objectType_ = ObjectType::GOAL;
 	isExclude_ = false;
 	CollisionManager::GetInstance()->AddObject(this);
 
 	//パーティクル初期化
 	//パーティクル初期化
-	confettiEmitter = std::make_unique<ConfettiEmiitter>();
-	confettiEmitter->Initialize(5);
+	//confettiEmitter = std::make_unique<ConfettiEmiitter>();
+	//confettiEmitter->Initialize(5);
 
 	//画像読み込み
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor.png");

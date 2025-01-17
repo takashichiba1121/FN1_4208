@@ -34,6 +34,8 @@ public:
 
 	void Inversion(const float easing)override;
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<SpongeBlock>(*this); };
+
 private:
 
 	Vector2 expansion_ = { 3,3 };

@@ -8,7 +8,7 @@
 void Drain::Initialize() {
 	objectType_ = ObjectType::DRAIN;
 	isExclude_ = false;
-	size_ = { 64,64 };
+	
 	drainTexture = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Drain.png");
 	guideTexture = TextureManager::Instance()->LoadTexture("Resources\\Texture\\GuideW.png");
 	CollisionManager::GetInstance()->AddObject(this);

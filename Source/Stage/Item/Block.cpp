@@ -6,9 +6,6 @@
 
 void Block::Initialize()
 {
-	// ‰Šú’l
-	pos_ = { 640.0f,688.0f };
-	size_ = { 64.0f,64.0f };
 
 	// “–‚½‚è”»’è
 	objectType_ = ObjectType::NOT_FLOAT_BLOCK;
