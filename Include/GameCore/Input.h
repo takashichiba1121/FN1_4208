@@ -25,6 +25,8 @@ private:
 
 	int padY = 0;
 
+	bool isUsePad_ = false;
+
 private:
 	Input() {}
 	Input(const Input&) {}
@@ -51,23 +53,25 @@ public:
 	static float GetMouseWheel();
 
 	/// <summary>
-/// キーを押しているか
-/// </summary>
-	bool PushPadKey(uint16_t keyNumber);
+	/// キーを押しているか
+	/// </summary>
+	static bool PushPadKey(uint16_t keyNumber);
 
 	/// <summary>
 	/// キーを押した瞬間
 	/// </summary>
-	bool TriggerPadKey(uint16_t keyNumber);
+	static bool TriggerPadKey(uint16_t keyNumber);
 
 	/// <summary>
 	/// キーを離した瞬間
 	/// </summary>
-	bool ReleasePadKey(uint16_t keyNumber);
+	static bool ReleasePadKey(uint16_t keyNumber);
 
-	uint32_t PadX();
+	static uint32_t PadX();
 
-	uint32_t PadY();
+	static uint32_t PadY();
+
+	static bool GetIsUsePad();
 
 	enum class Key
 	{
