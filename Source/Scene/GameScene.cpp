@@ -33,16 +33,19 @@ void GameScene::Update()
 
 		CollisionManager::GetInstance()->Update();
 
-		if (Input::GetKeyTrigger(Input::Key::R))
+		//パットはYボタン
+		if (Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4))
 		{
 			StageManager::GetInstance()->NowStageReset();
 		}
 
-		if (Input::GetKeyTrigger(Input::Key::T))
+		//パットはStartだかoptionボタン
+		if (Input::GetKeyTrigger(Input::Key::T)|| Input::TriggerPadKey(PAD_INPUT_8))
 		{
 			isPause = true;
 			pause->StartGetPause();
 		}
+
 	}
 	else
 	{

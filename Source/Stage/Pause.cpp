@@ -35,7 +35,8 @@ void Pause::Update()
 			SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 		}
 
-		if (Input::GetKeyTrigger(Input::Key::T))
+		//パットはStartだかoptionボタン
+		if (Input::GetKeyTrigger(Input::Key::T) || Input::TriggerPadKey(PAD_INPUT_8))
 		{
 			phase_ = Phase::After;
 		}
