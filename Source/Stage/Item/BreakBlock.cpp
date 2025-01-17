@@ -28,8 +28,16 @@ void BreakBlock::Initialize()
 void BreakBlock::Update()
 {
 	ObjectUpdate();
+	
+	switch(blockHp_)
+	{
+	case BLOCK_BROKEN:
 
-	if (blockHp_ == BLOCK_HP_LOW) {
+		isCollision_ = false;
+
+		break;
+
+	case BLOCK_HP_LOW:
 
 		ShakeActive();
 
@@ -45,6 +53,12 @@ void BreakBlock::Update()
 			isCollision_ = false;
 			animationFrame = 0;
 		}
+
+		break;
+
+	case BLOCK_HP_MAX:
+		
+		break;
 	}
 }
 
@@ -55,37 +69,27 @@ void BreakBlock::Draw()
 	{
 	case BLOCK_BROKEN:
 
-		isCollision_ = false;
-
 		break;
 		
 	case BLOCK_HP_LOW:
 
-		// HpLowブロックの描画
-		/*DrawRotaGraph3F(
-			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
-			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, hpLowTextureHandle_, true);*/
-
 		// アニメーションブロック描画
 		DrawGraph(
-			((pos_.x - size_.x / 2) - (size_.x / 64)), 
-			((pos_.y - size_.y / 2) - (size_.y / 64)), 
+			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)), 
+			(int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)), 
 			animationImage[animationFrame], true);
 
 		break;
 
 	case BLOCK_HP_MAX:
 
-		// HpMaxブロックの描画
-		DrawRotaGraph3F(
-			pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f, 
-			(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0, hpMaxTextureHandle_, true);
+		DrawGraph(
+			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)),
+			(int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)),
+			animationImage[animationFrame], true);
 		
 		break;
 	}
-
-	//DrawFormatString(pos_.x - size_.x - 30, pos_.y - size_.y, GetColor(255, 255, 255), "%d", animationFrame);
-	//DrawFormatString(pos_.x - size_.x - 30, pos_.y - size_.y + 40, GetColor(255, 255, 255), "%d", animationFrameAdjust);
 }
 
 void BreakBlock::Shake()
