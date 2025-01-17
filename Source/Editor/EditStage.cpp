@@ -367,7 +367,7 @@ void EditStage::MouseEditObject()
 		int32_t objectCount = 0;
 		for (auto objectI = StageManager::GetInstance()->stageObjData_.begin(); objectI != StageManager::GetInstance()->stageObjData_.end(); objectI++)
 		{
-			if (AABB(Input::GetMousePos(), objectI->get()))
+			if (AABB(Input::GetMousePos(), objectI->get()) && !ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
 			{
 				if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT))
 				{
@@ -419,7 +419,7 @@ void EditStage::MouseEditObject()
 			mouseMoveObject_->SetPos(oldObjPos_);
 			isMouseObject_ = false;
 		}
-		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet)
+		else if (Input::GetMouseKeyTrigger(Input::MouseKey::LEFT) && isSet && !ImGui::IsWindowFocused(ImGuiFocusedFlags_AnyWindow))
 		{
 			EditContent::TicketData data;
 			data.setData(mouseMoveObject_->Clone(), mouseMoveObject_->GetPos(), mouseMoveObject_->GetSize());
@@ -579,6 +579,10 @@ void EditStage::SaveAndLoadLevelObject()
 		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFile();
 		if (loadData.isLoad)
 		{
+			//ŽŸ‚Éˆø‚«Œp‚ª‚È‚¢ƒf[ƒ^‚ðÁ‚µ‚Ä‚¨‚­
+			mouseMoveObject_ = nullptr;
+			undoTickets_.clear();
+			redoTickets_.clear();
 			StageManager::GetInstance()->LoadListStageData(loadData.levelData);
 			horizontal_ = loadData.horizontal;
 			Water::GetInstance()->SetHorizontal(loadData.horizontal);
@@ -742,6 +746,7 @@ void EditStage::TestStart()
 {
 	StageManager::GetInstance()->SetIsUseEditer(false);
 	
+	startHorizontal_ = horizontal_;
 
 	for (auto& object : StageManager::GetInstance()->stageObjData_)
 	{
@@ -778,6 +783,8 @@ void EditStage::TestEnd()
 		addObj->Initialize();
 		StageManager::GetInstance()->stageObjData_.push_back(std::move(addObj));
 	}
+
+	Water::GetInstance()->SetTentHorizontal(startHorizontal_);
 
 	testSaveObject_.clear();
 }

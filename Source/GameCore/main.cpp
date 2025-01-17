@@ -63,7 +63,7 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SceneManager::GetInstance()->SetSceneFactory(SceneFactrory::GetInstance());
 	SceneManager::GetInstance()->SetSceneChangeFactory(SceneChangeFactory::GetInstance());
 
-	SceneManager::GetInstance()->ChangeScene("TITLE");
+	SceneManager::GetInstance()->ChangeScene("GAME");
 
 	SoundPlayManager::Instance()->LoadAllSound();
 
