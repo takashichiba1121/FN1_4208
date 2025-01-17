@@ -49,7 +49,11 @@ void Player::Update() {
 		isExclude_ = true;
 		isFront = false;
 
-		if (!StageManager::GetInstance()->GetIsClear()) {
+		if (pos_.y + size_.y / 2 > WIN_HEIGHT) {
+			isBurial = true;
+		}
+
+		if (!StageManager::GetInstance()->GetIsClear() && !isBurial) {
 
 			if (frame <= 0) {
 				//操作可能
@@ -90,8 +94,8 @@ void Player::Update() {
 	if (gravity <= 0 && pos_.y <= horizontal && isUnderWater) {
 		canCrawlUp = true;
 
-		if (!Inversion::GetInstance()->GetIsInversion()) {
-			pos_.y = horizontal;
+		if (!Inversion::GetInstance()->GetIsInversion() && !StageManager::GetInstance()->GetIsClear()) {
+ 			pos_.y = horizontal;
 		}
 	}
 	else {
@@ -153,12 +157,13 @@ void Player::Update() {
 		canJump = true;
 		gravity = 0;
 	}
-	
+
 	if (pos_.y < 0 + size_.y / 2) {
 		pos_.y = size_.y / 2;
 		gravity = 0;
 	}
 
+	isBurial = false;
 
 #ifdef _DEBUG
 	ImGui::Begin("Player");
@@ -176,10 +181,14 @@ void Player::Operation() {
 	Move();
 	Jump();
 
-	//プレイヤーの位置リセット
-	if (Input::GetKeyTrigger(Input::Key::R)) {
-		pos_ = { 100,100 };
+	//キー操作で反転
+	if (!Water::GetInstance()->GetIsChangeHorizontal() && !StageManager::GetInstance()->GetIsClear()) {
+		if (Input::GetKeyTrigger(Input::Key::Q)) {
+			Inversion::GetInstance()->SetIsInversion();
+		}
 	}
+
+
 }
 
 //横移動
@@ -294,7 +303,10 @@ void Player::OnCollision(Object* objct) {
 		pos_.x += (objct->GetPos().x - pos_.x) / 4;
 		pos_.y += (objct->GetPos().y - pos_.y) / 4;
 	}
-	
+
+	if (BurialJudge(objct)) {
+		isBurial = true;
+	}
 }
 
 bool Player::BurialJudge(Object* objct){

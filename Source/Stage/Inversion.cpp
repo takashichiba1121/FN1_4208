@@ -12,12 +12,12 @@ void Inversion::Update() {
 
 	endInversion = false;
 
-	//ƒL[‘€ì‚Å”½“]
-	if (!Water::GetInstance()->GetIsChangeHorizontal() && !StageManager::GetInstance()->GetIsClear()) {
-		if (Input::GetKeyTrigger(Input::Key::Q)) {
-			isInversion = true;
-		}
-	}
+	////ƒL[‘€ì‚Å”½“]
+	//if (!Water::GetInstance()->GetIsChangeHorizontal() && !StageManager::GetInstance()->GetIsClear()) {
+	//	if (Input::GetKeyTrigger(Input::Key::Q)) {
+	//		isInversion = true;
+	//	}
+	//}
 
 	//”½“]’†‚Ìˆ—
 	if (isInversion) {

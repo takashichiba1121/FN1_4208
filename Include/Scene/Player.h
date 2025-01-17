@@ -73,4 +73,5 @@ private:
 
 	Direction direction = Direction::RIGHT;
 	SoundPlayManager *soundPlayManager;
+	bool isBurial = false;
 };
