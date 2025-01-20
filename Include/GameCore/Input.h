@@ -67,9 +67,9 @@ public:
 	/// </summary>
 	static bool ReleasePadKey(uint16_t keyNumber);
 
-	static uint32_t PadX();
+	static int32_t PadX();
 
-	static uint32_t PadY();
+	static int32_t PadY();
 
 	static bool GetIsUsePad();
 

@@ -31,6 +31,9 @@ private:
 	float moveNextTime_ = 0;
 	float moveNextmaxTime_ = 50;
 
+	float padMoveWait_ = 0;
+	float padMoveMaxWait_ = 10;
+
 	Vector2 titleTextPos_;
 
 	LevelPreView nextPreview_;
