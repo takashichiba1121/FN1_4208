@@ -26,11 +26,11 @@ void Pause::Update()
 		}
 		break;
 	case Phase::Middle:
-		if (Input::GetKeyTrigger(Input::Key::Z))
+		if (Input::GetKeyTrigger(Input::Key::X))
 		{
 			SceneManager::GetInstance()->ChangeScene("TITLE");
 		}
-		if (Input::GetKeyTrigger(Input::Key::X))
+		if (Input::GetKeyTrigger(Input::Key::Z))
 		{
 			SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 		}

@@ -40,7 +40,7 @@ void TutorialObject::Draw()
 		(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0.0, textureHandle_, true);
 	if (onCol_)
 	{
-		if (Input::GetIsUsePad)
+		if (Input::GetIsUsePad())
 		{
 			if (onColwWindow_)
 			{
