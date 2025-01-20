@@ -3,6 +3,7 @@
 #include"StageManager.h"
 #include"Water.h"
 #include"StageManager.h"
+#include"SoundPlayManager.h"
 
 void Inversion::Initialize() {
 	
@@ -21,6 +22,10 @@ void Inversion::Update() {
 
 	//反転中の処理
 	if (isInversion) {
+
+		if (frame == 15) {
+			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().inversionB, 255 * 0.5f);
+		}
 
 		frame++;	//フレームを進める
 		//水平線のイージング
