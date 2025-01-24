@@ -80,8 +80,8 @@ void Player::Update() {
 	}
 
 
-	if (oldPos_.y + size_.y / 2 < horizontal && pos_.y + size_.y / 2 >= horizontal){
-			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
+	if (oldPos_.y + size_.y / 2 < horizontal && pos_.y + size_.y / 2 >= horizontal) {
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
 	}
 
 	if (isFront) {
@@ -105,7 +105,7 @@ void Player::Update() {
 		canCrawlUp = true;
 
 		if (!Inversion::GetInstance()->GetIsInversion() && !StageManager::GetInstance()->GetIsClear()) {
- 			pos_.y = horizontal;
+			pos_.y = horizontal;
 		}
 	}
 	else {
@@ -154,7 +154,7 @@ void Player::Update() {
 	if ((isDrawGuide && guideTimer <= guideTimerMax) || isGameover) {
 		guideTimer += guideTimerMax / 10;
 	}
-	else if(!isDrawGuide && guideTimer >= 0){
+	else if (!isDrawGuide && guideTimer >= 0) {
 		guideTimer -= guideTimerMax / 60;
 	}
 
@@ -162,7 +162,7 @@ void Player::Update() {
 	bubbleEmitter->SetHorizontal(horizontal);
 	splashEmitter->SetHorizontal(horizontal);
 	bubbleEmitter->Update(pos_);
-	splashEmitter->Update(pos_,size_.y / 2, gravity);
+	splashEmitter->Update(pos_, size_.y / 2, gravity);
 
 	//端で止まる
 	if (pos_.x >= WIN_WIDTH - size_.x / 2) {
@@ -191,7 +191,7 @@ void Player::Update() {
 #ifdef _DEBUG
 	ImGui::Begin("Player");
 
-	ImGui::Text("%f",gravity);
+	ImGui::Text("%f", gravity);
 
 	ImGui::End();
 #endif
@@ -228,7 +228,6 @@ void Player::Operation() {
 void Player::InversionProcess()
 {
 	Inversion::GetInstance()->SetIsInversion();
-	soundPlayManager->SoundPlay(soundPlayManager->Inversion(), 100);
 }
 
 //横移動
@@ -237,25 +236,25 @@ void Player::Move() {
 
 	if (!Input::GetIsUsePad())
 	{
-		if (Input::GetKey(Input::Key::A) ) {
+		if (Input::GetKey(Input::Key::A)) {
 			MoveProcessLeft();
 		}
-		
+
 		if (Input::GetKey(Input::Key::D)) {
 			MoveProcessRight();
 		}
-		
+
 	}
 	else
 	{
-		if (Input::PadX() < 0 ) {
+		if (Input::PadX() < 0) {
 			MoveProcessLeft();
 		}
 		if (Input::PadX() > 0) {
 			MoveProcessRight();
 		}
 	}
-	
+
 }
 
 void Player::MoveProcessRight()
@@ -309,14 +308,13 @@ void Player::JumpProcess()
 	//ジャンプの初速(水中時は半減)
 	gravity = initJumpVelocity / (isUnderWater + 1);
 
-			if (isUnderWater) {
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().swim, 100);
-			}
-			else {
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().jump, 100);
-			}
-		}
+	if (isUnderWater) {
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().swim, 100);
 	}
+	else {
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().jump, 100);
+	}
+
 }
 
 void Player::Draw() {
@@ -336,7 +334,7 @@ void Player::Draw() {
 				textruehandle_, true);
 		}
 	}
-	
+
 	DrawCircle(pos_.x, pos_.y, Easing(frame / frameMax) * 64.0f, GetColor(255, 255, 255), false);
 
 	bubbleEmitter->Draw();
@@ -362,7 +360,7 @@ void Player::Draw() {
 
 
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	
+
 }
 
 void Player::OnCollision(Object* objct) {
@@ -433,7 +431,7 @@ void Player::OnCollision(Object* objct) {
 	}
 }
 
-bool Player::BurialJudge(Object* objct){
+bool Player::BurialJudge(Object* objct) {
 	//ブロックのオブジェクトタイプ判定
 	if (objct->IsExclude()) {
 
@@ -441,7 +439,7 @@ bool Player::BurialJudge(Object* objct){
 		if (pos_.x + size_.x / 2 - 1 >= objct->GetPos().x - objct->GetSize().x / 2 &&
 			pos_.x - size_.x / 2 + 1 <= objct->GetPos().x + objct->GetSize().x / 2 &&
 			pos_.y + size_.y / 2 - 1 >= objct->GetPos().y - objct->GetSize().y / 2 &&
-			pos_.y - size_.y / 2 + 1 <= objct->GetPos().y + objct->GetSize().y / 2){
+			pos_.y - size_.y / 2 + 1 <= objct->GetPos().y + objct->GetSize().y / 2) {
 
 			return true;
 		}
