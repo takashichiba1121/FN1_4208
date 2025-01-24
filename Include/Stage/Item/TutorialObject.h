@@ -40,9 +40,12 @@ private:
 
 	Vector2 tutorialPos_ = { 0,0 };
 
-	std::string tutorialTexture_="Q";
+	std::string tutorialPadTexture_="Q";
+	std::string tutorialKeyTexture_ = "Q";
 
-	uint32_t tutorialHandle_=0;
+	uint32_t tutorialPadHandle_=0;
+
+	uint32_t tutorialKeyHandle_ = 0;
 
 	uint32_t textureHandle_ = 0;
 };

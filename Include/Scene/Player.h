@@ -25,8 +25,12 @@ public:
 
 private:
 	void Operation();	//‘€ì
+	void InversionProcess();
 	void Move();
+	void MoveProcessRight();
+	void MoveProcessLeft();
 	void Jump();
+	void JumpProcess();
 	bool BurialJudge(Object* objct);	//ƒuƒƒbƒN–„–v”»’è
 	float Easing(const float x) { return 1 - pow(1 - x, 3); }
 

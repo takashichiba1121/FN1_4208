@@ -117,7 +117,9 @@
         {
             "object": {
                 "IndividualSettings": {
-                    "tutorialTexture": "WASD"
+                    "tutorialKeyTexture": "keyMove",
+                    
+                    "tutorialPadTexture": "PadMove"
                 },
                 "pos": [
                     164.0,

@@ -47,7 +47,8 @@
         {
             "object": {
                 "IndividualSettings": {
-                    "tutorialTexture": "Q"
+                    "tutorialKeyTexture": "keyInversion",
+                    "tutorialPadTexture": "PadInversion"
                 },
                 "pos": [
                     161.0,

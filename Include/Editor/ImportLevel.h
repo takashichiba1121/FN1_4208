@@ -42,10 +42,13 @@ struct InputLevelData
 
 struct ObjectName
 {
+	//数字を対応したenumclassで返す関数
 	template <typename Enum>
 	static Enum ObjectString(int value) {
-	for (int i = static_cast<int>(ObjectType::PLAYER); i <= static_cast<int>(ObjectType::NONE); ++i) {
-			if (i == value) {
+	for (int32_t i = static_cast<int32_t>(ObjectType::PLAYER); i <= static_cast<int32_t>(ObjectType::NONE); i++) 
+	{
+			if (i == value) 
+			{
 				return static_cast<Enum>(i);
 			}
 		}
@@ -77,11 +80,6 @@ private:
 
 	ImportLevel(const ImportLevel&) = delete;
 	ImportLevel& operator=(const ImportLevel&) = delete;
-
-
-	//取ってきたデータを既定の配列に入れる
-	//データをvector配列に入れる
-	//InputLevelData ImportLevelVectorData(const std::string& fileName);
 	
 	//レベルの中身読み込むよう
 	bool LevelScanning(nlohmann::json& Level);

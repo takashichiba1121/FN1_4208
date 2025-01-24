@@ -38,7 +38,7 @@ private:
 
 	std::unique_ptr<TutorialObject> tutorial;
 
-	std::unique_ptr<Pause> pause;
+	std::unique_ptr<Pause> pause_;
 
 	EditStage test;
 

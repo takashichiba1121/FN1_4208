@@ -7,12 +7,11 @@
 
 void GameScene::Initialize()
 {
+	pause_ = std::make_unique<Pause>();
 
 	soundPlayManager = SoundPlayManager::Instance();
 
-	pause = std::make_unique<Pause>();
-
-	pause->Initialize();
+	pause_->Initialize();
 
 #ifdef _DEBUG
 	test.Initialize();
@@ -27,6 +26,7 @@ void GameScene::Update()
 #ifdef _DEBUG
 	test.Update();
 #endif
+	pause_->InGameUpdate();
 
 		Inversion::GetInstance()->Update();
 
@@ -37,7 +37,7 @@ void GameScene::Update()
 		CollisionManager::GetInstance()->Update();
 
 		//パットはYボタン
-		if (Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4))
+		if ((Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4)) && !Inversion::GetInstance()->GetIsInversion())
 		{
 			StageManager::GetInstance()->NowStageReset();
 			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionB, 100);
@@ -47,16 +47,17 @@ void GameScene::Update()
 		if (Input::GetKeyTrigger(Input::Key::T)|| Input::TriggerPadKey(PAD_INPUT_8))
 		{
 			isPause = true;
-			pause->StartGetPause();
+			pause_->StartGetPause();
+
 			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
 		}
 
 	}
 	else
 	{
-		pause->Update();
+		pause_->Update();
 
-		if (pause->IsEndGetPause())
+		if (pause_->IsEndGetPause())
 		{
 			isPause = false;
 		}
@@ -74,7 +75,11 @@ void GameScene::Draw()
 
 	if (isPause)
 	{
-		pause->Draw();
+		pause_->Draw();
+	}
+	else
+	{
+		pause_->InGameDraw();
 	}
 }
 

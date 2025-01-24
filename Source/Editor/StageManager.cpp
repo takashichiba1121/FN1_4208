@@ -35,6 +35,18 @@ void StageManager::LoadListStageData(std::list<LevelData> levelData)
 		AddObject(level.pos, level.scale, level.tag,level.seting);
 	}
 
+	//オブジェクトの描画順を変えるためにオブジェクトタイプの順番にする
+	for (int32_t i = static_cast<int32_t>(ObjectType::NONE); i >= static_cast<int32_t>(ObjectType::PLAYER); i--)
+	{
+		for (auto object : stageObjUnSortData_)
+		{
+			if (object->GetObjectType() == ObjectName::ObjectString<ObjectType>(i))
+			{
+				stageObjData_.push_back(std::move(object));
+			}
+		}
+	}
+	stageObjUnSortData_.clear();
 }
 
 void StageManager::LoadStageObjectFile(const std::string& fileName)
@@ -207,7 +219,7 @@ void StageManager::AddObject(Vector2 pos, Vector2 size, ObjectType tag, nlohmann
 	addObject->SetSize(size);
 	addObject->SetObjectType(tag);
 
-	stageObjData_.push_back(std::move(addObject));
+	stageObjUnSortData_.push_back(std::move(addObject));
 }
 
 void StageManager::ChengeTag(const std::list<std::shared_ptr<Object>>::iterator& chengeData, ObjectType tag)
@@ -256,6 +268,7 @@ void StageManager::NextLevelLoad()
 void StageManager::NowStageReset()
 {
 	CollisionManager::GetInstance()->AllDelete();
+	KeyNum_ = 0;
 	LoadStageObjectFile(stageFileName_[nowLevelNum_]);
 }
 
