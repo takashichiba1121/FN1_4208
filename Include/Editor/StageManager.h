@@ -100,19 +100,27 @@ private:
 	//ステージとして追加したいファイル名を保持
 	std::vector<std::string> stageFileName_;
 
+	//読み込んだ時ソートしたいのでそれの保持用
+	std::list<std::shared_ptr<Object>> stageObjUnSortData_;
+
+	//現在読み込んでいるステージの位置
 	uint32_t nowLevelNum_ = 0;
 	
+	//エディタ使ってる？
 	bool isUseEditer_ = false;
 
+	//ステージの鍵の数
 	int32_t KeyNum_ = 0;
 
 	bool isClear_ = false;
 
 	bool isNextLoad_ = false;
 
+	//イージング用のタイマー
 	float easingFrame_ = 0;
 	float maxEasingFrame_ = 50;
 
+	//クリア時の画像用
 	float clearTextSize_ = 0;
 
 	uint32_t clearTextTextruehandle1_ = 0;
