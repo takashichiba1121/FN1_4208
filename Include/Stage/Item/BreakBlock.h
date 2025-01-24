@@ -42,6 +42,8 @@ public:
 	/// </summary>
 	int GetBreakBlockHp() { return blockHp_; }
 
+	std::unique_ptr<Object> Clone()override { return std::make_unique<BreakBlock>(*this); };
+
 private:
 	enum BlockHp {
 		BLOCK_BROKEN,

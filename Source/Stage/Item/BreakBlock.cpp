@@ -10,9 +10,7 @@
 
 void BreakBlock::Initialize()
 {
-	pos_ = { 300.0f,300.0f };
-	size_ = { 64.0f,64.0f };
-
+	
 	// “–‚½‚è”»’è
 	objectType_ = ObjectType::BREAK_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
