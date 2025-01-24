@@ -35,7 +35,7 @@ void GameScene::Update()
 		CollisionManager::GetInstance()->Update();
 
 		//パットはYボタン
-		if (Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4))
+		if ((Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4)) && !Inversion::GetInstance()->GetIsInversion())
 		{
 			StageManager::GetInstance()->NowStageReset();
 		}

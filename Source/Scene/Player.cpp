@@ -186,20 +186,24 @@ void Player::Operation() {
 		if (!Input::GetIsUsePad())
 		{
 			if (Input::GetKeyTrigger(Input::Key::Q)) {
-				Inversion::GetInstance()->SetIsInversion();
-				soundPlayManager->SoundPlay(soundPlayManager->Inversion(), 100);
+				InversionProcess();
 			}
 		}
 		else
 		{
 			if (Input::TriggerPadKey(PAD_INPUT_3)) {
-				Inversion::GetInstance()->SetIsInversion();
-				soundPlayManager->SoundPlay(soundPlayManager->Inversion(), 100);
+				InversionProcess();
 			}
 		}
 	}
 
 
+}
+
+void Player::InversionProcess()
+{
+	Inversion::GetInstance()->SetIsInversion();
+	soundPlayManager->SoundPlay(soundPlayManager->Inversion(), 100);
 }
 
 //横移動
@@ -208,29 +212,43 @@ void Player::Move() {
 
 	if (!Input::GetIsUsePad())
 	{
-		if (Input::GetKey(Input::Key::A) && pos_.x - size_.x / 2 > 0) {
-			pos_.x -= speed;
-			direction = Direction::LEFT;
+		if (Input::GetKey(Input::Key::A) ) {
+			MoveProcessLeft();
 		}
 		
-		if (Input::GetKey(Input::Key::D) && pos_.x + size_.x / 2 < 1280) {
-			pos_.x += speed;
-			direction = Direction::RIGHT;
+		if (Input::GetKey(Input::Key::D)) {
+			MoveProcessRight();
 		}
 		
 	}
 	else
 	{
-		if (Input::PadX() < 0 && pos_.x - size_.x / 2 > 0) {
-			pos_.x -= speed;
-			direction = Direction::LEFT;
+		if (Input::PadX() < 0 ) {
+			MoveProcessLeft();
 		}
-		if (Input::PadX() > 0 && pos_.x + size_.x / 2 < 1280) {
-			pos_.x += speed;
-			direction = Direction::RIGHT;
+		if (Input::PadX() > 0) {
+			MoveProcessRight();
 		}
 	}
 	
+}
+
+void Player::MoveProcessRight()
+{
+	if (pos_.x + size_.x / 2 < WIN_WIDTH)
+	{
+		pos_.x += speed;
+		direction = Direction::RIGHT;
+	}
+}
+
+void Player::MoveProcessLeft()
+{
+	if (pos_.x - size_.x / 2 > 0)
+	{
+		pos_.x -= speed;
+		direction = Direction::LEFT;
+	}
 }
 
 //ジャンプ
@@ -239,24 +257,7 @@ void Player::Jump() {
 	{
 		if (Input::GetKeyTrigger(Input::Key::Space) && canJump) {
 
-			//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
-			if (canCrawlUp) {
-				isUnderWater = false;
-				initJumpVelocity = -MaxGravity / 1.25f;
-			}
-			else {
-				initJumpVelocity = -MaxGravity;
-			}
-
-			//ジャンプの初速(水中時は半減)
-			gravity = initJumpVelocity / (isUnderWater + 1);
-
-			if (isUnderWater) {
-				soundPlayManager->SoundPlay(soundPlayManager->Swim(), 100);
-			}
-			else {
-				soundPlayManager->SoundPlay(soundPlayManager->Jump(), 100);
-			}
+			JumpProcess();
 		}
 
 	}
@@ -264,25 +265,30 @@ void Player::Jump() {
 	{
 		if (Input::TriggerPadKey(PAD_INPUT_1) && canJump) {
 
-			//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
-			if (canCrawlUp) {
-				isUnderWater = false;
-				initJumpVelocity = -MaxGravity / 1.25f;
-			}
-			else {
-				initJumpVelocity = -MaxGravity;
-			}
-
-			//ジャンプの初速(水中時は半減)
-			gravity = initJumpVelocity / (isUnderWater + 1);
-
-			if (isUnderWater) {
-				soundPlayManager->SoundPlay(soundPlayManager->Swim(), 100);
-			}
-			else {
-				soundPlayManager->SoundPlay(soundPlayManager->Jump(), 100);
-			}
+			JumpProcess();
 		}
+	}
+}
+
+void Player::JumpProcess()
+{
+	//水中から地上に上がるときは地上と同じようなジャンプ(少し低め)
+	if (canCrawlUp) {
+		isUnderWater = false;
+		initJumpVelocity = -MaxGravity / 1.25f;
+	}
+	else {
+		initJumpVelocity = -MaxGravity;
+	}
+
+	//ジャンプの初速(水中時は半減)
+	gravity = initJumpVelocity / (isUnderWater + 1);
+
+	if (isUnderWater) {
+		soundPlayManager->SoundPlay(soundPlayManager->Swim(), 100);
+	}
+	else {
+		soundPlayManager->SoundPlay(soundPlayManager->Jump(), 100);
 	}
 }
 
