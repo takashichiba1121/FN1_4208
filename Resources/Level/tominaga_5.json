@@ -1,0 +1,105 @@
+{
+    "LevelName": "",
+    "horizontal": 163.0,
+    "name": "Level",
+    "objects": [
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    660.0,
+                    360.0
+                ],
+                "scale": [
+                    64.0,
+                    731.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    81.0,
+                    163.0
+                ],
+                "scale": [
+                    160.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    504.0,
+                    163.0
+                ],
+                "scale": [
+                    245.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    271.0,
+                    164.0
+                ],
+                "scale": [
+                    209.0,
+                    64.0
+                ],
+                "tag": 2
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    308.0,
+                    627.0
+                ],
+                "scale": [
+                    638.0,
+                    190.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    76.0,
+                    99.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 0
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    748.0,
+                    687.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 0
+            }
+        }
+    ]
+}
