@@ -9,7 +9,7 @@
 void SpongeBlock::Initialize()
 {
 
-	size_=initializeSize_;
+	size_ = initializeSize_;
 
 	objectType_ = ObjectType::SPONGE_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
@@ -19,7 +19,7 @@ void SpongeBlock::Update()
 {
 	ObjectUpdate();
 
-	if (easingFrame_==0)
+	if (easingFrame_ == 0)
 	{
 		initializeSize_ = size_;
 	}
@@ -45,7 +45,7 @@ void SpongeBlock::Update()
 		}
 	}
 
-	if (!Inversion::GetInstance()->GetIsInversion()&&!stopExpansion_)
+	if (!Inversion::GetInstance()->GetIsInversion() && !stopExpansion_)
 	{
 		if (isExpansion_ && easingFrame_ < maxEasingFrame_ * ((expansion_.x + expansion_.y) / 2))
 		{
@@ -60,7 +60,7 @@ void SpongeBlock::Update()
 		{
 			easingFrame_--;
 
-			float f = static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_*((expansion_.x+expansion_.y)/2));
+			float f = static_cast<float>(easingFrame_) / static_cast<float>(maxEasingFrame_ * ((expansion_.x + expansion_.y) / 2));
 
 			size_ = (initializeSize_ * expansion_ - initializeSize_) * f;
 			size_ += initializeSize_;
@@ -80,7 +80,7 @@ void SpongeBlock::OnCollision(Object* object)
 {
 
 	pos_ = oldPos_;
-	if (objectType_ < object->GetObjectType()&&isExclude_&&object->IsExclude())
+	if (objectType_ < object->GetObjectType() && isExclude_ && object->IsExclude())
 	{
 		Vector2 posA = object->GetPos();
 		Vector2 sizeA = object->GetSize();
@@ -154,7 +154,7 @@ float SpongeBlock::easeInCubic(float x)
 
 void SpongeBlock::SetJson(nlohmann::json& Level)
 {
-	Level["Expansion"]= { expansion_.x,expansion_.y };
+	Level["Expansion"] = { expansion_.x,expansion_.y };
 }
 
 void SpongeBlock::GetJson(nlohmann::json& Level)
@@ -169,7 +169,7 @@ void SpongeBlock::ImGuiEdit()
 
 	ImGui::DragFloat2("expansion", v, 1.0f, 1.0f, 1000.0f);
 
-	expansion_ = {v[0],v[1]};
+	expansion_ = { v[0],v[1] };
 }
 
 void SpongeBlock::Inversion(const float easing) {

@@ -7,9 +7,9 @@
 
 void GameScene::Initialize()
 {
-	pause = std::make_unique<Pause>();
+	pause_ = std::make_unique<Pause>();
 
-	pause->Initialize();
+	pause_->Initialize();
 
 #ifdef _DEBUG
 	test.Initialize();
@@ -24,6 +24,7 @@ void GameScene::Update()
 #ifdef _DEBUG
 	test.Update();
 #endif
+	pause_->InGameUpdate();
 
 		Inversion::GetInstance()->Update();
 
@@ -43,15 +44,15 @@ void GameScene::Update()
 		if (Input::GetKeyTrigger(Input::Key::T)|| Input::TriggerPadKey(PAD_INPUT_8))
 		{
 			isPause = true;
-			pause->StartGetPause();
+			pause_->StartGetPause();
 		}
 
 	}
 	else
 	{
-		pause->Update();
+		pause_->Update();
 
-		if (pause->IsEndGetPause())
+		if (pause_->IsEndGetPause())
 		{
 			isPause = false;
 		}
@@ -69,7 +70,11 @@ void GameScene::Draw()
 
 	if (isPause)
 	{
-		pause->Draw();
+		pause_->Draw();
+	}
+	else
+	{
+		pause_->InGameDraw();
 	}
 }
 
