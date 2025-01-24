@@ -66,6 +66,8 @@ public:
 	//Œ®‚Ì”‚Ìw’è‚ª‚µ‚½‚¢‚Æ‚«‚ÌŠÖ”
 	void SetKeyNum(int32_t num) { KeyNum_ = num; };
 
+	void SetNextStageSelect(int32_t nextStageSelect) { nextStageSelect_ = nextStageSelect; }
+
 	/// <summary>
 	/// Ÿ‚Ç‚¤‚·‚é‚©‚ğŒˆ’è‚·‚é
 	/// </summary>
@@ -126,5 +128,9 @@ private:
 	uint32_t clearTextTextruehandle1_ = 0;
 	uint32_t clearTextTextruehandle2_ = 0;
 	uint32_t clearTextTextruehandle3_ = 0;
+	uint32_t SelectClearTextTextruehandle2_ = 0;
+	uint32_t SelectClearTextTextruehandle3_ = 0;
+
+	int32_t nextStageSelect_ = 0;
 };
 

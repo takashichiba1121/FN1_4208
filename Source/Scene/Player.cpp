@@ -321,6 +321,7 @@ void Player::Draw() {
 
 	if (size_.x > 0) {
 
+		//DrawBox(pos_.x - size_.x/2, pos_.y - size_.y/2, pos_.x + size_.x/2, pos_.y + size_.y/2, GetColor(255,255,255), true);
 		if (direction == Direction::RIGHT) {
 			DrawExtendGraph(
 				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
@@ -366,7 +367,7 @@ void Player::Draw() {
 void Player::OnCollision(Object* objct) {
 
 	//ÉuÉçÉbÉNè„Ç…èÊÇ¡ÇƒÇ¢ÇÈÇ∆Ç´ÇÃèàóù
-	if (static_cast<uint32_t>(pos_.y + size_.y / 2) <= static_cast<uint32_t>(objct->GetPos().y - objct->GetSize().y / 2)) {
+	if (static_cast<uint32_t>(pos_.y + size_.y / 2) <= static_cast<uint32_t>(objct->GetPos().y - objct->GetSize().y / 2)&&objct->IsExclude()) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
 	}
