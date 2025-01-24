@@ -24,6 +24,11 @@ void StageSelectScene::Initialize()
 		itemCount++;
 	}
 
+	if (!CheckSoundMem(soundPlayManager->GetBGM().titleScene)) {
+		soundPlayManager->BGMStop(soundPlayManager->GetBGM().gameScene);
+		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().titleScene, 100);
+	}
+
 	SetFontSize(50);
 
 }
@@ -135,6 +140,7 @@ void StageSelectScene::Update()
 			SceneManager::GetInstance()->ChangeScene("GAME");
 			StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
 			moveNextTime_ = 0;
+
 		}
 		else
 		{

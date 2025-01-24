@@ -20,8 +20,7 @@ public:
 
 private:
 
-	struct Sounds
-	{
+	struct Sounds {
 		int jump;
 		int swim;
 		int inversionA;
@@ -34,17 +33,27 @@ private:
 		int gameover;
 	};
 
+	struct BGM {
+		int titleScene;
+		int gameScene;
+	};
+
 public:
 
 	void LoadAllSound();
 
 	void SoundPlay(int sound, int volume);
 
+	void BGMPlay(int bgm, int volume);
+	void BGMStop(int bgm);
+
 	void Finalize();
 	
 	const Sounds GetSound() { return sounds; }
+	const BGM GetBGM() { return bgm; }
 	
 private:
 
 	Sounds sounds;
+	BGM bgm;
 };
