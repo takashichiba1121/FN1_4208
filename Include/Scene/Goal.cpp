@@ -111,24 +111,16 @@ void Goal::Inversion(const float easing) {
 
 void Goal::NextSelect()
 {
-	if (Input::GetKeyTrigger(Input::Key::Right)||(Input::OldPadX()<=500&& Input::PadX() < 500)) {
-		nextStageSelect++;
-		if (nextStageSelect>1)
-		{
-			nextStageSelect = -1;
-		}
+	if (Input::GetKeyTrigger(Input::Key::Right)||(Input::OldPadX()<=500&& Input::PadX() > 500)) {
+			nextStageSelect_ = 1;
 	}
 	else if (Input::GetKeyTrigger(Input::Key::Left) || (Input::OldPadX() >= -500 && Input::PadX() < -500)) {
-		nextStageSelect--;
-		if (nextStageSelect < -1)
-		{
-			nextStageSelect = 1;
-		}
+			nextStageSelect_ = -1;
 	}
 
 	if (Input::GetKeyTrigger(Input::Key::Space))
 	{
-		if (nextStageSelect==1) {
+		if (nextStageSelect_==1) {
 			//次のステージへ
 			//StageManager::GetInstance()->NextLevelLoad();
 			StageManager::GetInstance()->NextSelect(false);
@@ -136,13 +128,14 @@ void Goal::NextSelect()
 			isLock = true;
 			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().select, 255 * 0.5f);
 		}
-		else if (nextStageSelect == -1) {
+		else if (nextStageSelect_ == -1) {
 			//セレクト画面へ
 			//SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 			StageManager::GetInstance()->NextSelect(true);
 			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().select, 255 * 0.5f);
 		}
 	}
+	StageManager::GetInstance()->SetNextStageSelect(nextStageSelect_);
 }
 
 float Goal::ExpansionGoalText(float x)
