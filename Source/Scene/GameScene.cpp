@@ -7,6 +7,9 @@
 
 void GameScene::Initialize()
 {
+
+	soundPlayManager = SoundPlayManager::Instance();
+
 	pause = std::make_unique<Pause>();
 
 	pause->Initialize();
@@ -37,6 +40,7 @@ void GameScene::Update()
 		if (Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4))
 		{
 			StageManager::GetInstance()->NowStageReset();
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionB, 100);
 		}
 
 		//パットはStartだかoptionボタン
@@ -44,6 +48,7 @@ void GameScene::Update()
 		{
 			isPause = true;
 			pause->StartGetPause();
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
 		}
 
 	}

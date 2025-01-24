@@ -13,6 +13,7 @@
 #include"SpongeBlock.h"
 #include"Drain.h"
 #include"TutorialObject.h"
+#include"SoundPlayManager.h"
 #include"Pause.h"
 
 class GameScene :
@@ -40,6 +41,8 @@ private:
 	std::unique_ptr<Pause> pause;
 
 	EditStage test;
+
+	SoundPlayManager* soundPlayManager;
 
 	bool isPause=false;
 };

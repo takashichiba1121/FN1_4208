@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseScene.h"
 #include "LevelPreview.h"
+#include "SoundPlayManager.h"
 #include <memory>
 #include <vector>
 #include <string>
@@ -39,5 +40,7 @@ private:
 	LevelPreView nextPreview_;
 
 	std::list<LevelPreView>  previews_;
+
+	SoundPlayManager* soundPlayManager;
 
 };

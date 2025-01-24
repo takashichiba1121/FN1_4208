@@ -2,6 +2,7 @@
 #include "BaseScene.h"
 #include "Water.h"
 #include "TitleLogo.h"
+#include "SoundPlayManager.h"
 
 class TitleScene :
     public BaseScene
@@ -17,5 +18,7 @@ private:
 
 	bool drawGuide = false;
 	float guideTrans = 0.0f;
+
+	SoundPlayManager* soundPlayManager;
 };
 

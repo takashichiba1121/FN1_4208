@@ -17,6 +17,8 @@ void SoundPlayManager::LoadAllSound() {
 	sounds.waterB = SoundManager::Instance()->LoadSound("Resources\\Sound\\waterB.wav");
 	sounds.key = SoundManager::Instance()->LoadSound("Resources\\Sound\\key.wav");
 	sounds.clear = SoundManager::Instance()->LoadSound("Resources\\Sound\\clear.wav");
+	sounds.select = SoundManager::Instance()->LoadSound("Resources\\Sound\\select.wav");
+	sounds.gameover = SoundManager::Instance()->LoadSound("Resources\\Sound\\gameover.wav");
 }
 
 void SoundPlayManager::SoundPlay(int sound, int volume) {

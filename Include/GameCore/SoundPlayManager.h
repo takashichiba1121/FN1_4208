@@ -30,6 +30,8 @@ private:
 		int waterB;
 		int key;
 		int clear;
+		int select;
+		int gameover;
 	};
 
 public:

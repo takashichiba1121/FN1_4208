@@ -42,6 +42,11 @@ void Player::Update() {
 	ObjectUpdate();
 	color = GetColor(255, 255, 255);
 
+	if (pos_.y + size_.y / 2 > WIN_HEIGHT || pos_.y - size_.y / 2 < 0 ||
+		pos_.x + size_.x / 2 > WIN_WIDTH || pos_.x - size_.x / 2 < 0) {
+		isGameover = true;
+	}
+
 	//反転中でなければ
 	if (!Inversion::GetInstance()->GetIsInversion()) {
 
@@ -49,11 +54,11 @@ void Player::Update() {
 		isExclude_ = true;
 		isFront = false;
 
-		if (pos_.y + size_.y / 2 > WIN_HEIGHT) {
-			isBurial = true;
+		if (isBurial && !Inversion::GetInstance()->GetEndInversion()) {
+			isGameover = true;
 		}
 
-		if (!StageManager::GetInstance()->GetIsClear() && !isBurial) {
+		if (!StageManager::GetInstance()->GetIsClear() && !isGameover) {
 
 			if (frame <= 0) {
 				//操作可能
@@ -73,6 +78,7 @@ void Player::Update() {
 		isExclude_ = false;
 		isFront = true;
 	}
+
 
 	if (oldPos_.y + size_.y / 2 < horizontal && pos_.y + size_.y / 2 >= horizontal){
 			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
@@ -141,7 +147,11 @@ void Player::Update() {
 		}
 	}
 
-	if (isDrawGuide && guideTimer <= guideTimerMax) {
+	if (isGameover && guideTimer <= 0) {
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().gameover, 150);
+	}
+
+	if ((isDrawGuide && guideTimer <= guideTimerMax) || isGameover) {
 		guideTimer += guideTimerMax / 10;
 	}
 	else if(!isDrawGuide && guideTimer >= 0){
@@ -153,6 +163,15 @@ void Player::Update() {
 	splashEmitter->SetHorizontal(horizontal);
 	bubbleEmitter->Update(pos_);
 	splashEmitter->Update(pos_,size_.y / 2, gravity);
+
+	//端で止まる
+	if (pos_.x >= WIN_WIDTH - size_.x / 2) {
+		pos_.x = WIN_WIDTH - size_.x / 2;
+	}
+
+	if (pos_.x <= size_.x / 2) {
+		pos_.x = size_.x / 2;
+	}
 
 	//底面で止まる(仮)
 	if (pos_.y >= WIN_HEIGHT - size_.y / 2) {
@@ -313,7 +332,24 @@ void Player::Draw() {
 	splashEmitter->Draw();
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTimer);
-	DrawString(200, 200, "ブロックが邪魔でひっくり返せない…", GetColor(255, 100, 100));
+
+	if (isGameover) {
+		DrawString(200, 200, "ブロックにつぶされてしまった…", GetColor(255, 100, 100));
+
+		if (!Input::GetIsUsePad()) {
+			DrawBox(670, 505, 720, 555, GetColor(255, 255, 255), false);
+			DrawString(400, 500, "リセット … R ", GetColor(255, 255, 255));
+		}
+		else {
+			DrawCircle(695, 530, 27, GetColor(255, 255, 255), false);
+			DrawString(400, 500, "リセット … Y ", GetColor(255, 255, 255));
+		}
+	}
+	else {
+		DrawString(200, 200, "ブロックが邪魔でひっくり返せない…", GetColor(255, 100, 100));
+	}
+
+
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	
 }

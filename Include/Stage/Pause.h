@@ -1,6 +1,7 @@
 #pragma once
 #include<memory>
 #include"Vector2.h"
+#include"SoundPlayManager.h"
 class Pause
 {
 	enum class Phase
@@ -31,5 +32,7 @@ private:
 	uint32_t pauseFrame_=0;
 
 	bool isEndGetPause_=false;
+
+	SoundPlayManager* soundPlayManager;
 };
 
