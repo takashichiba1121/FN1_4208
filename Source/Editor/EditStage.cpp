@@ -583,6 +583,7 @@ void EditStage::SaveAndLoadLevelObject()
 			mouseMoveObject_ = nullptr;
 			undoTickets_.clear();
 			redoTickets_.clear();
+			StageManager::GetInstance()->SetKeyNum(0);
 			StageManager::GetInstance()->LoadListStageData(loadData.levelData);
 			horizontal_ = loadData.horizontal;
 			Water::GetInstance()->SetHorizontal(loadData.horizontal);
