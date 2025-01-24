@@ -11,6 +11,11 @@ void GameScene::Initialize()
 
 	soundPlayManager = SoundPlayManager::Instance();
 
+	if (!CheckSoundMem(soundPlayManager->GetBGM().gameScene)) {
+		soundPlayManager->BGMStop(soundPlayManager->GetBGM().titleScene);
+		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().gameScene,100);
+	}
+
 	pause_->Initialize();
 
 #ifdef _DEBUG
