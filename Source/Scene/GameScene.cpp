@@ -9,6 +9,8 @@ void GameScene::Initialize()
 {
 	pause_ = std::make_unique<Pause>();
 
+	soundPlayManager = SoundPlayManager::Instance();
+
 	pause_->Initialize();
 
 #ifdef _DEBUG
@@ -38,6 +40,7 @@ void GameScene::Update()
 		if ((Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4)) && !Inversion::GetInstance()->GetIsInversion())
 		{
 			StageManager::GetInstance()->NowStageReset();
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionB, 100);
 		}
 
 		//パットはStartだかoptionボタン
@@ -45,6 +48,8 @@ void GameScene::Update()
 		{
 			isPause = true;
 			pause_->StartGetPause();
+
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
 		}
 
 	}

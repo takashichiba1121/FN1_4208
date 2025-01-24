@@ -9,9 +9,16 @@ SoundPlayManager* SoundPlayManager::Instance()
 }
 
 void SoundPlayManager::LoadAllSound() {
-	jump = SoundManager::Instance()->LoadSound("Resources\\Sound\\jump.wav");
-	swim = SoundManager::Instance()->LoadSound("Resources\\Sound\\swim.wav");
-	inversion = SoundManager::Instance()->LoadSound("Resources\\Sound\\inversion.wav");
+	sounds.jump = SoundManager::Instance()->LoadSound("Resources\\Sound\\jump.wav");
+	sounds.swim = SoundManager::Instance()->LoadSound("Resources\\Sound\\swim.wav");
+	sounds.inversionA = SoundManager::Instance()->LoadSound("Resources\\Sound\\inversionA.wav");
+	sounds.inversionB = SoundManager::Instance()->LoadSound("Resources\\Sound\\inversionB.wav");
+	sounds.waterA = SoundManager::Instance()->LoadSound("Resources\\Sound\\waterA.wav");
+	sounds.waterB = SoundManager::Instance()->LoadSound("Resources\\Sound\\waterB.wav");
+	sounds.key = SoundManager::Instance()->LoadSound("Resources\\Sound\\key.wav");
+	sounds.clear = SoundManager::Instance()->LoadSound("Resources\\Sound\\clear.wav");
+	sounds.select = SoundManager::Instance()->LoadSound("Resources\\Sound\\select.wav");
+	sounds.gameover = SoundManager::Instance()->LoadSound("Resources\\Sound\\gameover.wav");
 }
 
 void SoundPlayManager::SoundPlay(int sound, int volume) {

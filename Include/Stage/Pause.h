@@ -1,6 +1,7 @@
 #pragma once
 #include<memory>
 #include"Vector2.h"
+#include"SoundPlayManager.h"
 class Pause
 {
 	enum class Phase
@@ -44,5 +45,7 @@ private:
 	const uint32_t inGameUIMaxFrame_ = 60;
 
 	Vector2 ingamePos_ = { 0,0 };
+
+	SoundPlayManager* soundPlayManager;
 };
 

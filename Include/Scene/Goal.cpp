@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include"StageManager.h"
 #include "SceneManager.h"
+#include "SoundPlayManager.h"
 #include"Inversion.h"
 
 void Goal::Initialize()
@@ -116,11 +117,13 @@ void Goal::NextSelect()
 		StageManager::GetInstance()->NextSelect(false);
 		isClear = false;
 		isLock = true;
+		SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().select, 255 * 0.5f);
 	}
 	else if (Input::GetKeyTrigger(Input::Key::Left)) {
 		//ƒZƒŒƒNƒg‰æ–Ê‚Ö
 		//SceneManager::GetInstance()->ChangeScene("STAGESELECT");
 		StageManager::GetInstance()->NextSelect(true);
+		SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().select, 255 * 0.5f);
 	}
 
 }

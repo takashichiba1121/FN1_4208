@@ -3,6 +3,7 @@
 #include "CollisionManager.h"
 #include "TextureManager.h"
 #include "StageManager.h"
+#include "SoundPlayManager.h"
 
 
 void Key::Initialize()
@@ -53,6 +54,7 @@ void Key::OnCollision(Object* objct)
 	if (objct->GetObjectType() == ObjectType::PLAYER) {
 		if (isGet == false) {
 			StageManager::GetInstance()->GetKey();
+			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().key, 255 * 0.5f);
 		}
 		isGet = true;
 		isLock = false;

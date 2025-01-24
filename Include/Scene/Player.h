@@ -45,6 +45,8 @@ private:
 	float guideTimer = 0.0f;
 
 	uint32_t textruehandle_;
+	uint32_t tutorialtextrue_1;
+	uint32_t tutorialtextrue_2;
 
 	std::shared_ptr<BubbleEmitter> bubbleEmitter;
 	std::shared_ptr<SplashEmitter> splashEmitter;
@@ -74,6 +76,7 @@ private:
 	const float frameMax = 20.0f;
 	float frame = 0.0f;
 	bool isClear = false;
+	bool isGameover = false;
 
 	Direction direction = Direction::RIGHT;
 	SoundPlayManager *soundPlayManager;

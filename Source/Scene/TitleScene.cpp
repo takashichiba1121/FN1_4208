@@ -6,6 +6,8 @@
 
 void TitleScene::Initialize()
 {
+	Water::GetInstance()->SetHorizontal(320);
+	soundPlayManager = SoundPlayManager::Instance();
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressSpace.png");
 
 	for (int i = 0; i < 3; i++) {
@@ -19,6 +21,7 @@ void TitleScene::Update()
 {
 	if (Input::GetKeyTrigger(Input::Key::Space) || Input::TriggerPadKey(PAD_INPUT_1)) {
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 	}
 
 	//ƒKƒCƒhUI‚Ì“§–¾“x

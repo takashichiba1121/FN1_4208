@@ -42,6 +42,11 @@ void Player::Update() {
 	ObjectUpdate();
 	color = GetColor(255, 255, 255);
 
+	if (pos_.y + size_.y / 2 > WIN_HEIGHT || pos_.y - size_.y / 2 < 0 ||
+		pos_.x + size_.x / 2 > WIN_WIDTH || pos_.x - size_.x / 2 < 0) {
+		isGameover = true;
+	}
+
 	//反転中でなければ
 	if (!Inversion::GetInstance()->GetIsInversion()) {
 
@@ -49,11 +54,11 @@ void Player::Update() {
 		isExclude_ = true;
 		isFront = false;
 
-		if (pos_.y + size_.y / 2 > WIN_HEIGHT) {
-			isBurial = true;
+		if (isBurial && !Inversion::GetInstance()->GetEndInversion()) {
+			isGameover = true;
 		}
 
-		if (!StageManager::GetInstance()->GetIsClear() && !isBurial) {
+		if (!StageManager::GetInstance()->GetIsClear() && !isGameover) {
 
 			if (frame <= 0) {
 				//操作可能
@@ -72,6 +77,11 @@ void Player::Update() {
 		//反転中は当たり判定無視
 		isExclude_ = false;
 		isFront = true;
+	}
+
+
+	if (oldPos_.y + size_.y / 2 < horizontal && pos_.y + size_.y / 2 >= horizontal) {
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
 	}
 
 	if (isFront) {
@@ -95,7 +105,7 @@ void Player::Update() {
 		canCrawlUp = true;
 
 		if (!Inversion::GetInstance()->GetIsInversion() && !StageManager::GetInstance()->GetIsClear()) {
- 			pos_.y = horizontal;
+			pos_.y = horizontal;
 		}
 	}
 	else {
@@ -137,10 +147,14 @@ void Player::Update() {
 		}
 	}
 
-	if (isDrawGuide && guideTimer <= guideTimerMax) {
+	if (isGameover && guideTimer <= 0) {
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().gameover, 150);
+	}
+
+	if ((isDrawGuide && guideTimer <= guideTimerMax) || isGameover) {
 		guideTimer += guideTimerMax / 10;
 	}
-	else if(!isDrawGuide && guideTimer >= 0){
+	else if (!isDrawGuide && guideTimer >= 0) {
 		guideTimer -= guideTimerMax / 60;
 	}
 
@@ -148,7 +162,16 @@ void Player::Update() {
 	bubbleEmitter->SetHorizontal(horizontal);
 	splashEmitter->SetHorizontal(horizontal);
 	bubbleEmitter->Update(pos_);
-	splashEmitter->Update(pos_,size_.y / 2, gravity);
+	splashEmitter->Update(pos_, size_.y / 2, gravity);
+
+	//端で止まる
+	if (pos_.x >= WIN_WIDTH - size_.x / 2) {
+		pos_.x = WIN_WIDTH - size_.x / 2;
+	}
+
+	if (pos_.x <= size_.x / 2) {
+		pos_.x = size_.x / 2;
+	}
 
 	//底面で止まる(仮)
 	if (pos_.y >= WIN_HEIGHT - size_.y / 2) {
@@ -168,7 +191,7 @@ void Player::Update() {
 #ifdef _DEBUG
 	ImGui::Begin("Player");
 
-	ImGui::Text("%f",gravity);
+	ImGui::Text("%f", gravity);
 
 	ImGui::End();
 #endif
@@ -187,23 +210,24 @@ void Player::Operation() {
 		{
 			if (Input::GetKeyTrigger(Input::Key::Q)) {
 				InversionProcess();
+
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 			}
 		}
 		else
 		{
 			if (Input::TriggerPadKey(PAD_INPUT_3)) {
 				InversionProcess();
+
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 			}
 		}
 	}
-
-
 }
 
 void Player::InversionProcess()
 {
 	Inversion::GetInstance()->SetIsInversion();
-	soundPlayManager->SoundPlay(soundPlayManager->Inversion(), 100);
 }
 
 //横移動
@@ -212,25 +236,25 @@ void Player::Move() {
 
 	if (!Input::GetIsUsePad())
 	{
-		if (Input::GetKey(Input::Key::A) ) {
+		if (Input::GetKey(Input::Key::A)) {
 			MoveProcessLeft();
 		}
-		
+
 		if (Input::GetKey(Input::Key::D)) {
 			MoveProcessRight();
 		}
-		
+
 	}
 	else
 	{
-		if (Input::PadX() < 0 ) {
+		if (Input::PadX() < 0) {
 			MoveProcessLeft();
 		}
 		if (Input::PadX() > 0) {
 			MoveProcessRight();
 		}
 	}
-	
+
 }
 
 void Player::MoveProcessRight()
@@ -285,11 +309,12 @@ void Player::JumpProcess()
 	gravity = initJumpVelocity / (isUnderWater + 1);
 
 	if (isUnderWater) {
-		soundPlayManager->SoundPlay(soundPlayManager->Swim(), 100);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().swim, 100);
 	}
 	else {
-		soundPlayManager->SoundPlay(soundPlayManager->Jump(), 100);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().jump, 100);
 	}
+
 }
 
 void Player::Draw() {
@@ -309,16 +334,33 @@ void Player::Draw() {
 				textruehandle_, true);
 		}
 	}
-	
+
 	DrawCircle(pos_.x, pos_.y, Easing(frame / frameMax) * 64.0f, GetColor(255, 255, 255), false);
 
 	bubbleEmitter->Draw();
 	splashEmitter->Draw();
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTimer);
-	DrawString(200, 200, "ブロックが邪魔でひっくり返せない…", GetColor(255, 100, 100));
+
+	if (isGameover) {
+		DrawString(200, 200, "ブロックにつぶされてしまった…", GetColor(255, 100, 100));
+
+		if (!Input::GetIsUsePad()) {
+			DrawBox(670, 505, 720, 555, GetColor(255, 255, 255), false);
+			DrawString(400, 500, "リセット … R ", GetColor(255, 255, 255));
+		}
+		else {
+			DrawCircle(695, 530, 27, GetColor(255, 255, 255), false);
+			DrawString(400, 500, "リセット … Y ", GetColor(255, 255, 255));
+		}
+	}
+	else {
+		DrawString(200, 200, "ブロックが邪魔でひっくり返せない…", GetColor(255, 100, 100));
+	}
+
+
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
-	
+
 }
 
 void Player::OnCollision(Object* objct) {
@@ -347,6 +389,7 @@ void Player::OnCollision(Object* objct) {
 		{
 			if (Input::GetKeyTrigger(Input::Key::W) && !Water::GetInstance()->GetIsChangeHorizontal()) {
 				Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterB, 100);
 			}
 		}
 		else
@@ -354,11 +397,17 @@ void Player::OnCollision(Object* objct) {
 			//パットではBボタン
 			if (Input::TriggerPadKey(PAD_INPUT_2) && !Water::GetInstance()->GetIsChangeHorizontal()) {
 				Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterB, 100);
 			}
 		}
 	}
 
 	if (objct->GetObjectType() == ObjectType::GOAL && StageManager::GetInstance()->GetIsClear()) {
+
+		if (size_.x == baseSize.x) {
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().clear, 255 * 0.75f);
+
+		}
 
 		if (size_.x > 0) {
 			size_.x -= baseSize.x / 60;
@@ -382,7 +431,7 @@ void Player::OnCollision(Object* objct) {
 	}
 }
 
-bool Player::BurialJudge(Object* objct){
+bool Player::BurialJudge(Object* objct) {
 	//ブロックのオブジェクトタイプ判定
 	if (objct->IsExclude()) {
 
@@ -390,7 +439,7 @@ bool Player::BurialJudge(Object* objct){
 		if (pos_.x + size_.x / 2 - 1 >= objct->GetPos().x - objct->GetSize().x / 2 &&
 			pos_.x - size_.x / 2 + 1 <= objct->GetPos().x + objct->GetSize().x / 2 &&
 			pos_.y + size_.y / 2 - 1 >= objct->GetPos().y - objct->GetSize().y / 2 &&
-			pos_.y - size_.y / 2 + 1 <= objct->GetPos().y + objct->GetSize().y / 2){
+			pos_.y - size_.y / 2 + 1 <= objct->GetPos().y + objct->GetSize().y / 2) {
 
 			return true;
 		}

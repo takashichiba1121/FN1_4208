@@ -18,6 +18,22 @@ public:
 	static SoundPlayManager* Instance();
 #pragma endregion
 
+private:
+
+	struct Sounds
+	{
+		int jump;
+		int swim;
+		int inversionA;
+		int inversionB;
+		int waterA;
+		int waterB;
+		int key;
+		int clear;
+		int select;
+		int gameover;
+	};
+
 public:
 
 	void LoadAllSound();
@@ -26,12 +42,9 @@ public:
 
 	void Finalize();
 	
-	const int Jump() { return jump; }
-	const int Swim() { return swim; }
-	const int Inversion() { return inversion; }
-
+	const Sounds GetSound() { return sounds; }
+	
 private:
-	int jump;
-	int swim;
-	int inversion;
+
+	Sounds sounds;
 };

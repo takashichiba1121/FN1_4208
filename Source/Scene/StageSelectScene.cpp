@@ -8,7 +8,7 @@
 
 void StageSelectScene::Initialize()
 {
-	
+	soundPlayManager = SoundPlayManager::Instance();
 
 	previews_.resize(StageManager::GetInstance()->GetStageFileNameNum());
 
@@ -39,6 +39,7 @@ void StageSelectScene::Update()
 				if (selectStageNum_ > -1)
 				{
 					selectStageNum_--;
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select,100);
 				}
 			}
 			else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
@@ -46,6 +47,7 @@ void StageSelectScene::Update()
 				if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
 				{
 					selectStageNum_++;
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select,100);
 				}
 			}
 			else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
@@ -55,6 +57,7 @@ void StageSelectScene::Update()
 					SceneManager::GetInstance()->ChangeScene("TITLE");
 				}
 
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 
 				isNext_ = true;
 

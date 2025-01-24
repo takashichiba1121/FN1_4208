@@ -6,6 +6,7 @@
 
 void Pause::Initialize()
 {
+	soundPlayManager = SoundPlayManager::Instance();
 	texturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseTutorial.png");
 	texturehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseTutorial2.png");
 	inGameTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGameTutorial.png");
@@ -57,16 +58,19 @@ void Pause::Update()
 		if (Input::GetKeyTrigger(Input::Key::X))
 		{
 			SceneManager::GetInstance()->ChangeScene("TITLE");
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 		}
 		if (Input::GetKeyTrigger(Input::Key::Z))
 		{
 			SceneManager::GetInstance()->ChangeScene("STAGESELECT");
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 		}
 
 		//パットはStartだかoptionボタン
 		if (Input::GetKeyTrigger(Input::Key::T) || Input::TriggerPadKey(PAD_INPUT_8))
 		{
 			phase_ = Phase::After;
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
 		}
 		break;
 	case Phase::After:
