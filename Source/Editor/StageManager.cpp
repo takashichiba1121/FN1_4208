@@ -120,7 +120,7 @@ void StageManager::Update()
 		if (easingFrame_ < maxEasingFrame_)
 		{
 
-			clearTextSize_ = 1 - cosf(((easingFrame_ / maxEasingFrame_) * 3.141592) / 2);
+			clearTextSize_ = 1 - cosf(((easingFrame_ / maxEasingFrame_) * 3.141592f) / 2);
 			easingFrame_++;
 		}
 
