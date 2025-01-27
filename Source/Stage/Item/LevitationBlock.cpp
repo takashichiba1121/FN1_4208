@@ -30,6 +30,10 @@ void LevitationBlock::Update()
 	{
 		Move();
 	}
+	else
+	{
+		gravity_ = gravity_;
+	}
 }
 
 void LevitationBlock::Draw()
@@ -42,11 +46,14 @@ void LevitationBlock::Draw()
 
 void LevitationBlock::OnCollision(Object* objct)
 {
-	if (pos_.y < waterSurface_) {
-		onGround_ = true;
-	}
-	if (pos_.y > waterSurface_) {
-		onLevitation_ = true;
+	if (objct->IsExclude())
+	{
+		if (pos_.y < waterSurface_) {
+			onGround_ = true;
+		}
+		if (pos_.y > waterSurface_) {
+			onLevitation_ = true;
+		}
 	}
 }
 

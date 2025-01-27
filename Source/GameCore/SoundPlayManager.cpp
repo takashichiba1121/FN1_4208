@@ -19,12 +19,24 @@ void SoundPlayManager::LoadAllSound() {
 	sounds.clear = SoundManager::Instance()->LoadSound("Resources\\Sound\\clear.wav");
 	sounds.select = SoundManager::Instance()->LoadSound("Resources\\Sound\\select.wav");
 	sounds.gameover = SoundManager::Instance()->LoadSound("Resources\\Sound\\gameover.wav");
+
+	bgm.titleScene = SoundManager::Instance()->LoadSound("Resources\\BGM\\titleBGM.mp3");
+	bgm.gameScene = SoundManager::Instance()->LoadSound("Resources\\BGM\\gamePlayBGM.mp3");
 }
 
 void SoundPlayManager::SoundPlay(int sound, int volume) {
 
 	ChangeVolumeSoundMem(volume, sound);
 	PlaySoundMem(sound, DX_PLAYTYPE_BACK, true);
+}
+
+void SoundPlayManager::BGMPlay(int bgm, int volume) {
+	ChangeVolumeSoundMem(volume, bgm);
+	PlaySoundMem(bgm, DX_PLAYTYPE_LOOP, true);
+}
+
+void SoundPlayManager::BGMStop(int bgm) {
+	StopSoundMem(bgm);
 }
 
 void SoundPlayManager::Finalize() {

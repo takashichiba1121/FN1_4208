@@ -321,6 +321,7 @@ void Player::Draw() {
 
 	if (size_.x > 0) {
 
+		//DrawBox(pos_.x - size_.x/2, pos_.y - size_.y/2, pos_.x + size_.x/2, pos_.y + size_.y/2, GetColor(255,255,255), true);
 		if (direction == Direction::RIGHT) {
 			DrawExtendGraph(
 				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
@@ -346,12 +347,12 @@ void Player::Draw() {
 		DrawString(200, 200, "ブロックにつぶされてしまった…", GetColor(255, 100, 100));
 
 		if (!Input::GetIsUsePad()) {
-			DrawBox(670, 505, 720, 555, GetColor(255, 255, 255), false);
-			DrawString(400, 500, "リセット … R ", GetColor(255, 255, 255));
+			DrawBox(605, 505, 655, 555, GetColor(255, 255, 255), false);
+			DrawString(400, 500, "リセット R ", GetColor(255, 255, 255));
 		}
 		else {
-			DrawCircle(695, 530, 27, GetColor(255, 255, 255), false);
-			DrawString(400, 500, "リセット … Y ", GetColor(255, 255, 255));
+			DrawCircle(630, 530, 27, GetColor(255, 255, 255), false);
+			DrawString(400, 500, "リセット Y ", GetColor(255, 255, 255));
 		}
 	}
 	else {
@@ -366,7 +367,7 @@ void Player::Draw() {
 void Player::OnCollision(Object* objct) {
 
 	//ブロック上に乗っているときの処理
-	if (static_cast<uint32_t>(pos_.y + size_.y / 2) <= static_cast<uint32_t>(objct->GetPos().y - objct->GetSize().y / 2)) {
+	if (static_cast<uint32_t>(pos_.y + size_.y / 2) <= static_cast<uint32_t>(objct->GetPos().y - objct->GetSize().y / 2)&&objct->IsExclude()) {
 		canJumpTimer = canJumpTimerMax;
 		gravity = 0.0f;
 	}

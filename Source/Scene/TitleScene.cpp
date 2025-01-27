@@ -8,12 +8,18 @@ void TitleScene::Initialize()
 {
 	Water::GetInstance()->SetHorizontal(320);
 	soundPlayManager = SoundPlayManager::Instance();
+
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressSpace.png");
 
 	for (int i = 0; i < 3; i++) {
 
 		titleLogo[i] = std::make_unique<TitleLogo>();
 		titleLogo[i]->Initialize(i);
+	}
+
+	if (!CheckSoundMem(soundPlayManager->GetBGM().titleScene)) {
+		soundPlayManager->BGMStop(soundPlayManager->GetBGM().gameScene);
+		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().titleScene, 100);
 	}
 }
 

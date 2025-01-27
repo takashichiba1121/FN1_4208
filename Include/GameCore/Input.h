@@ -25,6 +25,10 @@ private:
 
 	int padY = 0;
 
+	int oldPadX = 0;
+
+	int oldPadY = 0;
+
 	bool isUsePad_ = false;
 
 private:
@@ -70,6 +74,10 @@ public:
 	static int32_t PadX();
 
 	static int32_t PadY();
+
+	static int32_t OldPadX();
+
+	static int32_t OldPadY();
 
 	static bool GetIsUsePad();
 
