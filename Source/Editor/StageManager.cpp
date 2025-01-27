@@ -315,6 +315,8 @@ void StageManager::NowStageReset()
 
 std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 {
+	
+
 	std::unique_ptr<Object> addObject;
 	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
 	switch (tag)

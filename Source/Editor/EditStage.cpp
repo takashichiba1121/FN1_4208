@@ -338,6 +338,11 @@ void EditStage::EditObject()
 			data.setData(objectI->get()->Clone());
 			UndoStack(EditContent::Content::Delete,data, eventCount);
 
+			if (objectI->get()->GetObjectType() == ObjectType::KEY)
+			{
+				StageManager::GetInstance()->SetKeyNum(StageManager::GetInstance()->GetKeyNum() - 1);
+			}
+
 			//ˆê‚Â‚µ‚©‚È‚¢‚È‚ç
 			if (StageManager::GetInstance()->stageObjData_.size() == 1)
 			{
