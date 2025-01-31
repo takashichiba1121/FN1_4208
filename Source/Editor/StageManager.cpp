@@ -61,6 +61,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 	{
 		LoadListStageData(loadData.levelData);
 		Water::GetInstance()->SetHorizontal(loadData.horizontal);
+		nowLevelStageName_ = loadData.LevelName_;
 	}
 	else
 	{
@@ -69,6 +70,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 		{
 			LoadListStageData(loadData.levelData);
 			Water::GetInstance()->SetHorizontal(loadData.horizontal);
+			nowLevelStageName_ = loadData.LevelName_;
 		}
 	}
 
@@ -120,7 +122,7 @@ void StageManager::Update()
 		if (easingFrame_ < maxEasingFrame_)
 		{
 
-			clearTextSize_ = 1 - cosf(((easingFrame_ / maxEasingFrame_) * 3.141592) / 2);
+			clearTextSize_ = 1 - cosf(((easingFrame_ / maxEasingFrame_) * 3.141592f) / 2);
 			easingFrame_++;
 		}
 
@@ -315,6 +317,8 @@ void StageManager::NowStageReset()
 
 std::unique_ptr<Object> StageManager::SelectObject(ObjectType tag)
 {
+	
+
 	std::unique_ptr<Object> addObject;
 	//ƒ^ƒO‚Ì“à—e‚ÅŒˆ’è
 	switch (tag)
