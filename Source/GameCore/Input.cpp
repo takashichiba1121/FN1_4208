@@ -130,6 +130,16 @@ int32_t Input::PadY()
 	return instance_->padY;
 }
 
+int32_t Input::OldPadX()
+{
+	return instance_->oldPadX;
+}
+
+int32_t Input::OldPadY()
+{
+	return instance_->oldPadY;
+}
+
 bool Input::GetIsUsePad()
 {
 	return instance_->isUsePad_;

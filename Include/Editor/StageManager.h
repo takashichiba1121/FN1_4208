@@ -66,6 +66,8 @@ public:
 	//Œ®‚Ì”‚Ìw’è‚ª‚µ‚½‚¢‚Æ‚«‚ÌŠÖ”
 	void SetKeyNum(int32_t num) { KeyNum_ = num; };
 
+	void SetNextStageSelect(int32_t nextStageSelect) { nextStageSelect_ = nextStageSelect; }
+
 	/// <summary>
 	/// Ÿ‚Ç‚¤‚·‚é‚©‚ğŒˆ’è‚·‚é
 	/// </summary>
@@ -79,6 +81,9 @@ public:
 	std::shared_ptr<Object> TestSaveSelectObject(Object object);
 
 	std::unique_ptr<Object> SelectObject(ObjectType tag);
+
+	//Œ»İ“Ç‚İ‚ñ‚Å‚¢‚éjson“à‚É‚ ‚éLevelName‚ğ•Ô‚·ŠÖ”
+	std::string GetNowLevelNameInjson() { return nowLevelStageName_; };
 
 private:
 
@@ -126,5 +131,13 @@ private:
 	uint32_t clearTextTextruehandle1_ = 0;
 	uint32_t clearTextTextruehandle2_ = 0;
 	uint32_t clearTextTextruehandle3_ = 0;
+	uint32_t SelectClearTextTextruehandle2_ = 0;
+	uint32_t SelectClearTextTextruehandle3_ = 0;
+
+	int32_t nextStageSelect_ = 0;
+
+	//Œ»İ“Ç‚İ‚ñ‚Å‚¢‚éjson“à‚É‚ ‚éLevelName
+	std::string nowLevelStageName_ = "";
+
 };
 
