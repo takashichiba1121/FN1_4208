@@ -137,7 +137,7 @@ void StageSelectScene::Update()
 
 		if (moveNextTime_ > moveNextmaxTime_)
 		{
-			SceneManager::GetInstance()->ChangeScene("GAME");
+			SceneManager::GetInstance()->ChangeScene("GAME", "LoadLevelName");
 			StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
 			moveNextTime_ = 0;
 

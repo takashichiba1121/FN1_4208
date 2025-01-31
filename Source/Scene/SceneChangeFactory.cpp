@@ -1,6 +1,7 @@
 #include "SceneChangeFactory.h"
 #include "BasicSceneChange.h"
 #include "NoneSceneChange.h"
+#include "LoadLevelDataNameDrawSceneChange.h"
 
 SceneChangeFactory::SceneChangeFactory()
 {
@@ -24,6 +25,12 @@ std::unique_ptr<ISceneChange> SceneChangeFactory::CreateSceneChange(const std::s
 	if (sceneChangeName == "BASIC")
 	{
 		newSceneChange = std::make_unique<BasicSceneChange>();
+		newSceneChange->Initialize();
+	}
+
+	if (sceneChangeName == "LoadLevelName")
+	{
+		newSceneChange = std::make_unique<LoadLevelDataNameDrawSceneChange>();
 		newSceneChange->Initialize();
 	}
 
