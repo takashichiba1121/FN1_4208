@@ -304,6 +304,7 @@ void StageManager::NextLevelLoad()
 	}
 
 	CollisionManager::GetInstance()->AllDelete();
+	SceneManager::GetInstance()->ChangeScene("GAME", "LoadLevelName");
 	LoadStageObjectFile(stageFileName_[nowLevelNum_ + 1]);
 	nowLevelNum_ = nowLevelNum_ + 1;
 }

@@ -234,6 +234,9 @@
     <ClCompile Include="Source\Stage\Pause.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Scene\LoadLevelDataNameDrawSceneChange.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ThirdParty\json.hpp">
@@ -413,8 +416,10 @@
     <ClInclude Include="Include\Stage\Pause.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Include\Scene\ClearManager.h">
     <ClInclude Include="Include\GameCore\SoundPlayManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Scene\LoadLevelDataNameDrawSceneChange.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
