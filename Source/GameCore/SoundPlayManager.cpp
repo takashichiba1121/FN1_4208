@@ -19,6 +19,7 @@ void SoundPlayManager::LoadAllSound() {
 	sounds.clear = SoundManager::Instance()->LoadSound("Resources\\Sound\\clear.wav");
 	sounds.select = SoundManager::Instance()->LoadSound("Resources\\Sound\\select.wav");
 	sounds.gameover = SoundManager::Instance()->LoadSound("Resources\\Sound\\gameover.wav");
+	sounds.block_break = SoundManager::Instance()->LoadSound("Resources\\Sound\\break.wav");
 
 	bgm.titleScene = SoundManager::Instance()->LoadSound("Resources\\BGM\\titleBGM.mp3");
 	bgm.gameScene = SoundManager::Instance()->LoadSound("Resources\\BGM\\gamePlayBGM.mp3");

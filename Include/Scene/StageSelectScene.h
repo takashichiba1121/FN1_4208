@@ -25,7 +25,7 @@ private:
 
 	//イージング用の引数
 	float moveTime_ = 0;
-	float movemaxTime_ = 30;
+	float movemaxTime_ = 20;
 
 
 	bool isNext_ = false;

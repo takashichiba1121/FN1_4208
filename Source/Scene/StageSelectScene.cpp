@@ -43,6 +43,8 @@ void StageSelectScene::Update()
 			{
 				if (selectStageNum_ > -1)
 				{
+					selectStageOldNum_ = selectStageNum_;
+					moveTime_ = 0;
 					selectStageNum_--;
 					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select);
 				}
@@ -51,17 +53,20 @@ void StageSelectScene::Update()
 			{
 				if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
 				{
+					selectStageOldNum_ = selectStageNum_;
+					moveTime_ = 0;
 					selectStageNum_++;
 					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select);
 				}
 			}
-			else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
+			else if ((Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter)) &&
+				selectStageNum_ == selectStageOldNum_)
 			{
 				if (selectStageNum_ == -1)
 				{
 					SceneManager::GetInstance()->ChangeScene("TITLE");
 				}
-
+				moveTime_ = movemaxTime_;
 				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 
 				isNext_ = true;
@@ -87,6 +92,8 @@ void StageSelectScene::Update()
 			{
 				if (selectStageNum_ > -1 && padMoveWait_==0)
 				{
+					selectStageOldNum_ = selectStageNum_;
+					moveTime_ = 0;
 					selectStageNum_--;
 					padMoveWait_ = padMoveMaxWait_;
 				}
@@ -95,11 +102,13 @@ void StageSelectScene::Update()
 			{
 				if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
 				{
+					selectStageOldNum_ = selectStageNum_;
+					moveTime_ = 0;
 					selectStageNum_++;
 					padMoveWait_ = padMoveMaxWait_;
 				}
 			}
-			else if (Input::TriggerPadKey(PAD_INPUT_1))
+			else if (Input::TriggerPadKey(PAD_INPUT_1) && selectStageNum_ == selectStageOldNum_)
 			{
 				if (selectStageNum_ == -1)
 				{
@@ -132,7 +141,6 @@ void StageSelectScene::Update()
 	}
 	else
 	{
-		
 		nextPreview_.size_ = easeInQuad({ 0.5f,0.5f }, { 1.0f,1.0f }, moveNextTime_ / moveNextmaxTime_);
 
 		if (moveNextTime_ > moveNextmaxTime_)
@@ -258,5 +266,6 @@ void StageSelectScene::Finalize()
 
 Vector2 StageSelectScene::easeInQuad(Vector2 start, Vector2 end, float time)
 {
-	return start + time * time * (end - start);
+	//return start + time * time * (end - start);
+	return start + ((1 - pow(1 - time, 4)) * (end - start));
 }
