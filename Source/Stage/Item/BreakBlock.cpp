@@ -2,7 +2,9 @@
 #include "Water.h"
 #include "CollisionManager.h"
 #include "Input.h"
+#include "Inversion.h"
 #include "TextureManager.h"
+#include "SoundPlayManager.h"
 #include <cmath>
 #include <DxLib.h>
 #include <random>
@@ -72,18 +74,20 @@ void BreakBlock::Draw()
 	case BLOCK_HP_LOW:
 
 		// アニメーションブロック描画
-		DrawGraph(
-			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)), 
-			(int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)), 
+		DrawExtendGraph(
+			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)), (int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)),
+			(int)((pos_.x + size_.x / 2.0f) + (size_.x / 64.0f)), (int)((pos_.y + size_.y / 2.0f) + (size_.y / 64.0f)),
 			animationImage[animationFrame], true);
 
 		break;
 
 	case BLOCK_HP_MAX:
 
-		DrawGraph(
+		DrawExtendGraph(
 			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)),
 			(int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)),
+			(int)((pos_.x + size_.x / 2.0f) + (size_.x / 64.0f)),
+			(int)((pos_.y + size_.y / 2.0f) + (size_.y / 64.0f)),
 			animationImage[animationFrame], true);
 		
 		break;
@@ -122,13 +126,16 @@ void BreakBlock::ShakeActive()
 void BreakBlock::Damage()
 {
 	blockHp_ = damageValue_;
+	SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().block_break);
 }
 
 void BreakBlock::OnCollision(Object* object)
 {
 	if (object->GetObjectType() == ObjectType::PLAYER &&
 		pos_.y >= (object->GetPos().y + object->GetSize().y / 2)) {
-		Damage();
+		if (!Inversion::GetInstance()->GetIsInversion() && !Inversion::GetInstance()->GetEndInversion()) {
+			Damage();
+		}
 	}
 }
 
