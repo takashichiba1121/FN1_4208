@@ -7,22 +7,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    703.0,
-                    632.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 7
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": null,
-                "pos": [
-                    271.0,
-                    558.0
+                    618.0,
+                    262.0
                 ],
                 "scale": [
                     64.0,
@@ -35,28 +21,28 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    256.0,
-                    655.0
-                ],
-                "scale": [
-                    514.0,
-                    128.0
-                ],
-                "tag": 3
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": null,
-                "pos": [
-                    87.0,
-                    557.0
+                    37.0,
+                    687.0
                 ],
                 "scale": [
                     64.0,
                     64.0
                 ],
                 "tag": 0
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    619.0,
+                    327.0
+                ],
+                "scale": [
+                    256.0,
+                    64.0
+                ],
+                "tag": 3
             }
         }
     ]

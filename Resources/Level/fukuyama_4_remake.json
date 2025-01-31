@@ -1,14 +1,14 @@
 {
     "LevelName": "",
-    "horizontal": 360.0,
+    "horizontal": 619.0,
     "name": "Level",
     "objects": [
         {
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    703.0,
-                    632.0
+                    743.0,
+                    455.0
                 ],
                 "scale": [
                     64.0,
@@ -21,8 +21,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    271.0,
-                    558.0
+                    624.0,
+                    690.0
                 ],
                 "scale": [
                     64.0,
@@ -35,12 +35,12 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    256.0,
-                    655.0
+                    533.0,
+                    689.0
                 ],
                 "scale": [
-                    514.0,
-                    128.0
+                    64.0,
+                    64.0
                 ],
                 "tag": 3
             }
@@ -49,8 +49,36 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    87.0,
-                    557.0
+                    705.0,
+                    690.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    617.0,
+                    624.0
+                ],
+                "scale": [
+                    196.0,
+                    64.0
+                ],
+                "tag": 2
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    37.0,
+                    687.0
                 ],
                 "scale": [
                     64.0,
