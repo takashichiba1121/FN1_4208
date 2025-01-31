@@ -82,6 +82,9 @@ public:
 
 	std::unique_ptr<Object> SelectObject(ObjectType tag);
 
+	//現在読み込んでいるjson内にあるLevelNameを返す関数
+	std::string GetNowLevelNameInjson() { return nowLevelStageName_; };
+
 private:
 
 	//シングルトン用
@@ -132,5 +135,9 @@ private:
 	uint32_t SelectClearTextTextruehandle3_ = 0;
 
 	int32_t nextStageSelect_ = 0;
+
+	//現在読み込んでいるjson内にあるLevelName
+	std::string nowLevelStageName_ = "";
+
 };
 

@@ -44,14 +44,16 @@ struct ObjectName
 {
 	//”š‚ğ‘Î‰‚µ‚½enumclass‚Å•Ô‚·ŠÖ”
 	template <typename Enum>
-	static Enum ObjectString(int value) {
-	for (int32_t i = static_cast<int32_t>(ObjectType::PLAYER); i <= static_cast<int32_t>(ObjectType::NONE); i++) 
+	static Enum ObjectString(int32_t value) 
 	{
+		for (int32_t i = static_cast<int32_t>(ObjectType::PLAYER); i <= static_cast<int32_t>(ObjectType::NONE); i++) 
+		{
 			if (i == value) 
 			{
 				return static_cast<Enum>(i);
 			}
 		}
+
 		return static_cast<Enum>(ObjectType::NONE);
 	}
 };
