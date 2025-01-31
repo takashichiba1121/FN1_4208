@@ -462,3 +462,17 @@ Vector2 StageManager::GetGraphSize(int32_t GraphHandle)
 	return { x,y };
 
 }
+
+InputLevelData StageManager::WindowsOpenLevelFileToStageManager()
+{
+
+	InputLevelData output = ImportLevel::GetInstance()->WindowsOpenLevelFile();
+
+	if (output.isLoad)
+	{
+		nowLevelStageName_ = output.LevelName_;
+	}
+
+	return output;
+
+}

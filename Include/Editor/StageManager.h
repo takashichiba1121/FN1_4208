@@ -85,6 +85,9 @@ public:
 	//現在読み込んでいるjson内にあるLevelNameを返す関数
 	std::string GetNowLevelNameInjson() { return nowLevelStageName_; };
 
+	//ウインドウの標準機能で読み込むファイルを指定してそれを返す(importLevelと違うところはファイル内のLevelNameを更新するか)
+	InputLevelData WindowsOpenLevelFileToStageManager();
+
 private:
 
 	//シングルトン用
