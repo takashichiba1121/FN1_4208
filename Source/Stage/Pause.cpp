@@ -14,6 +14,8 @@ void Pause::Initialize()
 	texturehandleTutorial_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseTutorial.png");
 	texturehandleSelect_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseSelect.png");
 	inGameTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGameTutorial.png");
+
+	fontHandle_ = CreateFontToHandle("ロンド B スクエア", fontSize_, -1);
 }
 
 void Pause::InGameUpdate()
@@ -153,7 +155,7 @@ void Pause::Draw()
 
 		if (!tutorial_)
 		{
-			DrawFormatString2F(640 - (float)GetDrawStringWidth(stageTitle.c_str(), stageTitle.size()) / 2, 150, 0xffffff, 0xff0000, stageTitle.c_str());
+			DrawFormatString2FToHandle((WIN_WIDTH / 2) - (float)GetDrawStringWidthToHandle(stageTitle.c_str(), stageTitle.size(), fontHandle_) / 2,150, 0xffffff, 0xff0000, fontHandle_, stageTitle.c_str());
 			DrawGraph(440, 350, texturehandleGame_, true);
 			DrawGraph(440, 410, texturehandleTutorial_, true);
 			DrawGraph(440, 470, texturehandleSelect_, true);

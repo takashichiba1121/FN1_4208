@@ -95,6 +95,7 @@ void StageManager::Initialize()
 	clearTextTextruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
 	SelectClearTextTextruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SelectNext.png");
 	SelectClearTextTextruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SelectBack.png");
+	SelectClearTextTextruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SelectButton.png");
 }
 
 void StageManager::Update()
@@ -167,18 +168,20 @@ void StageManager::Draw()
 		{
 			DrawRotaGraph3F(WIN_WIDTH / 2, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle1_).x / 2, GetGraphSize(clearTextTextruehandle1_).y / 2, clearTextSize_ * 1.5f, clearTextSize_ * 1.5f, 0, clearTextTextruehandle1_, TRUE);
 		}
-
+		//‰º
 		if (WIN_HEIGHT - 256 / 4 <= Water::GetInstance()->GetHorizontal())
 		{
 			if (nextStageSelect_ == -1)
 			{
 				DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
 				DrawRotaGraph3F(WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, SelectClearTextTextruehandle3_, TRUE);
+				DrawRotaGraph3F(WIN_WIDTH / 4-64, (WIN_HEIGHT - GetGraphSize(clearTextTextruehandle3_).y / 4)-96, 0,0, 1, 1, 0, SelectClearTextTextruehandle4_, TRUE);
 			}
 			else if (nextStageSelect_ == 1)
 			{
 				DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, SelectClearTextTextruehandle2_, TRUE);
 				DrawRotaGraph3F(WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+				DrawRotaGraph3F((WIN_WIDTH - WIN_WIDTH / 4)-64, (WIN_HEIGHT - GetGraphSize(clearTextTextruehandle2_).y / 4) - 96, 0,0, 1, 1, 0, SelectClearTextTextruehandle4_, TRUE);
 			}
 			else
 			{
@@ -186,17 +189,20 @@ void StageManager::Draw()
 				DrawRotaGraph3F(WIN_WIDTH / 4, WIN_HEIGHT - GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 			}
 		}
+		//ã
 		else if (256 / 4 >= Water::GetInstance()->GetHorizontal())
 		{
 			if (nextStageSelect_ == -1)
 			{
 				DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
 				DrawRotaGraph3F(WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, SelectClearTextTextruehandle3_, TRUE);
+				DrawRotaGraph3F(WIN_WIDTH / 4-64, (0 + GetGraphSize(clearTextTextruehandle3_).y / 4)+96,0,0,1,1, 0, SelectClearTextTextruehandle4_, TRUE);
 			}
 			else if (nextStageSelect_ == 1)
 			{
 				DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle2_).y / 4, GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, SelectClearTextTextruehandle2_, TRUE);
 				DrawRotaGraph3F(WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+				DrawRotaGraph3F((WIN_WIDTH - WIN_WIDTH / 4)-64, (0 + GetGraphSize(clearTextTextruehandle2_).y / 4)+96,0,0,1,1, 0, SelectClearTextTextruehandle2_, TRUE);
 			}
 			else
 			{
@@ -204,17 +210,19 @@ void StageManager::Draw()
 				DrawRotaGraph3F(WIN_WIDTH / 4, 0 + GetGraphSize(clearTextTextruehandle3_).y / 4, GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
 			}
 		}
-		else
+		else//^‚ñ’†
 		{
 			if (nextStageSelect_ == -1)
 			{
 				DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle2_, TRUE);
 				DrawRotaGraph3F(WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, SelectClearTextTextruehandle3_, TRUE);
+				DrawRotaGraph3F(WIN_WIDTH / 4-64, Water::GetInstance()->GetHorizontal()-96,0,0,1,1, 0, SelectClearTextTextruehandle4_, TRUE);
 			}
 			else if (nextStageSelect_ == 1)
 			{
 				DrawRotaGraph3F(WIN_WIDTH - WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle2_).x / 2, GetGraphSize(clearTextTextruehandle2_).y / 2, 0.5f, 0.5f, 0, SelectClearTextTextruehandle2_, TRUE);
 				DrawRotaGraph3F(WIN_WIDTH / 4, Water::GetInstance()->GetHorizontal(), GetGraphSize(clearTextTextruehandle3_).x / 2, GetGraphSize(clearTextTextruehandle3_).y / 2, 0.5f, 0.5f, 0, clearTextTextruehandle3_, TRUE);
+				DrawRotaGraph3F((WIN_WIDTH - WIN_WIDTH / 4)-64, Water::GetInstance()->GetHorizontal()-96,0,0,1,1, 0, SelectClearTextTextruehandle4_, TRUE);
 			}
 			else
 			{
