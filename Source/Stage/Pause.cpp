@@ -104,7 +104,7 @@ void Pause::Update()
 				}
 				else if (select_ == 1)
 				{
-					SceneManager::GetInstance()->ChangeScene("TITLE");
+					tutorial_ = true;
 					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 				}
 				else if (select_ == 2)
@@ -114,7 +114,7 @@ void Pause::Update()
 				}
 				else if (select_ == 3)
 				{
-					tutorial_ = true;
+					SceneManager::GetInstance()->ChangeScene("TITLE");
 					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
 				}
 			}
@@ -153,10 +153,11 @@ void Pause::Draw()
 
 		if (!tutorial_)
 		{
+			DrawFormatString2F(640 - (float)GetDrawStringWidth(stageTitle.c_str(), stageTitle.size()) / 2, 150, 0xffffff, 0xff0000, stageTitle.c_str());
 			DrawGraph(440, 350, texturehandleGame_, true);
-			DrawGraph(440, 410, texturehandleTitle_, true);
+			DrawGraph(440, 410, texturehandleTutorial_, true);
 			DrawGraph(440, 470, texturehandleSelect_, true);
-			DrawGraph(440, 530, texturehandleTutorial_, true);
+			DrawGraph(440, 530, texturehandleTitle_, true);
 
 			SetDrawBlendMode(DX_BLENDMODE_ALPHA, alpha_);
 			DrawBox(440,350+select_*60,850, 350 + select_ * 60+50, GetColor(255, 255, 255), false);
