@@ -581,7 +581,7 @@ void EditStage::SaveAndLoadLevelObject()
 	}
 	if (imguiLoadWindow_)
 	{
-		loadData = ImportLevel::GetInstance()->WindowsOpenLevelFile();
+		loadData = StageManager::GetInstance()->WindowsOpenLevelFileToStageManager();
 		if (loadData.isLoad)
 		{
 			//Ÿ‚Éˆø‚«Œp‚ª‚È‚¢ƒf[ƒ^‚ğÁ‚µ‚Ä‚¨‚­
