@@ -58,19 +58,19 @@ void Pause::Update()
 		if (Input::GetKeyTrigger(Input::Key::X))
 		{
 			SceneManager::GetInstance()->ChangeScene("TITLE");
-			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 		}
 		if (Input::GetKeyTrigger(Input::Key::Z))
 		{
 			SceneManager::GetInstance()->ChangeScene("STAGESELECT");
-			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 		}
 
 		//パットはStartだかoptionボタン
 		if (Input::GetKeyTrigger(Input::Key::T) || Input::TriggerPadKey(PAD_INPUT_8))
 		{
 			phase_ = Phase::After;
-			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA);
 		}
 		break;
 	case Phase::After:

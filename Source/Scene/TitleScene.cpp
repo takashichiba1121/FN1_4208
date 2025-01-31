@@ -19,7 +19,7 @@ void TitleScene::Initialize()
 
 	if (!CheckSoundMem(soundPlayManager->GetBGM().titleScene)) {
 		soundPlayManager->BGMStop(soundPlayManager->GetBGM().gameScene);
-		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().titleScene, 100);
+		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().titleScene);
 	}
 }
 
@@ -27,7 +27,7 @@ void TitleScene::Update()
 {
 	if (Input::GetKeyTrigger(Input::Key::Space) || Input::TriggerPadKey(PAD_INPUT_1)) {
 		SceneManager::GetInstance()->ChangeScene("STAGESELECT");
-		soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 	}
 
 	//ƒKƒCƒhUI‚Ì“§–¾“x
