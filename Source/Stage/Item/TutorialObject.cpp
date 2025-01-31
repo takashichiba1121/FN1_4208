@@ -18,7 +18,7 @@ void TutorialObject::Initialize()
 	tutorialPadHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\" + tutorialPadTexture_ + ".png");
 
 	// ‰æ‘œ“Ç‚Ýž‚Ý
-	textureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Tutorial.png");
+	textureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\tutorialObject.png");
 
 	GetGraphSizeF(tutorialKeyHandle_,&tutorialSize_.x,&tutorialSize_.y);
 }

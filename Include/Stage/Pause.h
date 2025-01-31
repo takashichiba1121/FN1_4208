@@ -26,8 +26,11 @@ public:
 
 	void StartGetPause();
 private:
-	uint32_t texturehandle_=0;
-	uint32_t texturehandle2_ = 0;
+	uint32_t texturehandleTitle_=0;
+	uint32_t texturehandleGame_ = 0;
+	uint32_t texturehandleTutorial_ = 0;
+	uint32_t texturehandleSelect_ = 0;
+
 	uint32_t inGameTexturehandle_ = 0;
 
 	Phase phase_ = Phase::Before;
@@ -47,5 +50,13 @@ private:
 	Vector2 ingamePos_ = { 0,0 };
 
 	SoundPlayManager* soundPlayManager;
+
+	uint16_t select_=0;
+
+	uint16_t alpha_=255;
+
+	bool isAlphaPlas_=false;
+
+	bool tutorial_ = false;
 };
 
