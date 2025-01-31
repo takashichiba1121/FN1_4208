@@ -304,6 +304,7 @@ void StageManager::NextLevelLoad()
 	}
 
 	CollisionManager::GetInstance()->AllDelete();
+	SceneManager::GetInstance()->ChangeScene("GAME", "LoadLevelName");
 	LoadStageObjectFile(stageFileName_[nowLevelNum_ + 1]);
 	nowLevelNum_ = nowLevelNum_ + 1;
 }
@@ -459,5 +460,19 @@ Vector2 StageManager::GetGraphSize(int32_t GraphHandle)
 	GetGraphSizeF(GraphHandle, &x, &y);
 
 	return { x,y };
+
+}
+
+InputLevelData StageManager::WindowsOpenLevelFileToStageManager()
+{
+
+	InputLevelData output = ImportLevel::GetInstance()->WindowsOpenLevelFile();
+
+	if (output.isLoad)
+	{
+		nowLevelStageName_ = output.LevelName_;
+	}
+
+	return output;
 
 }

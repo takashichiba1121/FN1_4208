@@ -26,7 +26,7 @@ void StageSelectScene::Initialize()
 
 	if (!CheckSoundMem(soundPlayManager->GetBGM().titleScene)) {
 		soundPlayManager->BGMStop(soundPlayManager->GetBGM().gameScene);
-		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().titleScene, 100);
+		soundPlayManager->BGMPlay(soundPlayManager->GetBGM().titleScene);
 	}
 
 	SetFontSize(50);
@@ -44,7 +44,7 @@ void StageSelectScene::Update()
 				if (selectStageNum_ > -1)
 				{
 					selectStageNum_--;
-					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select,100);
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select);
 				}
 			}
 			else if (Input::GetKeyTrigger(Input::Key::D) || Input::GetKeyTrigger(Input::Key::Right))
@@ -52,7 +52,7 @@ void StageSelectScene::Update()
 				if (selectStageNum_ < StageManager::GetInstance()->GetStageFileNameNum() - 1)
 				{
 					selectStageNum_++;
-					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select,100);
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select);
 				}
 			}
 			else if (Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter))
@@ -62,7 +62,7 @@ void StageSelectScene::Update()
 					SceneManager::GetInstance()->ChangeScene("TITLE");
 				}
 
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 
 				isNext_ = true;
 
@@ -137,7 +137,7 @@ void StageSelectScene::Update()
 
 		if (moveNextTime_ > moveNextmaxTime_)
 		{
-			SceneManager::GetInstance()->ChangeScene("GAME");
+			SceneManager::GetInstance()->ChangeScene("GAME", "LoadLevelName");
 			StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
 			moveNextTime_ = 0;
 

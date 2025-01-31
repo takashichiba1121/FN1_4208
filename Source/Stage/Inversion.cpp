@@ -24,7 +24,7 @@ void Inversion::Update() {
 	if (isInversion) {
 
 		if (frame == 15) {
-			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().inversionB, 255 * 0.5f);
+			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().inversionB);
 		}
 
 		frame++;	//ƒtƒŒ[ƒ€‚ği‚ß‚é
