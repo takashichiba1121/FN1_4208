@@ -21,9 +21,9 @@ void Goal::Initialize()
 	//confettiEmitter->Initialize(5);
 
 	//‰æ‘œ“Ç‚Ýž‚Ý
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor.png");
-	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
-	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor_1.png");
+	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor_1.png");
+	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey_1.png");
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
 	textruehandle5_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
 	textruehandle6_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");

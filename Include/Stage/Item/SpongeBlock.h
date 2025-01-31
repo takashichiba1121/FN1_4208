@@ -50,5 +50,6 @@ private:
 
 	bool stopExpansion_ = false;
 	
+	uint32_t textureHandle_;
 };
 
