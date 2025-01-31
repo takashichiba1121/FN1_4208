@@ -42,9 +42,9 @@ public:
 
 	void LoadAllSound();
 
-	void SoundPlay(int sound, int volume);
+	void SoundPlay(int sound, int volume = 150);
 
-	void BGMPlay(int bgm, int volume);
+	void BGMPlay(int bgm, int volume = 150);
 	void BGMStop(int bgm);
 
 	void Finalize();

@@ -55,6 +55,7 @@ void Player::Update() {
 		isFront = false;
 
 		if (isBurial && !Inversion::GetInstance()->GetEndInversion()) {
+			if(!StageManager::GetInstance()->GetIsClear())
 			isGameover = true;
 		}
 
@@ -81,7 +82,7 @@ void Player::Update() {
 
 
 	if (oldPos_.y + size_.y / 2 < horizontal && pos_.y + size_.y / 2 >= horizontal) {
-		soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA);
 	}
 
 	if (isFront) {
@@ -148,7 +149,7 @@ void Player::Update() {
 	}
 
 	if (isGameover && guideTimer <= 0) {
-		soundPlayManager->SoundPlay(soundPlayManager->GetSound().gameover, 150);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().gameover,255);
 	}
 
 	if ((isDrawGuide && guideTimer <= guideTimerMax) || isGameover) {
@@ -211,7 +212,7 @@ void Player::Operation() {
 			if (Input::GetKeyTrigger(Input::Key::Q)) {
 				InversionProcess();
 
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 			}
 		}
 		else
@@ -219,7 +220,7 @@ void Player::Operation() {
 			if (Input::TriggerPadKey(PAD_INPUT_3)) {
 				InversionProcess();
 
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 			}
 		}
 	}
@@ -309,10 +310,10 @@ void Player::JumpProcess()
 	gravity = initJumpVelocity / (isUnderWater + 1);
 
 	if (isUnderWater) {
-		soundPlayManager->SoundPlay(soundPlayManager->GetSound().swim, 100);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().swim);
 	}
 	else {
-		soundPlayManager->SoundPlay(soundPlayManager->GetSound().jump, 100);
+		soundPlayManager->SoundPlay(soundPlayManager->GetSound().jump);
 	}
 
 }
@@ -390,7 +391,7 @@ void Player::OnCollision(Object* objct) {
 		{
 			if (Input::GetKeyTrigger(Input::Key::W) && !Water::GetInstance()->GetIsChangeHorizontal()) {
 				Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterB, 100);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterB);
 			}
 		}
 		else
@@ -398,7 +399,7 @@ void Player::OnCollision(Object* objct) {
 			//パットではBボタン
 			if (Input::TriggerPadKey(PAD_INPUT_2) && !Water::GetInstance()->GetIsChangeHorizontal()) {
 				Water::GetInstance()->SetTentHorizontal(objct->GetPos().y);
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterB, 100);
+				soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterB);
 			}
 		}
 	}
@@ -406,7 +407,7 @@ void Player::OnCollision(Object* objct) {
 	if (objct->GetObjectType() == ObjectType::GOAL && StageManager::GetInstance()->GetIsClear()) {
 
 		if (size_.x == baseSize.x) {
-			soundPlayManager->SoundPlay(soundPlayManager->GetSound().clear, 255 * 0.75f);
+			soundPlayManager->SoundPlay(soundPlayManager->GetSound().clear,255);
 
 		}
 
