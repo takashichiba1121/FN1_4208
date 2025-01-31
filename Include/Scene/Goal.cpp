@@ -21,9 +21,9 @@ void Goal::Initialize()
 	//confettiEmitter->Initialize(5);
 
 	//‰æ‘œ“Ç‚Ýž‚Ý
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor.png");
-	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor.png");
-	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor_1.png");
+	textruehandle2_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\OpenDoor_1.png");
+	textruehandle3_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey_1.png");
 	textruehandle4_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\clearText.png");
 	textruehandle5_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\next.png");
 	textruehandle6_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\back.png");
@@ -111,10 +111,10 @@ void Goal::Inversion(const float easing) {
 
 void Goal::NextSelect()
 {
-	if (Input::GetKeyTrigger(Input::Key::Right)||(Input::OldPadX()<=500&& Input::PadX() > 500)) {
+	if (Input::GetKeyTrigger(Input::Key::Right)|| Input::GetKeyTrigger(Input::Key::D) ||(Input::OldPadX()<=500&& Input::PadX() > 500)) {
 			nextStageSelect_ = 1;
 	}
-	else if (Input::GetKeyTrigger(Input::Key::Left) || (Input::OldPadX() >= -500 && Input::PadX() < -500)) {
+	else if (Input::GetKeyTrigger(Input::Key::Left) || Input::GetKeyTrigger(Input::Key::A) || (Input::OldPadX() >= -500 && Input::PadX() < -500)) {
 			nextStageSelect_ = -1;
 	}
 

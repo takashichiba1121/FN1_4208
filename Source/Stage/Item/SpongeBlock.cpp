@@ -5,6 +5,7 @@
 #include"Inversion.h"
 #include<cmath>
 #include"imgui.h"
+#include "TextureManager.h"
 
 void SpongeBlock::Initialize()
 {
@@ -13,6 +14,8 @@ void SpongeBlock::Initialize()
 
 	objectType_ = ObjectType::SPONGE_BLOCK;
 	CollisionManager::GetInstance()->AddObject(this);
+
+	textureHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SpongeBlock.png");
 }
 
 void SpongeBlock::Update()
@@ -70,10 +73,14 @@ void SpongeBlock::Update()
 
 void SpongeBlock::Draw()
 {
-	DrawBox(
+	/*DrawBox(
 		(int)(pos_.x - size_.x / 2.0f), (int)(pos_.y - size_.y / 2.0f),
 		(int)(pos_.x + size_.x / 2.0f), (int)(pos_.y + size_.y / 2.0f),
-		GetColor(255, 255, 0), TRUE);
+		GetColor(255, 255, 0), TRUE);*/
+
+	DrawRotaGraph3F(
+		pos_.x - size_.x / 2.0f, pos_.y - size_.y / 2.0f, 0.0f, 0.0f,
+		(double)(size_.x / 64.0), (double)(size_.y / 64.0), 0.0, textureHandle_, true);
 }
 
 void SpongeBlock::OnCollision(Object* object)

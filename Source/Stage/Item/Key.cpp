@@ -14,7 +14,7 @@ void Key::Initialize()
 	CollisionManager::GetInstance()->AddObject(this);
 
 	//‰æ‘œ“Ç‚Ýž‚Ý
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Key.png");
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Key_1.png");
 
 	isLock = true;
 	isKey = true;
