@@ -61,6 +61,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 	{
 		LoadListStageData(loadData.levelData);
 		Water::GetInstance()->SetHorizontal(loadData.horizontal);
+		nowLevelStageName_ = loadData.LevelName_;
 	}
 	else
 	{
@@ -69,6 +70,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 		{
 			LoadListStageData(loadData.levelData);
 			Water::GetInstance()->SetHorizontal(loadData.horizontal);
+			nowLevelStageName_ = loadData.LevelName_;
 		}
 	}
 
