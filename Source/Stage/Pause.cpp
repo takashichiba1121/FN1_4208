@@ -102,22 +102,22 @@ void Pause::Update()
 				if (select_ == 0)
 				{
 					phase_ = Phase::After;
-					soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA, 100);
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().waterA);
 				}
 				else if (select_ == 1)
 				{
 					tutorial_ = true;
-					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 				}
 				else if (select_ == 2)
 				{
 					SceneManager::GetInstance()->ChangeScene("STAGESELECT");
-					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 				}
 				else if (select_ == 3)
 				{
 					SceneManager::GetInstance()->ChangeScene("TITLE");
-					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA, 100);
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 				}
 			}
 		}
