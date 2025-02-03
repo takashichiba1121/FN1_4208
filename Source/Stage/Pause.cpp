@@ -15,6 +15,8 @@ void Pause::Initialize()
 	texturehandleSelect_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseSelect.png");
 	inGameTextureKeyHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGameTutorial.png");
 	inGameTexturePadHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGamePadTutorial.png");
+	padTutorialHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\padTutorial.png");
+	keyTutorialHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\tutorial.png");
 
 	fontHandle_ = CreateFontToHandle("ロンド B スクエア", fontSize_, -1);
 }
@@ -168,7 +170,14 @@ void Pause::Draw()
 		}
 		else
 		{
-
+			if (Input::GetIsUsePad())
+			{
+				DrawGraph(440, 440, padTutorialHandle_, true);
+			}
+			else
+			{
+				DrawGraph(440, 440, keyTutorialHandle_, true);
+			}
 		}
 
 	}
