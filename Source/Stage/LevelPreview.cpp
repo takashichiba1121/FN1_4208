@@ -12,7 +12,7 @@ LevelPreView::~LevelPreView()
 
 void LevelPreView::Initialize(std::string selectFileName)
 {
-	lockhandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey.png");
+	lockhandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey_1.png");
 	
 	LoadStageObjectFile(selectFileName);
 	nowSelectfileName_ = selectFileName;
@@ -115,7 +115,7 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 		break;
 	case ObjectType::SPONGE_BLOCK:
 
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SpongeBlook.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\SpongeBlock.png");
 		break;
 
 	case ObjectType::FLOAT_BLOCK:
@@ -130,15 +130,15 @@ void LevelPreView::AddObject(Vector2 pos, Vector2 size, ObjectType tag)
 
 	case ObjectType::BREAK_BLOCK:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlock.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\BreakBlockHpMax.png");
 		break;
 	case ObjectType::GOAL:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\CloseDoor_1.png");
 		break;
 	case ObjectType::KEY:
 		
-		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Key.png");
+		addObject.handle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Key_1.png");
 		break;
 	case ObjectType::DRAIN:
 
