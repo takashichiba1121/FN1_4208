@@ -79,7 +79,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 void StageManager::Initialize()
 {
 	//ステージとして使いたいファイル名をここに追加
-	/*stageFileName_ = {
+	stageFileName_ = {
 		"test3",
 		"test4",
 		"oogami_10",
@@ -114,13 +114,13 @@ void StageManager::Initialize()
 		"tominaga_5",
 		"tominaga_6",
 		"tominaga_7",
-	};*/
+	};
 
-	stageFileName_ = {
+	/*stageFileName_ = {
 		"oogami_3",	
 		"chiba3",
 		"tominaga_1",
-	}; 
+	}; */
 
 	//パーティクル初期化
 	confettiEmitter.Initialize(5);
