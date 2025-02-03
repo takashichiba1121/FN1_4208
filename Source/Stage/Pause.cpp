@@ -84,10 +84,10 @@ void Pause::Update()
 
 		if (!tutorial_)
 		{
-			if (Input::GetKeyTrigger(Input::Key::Up) || (Input::OldPadY() <= 500 && Input::PadY() > 500)) {
+			if (Input::GetKeyTrigger(Input::Key::Down) || (Input::OldPadY() <= 500 && Input::PadY() > 500)) {
 				select_++;
 			}
-			else if (Input::GetKeyTrigger(Input::Key::Down) || (Input::OldPadY() >= -500 && Input::PadY() < -500)) {
+			else if (Input::GetKeyTrigger(Input::Key::Up) || (Input::OldPadY() >= -500 && Input::PadY() < -500)) {
 				select_--;
 			}
 			if (select_ < 0)
@@ -172,11 +172,11 @@ void Pause::Draw()
 		{
 			if (Input::GetIsUsePad())
 			{
-				DrawGraph(440, 440, padTutorialHandle_, true);
+				DrawGraph(500, 350, padTutorialHandle_, true);
 			}
 			else
 			{
-				DrawGraph(440, 440, keyTutorialHandle_, true);
+				DrawGraph(500, 350, keyTutorialHandle_, true);
 			}
 		}
 
