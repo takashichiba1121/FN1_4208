@@ -56,7 +56,7 @@ private:
 	float f;
 	uint32_t easingFrame_ = 0;
 	const uint32_t maxEasingFrame_ = 60;
-	int32_t nextStageSelect_ =0;
+	int32_t nextStageSelect_ =1;
 
 	//‰æ‘œ
 	uint32_t textruehandle_;

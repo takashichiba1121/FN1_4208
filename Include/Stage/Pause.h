@@ -31,7 +31,11 @@ private:
 	uint32_t texturehandleTutorial_ = 0;
 	uint32_t texturehandleSelect_ = 0;
 
-	uint32_t inGameTexturehandle_ = 0;
+	uint32_t inGameTextureKeyHandle_ = 0;
+	uint32_t inGameTexturePadHandle_ = 0;
+
+	uint32_t keyTutorialHandle_ = 0;
+	uint32_t padTutorialHandle_ = 0;
 
 	Phase phase_ = Phase::Before;
 
@@ -51,7 +55,7 @@ private:
 
 	SoundPlayManager* soundPlayManager;
 
-	uint16_t select_ = 0;
+	int16_t select_ = 0;
 
 	uint16_t alpha_ = 255;
 
