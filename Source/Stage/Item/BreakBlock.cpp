@@ -37,7 +37,7 @@ void BreakBlock::Update()
 
 	case BLOCK_HP_LOW:
 
-		ShakeActive();
+		//ShakeActive();
 
 		// アニメーション処理
 		animationFrameAdjust++;
