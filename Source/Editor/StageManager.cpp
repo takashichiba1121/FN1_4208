@@ -55,6 +55,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 	//–{“–‚Éˆê‰žÁ‚µ‚Ä‚é‚¾‚¯
 	CollisionManager::GetInstance()->AllDelete();
 	stageObjData_.clear();
+	KeyNum_ = 0;
 
 	loadData = ImportLevel::GetInstance()->ImportLevelListData(fileName);
 	if (loadData.isLoad)
