@@ -17,11 +17,14 @@ class StageSelectScene :public BaseScene
 private:
 
 	Vector2 easeInQuad(Vector2 start, Vector2 end, float time);
+	Vector2 GetGraphSize(int32_t GraphHandle);
 
 private:
 
 	int32_t selectStageNum_ = 0;
 	int32_t selectStageOldNum_ = 0;
+
+	int32_t titleTextruehandle_ = 0;
 
 	//イージング用の引数
 	float moveTime_ = 0;
@@ -29,6 +32,7 @@ private:
 
 
 	bool isNext_ = false;
+	bool isTitleExit_ = false;
 	float moveNextTime_ = 0;
 	float moveNextmaxTime_ = 50;
 
@@ -36,6 +40,7 @@ private:
 	float padMoveMaxWait_ = 10;
 
 	Vector2 titleTextPos_;
+	Vector2 titleTextSize_ = { 0.5f,0.5f };
 
 	LevelPreView nextPreview_;
 
