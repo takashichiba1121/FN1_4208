@@ -5,6 +5,7 @@
 #include "StageManager.h"
 #include "SceneManager.h"
 #include <imgui.h>
+#include "TextureManager.h"
 
 void StageSelectScene::Initialize()
 {
@@ -30,6 +31,8 @@ void StageSelectScene::Initialize()
 	}
 
 	SetFontSize(50);
+
+	titleTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\TitleImage.png");
 
 }
 
@@ -59,30 +62,36 @@ void StageSelectScene::Update()
 					soundPlayManager->SoundPlay(soundPlayManager->GetSound().select);
 				}
 			}
-			else if ((Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter)) &&
-				selectStageNum_ == selectStageOldNum_)
+			else if ((Input::GetKeyTrigger(Input::Key::Space) || Input::GetKeyTrigger(Input::Key::Enter)) &&selectStageNum_ == selectStageOldNum_)
 			{
 				if (selectStageNum_ == -1)
 				{
-					SceneManager::GetInstance()->ChangeScene("TITLE");
+					moveTime_ = movemaxTime_;
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
+					isNext_ = true;
+					isTitleExit_ = true;
 				}
-				moveTime_ = movemaxTime_;
-				soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
-
-				isNext_ = true;
-
-				int32_t itemCount = 0;
-				for (auto& item : previews_)
+				else
 				{
-					if (selectStageNum_ != itemCount)
-					{
-						itemCount++;
-						continue;
-					}
+					moveTime_ = movemaxTime_;
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 
-					nextPreview_ = item;
-					break;
+					isNext_ = true;
+
+					int32_t itemCount = 0;
+					for (auto& item : previews_)
+					{
+						if (selectStageNum_ != itemCount)
+						{
+							itemCount++;
+							continue;
+						}
+
+						nextPreview_ = item;
+						break;
+					}
 				}
+				
 
 			}
 		}
@@ -112,23 +121,30 @@ void StageSelectScene::Update()
 			{
 				if (selectStageNum_ == -1)
 				{
-					SceneManager::GetInstance()->ChangeScene("TITLE");
+					moveTime_ = movemaxTime_;
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
+					isNext_ = true;
+					isTitleExit_ = true;
 				}
-
-
-				isNext_ = true;
-
-				int32_t itemCount = 0;
-				for (auto& item : previews_)
+				else
 				{
-					if (selectStageNum_ != itemCount)
-					{
-						itemCount++;
-						continue;
-					}
+					moveTime_ = movemaxTime_;
+					soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionA);
 
-					nextPreview_ = item;
-					break;
+					isNext_ = true;
+
+					int32_t itemCount = 0;
+					for (auto& item : previews_)
+					{
+						if (selectStageNum_ != itemCount)
+						{
+							itemCount++;
+							continue;
+						}
+
+						nextPreview_ = item;
+						break;
+					}
 				}
 
 			}
@@ -141,18 +157,36 @@ void StageSelectScene::Update()
 	}
 	else
 	{
-		nextPreview_.size_ = easeInQuad({ 0.5f,0.5f }, { 1.0f,1.0f }, moveNextTime_ / moveNextmaxTime_);
-
-		if (moveNextTime_ > moveNextmaxTime_)
+		if (!isTitleExit_)
 		{
-			SceneManager::GetInstance()->ChangeScene("GAME", "LoadLevelName");
-			StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
-			moveNextTime_ = 0;
+			nextPreview_.size_ = easeInQuad({ 0.5f,0.5f }, { 1.0f,1.0f }, moveNextTime_ / moveNextmaxTime_);
 
+			if (moveNextTime_ > moveNextmaxTime_)
+			{
+				SceneManager::GetInstance()->ChangeScene("GAME", "LoadLevelName");
+				StageManager::GetInstance()->SelectLevelNum(selectStageNum_);
+				moveNextTime_ = 0;
+
+			}
+			else
+			{
+				moveNextTime_++;
+			}
 		}
 		else
 		{
-			moveNextTime_++;
+			titleTextSize_ = easeInQuad({ 0.5f,0.5f }, { 1.0f,1.0f }, moveNextTime_ / moveNextmaxTime_);
+
+			if (moveNextTime_ > moveNextmaxTime_)
+			{
+				SceneManager::GetInstance()->ChangeScene("TITLE");
+				moveNextTime_ = 0;
+
+			}
+			else
+			{
+				moveNextTime_++;
+			}
 		}
 	}
 
@@ -250,13 +284,17 @@ void StageSelectScene::Draw()
 	}
 
 	//仮置き
-	DrawFormatString2F(titleTextPos_.x, titleTextPos_.y, 0xffffff, 0xff0000, "タイトルへ");
+	//DrawFormatString2F(titleTextPos_.x, titleTextPos_.y, 0xffffff, 0xff0000, "タイトルへ");
 	DrawFormatString2F(0, 0, 0xffffff, 0xff0000, "移動:A D\n選択:SPACE");
 
-	if (isNext_)
+	if (isNext_ && !isTitleExit_)
 	{
 		nextPreview_.Draw();
 	}
+
+	
+	DrawRotaGraph3F(titleTextPos_.x, titleTextPos_.y, GetGraphSize(titleTextruehandle_).x / 2, GetGraphSize(titleTextruehandle_).y / 2, titleTextSize_.x, titleTextSize_.y, 0, titleTextruehandle_, TRUE);
+
 }
 
 void StageSelectScene::Finalize()
@@ -268,4 +306,16 @@ Vector2 StageSelectScene::easeInQuad(Vector2 start, Vector2 end, float time)
 {
 	//return start + time * time * (end - start);
 	return start + ((1 - pow(1 - time, 4)) * (end - start));
+}
+
+Vector2 StageSelectScene::GetGraphSize(int32_t GraphHandle)
+{
+
+	float x = 0;
+	float y = 0;
+
+	GetGraphSizeF(GraphHandle, &x, &y);
+
+	return { x,y };
+
 }
