@@ -31,6 +31,7 @@ private:
 		int clear;
 		int select;
 		int gameover;
+		int block_break;
 	};
 
 	struct BGM {

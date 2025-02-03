@@ -56,6 +56,7 @@ void StageManager::LoadStageObjectFile(const std::string& fileName)
 	//本当に一応消してるだけ
 	CollisionManager::GetInstance()->AllDelete();
 	stageObjData_.clear();
+	KeyNum_ = 0;
 
 	loadData = ImportLevel::GetInstance()->ImportLevelListData(fileName);
 	if (loadData.isLoad)
@@ -83,10 +84,45 @@ void StageManager::Initialize()
 	stageFileName_ = {
 		"test3",
 		"test4",
-		"test5",
-		"test3TestName",
-		"test",
+		"oogami_10",
+		"yamashita_2",
+		"fukuyama_1_remake",
+		"oogami_3",
+		"oogami_4",
+		"fukuyama_3",
+		"oogami_5",
+		"oogami_1",
+		"fukuyama_4_remake",
+		"chiba3",
+		"tominaga_1",
+		"fukuyama_6",
+		"fukuyama_7",
+		"oogami_7",
+		"chiba1",
+		"fukuyama_2",
+		"fukuyama_8",
+		"yamashita_1",
+		"chiba2",
+		"fukuyama_5",
+		"oogami_2",
+		"oogami_11",
+		"oogami_12",
+		"tominaga_2",
+		"oogami_6",
+		"tominaga_3",
+		"oogami_8",
+		"tominaga_4",
+		"oogami_9",
+		"tominaga_5",
+		"tominaga_6",
+		"tominaga_7",
 	};
+
+	/*stageFileName_ = {
+		"oogami_3",	
+		"chiba3",
+		"tominaga_1",
+	}; */
 
 	//パーティクル初期化
 	confettiEmitter.Initialize(5);
