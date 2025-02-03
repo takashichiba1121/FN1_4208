@@ -33,6 +33,10 @@ void Input::Update()
 
 	instance_->PadKey = GetJoypadInputState(DX_INPUT_PAD1);
 
+	instance_->oldPadX = instance_->padX;
+
+	instance_->oldPadY = instance_->padY;
+
 	GetJoypadAnalogInput(&instance_->padX, &instance_->padY, DX_INPUT_PAD1);
 
 	if (CheckHitKeyAll(DX_CHECKINPUT_PAD))
