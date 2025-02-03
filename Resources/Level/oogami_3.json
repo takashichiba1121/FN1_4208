@@ -7,6 +7,34 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
+                    947.0,
+                    474.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 6
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    294.0,
+                    472.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 5
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
                     33.0,
                     538.0
                 ],
@@ -273,42 +301,14 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    1272.0,
-                    538.0
+                    1260.0,
+                    539.0
                 ],
                 "scale": [
-                    64.0,
+                    38.0,
                     64.0
                 ],
                 "tag": 3
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": null,
-                "pos": [
-                    947.0,
-                    474.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 6
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": null,
-                "pos": [
-                    293.0,
-                    472.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 5
             }
         },
         {
@@ -414,11 +414,11 @@
                 "IndividualSettings": null,
                 "pos": [
                     687.0,
-                    22.0
+                    27.0
                 ],
                 "scale": [
                     64.0,
-                    64.0
+                    51.0
                 ],
                 "tag": 3
             }
@@ -427,8 +427,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    262.0,
-                    685.0
+                    196.0,
+                    680.0
                 ],
                 "scale": [
                     64.0,
