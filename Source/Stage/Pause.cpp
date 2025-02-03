@@ -13,7 +13,10 @@ void Pause::Initialize()
 	texturehandleGame_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseGame.png");
 	texturehandleTutorial_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseTutorial.png");
 	texturehandleSelect_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PauseSelect.png");
-	inGameTexturehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGameTutorial.png");
+	inGameTextureKeyHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGameTutorial.png");
+	inGameTexturePadHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\InGamePadTutorial.png");
+	padTutorialHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\padTutorial.png");
+	keyTutorialHandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\tutorial.png");
 
 	fontHandle_ = CreateFontToHandle("ロンド B スクエア", fontSize_, -1);
 }
@@ -81,11 +84,11 @@ void Pause::Update()
 
 		if (!tutorial_)
 		{
-			if (Input::GetKeyTrigger(Input::Key::Up) || (Input::OldPadY() <= 500 && Input::PadY() > 500)) {
-				select_--;
-			}
-			else if (Input::GetKeyTrigger(Input::Key::Down) || (Input::OldPadY() >= -500 && Input::PadY() < -500)) {
+			if (Input::GetKeyTrigger(Input::Key::Down) || (Input::OldPadY() <= 500 && Input::PadY() > 500)) {
 				select_++;
+			}
+			else if (Input::GetKeyTrigger(Input::Key::Up) || (Input::OldPadY() >= -500 && Input::PadY() < -500)) {
+				select_--;
 			}
 			if (select_ < 0)
 			{
@@ -167,7 +170,14 @@ void Pause::Draw()
 		}
 		else
 		{
-
+			if (Input::GetIsUsePad())
+			{
+				DrawGraph(500, 350, padTutorialHandle_, true);
+			}
+			else
+			{
+				DrawGraph(500, 350, keyTutorialHandle_, true);
+			}
 		}
 
 	}
@@ -175,7 +185,14 @@ void Pause::Draw()
 
 void Pause::InGameDraw()
 {
-	DrawGraph(ingamePos_.x, ingamePos_.y,inGameTexturehandle_, true);
+	if (Input::GetIsUsePad())
+	{
+		DrawGraph(ingamePos_.x, ingamePos_.y, inGameTexturePadHandle_, true);
+	}
+	else
+	{
+		DrawGraph(ingamePos_.x, ingamePos_.y, inGameTextureKeyHandle_, true);
+	}
 }
 
 bool Pause::IsEndGetPause()
