@@ -17,7 +17,9 @@ Player::~Player() {
 void Player::Initialize() {
 
 	soundPlayManager = SoundPlayManager::Instance();
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
+	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PlayerBody.png");
+	playerArmTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PlayerArm.png");
+	playerLegTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PlayerLeg.png");
 
 	size_ = baseSize;
 
@@ -189,6 +191,7 @@ void Player::Update() {
 	ImGui::Begin("Player");
 
 	ImGui::Text("%f", gravity);
+	ImGui::Text("%d", playerLegAnimationCount_);
 
 	ImGui::End();
 #endif
@@ -220,6 +223,26 @@ void Player::Operation() {
 			}
 		}
 	}
+
+	if (playerArmAnimationTimer_ < playerArmAnimationMaxTime_)
+	{
+		playerArmAnimationTimer_++;
+	}
+	else
+	{
+		if (playerArmAnimationCount_ != 3 && !isPlayerArmAnimationEnd_)
+		{
+			playerArmAnimationCount_++;
+			playerArmAnimationTimer_ = 0;
+		}
+		else if(!isPlayerArmAnimationEnd_)
+		{
+			playerArmAnimationCount_ = 0;
+			isPlayerArmAnimationEnd_ = true;
+		}
+	}
+
+	
 }
 
 void Player::InversionProcess()
@@ -230,15 +253,20 @@ void Player::InversionProcess()
 //‰¡ˆÚ“®
 void Player::Move() {
 
+	bool isMove = false;
 
 	if (!Input::GetIsUsePad())
 	{
 		if (Input::GetKey(Input::Key::A)) {
 			MoveProcessLeft();
+			MoveAnimationProcess();
+			isMove = true;
 		}
 
 		if (Input::GetKey(Input::Key::D)) {
 			MoveProcessRight();
+			MoveAnimationProcess();
+			isMove = true;
 		}
 
 	}
@@ -246,10 +274,21 @@ void Player::Move() {
 	{
 		if (Input::PadX() < 0) {
 			MoveProcessLeft();
+			MoveAnimationProcess();
+			isMove = true;
 		}
 		if (Input::PadX() > 0) {
 			MoveProcessRight();
+			MoveAnimationProcess();
+			isMove = true;
 		}
+	}
+
+	if (!isMove)
+	{
+		playerLegAnimationTimer_ = playerLegAnimationMaxTime_;
+		playerLegAnimationCount_ = 0;
+		isPlayerLegAnimationEnd_ = true;
 	}
 
 }
@@ -269,6 +308,29 @@ void Player::MoveProcessLeft()
 	{
 		pos_.x -= speed;
 		direction = Direction::LEFT;
+	}
+}
+
+void Player::MoveAnimationProcess()
+{
+	isPlayerLegAnimationEnd_ = false;
+	if (playerLegAnimationTimer_ < playerLegAnimationMaxTime_)
+	{
+		playerLegAnimationTimer_++;
+	}
+	else
+	{
+		if (playerLegAnimationCount_ != 3 && !isPlayerLegAnimationEnd_)
+		{
+			playerLegAnimationCount_++;
+			playerLegAnimationTimer_ = 0;
+		}
+		else if (!isPlayerLegAnimationEnd_)
+		{
+			playerLegAnimationCount_ = 0;
+			playerLegAnimationTimer_ = 0;
+			isPlayerLegAnimationEnd_ = true;
+		}
 	}
 }
 
@@ -307,6 +369,8 @@ void Player::JumpProcess()
 
 	if (isUnderWater) {
 		soundPlayManager->SoundPlay(soundPlayManager->GetSound().swim);
+		isPlayerArmAnimationEnd_ = false;
+		playerArmAnimationTimer_ = 0;
 	}
 	else {
 		soundPlayManager->SoundPlay(soundPlayManager->GetSound().jump);
@@ -315,7 +379,7 @@ void Player::JumpProcess()
 }
 
 void Player::Draw() {
-
+	
 	if (size_.x > 0) {
 
 		//DrawBox(pos_.x - size_.x/2, pos_.y - size_.y/2, pos_.x + size_.x/2, pos_.y + size_.y/2, GetColor(255,255,255), true);
@@ -324,12 +388,32 @@ void Player::Draw() {
 				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
 				(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
 				textruehandle_, true);
+
+			DrawRectExtendGraphF2(
+				(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
+				(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
+				64.0f * playerArmAnimationCount_, 0, 64.0f, 64.0f, playerArmTextruehandle_, true);
+
+			DrawRectExtendGraphF2(
+				(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
+				(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
+				64.0f * playerLegAnimationCount_,0, 64.0f, 64.0f, playerLegTextruehandle_, true);
 		}
 		else {
 			DrawExtendGraph(
 				(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (int)(pos_.y - size_.y / 2 - inverSize.y / 2),
 				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (int)(pos_.y + size_.y / 2 + inverSize.y / 2),
 				textruehandle_, true);
+
+			DrawRectExtendGraphF2(
+				(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
+				(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
+				64.0f * playerArmAnimationCount_, 0, 64.0f, 64.0f, playerArmTextruehandle_, true);
+
+			DrawRectExtendGraphF2(
+				(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
+				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
+				64.0f * playerLegAnimationCount_, 0, 64.0f, 64.0f, playerLegTextruehandle_, true);
 		}
 	}
 
