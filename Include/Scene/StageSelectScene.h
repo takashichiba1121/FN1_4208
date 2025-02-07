@@ -48,4 +48,7 @@ private:
 
 	SoundPlayManager* soundPlayManager;
 
+	float colA[4] = { 0.392f,1.0f,1.0f,0.274f };
+	float colB[4] = { 0.5f,0.5f,1.0f,0.274f };
+
 };
