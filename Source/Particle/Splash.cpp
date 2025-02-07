@@ -27,10 +27,10 @@ void Splash::Update(const float line) {
 void Splash::Draw() {
 
 	if (!Inversion::GetInstance()->GetIsFront()) {
-		color = GetColor(50,255,255);
+		color = GetColor(0.392f*255, 1.0f*255, 1.0f*255);
 	}
 	else {
-		color = GetColor(100,100,255);
+		color = GetColor(0.25f*255, 0.75f*255, 1.0f*255);
 	}
 	
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, 200);

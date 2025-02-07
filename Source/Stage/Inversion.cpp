@@ -7,6 +7,7 @@
 
 void Inversion::Initialize() {
 	isFront = true;
+	isReverse = false;
 }
 
 void Inversion::Update() {
@@ -25,6 +26,10 @@ void Inversion::Update() {
 
 		if (frame == 15) {
 			SoundPlayManager::Instance()->SoundPlay(SoundPlayManager::Instance()->GetSound().inversionB);
+		}
+
+		if (frame == MaxFrame / 2) {
+			isReverse = !isReverse;
 		}
 
 		frame++;	//ƒtƒŒ[ƒ€‚ği‚ß‚é

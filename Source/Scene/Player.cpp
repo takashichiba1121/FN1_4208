@@ -24,7 +24,7 @@ void Player::Initialize() {
 	//パーティクル初期化
 	bubbleEmitter = std::make_shared<BubbleEmitter>();
 	splashEmitter = std::make_shared<SplashEmitter>();
-	bubbleEmitter->Initialize(20);
+	bubbleEmitter->Initialize(10);
 	splashEmitter->Initialize(30);
 
 	objectType_ = ObjectType::PLAYER;
@@ -158,7 +158,7 @@ void Player::Update() {
 	//パーティクル更新
 	bubbleEmitter->SetHorizontal(horizontal);
 	splashEmitter->SetHorizontal(horizontal);
-	bubbleEmitter->Update(pos_);
+	bubbleEmitter->Update({ pos_.x,pos_.y - 8.0f });
 	splashEmitter->Update(pos_, size_.y / 2, gravity);
 
 	//端で止まる
