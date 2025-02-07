@@ -105,8 +105,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    869.0,
-                    368.0
+                    1077.0,
+                    624.0
                 ],
                 "scale": [
                     64.0,
@@ -119,12 +119,12 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    526.0,
+                    869.0,
                     368.0
                 ],
                 "scale": [
-                    128.0,
-                    128.0
+                    64.0,
+                    190.0
                 ],
                 "tag": 2
             }
