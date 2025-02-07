@@ -1,7 +1,25 @@
 {
+    "LevelName": "",
     "horizontal": 360.0,
     "name": "Level",
     "objects": [
+        {
+            "object": {
+                "IndividualSettings": {
+                    "tutorialKeyTexture": "keyMove",
+                    "tutorialPadTexture": "PadMove"
+                },
+                "pos": [
+                    164.0,
+                    687.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 8
+            }
+        },
         {
             "object": {
                 "IndividualSettings": null,
@@ -20,8 +38,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    913.0,
-                    278.0
+                    911.0,
+                    275.0
                 ],
                 "scale": [
                     64.0,
@@ -34,22 +52,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    912.0,
-                    342.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 3
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": null,
-                "pos": [
-                    847.0,
-                    341.0
+                    845.0,
+                    340.0
                 ],
                 "scale": [
                     64.0,
@@ -63,7 +67,7 @@
                 "IndividualSettings": null,
                 "pos": [
                     911.0,
-                    407.0
+                    340.0
                 ],
                 "scale": [
                     64.0,
@@ -76,8 +80,22 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    846.0,
-                    406.0
+                    911.0,
+                    404.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    845.0,
+                    404.0
                 ],
                 "scale": [
                     64.0,
@@ -112,24 +130,6 @@
                     64.0
                 ],
                 "tag": 0
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": {
-                    "tutorialKeyTexture": "keyMove",
-                    
-                    "tutorialPadTexture": "PadMove"
-                },
-                "pos": [
-                    164.0,
-                    687.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 8
             }
         }
     ]
