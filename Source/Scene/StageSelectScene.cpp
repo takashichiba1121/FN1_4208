@@ -272,6 +272,14 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Draw()
 {
+
+	//êÖÇÃï`âÊ
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, (int)(colA[3] * 255));
+	DrawBoxAA(0,0, (float)WIN_WIDTH, (float)WIN_HEIGHT/2, GetColor((int)(colA[0] * 255), (int)(colA[1] * 255), (int)(colA[2] * 255)), true);
+	DrawBoxAA(0, (float)WIN_HEIGHT / 2, (float)WIN_WIDTH, (float)WIN_HEIGHT, GetColor((int)(colB[0] * 255), (int)(colB[1] * 255), (int)(colB[2] * 255)), true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+
+
 	int32_t itemCount = 1;
 
 	for (auto item : previews_)
