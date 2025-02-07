@@ -36,6 +36,8 @@ private:
 
 	uint32_t keyTutorialHandle_ = 0;
 	uint32_t padTutorialHandle_ = 0;
+	uint32_t keyBackHandle_ = 0;
+	uint32_t padBackHandle_ = 0;
 
 	Phase phase_ = Phase::Before;
 
