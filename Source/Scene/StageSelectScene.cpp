@@ -292,7 +292,7 @@ void StageSelectScene::Draw()
 	}
 
 	//仮置き
-	//DrawFormatString2F(titleTextPos_.x, titleTextPos_.y, 0xffffff, 0xff0000, "タイトルへ");
+	DrawFormatString2F(titleTextPos_.x - (float)GetDrawFormatStringWidth(std::string("タイトルへ").c_str()) / 2, (titleTextPos_.y - (GetGraphSize(titleTextruehandle_).y / 2* titleTextSize_.y)) - 120, 0xffffff, 0xff0000, "タイトルへ");
 	if (Input::GetIsUsePad())
 	{
 		DrawFormatString2F(20, 600, 0xffffff, 0xff0000, "移動:←L→\n選択:A");
