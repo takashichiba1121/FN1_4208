@@ -62,7 +62,7 @@ void TitleScene::Draw()
 		logo->Draw();
 	}
 	
-	Water::GetInstance()->Draw();
+	Water::GetInstance()->DrawUp();
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTrans);
 	if (!Input::GetIsUsePad()) {

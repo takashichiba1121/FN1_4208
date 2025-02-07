@@ -7,8 +7,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    797.0,
-                    296.0
+                    264.0,
+                    268.0
                 ],
                 "scale": [
                     64.0,
@@ -19,28 +19,9 @@
         },
         {
             "object": {
-                "IndividualSettings": {
-                    "Expansion": [
-                        4.0,
-                        4.0
-                    ]
-                },
-                "pos": [
-                    546.0,
-                    400.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 1
-            }
-        },
-        {
-            "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    800.0,
+                    1000.0,
                     535.0
                 ],
                 "scale": [
@@ -66,16 +47,49 @@
         },
         {
             "object": {
+                "IndividualSettings": {
+                    "Expansion": [
+                        4.0,
+                        4.0
+                    ]
+                },
+                "pos": [
+                    546.0,
+                    400.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 1
+            }
+        },
+        {
+            "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    405.0,
-                    683.0
+                    237.0,
+                    680.0
                 ],
                 "scale": [
                     64.0,
                     64.0
                 ],
                 "tag": 0
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    260.0,
+                    401.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
             }
         }
     ]

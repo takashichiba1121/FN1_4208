@@ -55,14 +55,21 @@ void Water::Inversion(const float easing, bool isfront) {
 
 }
 
-void Water::Draw()
+void Water::DrawUp()
 {
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, colA[3]*255);
 	DrawBox(0,topPos,1280, horizontal_, GetColor(colA[0]*255,colA[1]*255, colA[2]*255), true);
-	DrawBox(0, horizontal_,1280,underPos, GetColor(colB[0]*255,colB[1]*255, colB[2]*255), true);
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 	DrawLine(0, (int)horizontal_, 1280, (int)horizontal_, GetColor(100, 255, 255));
+}
+
+void Water::DrawUnder() {
+	SetDrawBlendMode(DX_BLENDMODE_ALPHA, colA[3] * 255);
+	DrawBox(0, horizontal_, 1280, underPos, GetColor(colB[0] * 255, colB[1] * 255, colB[2] * 255), true);
+	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+	DrawLine(0, (int)horizontal_, 1280, (int)horizontal_, GetColor(100, 255, 255));
+
 }
 
 Water* Water::GetInstance()

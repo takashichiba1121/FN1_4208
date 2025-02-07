@@ -20,7 +20,8 @@ public:
 
 	void Inversion(const float easing, bool isfront);
 
-	void Draw();
+	void DrawUp();
+	void DrawUnder();
 
 	void SetHorizontal(const float horizontal)
 	{

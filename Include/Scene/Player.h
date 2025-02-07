@@ -29,6 +29,7 @@ private:
 	void Move();
 	void MoveProcessRight();
 	void MoveProcessLeft();
+	void MoveAnimationProcess();
 	void Jump();
 	void JumpProcess();
 	bool BurialJudge(Object* objct);	//ÉuÉçÉbÉNñÑñvîªíË
@@ -44,9 +45,11 @@ private:
 	float guideTimerMax = 255.0f;
 	float guideTimer = 0.0f;
 
-	uint32_t textruehandle_;
-	uint32_t tutorialtextrue_1;
-	uint32_t tutorialtextrue_2;
+	uint32_t textruehandle_=0;
+	uint32_t playerArmTextruehandle_ = 0;
+	uint32_t playerLegTextruehandle_ = 0;
+	uint32_t tutorialtextrue_1 = 0;
+	uint32_t tutorialtextrue_2 = 0;
 
 	std::shared_ptr<BubbleEmitter> bubbleEmitter;
 	std::shared_ptr<SplashEmitter> splashEmitter;
@@ -81,4 +84,16 @@ private:
 	Direction direction = Direction::RIGHT;
 	SoundPlayManager *soundPlayManager;
 	bool isBurial = false;
+
+
+	float playerArmAnimationMaxTime_ = 1;
+	float playerArmAnimationTimer_ = playerArmAnimationMaxTime_;
+	int32_t playerArmAnimationCount_ = 0;
+	bool isPlayerArmAnimationEnd_ = true;
+
+	float playerLegAnimationMaxTime_ = 10;
+	float playerLegAnimationTimer_ = playerLegAnimationMaxTime_;
+	int32_t playerLegAnimationCount_ = 0;
+	bool isPlayerLegAnimationEnd_ = true;
+
 };

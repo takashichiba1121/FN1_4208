@@ -31,6 +31,7 @@ public:
 	bool GetIsInversion() { return isInversion; }
 	bool GetEndInversion() { return endInversion; }
 	bool GetIsFront() { return isFront; }
+	bool GetIsReverse() { return isReverse; }
 	float GetFrame() { return frame; }
 
 private:
@@ -50,5 +51,6 @@ private:
 
 	bool isInversion = false;
 	bool isFront = true;
+	bool isReverse = false;
 	bool endInversion = false;
 };
