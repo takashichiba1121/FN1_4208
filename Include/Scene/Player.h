@@ -39,7 +39,7 @@ private:
 		RIGHT,
 		LEFT,
 	};
-	LPCSTR font;
+	
 	bool isDrawGuide = false;
 	float guideTimerMax = 255.0f;
 	float guideTimer = 0.0f;

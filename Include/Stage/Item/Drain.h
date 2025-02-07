@@ -28,7 +28,8 @@ public:
 	std::unique_ptr<Object> Clone()override { return std::make_unique<Drain>(*this); };
 private:
 	uint32_t drainTexture;
-	uint32_t guideTexture;
+	uint32_t guideTextureKey;
+	uint32_t guideTexturePad;
 	bool drawGuide = false;
 	float guideTrans = 0.0f;
 };
