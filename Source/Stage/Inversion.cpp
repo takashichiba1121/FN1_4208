@@ -6,7 +6,7 @@
 #include"SoundPlayManager.h"
 
 void Inversion::Initialize() {
-	
+	isFront = true;
 }
 
 void Inversion::Update() {

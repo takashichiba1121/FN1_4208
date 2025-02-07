@@ -18,6 +18,7 @@ void GameScene::Initialize()
 	}
 
 	pause_->Initialize();
+	Inversion::GetInstance()->Initialize();
 
 	backGroundTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\background.png");
 
@@ -74,7 +75,20 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
-	DrawGraphF(0,0, backGroundTextruehandle_, true);
+	if (Inversion::GetInstance()->GetIsFront()) {
+
+		DrawExtendGraphF(
+			0, Easing(Inversion::GetInstance()->GetFrame() / 60) * 720,
+			1280, 720 - Easing(Inversion::GetInstance()->GetFrame() / 60) * 720,
+			backGroundTextruehandle_, true);
+	}
+	else {
+		DrawExtendGraphF(
+			0, 720 - Easing(Inversion::GetInstance()->GetFrame() / 60) * 720,
+			1280, Easing(Inversion::GetInstance()->GetFrame() / 60) * 720,
+			backGroundTextruehandle_, true);
+	}
+	//DrawGraphF(0,0, backGroundTextruehandle_, true);
 
 #ifdef _DEBUG
 	test.Draw();
