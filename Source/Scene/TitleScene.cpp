@@ -9,7 +9,8 @@ void TitleScene::Initialize()
 	Water::GetInstance()->SetHorizontal(320);
 	soundPlayManager = SoundPlayManager::Instance();
 
-	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressSpace.png");
+	textruehandle_key = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressSpace.png");
+	textruehandle_pad = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressA.png");
 
 	for (int i = 0; i < 3; i++) {
 
@@ -61,7 +62,12 @@ void TitleScene::Draw()
 	Water::GetInstance()->Draw();
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTrans);
-	DrawGraph(WIN_WIDTH / 2 - 256, 550, textruehandle_,true);
+	if (!Input::GetIsUsePad()) {
+		DrawGraph(WIN_WIDTH / 2 - 256, 550, textruehandle_key, true);
+	}
+	else {
+		DrawGraph(WIN_WIDTH / 2 - 128, 550, textruehandle_pad, true);
+	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 
