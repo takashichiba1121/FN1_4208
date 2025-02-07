@@ -7,8 +7,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    270.0,
-                    622.0
+                    230.0,
+                    295.0
                 ],
                 "scale": [
                     64.0,
@@ -35,8 +35,22 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    1215.0,
-                    464.0
+                    863.0,
+                    662.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 7
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    1062.0,
+                    470.0
                 ],
                 "scale": [
                     64.0,
@@ -63,12 +77,26 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    860.0,
-                    513.0
+                    447.0,
+                    129.0
                 ],
                 "scale": [
                     64.0,
-                    282.0
+                    64.0
+                ],
+                "tag": 4
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    365.0,
+                    266.0
+                ],
+                "scale": [
+                    64.0,
+                    209.0
                 ],
                 "tag": 3
             }
@@ -105,12 +133,12 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    566.0,
-                    622.0
+                    413.0,
+                    656.0
                 ],
                 "scale": [
-                    522.0,
-                    64.0
+                    826.0,
+                    129.0
                 ],
                 "tag": 3
             }
@@ -147,8 +175,22 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    794.0,
-                    481.0
+                    860.0,
+                    405.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 3
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    792.0,
+                    336.0
                 ],
                 "scale": [
                     64.0,
@@ -175,11 +217,11 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    956.0,
-                    405.0
+                    1097.0,
+                    404.0
                 ],
                 "scale": [
-                    126.0,
+                    364.0,
                     64.0
                 ],
                 "tag": 2
@@ -189,22 +231,8 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    1220.0,
-                    636.0
-                ],
-                "scale": [
                     116.0,
-                    167.0
-                ],
-                "tag": 2
-            }
-        },
-        {
-            "object": {
-                "IndividualSettings": null,
-                "pos": [
-                    100.0,
-                    652.0
+                    514.0
                 ],
                 "scale": [
                     64.0,
@@ -217,14 +245,28 @@
             "object": {
                 "IndividualSettings": null,
                 "pos": [
-                    447.0,
-                    129.0
+                    792.0,
+                    478.0
                 ],
                 "scale": [
                     64.0,
                     64.0
                 ],
                 "tag": 4
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": null,
+                "pos": [
+                    857.0,
+                    264.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 7
             }
         }
     ]
