@@ -392,12 +392,12 @@ void Player::Draw() {
 			DrawRectExtendGraphF2(
 				(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
 				(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
-				64 * playerArmAnimationCount_, 0, 64, 64, playerArmTextruehandle_, true);
+				64.0f * playerArmAnimationCount_, 0, 64.0f, 64.0f, playerArmTextruehandle_, true);
 
 			DrawRectExtendGraphF2(
 				(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
 				(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
-				64* playerLegAnimationCount_,0,64,64, playerLegTextruehandle_, true);
+				64.0f * playerLegAnimationCount_,0, 64.0f, 64.0f, playerLegTextruehandle_, true);
 		}
 		else {
 			DrawExtendGraph(
@@ -408,12 +408,12 @@ void Player::Draw() {
 			DrawRectExtendGraphF2(
 				(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
 				(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
-				64 * playerArmAnimationCount_, 0, 64, 64, playerArmTextruehandle_, true);
+				64.0f * playerArmAnimationCount_, 0, 64.0f, 64.0f, playerArmTextruehandle_, true);
 
 			DrawRectExtendGraphF2(
 				(int)(pos_.x + size_.x / 2 + inverSize.x / 2), (pos_.y - size_.y / 2 - inverSize.y / 2),
 				(int)(pos_.x - size_.x / 2 - inverSize.x / 2), (pos_.y + size_.y / 2 + inverSize.y / 2),
-				64 * playerLegAnimationCount_, 0, 64, 64, playerLegTextruehandle_, true);
+				64.0f * playerLegAnimationCount_, 0, 64.0f, 64.0f, playerLegTextruehandle_, true);
 		}
 	}
 
