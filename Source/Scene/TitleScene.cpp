@@ -12,6 +12,8 @@ void TitleScene::Initialize()
 	textruehandle_key = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressSpace.png");
 	textruehandle_pad = TextureManager::Instance()->LoadTexture("Resources\\Texture\\PressA.png");
 
+	backGroundTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\background.png");
+
 	for (int i = 0; i < 3; i++) {
 
 		titleLogo[i] = std::make_unique<TitleLogo>();
@@ -55,6 +57,7 @@ void TitleScene::Update()
 
 void TitleScene::Draw()
 {
+	DrawGraphF(0, 0, backGroundTextruehandle_, true);
 	for (std::unique_ptr<TitleLogo>& logo : titleLogo) {
 		logo->Draw();
 	}
