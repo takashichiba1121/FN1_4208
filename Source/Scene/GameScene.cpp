@@ -48,6 +48,7 @@ void GameScene::Update()
 		//パットはYボタン
 		if ((Input::GetKeyTrigger(Input::Key::R)|| Input::TriggerPadKey(PAD_INPUT_4)) && !Inversion::GetInstance()->GetIsInversion())
 		{
+			Inversion::GetInstance()->Initialize();
 			StageManager::GetInstance()->NowStageReset();
 			soundPlayManager->SoundPlay(soundPlayManager->GetSound().inversionB);
 		}
@@ -75,6 +76,7 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
+	//背景描画
 	if (Inversion::GetInstance()->GetIsFront()) {
 
 		DrawExtendGraphF(
@@ -88,14 +90,22 @@ void GameScene::Draw()
 			1280, Easing(Inversion::GetInstance()->GetFrame() / 60) * 720,
 			backGroundTextruehandle_, true);
 	}
-	//DrawGraphF(0,0, backGroundTextruehandle_, true);
+	
+	//水、オブジェクト描画
+	if (!Inversion::GetInstance()->GetIsReverse()) {
+		Water::GetInstance()->DrawUp();
+		StageManager::GetInstance()->Draw();
+		Water::GetInstance()->DrawUnder();
+	}
+	else {
+		Water::GetInstance()->DrawUnder();
+		StageManager::GetInstance()->Draw();
+		Water::GetInstance()->DrawUp();
+	}
 
 #ifdef _DEBUG
 	test.Draw();
 #endif
-	StageManager::GetInstance()->Draw();
-
-	Water::GetInstance()->Draw();
 
 	if (isPause)
 	{

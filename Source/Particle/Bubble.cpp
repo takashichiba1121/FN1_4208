@@ -9,7 +9,7 @@ Bubble::~Bubble() {
 
 void Bubble::Initialize(const Vector2 pos) {
 	pos_ = pos;
-	size = Random::RandomFloat(8.0f, 12.0f);
+	size = Random::RandomFloat(4.0f, 12.0f);
 	size_ = { size,size };
 	isExclude_ = false;
 

@@ -5,25 +5,6 @@
     "objects": [
         {
             "object": {
-                "IndividualSettings": {
-                    "Expansion": [
-                        3.0,
-                        3.0
-                    ]
-                },
-                "pos": [
-                    640.0,
-                    300.0
-                ],
-                "scale": [
-                    64.0,
-                    64.0
-                ],
-                "tag": 1
-            }
-        },
-        {
-            "object": {
                 "IndividualSettings": null,
                 "pos": [
                     1000.0,
@@ -34,6 +15,25 @@
                     64.0
                 ],
                 "tag": 5
+            }
+        },
+        {
+            "object": {
+                "IndividualSettings": {
+                    "Expansion": [
+                        3.0,
+                        2.0
+                    ]
+                },
+                "pos": [
+                    640.0,
+                    311.0
+                ],
+                "scale": [
+                    64.0,
+                    64.0
+                ],
+                "tag": 1
             }
         },
         {
