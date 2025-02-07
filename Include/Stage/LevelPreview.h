@@ -56,6 +56,8 @@ private:
 
 	uint32_t lockhandle_ = 0;
 
+	int32_t backGroundTextruehandle_ = 0;
+
 	float colA[4] = { 0.392f,1.0f,1.0f,0.274f };
 	float colB[4] = { 0.5f,0.5f,1.0f,0.274f };
 

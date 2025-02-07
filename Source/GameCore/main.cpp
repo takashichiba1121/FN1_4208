@@ -56,7 +56,11 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	SetDrawScreen(DX_SCREEN_BACK);
 
 	// ゲームループで使う変数の宣言
-
+	LPCSTR font;
+	font = "Resources\\Texture\\Ronde-B_square.otf";
+	AddFontResourceEx(font, FR_PRIVATE, NULL);
+	ChangeFont("ロンド B スクエア", DX_CHARSET_DEFAULT);
+	SetFontSize(50);
 
 	ImGuiManager::GetInstance()->Initialize();
 
@@ -111,6 +115,8 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	TextureManager::Instance()->Finalize();
 
 	ImGuiManager::GetInstance()->Finalize();
+
+	RemoveFontResourceEx(font, FR_PRIVATE, NULL);
 	// Dxライブラリ終了処理
 	DxLib_End();
 

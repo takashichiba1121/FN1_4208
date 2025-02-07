@@ -294,14 +294,15 @@ void StageSelectScene::Draw()
 		DrawFormatString2F(20, 600, 0xffffff, 0xff0000, "ˆÚ“®:A D\n‘I‘ð:SPACE");
 	}
 
+	DrawRotaGraph3F(titleTextPos_.x, titleTextPos_.y, GetGraphSize(titleTextruehandle_).x / 2, GetGraphSize(titleTextruehandle_).y / 2, titleTextSize_.x, titleTextSize_.y, 0, titleTextruehandle_, TRUE);
+
 	if (isNext_ && !isTitleExit_)
 	{
 		nextPreview_.Draw();
 	}
 
 	
-	DrawRotaGraph3F(titleTextPos_.x, titleTextPos_.y, GetGraphSize(titleTextruehandle_).x / 2, GetGraphSize(titleTextruehandle_).y / 2, titleTextSize_.x, titleTextSize_.y, 0, titleTextruehandle_, TRUE);
-
+	
 }
 
 void StageSelectScene::Finalize()

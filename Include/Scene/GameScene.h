@@ -25,6 +25,7 @@ class GameScene :
 	void Finalize() override;
 
 private:
+	float Easing(const float x) { return x < 0.5 ? 16 * x * x * x * x * x : 1 - (float)pow(-2 * x + 2, 5) / 2; }
 
 	std::unique_ptr<Block> block;
 	std::unique_ptr<LevitationBlock> floatBlock;
@@ -43,6 +44,8 @@ private:
 	EditStage test;
 
 	SoundPlayManager* soundPlayManager;
+
+	int32_t backGroundTextruehandle_ = 0;
 
 	bool isPause=false;
 };

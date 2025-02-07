@@ -11,16 +11,12 @@
 #include"imgui.h"
 
 Player::~Player() {
-	RemoveFontResourceEx(font, FR_PRIVATE, NULL);
+
 }
 
 void Player::Initialize() {
 
 	soundPlayManager = SoundPlayManager::Instance();
-	font = "Resources\\Texture\\Ronde-B_square.otf";
-	AddFontResourceEx(font, FR_PRIVATE, NULL);
-	ChangeFont("ロンド B スクエア", DX_CHARSET_DEFAULT);
-	SetFontSize(50);
 	textruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Player.png");
 
 	size_ = baseSize;
