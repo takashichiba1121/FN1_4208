@@ -13,6 +13,8 @@ LevelPreView::~LevelPreView()
 void LevelPreView::Initialize(std::string selectFileName)
 {
 	lockhandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\DoorKey_1.png");
+
+	backGroundTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\background.png");
 	
 	LoadStageObjectFile(selectFileName);
 	nowSelectfileName_ = selectFileName;
@@ -28,7 +30,8 @@ void LevelPreView::Update()
 void LevelPreView::Draw()
 {
 	//背景
-	DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y + (float)WIN_HEIGHT / 2 * size_.y, 0x000000, true);
+	//DrawBoxAA(pos_.x - (float)WIN_WIDTH / 2 * size_.x, pos_.y - (float)WIN_HEIGHT / 2 * size_.y, pos_.x + (float)WIN_WIDTH / 2 * size_.x, pos_.y + (float)WIN_HEIGHT / 2 * size_.y, 0x000000, true);
+	DrawExtendGraphF(pos_.x - GetGraphSize(backGroundTextruehandle_).x / 2 * size_.x, pos_.y - GetGraphSize(backGroundTextruehandle_).y / 2 * size_.y, pos_.x + GetGraphSize(backGroundTextruehandle_).x / 2 * size_.x, pos_.y + GetGraphSize(backGroundTextruehandle_).y / 2 * size_.y, backGroundTextruehandle_, true);
 
 	//オブジェクトの画像描画
 	for (auto& data : previewData_)

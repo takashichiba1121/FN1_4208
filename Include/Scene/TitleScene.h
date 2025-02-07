@@ -13,12 +13,15 @@ class TitleScene :
 	void Finalize() override;
 
 private:
-	uint32_t textruehandle_;
+	uint32_t textruehandle_key;
+	uint32_t textruehandle_pad;
 	std::unique_ptr<TitleLogo> titleLogo[3];
 
 	bool drawGuide = false;
 	float guideTrans = 0.0f;
 
 	SoundPlayManager* soundPlayManager;
+
+	int32_t backGroundTextruehandle_ = 0;
 };
 

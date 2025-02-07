@@ -4,13 +4,15 @@
 #include "TextureManager.h"
 #include "Water.h"
 #include "Inversion.h"
+#include "Input.h"
 
 void Drain::Initialize() {
 	objectType_ = ObjectType::DRAIN;
 	isExclude_ = false;
 	
 	drainTexture = TextureManager::Instance()->LoadTexture("Resources\\Texture\\Drain.png");
-	guideTexture = TextureManager::Instance()->LoadTexture("Resources\\Texture\\GuideW.png");
+	guideTextureKey = TextureManager::Instance()->LoadTexture("Resources\\Texture\\GuideW.png");
+	guideTexturePad = TextureManager::Instance()->LoadTexture("Resources\\Texture\\GuideButtonB.png");
 	CollisionManager::GetInstance()->AddObject(this);
 
 }
@@ -43,10 +45,19 @@ void Drain::Draw() {
 		drainTexture, true);
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTrans);
-	DrawExtendGraph(
-		pos_.x - size_.x / 2, pos_.y - size_.y * 1.5f,
-		pos_.x + size_.x / 2, pos_.y - size_.y / 2,
-		guideTexture, true);
+	if (!Input::GetIsUsePad()) {
+
+		DrawExtendGraph(
+			pos_.x - size_.x / 2, pos_.y - size_.y * 1.5f,
+			pos_.x + size_.x / 2, pos_.y - size_.y / 2,
+			guideTextureKey, true);
+	}
+	else {
+		DrawExtendGraph(
+			pos_.x - size_.x / 2, pos_.y - size_.y * 1.5f,
+			pos_.x + size_.x / 2, pos_.y - size_.y / 2,
+			guideTexturePad, true);
+	}
 	SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
 }
 

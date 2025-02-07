@@ -73,8 +73,8 @@ void BreakBlock::Draw()
 
 		// アニメーションブロック描画
 		DrawExtendGraph(
-			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)), (int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)),
-			(int)((pos_.x + size_.x / 2.0f) + (size_.x / 64.0f)), (int)((pos_.y + size_.y / 2.0f) + (size_.y / 64.0f)),
+			(int)(((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)) + shakePos_.x), (int)(((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)) + shakePos_.y),
+			(int)(((pos_.x + size_.x / 2.0f) + (size_.x / 64.0f)) + shakePos_.x), (int)(((pos_.y + size_.y / 2.0f) + (size_.y / 64.0f)) + shakePos_.y),
 			animationImage[animationFrame], true);
 
 		break;
@@ -82,10 +82,10 @@ void BreakBlock::Draw()
 	case BLOCK_HP_MAX:
 
 		DrawExtendGraph(
-			(int)((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)),
-			(int)((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)),
-			(int)((pos_.x + size_.x / 2.0f) + (size_.x / 64.0f)),
-			(int)((pos_.y + size_.y / 2.0f) + (size_.y / 64.0f)),
+			(int)(((pos_.x - size_.x / 2.0f) - (size_.x / 64.0f)) + shakePos_.x),
+			(int)(((pos_.y - size_.y / 2.0f) - (size_.y / 64.0f)) + shakePos_.y),
+			(int)(((pos_.x + size_.x / 2.0f) + (size_.x / 64.0f)) + shakePos_.x),
+			(int)(((pos_.y + size_.y / 2.0f) + (size_.y / 64.0f)) + shakePos_.y),
 			animationImage[animationFrame], true);
 		
 		break;
@@ -104,11 +104,12 @@ void BreakBlock::Shake()
 	shakePos_ = { rand(mt) / shakeMd_.x, rand(mt) / shakeMd_.y };
 
 	if (shakeTime_ >= defaultTime_ && shakeTime_ < shakeMaxTime_) {
-		pos_ += shakePos_;
+		//pos_ += shakePos_;
 	}
 	if (shakeTime_ >= shakeMaxTime_) {
 		shakeTime_ = defaultTime_;
 		pos_ = defaultPosition_;
+		shakePos_ = { 0,0 };
 	}
 }
 
