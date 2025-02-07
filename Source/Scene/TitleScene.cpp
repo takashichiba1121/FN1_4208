@@ -58,11 +58,12 @@ void TitleScene::Update()
 void TitleScene::Draw()
 {
 	DrawGraphF(0, 0, backGroundTextruehandle_, true);
+	Water::GetInstance()->DrawUp();
 	for (std::unique_ptr<TitleLogo>& logo : titleLogo) {
 		logo->Draw();
 	}
 	
-	Water::GetInstance()->DrawUp();
+	Water::GetInstance()->DrawUnder();
 
 	SetDrawBlendMode(DX_BLENDMODE_ALPHA, guideTrans);
 	if (!Input::GetIsUsePad()) {
