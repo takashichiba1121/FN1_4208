@@ -285,7 +285,14 @@ void StageSelectScene::Draw()
 
 	//仮置き
 	//DrawFormatString2F(titleTextPos_.x, titleTextPos_.y, 0xffffff, 0xff0000, "タイトルへ");
-	DrawFormatString2F(0, 0, 0xffffff, 0xff0000, "移動:A D\n選択:SPACE");
+	if (Input::GetIsUsePad())
+	{
+		DrawFormatString2F(20, 600, 0xffffff, 0xff0000, "移動:←L→\n選択:A");
+	}
+	else
+	{
+		DrawFormatString2F(20, 600, 0xffffff, 0xff0000, "移動:A D\n選択:SPACE");
+	}
 
 	if (isNext_ && !isTitleExit_)
 	{

@@ -137,6 +137,7 @@ private:
 	uint32_t SelectClearTextTextruehandle2_ = 0;
 	uint32_t SelectClearTextTextruehandle3_ = 0;
 	uint32_t SelectClearTextTextruehandle4_ = 0;
+	uint32_t SelectClearTextTextruehandle5_ = 0;
 
 	int32_t nextStageSelect_ = 0;
 

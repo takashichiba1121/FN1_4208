@@ -118,7 +118,7 @@ void Goal::NextSelect()
 			nextStageSelect_ = -1;
 	}
 
-	if (Input::GetKeyTrigger(Input::Key::Space))
+	if (Input::GetKeyTrigger(Input::Key::Space) || Input::TriggerPadKey(PAD_INPUT_1))
 	{
 		if (nextStageSelect_==1) {
 			//次のステージへ
