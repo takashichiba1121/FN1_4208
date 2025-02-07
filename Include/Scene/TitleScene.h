@@ -20,5 +20,7 @@ private:
 	float guideTrans = 0.0f;
 
 	SoundPlayManager* soundPlayManager;
+
+	int32_t backGroundTextruehandle_ = 0;
 };
 

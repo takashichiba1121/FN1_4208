@@ -85,7 +85,6 @@ void StageManager::Initialize()
 		"test3",
 		"test4",
 		"oogami_10",
-		"yamashita_2",
 		"fukuyama_1_remake",
 		"oogami_3",
 		"oogami_4",
@@ -117,12 +116,6 @@ void StageManager::Initialize()
 		"tominaga_6",
 		"tominaga_7",
 	};
-
-	/*stageFileName_ = {
-		"oogami_3",	
-		"chiba3",
-		"tominaga_1",
-	}; */
 
 	//パーティクル初期化
 	confettiEmitter.Initialize(5);

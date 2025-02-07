@@ -44,6 +44,8 @@ private:
 
 	SoundPlayManager* soundPlayManager;
 
+	int32_t backGroundTextruehandle_ = 0;
+
 	bool isPause=false;
 };
 

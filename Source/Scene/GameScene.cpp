@@ -4,6 +4,7 @@
 #include"Window.h"
 #include"CollisionManager.h"
 #include"Inversion.h"
+#include "TextureManager.h"
 
 void GameScene::Initialize()
 {
@@ -17,6 +18,8 @@ void GameScene::Initialize()
 	}
 
 	pause_->Initialize();
+
+	backGroundTextruehandle_ = TextureManager::Instance()->LoadTexture("Resources\\Texture\\background.png");
 
 #ifdef _DEBUG
 	test.Initialize();
@@ -71,6 +74,8 @@ void GameScene::Update()
 
 void GameScene::Draw()
 {
+	DrawGraphF(0,0, backGroundTextruehandle_, true);
+
 #ifdef _DEBUG
 	test.Draw();
 #endif
